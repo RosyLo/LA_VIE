@@ -1,12 +1,12 @@
 {
   "name": "react_rosylo",
+  "homepage": "https://github.com/RosyLo/Front-End-Batch12-DiveIntoTopic",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
-    "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "node-sass": "^5.0.0",
@@ -25,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
