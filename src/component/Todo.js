@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import ReactDOM from 'react-dom';
-import TodoList from './TodoList';
+import React from 'react';
 
-function Todo() {
-  const [edit, setEdit] = useState({
-    id: null,
-    value: '',
-  });
-  return todos.map((todo, index) => {
-    <div className={}></div>;
-  });
+export default function Todo(props) {
+  return (
+    <li className='todo stack-small'>
+      <div className='c-cb'>
+        <input id={props.id} type='checkbox' defaultChecked={props.completed} />
+        <label className='todo-label' htmlFor='todo-0'>
+          {props}
+        </label>
+      </div>
+      <div className='btn-group'>
+        <button type='button' className='btn'>
+          Edit <span className='visually-hidden'>Eat</span>
+        </button>
+        <button type='button' className='btn btn__danger'>
+          Delete <span className='visually-hidden'>Eat</span>
+        </button>
+      </div>
+    </li>
+  );
 }
 
-export default Todo;
+Todo.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+};
