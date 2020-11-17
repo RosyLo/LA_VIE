@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo.svg';
-import styles from './App.module.css';
+import styles from './App.module.scss';
 
 function App() {
   return (
