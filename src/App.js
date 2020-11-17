@@ -1,7 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+import React, { useLayoutEffect } from 'react';
+// import ReactDOM from 'react-dom';
+import TodoList from './component/TodoList';
 import styles from './App.module.scss';
+function App() {
+  return (
+    <div className='todo-app'>
+      <TodoList />
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -23,4 +30,5 @@ function App() {
   );
 }
 
+// }
 export default App;
