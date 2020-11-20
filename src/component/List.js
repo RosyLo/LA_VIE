@@ -54,7 +54,7 @@ function List(props) {
   console.log(props.cards);
   function addCardTask(name) {
     const newCard = { id: 'card-' + nanoid(), name: name, isCardEditing: 2 };
-    setCards([...cards, newCard]);
+    setCards([newCard, ...cards]);
   }
 
   const cardlist = cards.map((card) => (
@@ -70,6 +70,7 @@ function List(props) {
   const viewingTemplate = (
     <div className='list'>
       <div className='viewinglistdiv'>{props.name}</div>
+
       <button
         type='button'
         className='btn btn__danger'

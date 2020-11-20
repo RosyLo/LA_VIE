@@ -13,6 +13,12 @@
   padding: 20px;
 }
 
+.heading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+
 .tasklist {
   display: flex;
   padding: 20px;
@@ -34,6 +40,11 @@ button {
   color: white;
   border-radius: 5px;
 }
+
+.btn__danger {
+  background-color: red;
+}
+
 .listdiv {
   margin-top: 5px;
   margin-bottom: 5px;

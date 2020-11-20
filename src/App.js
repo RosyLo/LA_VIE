@@ -30,12 +30,12 @@ function App(props) {
 
   function addTask(name) {
     const newList = { id: 'todo-' + nanoid(), name: name, isEditing: 2 };
-    setLists([...lists, newList]);
+    setLists([newList, ...lists]);
   }
 
   return (
     <div className='listapp'>
-      <div>Trello-Like</div>
+      <div className='heading'>Trello-Like </div>
       <div role='list' className='tasklist'>
         {tasklist}
       </div>
