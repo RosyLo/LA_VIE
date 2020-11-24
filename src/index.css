@@ -1,53 +1,8 @@
-/* RESETS */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.key {
+  background-color: antiquewhite;
+  height: 200px;
 }
 
-.listapp {
-  border: 1px solid black;
-  /* font-size: 30px; */
-  margin: auto;
-  /* text-align: center; */
-  padding: 20px;
-}
-
-.heading {
-  text-align: center;
-  font-weight: bold;
-  font-size: 30px;
-}
-
-.tasklist {
-  display: flex;
-  padding: 20px;
-}
-
-.list {
-  border: 1px solid black;
+.photo {
   width: 200px;
-  margin-right: 20px;
-  padding: 10px;
-}
-
-/* viewing */
-
-button {
-  margin: 5px;
-  /* margin-bottom:5px; */
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-}
-
-.btn__danger {
-  background-color: red;
-}
-
-.listdiv {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border: 1px solid black;
-  padding: 5px;
 }

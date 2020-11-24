@@ -1,51 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './index.css';
 import PropTypes from 'prop-types';
-import List from './component/List';
 import { nanoid } from 'nanoid';
-// import Form from './component/Form';
-
-const CARD = [{ id: 'card-0', name: '', isCardEditing: 0 }];
+import StackGrid from 'react-stack-grid';
 
 function App(props) {
-  const [lists, setLists] = useState(props.tasks);
-
-  const tasklist = lists.map((list) => (
-    <List
-      id={list.id}
-      name={list.name}
-      key={list.id}
-      isEditing={list.isEditing}
-      addTask={addTask}
-      cards={CARD}
-      deleteList={deleteList}
-    />
-  ));
-
-  function deleteList(id) {
-    const remainingLists = lists.filter((list) => id !== list.id);
-    setLists(remainingLists);
-  }
-
-  function addTask(name) {
-    const newList = { id: 'todo-' + nanoid(), name: name, isEditing: 2 };
-    setLists([newList, ...lists]);
-  }
-
   return (
-    <div className='listapp'>
-      <div className='heading'>Trello-Like </div>
-      <div role='list' className='tasklist'>
-        {tasklist}
-      </div>
+    <div>
+      <StackGrid columnWidth={300} gutterWidth={10}>
+        <div key='key1' className='key'>
+          Item 1
+        </div>
+        <div key='key2' className='key'>
+          Item 2<img className='photo' src='https://source.unsplash.com/epcsn8Ed8kY/600x799'></img>
+        </div>
+        <div key='key3' className='key'>
+          Item3<img className='photo' src='https://source.unsplash.com/NQSWvyVRIJk/800x599'></img>
+        </div>
+        <div key='key4' className='key'>
+          Item 4
+        </div>
+        <div key='key5' className='key'>
+          Item 5
+        </div>
+      </StackGrid>
     </div>
   );
 }
 
-App.propTypes = {
-  name: PropTypes.string,
-  tasks: PropTypes.array.isRequired,
-};
+// App.propTypes = {
+//   name: PropTypes.string,
+//   tasks: PropTypes.array.isRequired,
+// };
 
 export default App;
