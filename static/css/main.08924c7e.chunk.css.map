@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,KACE,wBAA8B,CAC9B,YACF,CAEA,OACE,WACF","file":"main.08924c7e.chunk.css","sourcesContent":[".key {\n  background-color: antiquewhite;\n  height: 200px;\n}\n\n.photo {\n  width: 200px;\n}\n"]}

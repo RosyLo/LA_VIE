@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/CEST_LA_VIE/static/css/main.8e261827.chunk.css",
-    "main.js": "/CEST_LA_VIE/static/js/main.57fa4ff0.chunk.js",
-    "main.js.map": "/CEST_LA_VIE/static/js/main.57fa4ff0.chunk.js.map",
-    "runtime-main.js": "/CEST_LA_VIE/static/js/runtime-main.77e03907.js",
-    "runtime-main.js.map": "/CEST_LA_VIE/static/js/runtime-main.77e03907.js.map",
-    "static/js/2.9513d472.chunk.js": "/CEST_LA_VIE/static/js/2.9513d472.chunk.js",
-    "static/js/2.9513d472.chunk.js.map": "/CEST_LA_VIE/static/js/2.9513d472.chunk.js.map",
-    "index.html": "/CEST_LA_VIE/index.html",
-    "static/css/main.8e261827.chunk.css.map": "/CEST_LA_VIE/static/css/main.8e261827.chunk.css.map",
-    "static/js/2.9513d472.chunk.js.LICENSE.txt": "/CEST_LA_VIE/static/js/2.9513d472.chunk.js.LICENSE.txt"
+    "main.css": "/LA_VIE/static/css/main.08924c7e.chunk.css",
+    "main.js": "/LA_VIE/static/js/main.a76e0f44.chunk.js",
+    "main.js.map": "/LA_VIE/static/js/main.a76e0f44.chunk.js.map",
+    "runtime-main.js": "/LA_VIE/static/js/runtime-main.4b3b3439.js",
+    "runtime-main.js.map": "/LA_VIE/static/js/runtime-main.4b3b3439.js.map",
+    "static/js/2.1aa22e0f.chunk.js": "/LA_VIE/static/js/2.1aa22e0f.chunk.js",
+    "static/js/2.1aa22e0f.chunk.js.map": "/LA_VIE/static/js/2.1aa22e0f.chunk.js.map",
+    "index.html": "/LA_VIE/index.html",
+    "static/css/main.08924c7e.chunk.css.map": "/LA_VIE/static/css/main.08924c7e.chunk.css.map",
+    "static/js/2.1aa22e0f.chunk.js.LICENSE.txt": "/LA_VIE/static/js/2.1aa22e0f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.77e03907.js",
-    "static/js/2.9513d472.chunk.js",
-    "static/css/main.8e261827.chunk.css",
-    "static/js/main.57fa4ff0.chunk.js"
+    "static/js/runtime-main.4b3b3439.js",
+    "static/js/2.1aa22e0f.chunk.js",
+    "static/css/main.08924c7e.chunk.css",
+    "static/js/main.a76e0f44.chunk.js"
   ]
 }
