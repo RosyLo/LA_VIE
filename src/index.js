@@ -2,22 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './component/App';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import allReducer from './reducer/index';
-
-const POSTDATA = [
-  {
-    postID: 'id1',
-    postIssuer: { issuerID: '', issuerName: '' },
-    postImage: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
-    // postMessage: 'hekko',
-    postTag: 'OUTFIT',
-    likeIssuerId: ['id1', 'id2', 'id3'],
-  },
-];
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers/index';
 
 const store = createStore(
-  allReducer,
+  rootReducer,
+  applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 

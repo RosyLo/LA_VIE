@@ -1,14 +1,13 @@
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import firebase from '../firebase';
 
-const handleUploadPic = (image, callback) => {
+const uploadImage = (image, dest, callback) => {
   var file = image;
   // Create the file metadata
   var metadata = {
-    contentType: 'image/jpeg',
+    contentType: 'image/jpeg', // #TODO: shouldn't hard code it, please fix.
   };
   var storageRef = firebase.storage().ref();
-  var uploadTask = storageRef.child('Post/postImageLink' + file.name).put(file, metadata);
+  var uploadTask = storageRef.child(dest).put(file, metadata);
   uploadTask.on(
     firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
     function (snapshot) {
@@ -42,4 +41,4 @@ const handleUploadPic = (image, callback) => {
   );
 };
 
-export default handleUploadPic;
+export default uploadImage;
