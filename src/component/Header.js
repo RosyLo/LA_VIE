@@ -1,53 +1,46 @@
-import React, { useState, Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout, addPost } from '../redux/actions';
 import PropTypes from 'prop-types';
-import styles from '../style/header.css';
-import 'firebase/auth';
-import { signInWithFacebook, auth } from './firebase';
-import handleUploadPic from './handleUploadPic';
+import '../style/header.css';
 
-const Header = (props) => {
-  {
-    console.log(props);
-    const signInButton = (
-      <button
-        onClick={() => {
-          signInWithFacebook(props.setCurrentUser);
-        }}>
-        Login
-      </button>
-    );
-    const logoutButton = (
-      <button
-        onClick={() => {
-          auth.signOut();
-          localStorage.clear();
-          props.setCurrentUser(null);
-        }}>
-        LogOut
-      </button>
-    );
-    return (
-      <div className='headerWrap'>
-        HEADER
-        <div>
-          <h1>Welcome to My Awesome App</h1>
-          <div id='firebaseui-auth-container'></div>
-          <div id='loader'>Loading...</div>
-        </div>
-        <div className='loginButton'>{props.currentUser ? logoutButton : signInButton}</div>
-        <div className='uploadPostButton'>
-          <input
-            type='file'
-            id='uploadPictureButton'
-            // value='uploadPicture'
-            onChange={props.handlePictureChange}
-          />
-          <button onClick={props.uploadPic}>Upload</button>
-        </div>
+const Header = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const [image, setImage] = useState(null);
+
+  const handlePictureChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const uploadImage = () => {
+    dispatch(addPost(image));
+  };
+
+  return (
+    <div className='headerWrap'>
+      HEADER
+      <div className='loginButton'>
+        {user ? (
+          <>
+            <span>{user.displayName}</span>
+            <button onClick={() => dispatch(logout())}>LogOut</button>
+          </>
+        ) : (
+          <button onClick={() => dispatch(login())}>Login</button>
+        )}
       </div>
-    );
-  }
+      <div className='uploadPostButton'>
+        <input
+          type='file'
+          id='uploadPictureButton'
+          // value='uploadPicture'
+          onChange={handlePictureChange}
+        />
+        <button onClick={uploadImage}>Upload</button>
+      </div>
+    </div>
+  );
 };
 
 Header.propTypes = {
