@@ -6,6 +6,8 @@ import Heart from './Heart';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { useSelector } from 'react-redux';
+import Commenting from './Commenting';
+import Comment from './Commnet';
 
 function Post(props) {
   let isEitable = false;
@@ -24,6 +26,27 @@ function Post(props) {
         console.log('like');
       }
     }
+  }
+
+  //comment
+  const [comments, setComments] = useState([]);
+  const commentsList = comments.map((list) => {
+    return (
+      <Comment
+        key={list.id}
+        id={list.id}
+        commentIssuerMessage={list.newComment}
+        postID={props.postID}
+        commentIssuerID={props.currentUser.uid}
+        commentIssuerImage={props.currentUser.photoURL}
+        commentIssuerName={props.currentUser.displayName}
+      />
+    );
+  });
+
+  function addComment(newComment) {
+    const newCommnet = { id: 'id', newComment: newComment };
+    setComments([...comments, newCommnet]);
   }
 
   const heartCountState = useSelector((state) => state.heartIncDec);
@@ -51,9 +74,8 @@ function Post(props) {
         查看留言...
         <div className='separater'></div>
       </div>
-      <div className='commenting'>
-        <input></input>
-      </div>
+      {commentsList}
+      <Commenting addComment={addComment} />
     </div>
   );
 }
