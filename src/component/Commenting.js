@@ -1,28 +1,24 @@
 import { React, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addComment } from '../redux/actions';
 import PropTypes from 'prop-types';
 
-const Commenting = (props) => {
-  console.log(props);
+function Commenting({ postID }) {
   const [newComment, setNewCommment] = useState('');
-  const [newCommentFirebase, setNewCommentFirebase] = useState({});
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-    if (newComment) {
-      console.log(newComment);
-      props.addComment(newComment);
-      setNewCommment('');
-    } else {
-      alert('no input');
-    }
-  }
+  const dispatch = useDispatch();
 
   return (
-    <form className='commenting' onSubmit={handleCommentSubmit}>
+    <form
+      className='commenting'
+      onSubmit={(e) => {
+        e.preventDefault();
+        dispatch(addComment(postID, newComment));
+        setNewCommment('');
+      }}>
       <input
         value={newComment}
         type='text'
         id='commenting'
-        className='commentinginput'
         name='text'
         autoComplete='off'
         onChange={(e) => {
@@ -30,14 +26,9 @@ const Commenting = (props) => {
         }}></input>
     </form>
   );
-};
+}
 
 Commenting.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  commentIssuerID: PropTypes.string.isRequired,
-  commentIssuerImage: PropTypes.string.isRequired,
-  newComment: PropTypes.string.isRequired,
-  commentIssuerName: PropTypes.string.isRequired,
   postID: PropTypes.string.isRequired,
 };
 
