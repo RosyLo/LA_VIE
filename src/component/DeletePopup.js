@@ -14,4 +14,4 @@ DeletePost.propTypes = {
   postID: PropTypes.string.isRequired,
 };
 
-export default DeletePost;
+// export default DeletePost;
