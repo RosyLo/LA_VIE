@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './component/App';
+import { Provider } from 'react-redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './redux/reducers/index';
 
-const POSTDATA = [
-  {
-    postID: 'id1',
-    postIssuer: { issuerID: '', issuerName: '' },
-    postImage: 'https://source.unsplash.com/epcsn8Ed8kY/600x799',
-    // postMessage: 'hekko',
-    postTag: 'OUTFIT',
-    likeIssuerId: ['id1', 'id2', 'id3'],
-  },
-];
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer, composeEnhancer(applyMiddleware(thunk)));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);

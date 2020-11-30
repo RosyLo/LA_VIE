@@ -1,0 +1,40 @@
+.heart {
+  cursor: pointer;
+  background-color: #aaa;
+  display: inline-block;
+  height: 30px;
+  margin: 0 10px;
+  position: relative;
+  top: 0;
+  transform: rotate(-45deg) scale(0.3);
+  width: 30px;
+}
+
+.heart:before,
+.heart:after {
+  content: '';
+  background-color: #aaa;
+  border-radius: 50%;
+  height: 30px;
+  position: absolute;
+  width: 30px;
+}
+
+.heart:before {
+  top: -15px;
+  left: 0;
+}
+
+.heart:after {
+  left: 15px;
+  top: 0;
+}
+
+.heart-like {
+  background-color: red;
+}
+
+.heart-like:before,
+.heart-like:after {
+  background-color: red;
+}

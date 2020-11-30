@@ -1,0 +1,12 @@
+.commentWrap {
+  display: flex;
+}
+
+.comment {
+  display: flex;
+}
+.commentImage {
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+}
