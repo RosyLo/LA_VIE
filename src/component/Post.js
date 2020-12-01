@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 import '../style/post.css';
 import EditPostBar from './EditPostBar';
 
-function Post({ post }) {
+function Post({ post, setDeletePost }) {
+  console.log(post);
   const { postID, postIssuer, postImage, postLikes } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
@@ -19,7 +20,11 @@ function Post({ post }) {
           <img src={postIssuer.postIssuerImage}></img>
         </div>
         <div className='postProfileName'>{postIssuer.postIssuerName}</div>
-        <EditPostBar postID={post.postID} postIssuerID={postIssuer.postIssuerID} />
+        <EditPostBar
+          postID={postID}
+          postIssuerID={postIssuer.postIssuerID}
+          setDeletePost={setDeletePost}
+        />
       </div>
       <img className='photo' src={postImage.postImageLink}></img>
       <div className='postInteraction'>
@@ -66,6 +71,7 @@ Post.propTypes = {
     }),
     postLikes: PropTypes.array.isRequired,
   }),
+  setDeletePost: PropTypes.func,
 };
 
 export default Post;

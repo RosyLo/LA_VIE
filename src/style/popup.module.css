@@ -1,0 +1,70 @@
+button:focus {
+  outline: 0px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.modal {
+  background-color: white;
+  width: 500px;
+  height: 500px;
+  max-width: 80%;
+  max-height: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  border-radius: 5px;
+  display: flex;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.leftModel {
+  display: flex;
+  width: 60%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.rightModel {
+  width: 30%;
+  background-color: blanchedalmond;
+  height: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: grey;
+  opacity: 0.9;
+  z-index: 3;
+}
+
+.cancelButton {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  float: right;
+  height: 20px;
+  margin-top: 20px;
+  background-color: white;
+}
+
+.decideBlock {
+  text-align: center;
+  margin-top: 50%;
+}
+
+.decideButton {
+  background-color: black;
+  width: 80px;
+  color: white;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}

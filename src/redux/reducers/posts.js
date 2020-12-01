@@ -1,10 +1,16 @@
-import { ADD_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
+import { act } from 'react-dom/test-utils';
+import { ADD_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
 
 const posts = (state = [], action) => {
+  console.log(state);
   switch (action.type) {
     case ADD_POST: {
       return [...state, action.payload.post];
     }
+    case DELETE_POST: {
+      return state.filter((post) => post.postID !== action.payload.postID);
+    }
+
     case RECIEVED_POSTS: {
       return action.payload.posts;
     }

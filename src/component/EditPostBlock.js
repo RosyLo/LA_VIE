@@ -3,27 +3,32 @@ import PropTypes from 'prop-types';
 import '../style/post.css';
 import DeletePopup from './DeletePopup';
 
-function EditPostBlock({ postID }) {
-  const [wantDelete, setWantDelete] = useState(false);
+function EditPostBlock({ postID, setDeletePost }) {
   return (
     <>
       <div className='editPostBlock'>
-        <div className='editPost'>Edit</div>
+        <div
+          className='editPost'
+          onClick={() => {
+            setDeletePost('');
+          }}>
+          Edit
+        </div>
         <div
           className='deletePost'
           onClick={() => {
-            setWantDelete(!wantDelete);
+            setDeletePost(postID);
           }}>
           Delete
         </div>
         <div className='checktComments'>Comments</div>
       </div>
-      {wantDelete ? <DeletePopup postID={postID} /> : ''}
     </>
   );
 }
 EditPostBlock.propTypes = {
   postID: PropTypes.string.isRequired,
+  setDeletePost: PropTypes.func.isRequired,
 };
 
 export default EditPostBlock;

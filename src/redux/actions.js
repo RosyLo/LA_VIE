@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid';
 import {
   RECIEVED_USER,
   ADD_POST,
+  DELETE_POST,
   RECIEVED_POSTS,
   TOGGLE_LIKE_POST,
   ADD_COMMENT,
@@ -97,9 +98,27 @@ export const addPost = (image) => (dispatch, getState) => {
   });
 };
 
-// export const deletePost =(postID)=>(dispatch, getState)=>{
-
-// };
+export const deletePost = (deletePost, setDeletePost) => (dispatch, getState) => {
+  const postID = deletePost.postID;
+  const { posts } = getState();
+  const ref = db.collection('Post');
+  ref
+    .doc(deletePost.postID)
+    .delete()
+    .then(() => {
+      console.log('delete data successful');
+    })
+    .then(() => {
+      console.log(postID);
+      console.log(posts);
+      const test = posts.filter((post) => post.postID !== postID);
+      console.log(test);
+      dispatch({ type: DELETE_POST, payload: { postID } });
+    })
+    .then(() => {
+      setDeletePost('');
+    });
+};
 
 export const togglePostLike = (postID) => (dispatch, getState) => {
   const { user } = getState();
