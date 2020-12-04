@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import EditPostBlock from './EditPostBlock';
 
-function EditPostBar({ postID, postIssuerID, setDeletePost }) {
+function EditPostBar({ postID, postIssuerID }) {
   const user = useSelector((state) => state.user);
   //click edit
   const [clickEdit, setclickEdit] = useState(false);
@@ -19,7 +19,7 @@ function EditPostBar({ postID, postIssuerID, setDeletePost }) {
             }}>
             ...
           </div>
-          {clickEdit ? <EditPostBlock postID={postID} setDeletePost={setDeletePost} /> : ''}
+          {clickEdit ? <EditPostBlock postID={postID} /> : ''}
         </>
       )}
     </>

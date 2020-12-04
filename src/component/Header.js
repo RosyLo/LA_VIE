@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout, addPost } from '../redux/actions';
+import UploadPostButton from './UploadPostButton';
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
 import PropTypes from 'prop-types';
 import '../style/header.css';
+import { login, logout, addPost } from '../redux/actions';
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const [image, setImage] = useState(null);
-
-  const handlePictureChange = (e) => {
-    setImage(e.target.files[0]);
-  };
 
   return (
-    <div className='headerWrap'>
-      HEADER
+    <nav>
+      <Logo />
+      {/* 登入登出 */}
       <div className='loginButton'>
         {user ? (
           <>
@@ -26,16 +25,14 @@ const Header = () => {
           <button onClick={() => dispatch(login())}>Login</button>
         )}
       </div>
-      <div className='uploadPostButton'>
-        <input
-          type='file'
-          id='uploadPictureButton'
-          // value='uploadPicture'
-          onChange={handlePictureChange}
-        />
-        <button onClick={() => dispatch(addPost(image))}>Upload</button>
-      </div>
-    </div>
+      {user ? <UploadPostButton /> : ''}
+      {/* 個人頁面 */}
+      {user ? (
+        <Link to={`/profile_${user.uid}`}>profileImage</Link>
+      ) : (
+        <Link to='/welcome'>profileImage_not login</Link>
+      )}
+    </nav>
   );
 };
 

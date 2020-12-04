@@ -2,6 +2,7 @@ import { act } from 'react-dom/test-utils';
 import { ADD_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
 
 const posts = (state = [], action) => {
+  console.log('post');
   console.log(state);
   switch (action.type) {
     case ADD_POST: {
@@ -16,7 +17,7 @@ const posts = (state = [], action) => {
     }
     case TOGGLE_LIKE_POST: {
       return state.map((post) => {
-        if (post.postID === action.payload.postID) {
+        if (post.postID === action.payload.id) {
           return { ...post, postLikes: action.payload.postLikes };
         }
         return post;

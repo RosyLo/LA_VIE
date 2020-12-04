@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Heart from './Heart';
 import styles from '../style/comment.css';
 
-function Comment({ commentIssuerMessage, commentImage }) {
+function Comment({ comment }) {
+  const { postIssuer, commentIssuerMessage } = comment;
   return (
     <div className='comment'>
-      <img className='commentImage' src={commentImage}></img>
+      <img className='commentImage' src={postIssuer.postIssuerImage}></img>
       <div className='commentMessage'>{commentIssuerMessage}</div>
+      <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
     </div>
   );
 }
 
 Comment.propTypes = {
-  commentIssuerMessage: PropTypes.string.isRequired,
-  commentImage: PropTypes.string.isRequired,
+  comment: PropTypes.object.isRequired,
 };
 
 export default Comment;

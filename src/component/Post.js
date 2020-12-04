@@ -7,12 +7,13 @@ import { useSelector } from 'react-redux';
 import '../style/post.css';
 import EditPostBar from './EditPostBar';
 
-function Post({ post, setDeletePost }) {
+function Post({ post }) {
   console.log(post);
   const { postID, postIssuer, postImage, postLikes } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
-  const isPostComment = comments.find((comment) => comment.postID === postID);
+
+  const commentList = comments.filter((comment) => comment.postID === postID);
   return (
     <div className='post'>
       <div className='postHeader'>
@@ -20,31 +21,19 @@ function Post({ post, setDeletePost }) {
           <img src={postIssuer.postIssuerImage}></img>
         </div>
         <div className='postProfileName'>{postIssuer.postIssuerName}</div>
-        <EditPostBar
-          postID={postID}
-          postIssuerID={postIssuer.postIssuerID}
-          setDeletePost={setDeletePost}
-        />
+        <EditPostBar postID={postID} postIssuerID={postIssuer.postIssuerID} />
       </div>
       <img className='photo' src={postImage.postImageLink}></img>
       <div className='postInteraction'>
-        <Heart postID={postID} postLikes={postLikes} />
+        <Heart id={postID} likes={postLikes} isfrom='post' />
         <div className='postLikeCount'>{postLikes.length}</div>
       </div>
       <div className='PostComments'>查看留言...</div>
       <div>
-        {isPostComment
-          ? comments.map((comment) => {
-              console.log(comment);
-              return (
-                <Comment
-                  key={comment.commentID}
-                  commentIssuerMessage={comment.commentIssuerMessage}
-                  commentImage={postIssuer.postIssuerImage}
-                />
-              );
-            })
-          : ''}
+        {commentList.map((comment) => {
+          console.log(comment);
+          return <Comment key={comment.commentID} comment={comment} />;
+        })}
         {user ? (
           <>
             <div className='separater'></div>

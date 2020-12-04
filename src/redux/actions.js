@@ -6,6 +6,7 @@ import {
   RECIEVED_POSTS,
   TOGGLE_LIKE_POST,
   ADD_COMMENT,
+  TOGGLE_Comment_Like,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import firebase from '../firebase';
@@ -54,7 +55,6 @@ export const fetchPosts = () => (dispatch) => {
           postIssuer: post.data().postIssuer,
           postMessage: post.data().postMessage,
           postTag: post.data().postTag,
-          postLikeIssuerId: post.data().postLikeIssuerId,
           postLikes: post.data().postLikes || [],
         };
         posts.push(postData);
@@ -98,7 +98,8 @@ export const addPost = (image) => (dispatch, getState) => {
   });
 };
 
-export const deletePost = (deletePost, setDeletePost) => (dispatch, getState) => {
+export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getState) => {
+  console.log(deletePost);
   const postID = deletePost.postID;
   const { posts } = getState();
   const ref = db.collection('Post');
@@ -107,42 +108,82 @@ export const deletePost = (deletePost, setDeletePost) => (dispatch, getState) =>
     .delete()
     .then(() => {
       console.log('delete data successful');
+      console.log(postID);
+      console.log(posts);
+      setisDeletePopupClick(false);
+      dispatch({ type: DELETE_POST, payload: { postID } });
     })
     .then(() => {
       console.log(postID);
       console.log(posts);
-      const test = posts.filter((post) => post.postID !== postID);
-      console.log(test);
-      dispatch({ type: DELETE_POST, payload: { postID } });
+      // dispatch({ type: DELETE_POST, payload: { postID } });
+      // isDeletePopupClick(false);
+      // const test = posts.filter((post) => post.postID !== postID);
+      // console.log(test);
     })
     .then(() => {
-      setDeletePost('');
+      console.log('last');
+      // isDeletePopupClick(false);
     });
 };
 
-export const togglePostLike = (postID) => (dispatch, getState) => {
+export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
+  console.log(id);
+  console.log(isfrom);
   const { user } = getState();
 
   if (!user) return;
 
-  const postRef = db.collection('Post').doc(postID);
+  let ref = {};
+  let set = '';
+  let type = '';
 
+  if (isfrom === 'post') {
+    ref = db.collection('Post').doc(id);
+    set = 'postLikes';
+    type = TOGGLE_LIKE_POST;
+  } else if (isfrom === 'comment') {
+    ref = db.collection('Comment').doc(id);
+    set = 'likeIssuerID';
+    type = TOGGLE_Comment_Like;
+    console.log('comment');
+  }
+
+  let likeSet = {};
   return db.runTransaction((transaction) => {
-    return transaction.get(postRef).then((postDoc) => {
-      if (postDoc.exists) {
-        const postLikeSet = new Set(postDoc.data().postLikes);
-        if (postLikeSet.has(user.uid)) {
-          postLikeSet.delete(user.uid);
+    return transaction
+      .get(ref)
+      .then((postDoc) => {
+        if (postDoc.exists) {
+          return postDoc;
+        } else return;
+      })
+      .then((postDoc) => {
+        likeSet = new Set(postDoc.data()[set]);
+        if (likeSet.has(user.uid)) {
+          likeSet.delete(user.uid);
         } else {
-          postLikeSet.add(user.uid);
+          likeSet.add(user.uid);
         }
-
-        const postLikes = Array.from(postLikeSet);
-        transaction.update(postRef, { postLikes });
-
-        dispatch({ type: TOGGLE_LIKE_POST, payload: { postID, postLikes } });
-      }
-    });
+      })
+      .then(() => {
+        console.log('here');
+        if (isfrom === 'post') {
+          let postLikes = Array.from(likeSet);
+          transaction.update(ref, { postLikes });
+          dispatch({ type: type, payload: { id, postLikes } });
+        } else if (isfrom === 'comment') {
+          console.log('comment');
+          let likeIssuerID = Array.from(likeSet);
+          transaction.update(ref, { likeIssuerID });
+          console.log(type);
+          dispatch({ type: type, payload: { id, likeIssuerID } });
+        }
+        console.log('none');
+      })
+      .then(() => {
+        console.log('toggle heart success');
+      });
   });
 };
 
@@ -156,7 +197,7 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
       postIssuerName: user.displayName,
     },
     commentIssuerMessage: newComment,
-    likeIssuerId: [],
+    likeIssuerID: [],
     postID: postID,
     commentID: '',
   };
