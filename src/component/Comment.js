@@ -9,7 +9,9 @@ function Comment({ comment }) {
     <div className='comment'>
       <img className='commentImage' src={postIssuer.postIssuerImage}></img>
       <div className='commentMessage'>{commentIssuerMessage}</div>
-      <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
+      <div className='commentLike'>
+        <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
+      </div>
     </div>
   );
 }

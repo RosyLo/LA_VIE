@@ -1,0 +1,37 @@
+nav {
+  height: 60px;
+  display: flex;
+  padding: 0px 30px;
+  align-items: center;
+}
+
+.navIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid black;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+
+.button {
+  width: 50px;
+  padding: 3px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  color: black;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid black;
+  margin: 0px auto 0px 0px;
+  cursor: pointer;
+}

@@ -1,0 +1,84 @@
+.postWrap {
+  padding: 0 80px 0 80px;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.post {
+  /* background-color: antiquewhite; */
+  text-align: center;
+  position: relative;
+  /* box-shadow: 5px 5px 5px #ced1d6; */
+  box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.2);
+
+  border-radius: 5px;
+  width: 300px;
+}
+
+.postHeader {
+  height: 40px;
+  width: 80%;
+  margin: auto;
+  align-items: center;
+  justify-items: center;
+  padding-top: 20px;
+  display: flex;
+}
+
+.postProfileImage {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.postInteraction {
+  width: 80%;
+  margin: auto;
+  padding-top: 10px;
+  display: flex;
+}
+
+.postLikeCount {
+  margin-top: 5px;
+}
+
+.PostComments {
+  margin: 10px;
+  font-size: 10px;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.separater {
+  border: 1px solid #ced1d6;
+  width: 90%;
+  margin: auto;
+}
+
+.photo {
+  width: 90%;
+  margin: auto;
+  min-height: 250px;
+}
+
+.editPostBar {
+  margin-left: auto;
+}
+
+input {
+  width: 90%;
+  border: none;
+  padding: 0px;
+  height: 30px;
+}
+input:focus {
+  outline: none;
+}
+
+@media (max-width: 400px) {
+  .postWrap {
+    padding: 0px;
+  }
+}

@@ -4,9 +4,18 @@
 
 .comment {
   display: flex;
+  /* width: 100%; */
+  /* padding: 5px; */
+  padding: 0px 20px;
 }
 .commentImage {
   width: 20px;
   height: 20px;
   z-index: 100;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.commentLike {
+  margin-left: auto;
 }

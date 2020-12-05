@@ -3,22 +3,6 @@ button:focus {
   border: 1px solid white;
   border-radius: 5px;
 }
-/* 
-.modal {
-  background-color: white;
-  width: 500px;
-  height: 500px;
-  max-width: 80%;
-  max-height: 50%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 4;
-  border-radius: 5px;
-  display: flex;
-  box-shadow: 5px 5px 5px grey;
-} */
 
 .leftModel {
   display: flex;
@@ -30,20 +14,11 @@ button:focus {
 
 .rightModel {
   width: 30%;
-  background-color: blanchedalmond;
-  height: 100%;
+  /* background-color: blanchedalmond; */
+  text-align: center;
+  margin: auto 10px;
+  align-items: center;
 }
-
-/* .overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 3;
-} */
 
 .cancelButton {
   cursor: pointer;
@@ -53,11 +28,7 @@ button:focus {
   height: 20px;
   margin-top: 20px;
   background-color: white;
-}
-
-.decideBlock {
-  text-align: center;
-  margin-top: 50%;
+  cursor: pointer;
 }
 
 .decideButton {
@@ -67,4 +38,7 @@ button:focus {
   margin: 10px;
   border: 1px solid black;
   border-radius: 5px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
 }

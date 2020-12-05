@@ -13,6 +13,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
   const [imageURL, setImageURL] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(imageURL);
   const post = {
     postID: 'postID' + nanoid(),
     postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
@@ -35,34 +36,46 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
 
   const choosePic = (
     <div className={styles.rightModel}>
-      <div className='uploadPostButton'>
-        <input
-          type='file'
-          id='uploadPictureButton'
-          // value='uploadPicture'
-          onChange={handlePictureChange}
-        />
+      <div className={styles.decideBlock}>
+        <h3>Let me Think...</h3>
+        <input type='file' id='uploadPictureButton' onChange={handlePictureChange} />
       </div>
-      <div
-        onClick={() => {
-          setUploadViewStage(1);
-        }}>
-        Next
-      </div>
+
+      {imageURL ? (
+        <button
+          className={styles.decideButton}
+          onClick={() => {
+            setUploadViewStage(1);
+          }}>
+          Next
+        </button>
+      ) : (
+        ''
+      )}
     </div>
   );
 
   const uploadPic = (
     <div className={styles.rightModel}>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          alert('upload success');
-          dispatch(addPost(image));
-          setisUploadPopupClick(false);
-        }}>
-        Upload
-      </button>
+      <div className={styles.decideBlock}>
+        <h3>Share!</h3>
+        <p>Enrich lives with fashion!</p>
+        <button
+          className={styles.decideButton}
+          onClick={(e) => {
+            e.preventDefault();
+            alert('upload success');
+            dispatch(addPost(image));
+            setisUploadPopupClick(false);
+            setImageURL(null);
+            setUploadViewStage(0);
+          }}>
+          Upload
+        </button>
+        <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
+          Back
+        </button>
+      </div>
     </div>
   );
 
@@ -80,7 +93,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
         setisUploadPopupClick(false);
       }}>
       <div className={styles.leftModel}>
-        <Post post={post} />
+        <Post post={post} isFromUpload={true} />
       </div>
       {view}
     </StyleModal>

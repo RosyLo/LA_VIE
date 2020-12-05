@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addComment } from '../redux/actions';
 import PropTypes from 'prop-types';
+import styles from '../style/post.module.css';
 
 function Commenting({ postID }) {
   const [newComment, setNewCommment] = useState('');
@@ -9,7 +10,6 @@ function Commenting({ postID }) {
 
   return (
     <form
-      className='commenting'
       onSubmit={(e) => {
         e.preventDefault();
         dispatch(addComment(postID, newComment));
@@ -21,6 +21,7 @@ function Commenting({ postID }) {
         id='commenting'
         name='text'
         autoComplete='off'
+        placeholder='Reply...'
         onChange={(e) => {
           setNewCommment(e.target.value);
         }}></input>

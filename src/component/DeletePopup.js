@@ -10,7 +10,6 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const deletepost = posts.find((post) => post.postID === deletePostID);
-  console.log(deletePostID);
 
   return (
     <StyleModal
@@ -18,88 +17,31 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
       handleClose={() => {
         setisDeletePopupClick(false);
       }}>
-      <div className={styles.leftModel}>{deletepost ? <Post post={deletepost} /> : ''}</div>
+      <div className={styles.leftModel}>
+        {deletepost ? <Post post={deletepost} isFromDelete={true} /> : ''}
+      </div>
 
       <div className={styles.rightModel}>
         <div className={styles.decideBlock}>
-          <h3>確定刪除？</h3>
-          <p>刪除後就回不來囉</p>
+          <h3>Think Twice!</h3>
+          <p>Say GoodBye to the Story?</p>
           <button
             className={styles.decideButton}
             onClick={() => {
               setisDeletePopupClick(false);
             }}>
-            返回
+            Back
           </button>
           <button
             className={styles.decideButton}
             onClick={() => {
               dispatch(deletePost(deletepost, setisDeletePopupClick));
             }}>
-            刪除
+            Delete
           </button>
         </div>
       </div>
     </StyleModal>
-
-    // <div className={styles.leftModel}>
-    //         <Post post={deletepost} />
-    //       </div>
-    //       <div className={styles.rightModel}>
-    //         <div className={styles.decideBlock}>
-    //           <h3>確定刪除？</h3>
-    //           <p>刪除後就回不來囉</p>
-    //           <button
-    //             className={styles.decideButton}
-    //             onClick={() => {
-    //               isDeletePopupClick(false);
-    //             }}>
-    //             返回
-    //           </button>
-    //           <button
-    //             className={styles.decideButton}
-    //             onClick={() => {
-    //               dispatch(deletePost(deletepost, isDeletePopupClick));
-    //             }}>
-    //             刪除
-    //           </button>
-    //         </div>
-    //       </div>
-    // <>
-    //   <div className={styles.modal}>
-    //     <div className={styles.leftModel}>
-    //       <Post post={deletepost} />
-    //     </div>
-    //     <div className={styles.rightModel}>
-    //       <div className={styles.decideBlock}>
-    //         <h3>確定刪除？</h3>
-    //         <p>刪除後就回不來囉</p>
-    //         <button
-    //           className={styles.decideButton}
-    //           onClick={() => {
-    //             setDeletePost('');
-    //           }}>
-    //           返回
-    //         </button>
-    //         <button
-    //           className={styles.decideButton}
-    //           onClick={() => {
-    //             dispatch(deletePost(deletepost, setDeletePost));
-    //           }}>
-    //           刪除
-    //         </button>
-    //       </div>
-    //     </div>
-    //     <button
-    //       className={styles.cancelButton}
-    //       onClick={() => {
-    //         setDeletePost('');
-    //       }}>
-    //       &times;
-    //     </button>
-    //   </div>
-    //   <div className={styles.overlay}></div>
-    // </>
   );
 }
 

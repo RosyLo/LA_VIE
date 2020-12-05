@@ -18,9 +18,9 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route exact path='/' component={PostList} />
+        <Route exact path='/' component={Welcome} />
         <Route path='/profile' component={Profile} />
-        <Route path='/welcome' component={Welcome} />
+        <Route path='/main' component={PostList} />
       </Switch>
     </Router>
   );

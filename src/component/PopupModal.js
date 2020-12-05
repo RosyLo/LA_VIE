@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
+import cross from '../img/cross.png';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -21,10 +22,11 @@ const ModalDiv = styled.div`
 
 const ContentDiv = styled.div`
   background-color: white;
-  width: 500px;
-  height: 500px;
-  max-width: 80%;
-  max-height: 50%;
+  min-width: 300px;
+  width:40%;
+  padding:1.5%;
+  align-items:center
+  max-width: 85%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -32,19 +34,16 @@ const ContentDiv = styled.div`
   z-index: 4;
   border-radius: 5px;
   display: flex;
-  box-shadow: 5px 5px 5px grey;
+  box-shadow: 3px 3px 3px #ced1d6;
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {
-  console.log(show);
-  console.log(handleClose);
-  console.log(children);
   return ReactDom.createPortal(
     <ModalWrap show={show}>
       <ContentDiv>
         {children}
         <button className={styles.cancelButton} onClick={handleClose}>
-          &times;
+          <img style={{ width: '10px', height: '10px' }} src={cross}></img>
         </button>
       </ContentDiv>
       <ModalDiv></ModalDiv>

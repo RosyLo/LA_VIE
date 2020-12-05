@@ -1,11 +1,10 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-import '../style/post.css';
+// import 'post.module.css';
 import DeletePopup from './DeletePopup';
 
 function EditPostBlock({ postID }) {
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
-  console.log(postID);
   const [deletePost, setDeletePost] = useState('');
   return (
     <>

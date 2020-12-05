@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../style/comment.css';
+import styles from '../style/header.module.css';
+import logo from '../img/LA_VIE_logo.png';
 
-function Logo({ comment }) {
-  return <div className='logo'>logo</div>;
+function Logo() {
+  return (
+    <>
+      <img className={styles.navIcon} src={logo}></img>
+    </>
+  );
 }
-
-Logo.propTypes = {
-  comment: PropTypes.object.isRequired,
-};
 
 export default Logo;

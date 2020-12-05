@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import { ADD_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
 
 const posts = (state = [], action) => {
