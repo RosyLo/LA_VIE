@@ -1,22 +1,42 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styles from '../style/profileshow.module.css';
+import firebase from '../firebase';
 
-function ProfileShow() {
+function ProfileShow({ paramsID }) {
+  const [profile, setProfile] = useState(null);
   const user = useSelector((state) => state.user);
-  console.log(user.photoURL);
+  useEffect(() => {
+    const db = firebase.firestore();
+    db.collection('User')
+      .doc(paramsID)
+      .get()
+      .then((doc) => {
+        console.log(doc.data());
+        setProfile(doc.data());
+        console.log(profile);
+      });
+  }, []);
+
   return (
     <div className={styles.profileShowWrap}>
-      <div className={styles.profileShow}>
-        <img className={styles.profilePic} src={user.photoURL}></img>
-        <div className={styles.profileName}>{user.displayName}</div>
-        <div className={styles.block}></div>
-      </div>
+      {profile ? (
+        <div className={styles.profileShow}>
+          <img className={styles.profilePic} src={profile.userProfileImage}></img>
+          <div className={styles.profileName}>{profile.userName}</div>
+          <div className={styles.profileWords}>{profile.profileMessage}</div>
+          <div className={styles.block}></div>
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 }
 
-ProfileShow.propTypes = {};
+ProfileShow.propTypes = {
+  paramsID: PropTypes.string,
+};
 
 export default ProfileShow;

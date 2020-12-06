@@ -1,0 +1,18 @@
+.tabs {
+  display: flex;
+  width: 80%;
+  height: 20px;
+  /* border: black 1px solid; */
+  margin: 80px auto;
+}
+
+.tab {
+  border-right: 1px solid black;
+  width: 20%;
+  text-align: center;
+}
+
+.tab:hover {
+  color: rgb(187, 140, 47);
+  cursor: pointer;
+}

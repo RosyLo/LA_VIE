@@ -7,7 +7,11 @@ function ProfileImage() {
 
   return (
     <>
-      <img className={styles.navIcon} src={user.photoURL}></img>
+      {user ? (
+        <img className={styles.navIcon} src={user.photoURL}></img>
+      ) : (
+        <img className={styles.navIcon}></img>
+      )}
     </>
   );
 }

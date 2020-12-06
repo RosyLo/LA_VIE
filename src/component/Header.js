@@ -26,10 +26,13 @@ const Header = () => {
       {/* 登入登出 */}
       {user ? (
         <>
-          {/* <button onClick={() => dispatch(logout())}>LogOut</button> */}
           <UploadPostButton />
           {/* 頭貼 */}
-          <Link to={`/profile/${user.uid}`}>
+          <Link
+            to={{
+              pathname: `/profile/?id=${user.uid}`,
+              state: { state: user, clickFrom: 'header' },
+            }}>
             {' '}
             <ProfileImage />
           </Link>

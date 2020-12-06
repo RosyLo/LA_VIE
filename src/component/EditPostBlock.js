@@ -2,17 +2,21 @@ import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 // import 'post.module.css';
 import DeletePopup from './DeletePopup';
+import EditPostPopup from './EditPostPopup';
 
 function EditPostBlock({ postID }) {
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
-  const [deletePost, setDeletePost] = useState('');
+  const [isEditPopupClick, setisEditPopupClick] = useState(false);
+  const [editPost, setEditPost] = useState('');
+  // const [deletePost, setDeletePost] = useState('');
   return (
     <>
       <div className='editPostBlock'>
         <div
           className='editPost'
           onClick={() => {
-            // setDeletePost('');
+            setEditPost(postID);
+            setisEditPopupClick(true);
           }}>
           Edit
         </div>
@@ -20,13 +24,18 @@ function EditPostBlock({ postID }) {
           className='deletePost'
           onClick={() => {
             setDeletePost(postID);
-            setisDeletePopupClick(true);
+            // setisDeletePopupClick(true);
           }}>
           Delete
         </div>
 
         <div className='checktComments'>Comments</div>
       </div>
+      <EditPostPopup
+        setisEditPopupClick={setisEditPopupClick}
+        isEditPopupClick={isEditPopupClick}
+        editPostID={postID}
+      />
       <DeletePopup
         setisDeletePopupClick={setisDeletePopupClick}
         isDeletePopupClick={isDeletePopupClick}

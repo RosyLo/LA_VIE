@@ -33,18 +33,18 @@ const ContentDiv = styled.div`
   transform: translate(-50%, -50%);
   z-index: 4;
   border-radius: 5px;
-  display: flex;
   box-shadow: 3px 3px 3px #ced1d6;
+  display:block
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <ModalWrap show={show}>
       <ContentDiv>
-        {children}
         <button className={styles.cancelButton} onClick={handleClose}>
           <img style={{ width: '10px', height: '10px' }} src={cross}></img>
         </button>
+        {children}
       </ContentDiv>
       <ModalDiv></ModalDiv>
     </ModalWrap>,

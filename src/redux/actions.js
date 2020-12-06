@@ -26,13 +26,14 @@ export const login = () => (dispatch) => {
           {
             profileMessage: 'test',
             userName: user.displayName,
+            userProfileImage: user.photoURL,
           },
           { merge: true },
         )
         .then(() => {
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
-          // window.location = '/main';
+          window.location = '/main';
         });
     }
   });
@@ -92,7 +93,7 @@ export const addPost = (image) => (dispatch, getState) => {
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
       dispatch({ type: ADD_POST, payload: { post } });
-      //寫commentID 回firebase
+      //寫postID 回firebase
       ref.doc(docRef.id).update({
         postID: docRef.id,
       });
@@ -109,29 +110,15 @@ export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getS
     .doc(deletePost.postID)
     .delete()
     .then(() => {
-      console.log('delete data successful');
-      console.log(postID);
-      console.log(posts);
       setisDeletePopupClick(false);
       dispatch({ type: DELETE_POST, payload: { postID } });
     })
     .then(() => {
-      console.log(postID);
-      console.log(posts);
-      // dispatch({ type: DELETE_POST, payload: { postID } });
-      // isDeletePopupClick(false);
-      // const test = posts.filter((post) => post.postID !== postID);
-      // console.log(test);
-    })
-    .then(() => {
       console.log('last');
-      // isDeletePopupClick(false);
     });
 };
 
 export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
-  console.log(id);
-  console.log(isfrom);
   const { user } = getState();
 
   if (!user) return;

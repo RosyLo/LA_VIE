@@ -6,14 +6,10 @@ import { deletePost } from '../redux/actions';
 import styles from '../style/popup.module.css';
 import { StyleModal } from './PopupModal';
 
-function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }) {
+function EditPostPopup({ editPostID, setisEditPopupClick, isEditPopupClick }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const deletepost = posts.find((post) => post.postID === deletePostID);
-  console.log(deletePostID);
-  console.log(deletepost);
-  console.log(setisDeletePopupClick);
-  console.log(isDeletePopupClick);
 
   return (
     <StyleModal
@@ -49,10 +45,10 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
   );
 }
 
-DeletePopup.propTypes = {
-  deletePostID: PropTypes.string.isRequired,
-  setisDeletePopupClick: PropTypes.func.isRequired,
-  isDeletePopupClick: PropTypes.bool.isRequired,
+EditPostPopup.propTypes = {
+  editPostID: PropTypes.string.isRequired,
+  setisEditPopupClick: PropTypes.func.isRequired,
+  isEditPopupClick: PropTypes.bool.isRequired,
 };
 
-export default DeletePopup;
+export default EditPostPopup;

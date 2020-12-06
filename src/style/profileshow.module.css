@@ -1,32 +1,48 @@
 .profileShowWrap {
   padding: 0 80px 0 80px;
   margin-top: 30px;
-  height: 400px;
+  height: 300px;
 }
 .profileShow {
-  /* border:1px solid black;x */
   height: 300px;
-  /* width: 100%; */
+  width: 300px;
   text-align: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   position: relative;
-}
-
-.block {
-  width: 100px;
-  height: 150px;
-  background-color: rgb(215, 191, 156);
+  margin: auto;
 }
 
 .profilePic {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   border: 1px solid black;
-  top: 50px;
-  right: 40%;
+  top: 60px;
+  right: 30px;
   position: absolute;
+  z-index: 2;
 }
 
-/* .profileName {
+.block {
+  width: 120px;
+  height: 180px;
+  background-color: rgb(215, 191, 156);
+  top: 50px;
+  right: 180px;
+  position: absolute;
+  /* position: relative; */
+}
 
-} */
+.profileName {
+  position: absolute;
+  top: 90px;
+  right: 240px;
+  z-index: 2;
+}
+
+.profileWords {
+  position: absolute;
+  top: 130px;
+  right: 260px;
+  z-index: 2;
+  font-family: 'Apple Chancery', sans-serif;
+}

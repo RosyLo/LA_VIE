@@ -4,12 +4,22 @@ button:focus {
   border-radius: 5px;
 }
 
+.modelWrap {
+  width: 100%;
+  background: blanchedalmond;
+  display: flex;
+}
 .leftModel {
   display: flex;
   width: 60%;
-  height: 100%;
+  height: 60%;
   align-items: center;
   justify-content: center;
+  background-color: blue;
+}
+
+.postPicture {
+  width: 250px;
 }
 
 .rightModel {
@@ -25,8 +35,7 @@ button:focus {
   border: none;
   outline: none;
   float: right;
-  height: 20px;
-  margin-top: 20px;
+  height: 15px;
   background-color: white;
   cursor: pointer;
 }

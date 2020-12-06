@@ -11,7 +11,7 @@ function EditPostBar({ postID, postIssuerID }) {
   //click edit
   const [clickEdit, setclickEdit] = useState(false);
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
-  const [deletePost, setDeletePost] = useState('');
+  // const [deletePost, setDeletePost] = useState('');
 
   return (
     <>
@@ -37,7 +37,7 @@ function EditPostBar({ postID, postIssuerID }) {
             <div
               className='deletePost'
               onClick={() => {
-                setDeletePost(postID);
+                // setDeletePost(postID);
                 setisDeletePopupClick(true);
               }}>
               Delete
@@ -45,7 +45,7 @@ function EditPostBar({ postID, postIssuerID }) {
             <DeletePopup
               setisDeletePopupClick={setisDeletePopupClick}
               isDeletePopupClick={isDeletePopupClick}
-              deletePostID={deletePost}
+              deletePostID={postID}
             />
           </StyleEditBlock>
         </>

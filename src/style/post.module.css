@@ -17,14 +17,13 @@
 
 .postHeader {
   height: 40px;
-  width: 80%;
+  width: 90%;
   margin: auto;
   align-items: center;
   justify-items: center;
   padding-top: 20px;
   display: flex;
 }
-
 .postProfileImage {
   width: 30px;
   height: 30px;
@@ -59,7 +58,7 @@
 
 .photo {
   width: 90%;
-  margin: auto;
+  margin: 3px auto;
   min-height: 250px;
 }
 
