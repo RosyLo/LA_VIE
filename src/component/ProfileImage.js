@@ -13,7 +13,3 @@ function ProfileImage() {
 }
 
 export default ProfileImage;
-
-{
-  /* <Link to={`/profile_${user.uid}`}>{user.photoURL}</Link> */
-}

@@ -1,0 +1,32 @@
+.profileShowWrap {
+  padding: 0 80px 0 80px;
+  margin-top: 30px;
+  height: 400px;
+}
+.profileShow {
+  /* border:1px solid black;x */
+  height: 300px;
+  /* width: 100%; */
+  text-align: center;
+  border: 1px solid black;
+  position: relative;
+}
+
+.block {
+  width: 100px;
+  height: 150px;
+  background-color: rgb(215, 191, 156);
+}
+
+.profilePic {
+  width: 120px;
+  height: 120px;
+  border: 1px solid black;
+  top: 50px;
+  right: 40%;
+  position: absolute;
+}
+
+/* .profileName {
+
+} */

@@ -19,7 +19,7 @@ export const login = () => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     if (result) {
       const { user } = result;
-      //const user =result.user
+      console.log(result);
       db.collection('User')
         .doc(user.uid)
         .set(
@@ -32,6 +32,7 @@ export const login = () => (dispatch) => {
         .then(() => {
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
+          // window.location = '/main';
         });
     }
   });
@@ -41,7 +42,7 @@ export const logout = () => (dispatch) => {
   auth.signOut();
   localStorage.clear();
   dispatch({ type: RECIEVED_USER, payload: { user: null } });
-  window.location = '/welcome';
+  window.location = '/';
 };
 
 export const fetchPosts = () => (dispatch) => {

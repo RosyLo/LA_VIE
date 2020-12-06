@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileShow from './ProfileShow';
 
 function Profile() {
-  return <div>profile</div>;
+  return <ProfileShow />;
 }
 
 export default Profile;
