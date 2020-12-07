@@ -62,7 +62,8 @@ export const fetchPosts = () => (dispatch) => {
         };
         posts.push(postData);
       });
-
+    })
+    .then(() => {
       dispatch({
         type: RECIEVED_POSTS,
         payload: { posts },

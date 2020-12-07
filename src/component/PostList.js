@@ -9,6 +9,7 @@ import styles from '../style/post.module.css';
 function PostList() {
   const posts = useSelector((state) => state.posts);
   console.log(posts);
+
   return (
     <>
       <MainShow></MainShow>
