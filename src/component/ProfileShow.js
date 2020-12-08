@@ -15,7 +15,6 @@ function ProfileShow({ paramsID }) {
       .then((doc) => {
         console.log(doc.data());
         setProfile(doc.data());
-        console.log(profile);
       });
   }, []);
 

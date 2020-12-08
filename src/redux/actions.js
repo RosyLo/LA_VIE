@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid';
 import {
   RECIEVED_USER,
   ADD_POST,
+  EDIT_POST,
   DELETE_POST,
   RECIEVED_POSTS,
   TOGGLE_LIKE_POST,
@@ -24,7 +25,7 @@ export const login = () => (dispatch) => {
         .doc(user.uid)
         .set(
           {
-            profileMessage: 'test',
+            profileMessage: 'LA VIE',
             userName: user.displayName,
             userProfileImage: user.photoURL,
           },
@@ -87,7 +88,6 @@ export const addPost = (image) => (dispatch, getState) => {
       },
       postMessage: 'rosy',
       postTag: 'rosy',
-      postLikeIssuerId: [],
       postLikes: [],
     };
     const ref = db.collection('Post');
@@ -99,6 +99,43 @@ export const addPost = (image) => (dispatch, getState) => {
         postID: docRef.id,
       });
     });
+  });
+};
+
+export const editPost = (editPostID, image) => (dispatch, getState) => {
+  const { user } = getState();
+
+  if (!user) return;
+
+  uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
+    const post = {
+      postID: editPostID,
+      postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: downloadURL },
+      postIssuer: {
+        postIssuerID: user.uid,
+        postIssuerImage: user.photoURL,
+        postIssuerName: user.displayName,
+      },
+      postMessage: 'rosy',
+      postTag: 'rosy',
+      postLikes: [],
+    };
+
+    const ref = db.collection('Post').doc(editPostID);
+    ref.update(post).then(() => {
+      console.log('update data successful');
+      dispatch({ type: EDIT_POST, payload: { post } });
+    });
+
+    // const ref = db.collection('Post');
+    // ref.add(post).then((docRef) => {
+    //   post.postID = docRef.id;
+    //   dispatch({ type: ADD_POST, payload: { post } });
+    //   //寫postID 回firebase
+    //   ref.doc(docRef.id).update({
+    //     postID: docRef.id,
+    //   });
+    // });
   });
 };
 
@@ -157,21 +194,18 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
         }
       })
       .then(() => {
-        console.log('here');
         if (isfrom === 'post') {
           let postLikes = Array.from(likeSet);
           transaction.update(ref, { postLikes });
           dispatch({ type: type, payload: { id, postLikes } });
         } else if (isfrom === 'comment') {
-          console.log('comment');
           let likeIssuerID = Array.from(likeSet);
           transaction.update(ref, { likeIssuerID });
-          console.log(type);
           dispatch({ type: type, payload: { id, likeIssuerID } });
         }
         console.log('none');
       })
-      .then(() => {
+      .then((type) => {
         console.log('toggle heart success');
       });
   });

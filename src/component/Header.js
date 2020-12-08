@@ -39,7 +39,7 @@ const Header = () => {
 
           {/* Toggle */}
           <img
-            style={{ width: '15px', height: '15px' }}
+            style={{ width: '15px', height: '15px', cursor: 'pointer' }}
             src={arrow}
             onClick={() => {
               setisProfileToggleClick(!isProfileToggleClick);
@@ -53,6 +53,7 @@ const Header = () => {
               }}>
               <div
                 className='deletePost'
+                style={{ fontFamily: 'Apple Chancery, sans-serif' }}
                 onClick={() => {
                   dispatch(logout());
                 }}>

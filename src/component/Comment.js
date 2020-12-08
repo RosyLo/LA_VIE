@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Heart from './Heart';
-import styles from '../style/comment.css';
+import styles from '../style/comment.module.css';
 
 function Comment({ comment }) {
+  console.log(comment);
   const { postIssuer, commentIssuerMessage } = comment;
   return (
-    <div className='comment'>
-      <img className='commentImage' src={postIssuer.postIssuerImage}></img>
-      <div className='commentMessage'>{commentIssuerMessage}</div>
-      <div className='commentLike'>
+    <div className={styles.comment}>
+      <img className={styles.commentImage} src={postIssuer.postIssuerImage}></img>
+      <p>
+        <span className={styles.postIssuerName}>{postIssuer.postIssuerName}</span>
+        <span>{commentIssuerMessage}</span>
+      </p>
+      <div className={styles.commentLike}>
         <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
       </div>
     </div>

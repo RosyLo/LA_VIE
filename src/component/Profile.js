@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 function Profile() {
   const user = useSelector((state) => state.user);
   const params = new URLSearchParams(window.location.search);
-  console.log(params);
   const paramsID = params.get('id');
 
   let view = '';
@@ -17,7 +16,6 @@ function Profile() {
     view = (
       <>
         <ProfileShow paramsID={paramsID} />
-        visitor
         <ProfileContent paramsID={paramsID} />
       </>
     );
@@ -26,7 +24,6 @@ function Profile() {
     view = (
       <>
         <ProfileShow paramsID={paramsID} />
-        master
         <ProfileContent paramsID={paramsID} />
       </>
     );
@@ -35,7 +32,6 @@ function Profile() {
     view = (
       <>
         <ProfileShow paramsID={paramsID} />
-        viewer
         <ProfileContent paramsID={paramsID} />
       </>
     );

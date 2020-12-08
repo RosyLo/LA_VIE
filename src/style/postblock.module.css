@@ -1,0 +1,15 @@
+.messageBlock {
+  min-height: 40px;
+  max-height: 60px;
+  border: 1px solid black;
+  margin: auto;
+  /* width: 100%; */
+  max-width: 250px;
+}
+
+.commentsWrap {
+  border: 1px solid black;
+  height: 100%;
+  /* padding: 3%; */
+  max-width: 100%;
+}

@@ -13,7 +13,6 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
   const [imageURL, setImageURL] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(imageURL);
   const post = {
     postID: 'postID' + nanoid(),
     postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
@@ -24,9 +23,10 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
     },
     postMessage: 'rosy',
     postTag: 'rosy',
-    postLikeIssuerId: [],
     postLikes: [],
   };
+  console.log(image);
+  console.log(imageURL);
 
   const handlePictureChange = (e) => {
     setImage(e.target.files[0]);
@@ -92,10 +92,15 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
       handleClose={() => {
         setisUploadPopupClick(false);
       }}>
-      <div className={styles.leftModel}>
-        <Post post={post} isFromUpload={true} />
+      <div className={styles.modelWrap}>
+        <div className={styles.topModel}></div>
+        <div className={styles.buttonModal}>
+          <div className={styles.leftModel}>
+            <Post post={post} isFromUpload={true} />
+          </div>
+          {view}
+        </div>
       </div>
-      {view}
     </StyleModal>
   );
 }

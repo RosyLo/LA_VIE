@@ -5,6 +5,7 @@ import { togglePostLike } from '../redux/actions';
 import '../style/heart.css';
 
 function Heart({ id, likes, isfrom }) {
+  // console.log(likes);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const isLiked = user ? likes.includes(user.uid) : false;

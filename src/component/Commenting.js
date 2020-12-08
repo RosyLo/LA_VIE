@@ -10,6 +10,7 @@ function Commenting({ postID }) {
 
   return (
     <form
+      className={styles.form}
       onSubmit={(e) => {
         e.preventDefault();
         dispatch(addComment(postID, newComment));

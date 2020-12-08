@@ -7,8 +7,9 @@ import EditPostPopup from './EditPostPopup';
 function EditPostBlock({ postID }) {
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
   const [isEditPopupClick, setisEditPopupClick] = useState(false);
+  console.log(isEditPopupClick);
+  console.log(isDeletePopupClick);
   const [editPost, setEditPost] = useState('');
-  // const [deletePost, setDeletePost] = useState('');
   return (
     <>
       <div className='editPostBlock'>
@@ -16,15 +17,17 @@ function EditPostBlock({ postID }) {
           className='editPost'
           onClick={() => {
             setEditPost(postID);
-            setisEditPopupClick(true);
+            setisEditPopupClick(!isEditPopupClick);
+            console.log(postID);
           }}>
           Edit
         </div>
         <div
           className='deletePost'
           onClick={() => {
-            setDeletePost(postID);
-            // setisDeletePopupClick(true);
+            setisDeletePopupClick(!isDeletePopupClick);
+            // setDeletePost(postID);
+            console.log(postID);
           }}>
           Delete
         </div>

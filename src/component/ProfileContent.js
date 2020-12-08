@@ -23,6 +23,7 @@ function ProfileContent({ paramsID }) {
       <div className={styles.tabs}>
         <div
           className={styles.tab}
+          style={{ borderLeft: '1px solid black' }}
           onClick={() => {
             setClickedTabs('All');
           }}>
@@ -57,11 +58,13 @@ function ProfileContent({ paramsID }) {
           TRAVEL
         </div>
       </div>
-      <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20}>
-        {filterPosts.map((post) => (
-          <Post key={post.postID} post={post} />
-        ))}
-      </StackGrid>
+      <div className={styles.postWrap}>
+        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20} monitorImagesLoaded={true}>
+          {filterPosts.map((post) => (
+            <Post key={post.postID} post={post} />
+          ))}
+        </StackGrid>
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { ADD_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
+import { ADD_POST, EDIT_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } from '../actionTypes';
 
 const posts = (state = [], action) => {
   console.log('post');
@@ -9,6 +9,10 @@ const posts = (state = [], action) => {
     }
     case DELETE_POST: {
       return state.filter((post) => post.postID !== action.payload.postID);
+    }
+
+    case EDIT_POST: {
+      return [...state, action.payload.post];
     }
 
     case RECIEVED_POSTS: {

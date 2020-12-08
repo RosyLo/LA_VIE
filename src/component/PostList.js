@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import StackGrid from 'react-stack-grid';
@@ -8,15 +8,19 @@ import styles from '../style/post.module.css';
 
 function PostList() {
   const posts = useSelector((state) => state.posts);
-  console.log(posts);
+  const [clickEdit, setclickEdit] = useState('');
 
   return (
     <>
-      <MainShow></MainShow>
-      <div className={styles.postWrap}>
-        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20}>
+      {/* <MainShow></MainShow> */}
+      <div
+        className={styles.postWrap}
+        onClick={() => {
+          setclickEdit('');
+        }}>
+        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20} monitorImagesLoaded={true}>
           {posts.map((post) => (
-            <Post key={post.postID} post={post} />
+            <Post key={post.postID} post={post} clickEdit={clickEdit} setclickEdit={setclickEdit} />
           ))}
         </StackGrid>
       </div>

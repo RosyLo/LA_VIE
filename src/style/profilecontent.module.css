@@ -16,3 +16,9 @@
   color: rgb(187, 140, 47);
   cursor: pointer;
 }
+
+.postWrap {
+  padding: 0 80px 0 80px;
+  margin-top: 50px;
+  cursor: pointer;
+}

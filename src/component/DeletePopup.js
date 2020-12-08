@@ -10,10 +10,6 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const deletepost = posts.find((post) => post.postID === deletePostID);
-  console.log(deletePostID);
-  console.log(deletepost);
-  console.log(setisDeletePopupClick);
-  console.log(isDeletePopupClick);
 
   return (
     <StyleModal
@@ -21,28 +17,33 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
       handleClose={() => {
         setisDeletePopupClick(false);
       }}>
-      <div className={styles.leftModel}>
-        {deletepost ? <Post post={deletepost} isFromDelete={true} /> : ''}
-      </div>
+      <div className={styles.modelWrap}>
+        <div className={styles.topModel}></div>
+        <div className={styles.buttonModal}>
+          <div className={styles.leftModel}>
+            {deletepost ? <Post post={deletepost} isFromDelete={true} /> : ''}
+          </div>
 
-      <div className={styles.rightModel}>
-        <div className={styles.decideBlock}>
-          <h3>Think Twice!</h3>
-          <p>Say GoodBye to the Story?</p>
-          <button
-            className={styles.decideButton}
-            onClick={() => {
-              setisDeletePopupClick(false);
-            }}>
-            Back
-          </button>
-          <button
-            className={styles.decideButton}
-            onClick={() => {
-              dispatch(deletePost(deletepost, setisDeletePopupClick));
-            }}>
-            Delete
-          </button>
+          <div className={styles.rightModel}>
+            <div className={styles.decideBlock}>
+              <h3>Think Twice!</h3>
+              <p>Say GoodBye to the Story?</p>
+              <button
+                className={styles.decideButton}
+                onClick={() => {
+                  setisDeletePopupClick(false);
+                }}>
+                Back
+              </button>
+              <button
+                className={styles.decideButton}
+                onClick={() => {
+                  dispatch(deletePost(deletepost, setisDeletePopupClick));
+                }}>
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </StyleModal>

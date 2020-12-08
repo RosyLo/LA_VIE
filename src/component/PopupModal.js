@@ -22,6 +22,7 @@ const ModalDiv = styled.div`
 
 const ContentDiv = styled.div`
   background-color: white;
+  max-width:600px;
   min-width: 300px;
   width:40%;
   padding:1.5%;
@@ -34,7 +35,8 @@ const ContentDiv = styled.div`
   z-index: 4;
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
-  display:block
+  display:block;
+
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {

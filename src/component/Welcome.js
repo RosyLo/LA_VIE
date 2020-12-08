@@ -10,7 +10,7 @@ function Welcome() {
   return (
     <>
       <WelcomeShow />
-      <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20}>
+      <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20} monitorImagesLoaded={true}>
         {posts.map((post) => (
           <Post key={post.postID} post={post} isfromWelcome={true} />
         ))}

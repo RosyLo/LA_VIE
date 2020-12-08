@@ -1,12 +1,19 @@
-.commentWrap {
-  display: flex;
-}
-
 .comment {
   display: flex;
   /* width: 100%; */
   /* padding: 5px; */
-  padding: 0px 20px;
+  padding: 0 5%;
+  text-align: center;
+}
+p {
+  font-size: 0.5rem;
+  text-align: left;
+  word-break: break-all;
+}
+
+.postIssuerName {
+  font-size: bold;
+  margin-right: 3px;
 }
 .commentImage {
   width: 20px;
@@ -14,6 +21,7 @@
   z-index: 100;
   border-radius: 50%;
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 .commentLike {

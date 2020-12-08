@@ -6,28 +6,54 @@ button:focus {
 
 .modelWrap {
   width: 100%;
-  background: blanchedalmond;
-  display: flex;
+  /* background: blanchedalmond; */
 }
+
+.topModel {
+  height: 50px;
+  padding: 10px;
+  /* background-color: brown; */
+  width: 100%;
+  display: flex;
+  text-align: center;
+}
+
+.separater {
+  border: 1px solid #ced1d6;
+  width: 90%;
+  margin: auto;
+}
+
+.buttonModal {
+  display: flex;
+  width: 100%;
+}
+
 .leftModel {
   display: flex;
-  width: 60%;
-  height: 60%;
+  width: 50%;
   align-items: center;
   justify-content: center;
-  background-color: blue;
+  padding: auto;
+  justify-content: center;
+  /* background-color: burlywood; */
 }
 
 .postPicture {
-  width: 250px;
+  /* width: 100%; */
+  max-width: 100%;
+  display: block;
+  margin: 10px auto;
 }
 
 .rightModel {
-  width: 30%;
-  /* background-color: blanchedalmond; */
+  width: 50%;
+  /* background-color: blanchedalmond;  */
   text-align: center;
-  margin: auto 10px;
+  margin: 10px 10px;
+  /* padding: 10px 10px; */
   align-items: center;
+  min-height: 300px;
 }
 
 .cancelButton {
@@ -50,4 +76,20 @@ button:focus {
   content: 'Select some files';
   cursor: pointer;
   padding: 5px;
+}
+
+@media (max-width: 768px) {
+  .buttonModal {
+    display: block;
+    width: 100%;
+  }
+  .leftModel {
+    display: flex;
+    width: 100%;
+  }
+  .rightModel {
+    width: 100%;
+    min-height: 200px;
+    margin: auto;
+  }
 }
