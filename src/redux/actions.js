@@ -27,7 +27,7 @@ export const login = () => (dispatch) => {
           {
             profileMessage: 'LA VIE',
             userName: user.displayName,
-            userProfileImage: user.photoURL,
+            userProfileImage: user.photoURL + '&width=700',
           },
           { merge: true },
         )
@@ -50,6 +50,7 @@ export const logout = () => (dispatch) => {
 export const fetchPosts = () => (dispatch) => {
   const posts = [];
   db.collection('Post')
+    .orderBy('postTime', 'desc')
     .get()
     .then((snap) => {
       snap.forEach((post) => {
@@ -60,7 +61,13 @@ export const fetchPosts = () => (dispatch) => {
           postMessage: post.data().postMessage,
           postTag: post.data().postTag,
           postLikes: post.data().postLikes || [],
+          postTime: post.data().postTime,
         };
+
+        let date = postData.postTime.toDate();
+        let shortTime = date.toDateString();
+        console.log(shortTime);
+        postData.postTime = shortTime;
         posts.push(postData);
       });
     })
@@ -89,7 +96,9 @@ export const addPost = (image) => (dispatch, getState) => {
       postMessage: 'rosy',
       postTag: 'rosy',
       postLikes: [],
+      postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
+    console.log(post);
     const ref = db.collection('Post');
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
@@ -119,6 +128,7 @@ export const editPost = (editPostID, image) => (dispatch, getState) => {
       postMessage: 'rosy',
       postTag: 'rosy',
       postLikes: [],
+      postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
     const ref = db.collection('Post').doc(editPostID);
@@ -126,16 +136,6 @@ export const editPost = (editPostID, image) => (dispatch, getState) => {
       console.log('update data successful');
       dispatch({ type: EDIT_POST, payload: { post } });
     });
-
-    // const ref = db.collection('Post');
-    // ref.add(post).then((docRef) => {
-    //   post.postID = docRef.id;
-    //   dispatch({ type: ADD_POST, payload: { post } });
-    //   //寫postID 回firebase
-    //   ref.doc(docRef.id).update({
-    //     postID: docRef.id,
-    //   });
-    // });
   });
 };
 
@@ -224,6 +224,7 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
     likeIssuerID: [],
     postID: postID,
     commentID: '',
+    commentTime: firebase.firestore.FieldValue.serverTimestamp(),
   };
   const ref = db.collection('Comment');
   ref.add(comment).then((docRef) => {

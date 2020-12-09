@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import '../style/heart.css';
 
 function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setclickEdit }) {
-  const { postID, postIssuer, postImage, postLikes } = post;
+  const { postID, postIssuer, postImage, postLikes, postTime } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
@@ -37,7 +37,10 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
                   <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
                 </Link>
               </div>
-              <div>{postIssuer.postIssuerName}</div>
+              <div>
+                {postIssuer.postIssuerName}
+                {postTime}
+              </div>
             </>
           )}
           {isFromDelete || isFromUpload || isfromWelcome ? (
@@ -114,6 +117,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
 Post.propTypes = {
   post: PropTypes.shape({
     postID: PropTypes.string,
+    postTime: PropTypes.string,
     postImage: PropTypes.shape({
       postImageLink: PropTypes.string,
     }),

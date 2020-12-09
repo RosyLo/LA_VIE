@@ -18,7 +18,7 @@ function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
   const posts = useSelector((state) => state.posts);
   const clickpost = posts.find((post) => post.postID === clickPostID);
   const [postComments, setPostComments] = useState([]);
-  console.log(postID);
+  console.log(postComments);
 
   let comments = [];
 
@@ -27,12 +27,12 @@ function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
     const db = firebase.firestore();
     console.log(db);
     db.collection('Comment')
+      .orderBy('commentTime', 'desc')
       .where('postID', '==', clickPostID)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(doc.id, doc.data());
-          //將comment 裝成array of object，push 到外面的comments array ，再在畫面判斷有沒有這個array，有就map render 出來一個個comment
           comments.push(doc.data());
         });
         setPostComments(comments);
@@ -41,10 +41,11 @@ function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
 
   useEffect(() => {
     const db = firebase.firestore();
-    const ref = db.collection('Comment');
+    const ref = db.collection('Comment').orderBy('commentTime', 'desc');
     ref.onSnapshot((querySnapshot) => {
       let refreshComments = [];
       querySnapshot.forEach((doc) => {
+        console.log(doc);
         if (doc.data().postID === postID) {
           refreshComments.push(doc.data());
         }
