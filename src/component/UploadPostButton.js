@@ -6,7 +6,6 @@ import plus from '../img/plus.png';
 
 function UploadPostButton() {
   const [isUploadPopupClick, setisUploadPopupClick] = useState(false);
-  console.log(isUploadPopupClick);
 
   return (
     <>

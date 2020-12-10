@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addComment } from '../redux/actions';
 import PropTypes from 'prop-types';
 import styles from '../style/post.module.css';
+import { nanoid } from 'nanoid';
 
 function Commenting({ postID }) {
   const [newComment, setNewCommment] = useState('');
@@ -19,7 +20,7 @@ function Commenting({ postID }) {
       <input
         value={newComment}
         type='text'
-        id='commenting'
+        id={nanoid()}
         name='text'
         autoComplete='off'
         placeholder='Reply...'

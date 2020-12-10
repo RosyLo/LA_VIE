@@ -12,13 +12,11 @@ import { Link } from 'react-router-dom';
 import '../style/heart.css';
 
 function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setclickEdit }) {
-  const { postID, postIssuer, postImage, postLikes, postTime } = post;
+  const { postID, postIssuer, postImage, postLikes, postTime, postTag } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
   const [isPostClick, setisPostClick] = useState(false);
-  const [clickPostID, setclickPostID] = useState('');
-  console.log(post);
 
   return (
     <>
@@ -39,7 +37,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
               </div>
               <div>
                 {postIssuer.postIssuerName}
-                {postTime}
+                {/* {postTime} */}
               </div>
             </>
           )}
@@ -59,13 +57,13 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
           src={postImage.postImageLink}
           onClick={() => {
             setisPostClick(true);
-            setclickPostID(postID);
+            // setclickPostID(postID);
           }}></img>
         <div className={styles.postInteraction}>
           {isFromDelete || isFromUpload || isfromWelcome ? (
             <>
               <div className='heart heart-like'></div>
-              {/* <div className={styles.postLikeCount}>{postLikes.length}</div> */}
+              <div>#{postTag}</div>
             </>
           ) : (
             <>
@@ -74,29 +72,35 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
               {isfromWelcome ? (
                 ''
               ) : (
-                <div
-                  className={styles.PostComments}
-                  onClick={() => {
-                    setisPostClick(true);
-                    setclickPostID(postID);
-                  }}>
-                  See More...
-                </div>
+                <>
+                  <div className={styles.postTag}>#{postTag}</div>
+                </>
               )}
             </>
           )}
         </div>
-        {commentList.map((comment) => {
-          return <Comment key={comment.commentID} comment={comment} />;
-        })}
-        {user && !isFromDelete && !isFromUpload ? (
-          <>
-            <div className={styles.separater}></div>
-            <Commenting postID={postID} />
-          </>
-        ) : (
-          ''
-        )}
+        <>
+          <div
+            className={styles.postComments}
+            onClick={() => {
+              setisPostClick(true);
+              // setclickPostID(postID);
+            }}>
+            See More...
+          </div>
+
+          {user && !isFromDelete && !isFromUpload ? (
+            <>
+              {commentList.map((comment) => {
+                return <Comment key={comment.commentID} comment={comment} />;
+              })}
+              <div className={styles.separater}></div>
+              <Commenting postID={postID} />
+            </>
+          ) : (
+            ''
+          )}
+        </>
       </div>
       {isPostClick ? (
         <PostPopup
@@ -106,6 +110,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
           isPostClick={isPostClick}
           clickPostID={postID}
           postID={postID}
+          post={post}
         />
       ) : (
         ''
@@ -118,6 +123,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     postID: PropTypes.string,
     postTime: PropTypes.string,
+    postTag: PropTypes.string,
     postImage: PropTypes.shape({
       postImageLink: PropTypes.string,
     }),
@@ -133,7 +139,7 @@ Post.propTypes = {
   isFromDelete: PropTypes.bool,
   isFromUpload: PropTypes.bool,
   isfromWelcome: PropTypes.bool,
-  clickEdit: PropTypes.bool,
+  clickEdit: PropTypes.string,
 };
 
 export default Post;

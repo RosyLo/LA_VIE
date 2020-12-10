@@ -5,7 +5,9 @@ import { addPost } from '../redux/actions';
 import { StyleModal } from './PopupModal';
 import styles from '../style/popup.module.css';
 import Post from './Post';
+import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
+// import { tagOptions } from '../utils/data';
 
 function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
   const [uploadViewStage, setUploadViewStage] = useState(0);
@@ -21,19 +23,20 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
       postIssuerImage: user.photoURL,
       postIssuerName: user.displayName,
     },
-    postMessage: 'rosy',
+    postMessage: '',
     postTag: 'rosy',
     postLikes: [],
   };
-  console.log(image);
-  console.log(imageURL);
 
   const handlePictureChange = (e) => {
     setImage(e.target.files[0]);
+    console.log(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
+    console.log(imageURL);
     setImageURL(imageURL);
   };
 
+  //選擇照片
   const choosePic = (
     <div className={styles.rightModel}>
       <div className={styles.decideBlock}>
@@ -55,6 +58,45 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
     </div>
   );
 
+  //msg & tag
+  const [newMsg, setNewMsg] = useState('');
+  const [newTag, setNewTag] = useState({});
+
+  // Msg
+  const handleMsgChange = (e) => {
+    setNewMsg(e.target.value);
+  };
+
+  const writeMsgTag = (
+    <div className={styles.rightModel}>
+      <textarea
+        type='text'
+        id='postMsg'
+        name='postMsg'
+        cols='20'
+        rows='13'
+        placeholder='This is my Fashion Declare!'
+        onChange={handleMsgChange}></textarea>
+      <ChooseTags setNewTag={setNewTag} />
+      <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
+        Back
+      </button>
+      {newMsg && newTag ? (
+        <button
+          className={styles.decideButton}
+          onClick={(e) => {
+            setUploadViewStage(2);
+            e.stopPropagation();
+          }}>
+          Next
+        </button>
+      ) : (
+        ''
+      )}
+    </div>
+  );
+
+  //最終上傳
   const uploadPic = (
     <div className={styles.rightModel}>
       <div className={styles.decideBlock}>
@@ -65,14 +107,14 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
           onClick={(e) => {
             e.preventDefault();
             alert('upload success');
-            dispatch(addPost(image));
+            dispatch(addPost(image, newMsg, newTag));
             setisUploadPopupClick(false);
             setImageURL(null);
             setUploadViewStage(0);
           }}>
           Upload
         </button>
-        <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
+        <button className={styles.decideButton} onClick={() => setUploadViewStage(1)}>
           Back
         </button>
       </div>
@@ -83,6 +125,8 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
   if (uploadViewStage === 0) {
     view = choosePic;
   } else if (uploadViewStage === 1) {
+    view = writeMsgTag;
+  } else if (uploadViewStage === 2) {
     view = uploadPic;
   }
 

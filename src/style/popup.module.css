@@ -56,6 +56,11 @@ button:focus {
   min-height: 300px;
 }
 
+#postMsg {
+  border: 1px solid black;
+  height: 40%;
+}
+
 .cancelButton {
   cursor: pointer;
   border: none;

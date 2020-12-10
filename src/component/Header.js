@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import UploadPostButton from './UploadPostButton';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import SearchTags from './SearchTags';
 import PropTypes from 'prop-types';
 import '../style/header.module.css';
 import { login, logout, addPost } from '../redux/actions';
@@ -15,14 +16,15 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [isProfileToggleClick, setisProfileToggleClick] = useState(false);
-  console.log(user);
+
   return (
     <nav>
-      <div style={{ marginRight: 'auto', border: 'none' }}>
+      <div style={{ border: 'none' }}>
         <Link to='/main'>
           <Logo />
         </Link>
       </div>
+      <SearchTags />
       {/* 登入登出 */}
       {user ? (
         <>

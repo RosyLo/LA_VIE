@@ -4,7 +4,6 @@ import Heart from './Heart';
 import styles from '../style/comment.module.css';
 
 function Comment({ comment }) {
-  console.log(comment);
   const { postIssuer, commentIssuerMessage } = comment;
   return (
     <div className={styles.comment}>

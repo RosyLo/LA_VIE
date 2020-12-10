@@ -8,19 +8,43 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function ProfileContent({ paramsID }) {
   const posts = useSelector((state) => state.posts);
-  const [clickedTabs, setClickedTabs] = useState('All');
+  // const [clickedTabs, setClickedTabs] = useState('All');
+  const [clickEdit, setclickEdit] = useState('');
+
+  const searchtags = useSelector((state) => state.searchtags);
+  let filterTags = [];
   let filterPosts = [];
-  if (clickedTabs === 'All') {
-    filterPosts = posts;
+  console.log(filterTags.length);
+  searchtags.map((searchtag) => {
+    filterTags.push(searchtag.value);
+  });
+
+  posts.map((post) => {
+    filterTags.map((tag) => {
+      if (post.postTag === tag) {
+        filterPosts.push(post);
+      }
+    });
+  });
+  if (filterTags.length > 0) {
+    console.log('filterTags');
+    //將tag 放進 filterTags array裡
   } else {
-    filterPosts = posts.filter(
-      (post) => paramsID === post.postIssuer.postIssuerID && post.postTag === clickedTabs,
-    );
+    filterPosts = posts;
+    console.log('post');
   }
+  // let filterPosts = [];
+  // if (clickedTabs === 'All') {
+  //   filterPosts = posts;
+  // } else {
+  //   filterPosts = posts.filter(
+  //     (post) => paramsID === post.postIssuer.postIssuerID && post.postTag === clickedTabs,
+  //   );
+  // }
 
   return (
     <>
-      <div className={styles.tabs}>
+      {/* <div className={styles.tabs}>
         <div
           className={styles.tab}
           style={{ borderLeft: '1px solid black' }}
@@ -57,11 +81,11 @@ function ProfileContent({ paramsID }) {
           }}>
           TRAVEL
         </div>
-      </div>
+      </div> */}
       <div className={styles.postWrap}>
         <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20} monitorImagesLoaded={true}>
           {filterPosts.map((post) => (
-            <Post key={post.postID} post={post} />
+            <Post key={post.postID} post={post} clickEdit={clickEdit} setclickEdit={setclickEdit} />
           ))}
         </StackGrid>
       </div>

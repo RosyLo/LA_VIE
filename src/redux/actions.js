@@ -8,8 +8,10 @@ import {
   TOGGLE_LIKE_POST,
   ADD_COMMENT,
   TOGGLE_Comment_Like,
+  RECIEVED_TAGS,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
+import { tagProcess } from './callbackActions';
 import firebase from '../firebase';
 
 const db = firebase.firestore();
@@ -20,14 +22,13 @@ export const login = () => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     if (result) {
       const { user } = result;
-      console.log(result);
       db.collection('User')
         .doc(user.uid)
         .set(
           {
             profileMessage: 'LA VIE',
             userName: user.displayName,
-            userProfileImage: user.photoURL + '&width=700',
+            userProfileImage: user.photoURL,
           },
           { merge: true },
         )
@@ -44,7 +45,7 @@ export const logout = () => (dispatch) => {
   auth.signOut();
   localStorage.clear();
   dispatch({ type: RECIEVED_USER, payload: { user: null } });
-  window.location = '/';
+  window.location = '/welcome';
 };
 
 export const fetchPosts = () => (dispatch) => {
@@ -66,7 +67,6 @@ export const fetchPosts = () => (dispatch) => {
 
         let date = postData.postTime.toDate();
         let shortTime = date.toDateString();
-        console.log(shortTime);
         postData.postTime = shortTime;
         posts.push(postData);
       });
@@ -79,11 +79,35 @@ export const fetchPosts = () => (dispatch) => {
     });
 };
 
-export const addPost = (image) => (dispatch, getState) => {
+export const receiveTags = () => (dispatch) => {
+  const tags = [];
+  db.collection('Tag')
+    .get()
+    .then((snap) => {
+      snap.forEach((tag) => {
+        const tagData = {
+          postID: tag.data().postID,
+          label: tag.data().label,
+          value: tag.data().value,
+        };
+        tags.push(tagData);
+      });
+    })
+    .then(() => {
+      dispatch({
+        type: RECIEVED_TAGS,
+        payload: { tags },
+      });
+    });
+};
+
+export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
+  const { tags } = getState();
+
   const { user } = getState();
 
   if (!user) return;
-
+  let forTagPostID = '';
   uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
     const post = {
       postID: '',
@@ -93,12 +117,11 @@ export const addPost = (image) => (dispatch, getState) => {
         postIssuerImage: user.photoURL,
         postIssuerName: user.displayName,
       },
-      postMessage: 'rosy',
-      postTag: 'rosy',
+      postMessage: newMsg,
+      postTag: newTag.value,
       postLikes: [],
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
-    console.log(post);
     const ref = db.collection('Post');
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
@@ -107,11 +130,13 @@ export const addPost = (image) => (dispatch, getState) => {
       ref.doc(docRef.id).update({
         postID: docRef.id,
       });
+      //  tag
+      dispatch(tagProcess(newTag, post.postID));
     });
   });
 };
 
-export const editPost = (editPostID, image) => (dispatch, getState) => {
+export const editPost = (editPostID, image, newMsg, newTag) => (dispatch, getState) => {
   const { user } = getState();
 
   if (!user) return;
@@ -125,8 +150,8 @@ export const editPost = (editPostID, image) => (dispatch, getState) => {
         postIssuerImage: user.photoURL,
         postIssuerName: user.displayName,
       },
-      postMessage: 'rosy',
-      postTag: 'rosy',
+      postMessage: newMsg,
+      postTag: newTag.value,
       postLikes: [],
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
@@ -136,11 +161,11 @@ export const editPost = (editPostID, image) => (dispatch, getState) => {
       console.log('update data successful');
       dispatch({ type: EDIT_POST, payload: { post } });
     });
+    dispatch(tagProcess(newTag, post.postID));
   });
 };
 
 export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getState) => {
-  console.log(deletePost);
   const postID = deletePost.postID;
   const { posts } = getState();
   const ref = db.collection('Post');
@@ -150,9 +175,6 @@ export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getS
     .then(() => {
       setisDeletePopupClick(false);
       dispatch({ type: DELETE_POST, payload: { postID } });
-    })
-    .then(() => {
-      console.log('last');
     });
 };
 
@@ -173,7 +195,6 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
     ref = db.collection('Comment').doc(id);
     set = 'likeIssuerID';
     type = TOGGLE_Comment_Like;
-    console.log('comment');
   }
 
   let likeSet = {};
@@ -203,7 +224,6 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
           transaction.update(ref, { likeIssuerID });
           dispatch({ type: type, payload: { id, likeIssuerID } });
         }
-        console.log('none');
       })
       .then((type) => {
         console.log('toggle heart success');
@@ -228,7 +248,6 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
   };
   const ref = db.collection('Comment');
   ref.add(comment).then((docRef) => {
-    console.log(docRef.id);
     comment.commentID = docRef.id;
     dispatch({ type: ADD_COMMENT, payload: { comment } });
     //寫commentID 回firebase

@@ -11,28 +11,27 @@ import { StyleModal } from './PopupModal';
 import poststyles from '../style/post.module.css';
 import postblock from '../style/postblock.module.css';
 import firebase from '../firebase';
+import { Link } from 'react-router-dom';
 
-function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
+function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
+  const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   const clickpost = posts.find((post) => post.postID === clickPostID);
   const [postComments, setPostComments] = useState([]);
-  console.log(postComments);
 
   let comments = [];
 
   //comments
   useEffect(() => {
     const db = firebase.firestore();
-    console.log(db);
     db.collection('Comment')
       .orderBy('commentTime', 'desc')
       .where('postID', '==', clickPostID)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
           comments.push(doc.data());
         });
         setPostComments(comments);
@@ -45,7 +44,6 @@ function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
     ref.onSnapshot((querySnapshot) => {
       let refreshComments = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc);
         if (doc.data().postID === postID) {
           refreshComments.push(doc.data());
         }
@@ -63,9 +61,15 @@ function PostPopup({ postID, clickPostID, setisPostClick, isPostClick }) {
       {clickpost ? (
         <div className={styles.modelWrap}>
           <div className={styles.topModel}>
-            <img
-              className={poststyles.postProfileImage}
-              src={clickpost.postIssuer.postIssuerImage}></img>
+            <Link
+              to={{
+                pathname: `/profile/?id=${postIssuer.postIssuerID}`,
+                state: { postIssuer: postIssuer, clickFrom: 'post' },
+              }}>
+              <img
+                className={poststyles.postProfileImage}
+                src={clickpost.postIssuer.postIssuerImage}></img>
+            </Link>
             <p>{clickpost.postIssuer.postIssuerName}</p>
             {user && user.uid === clickpost.postIssuer.postIssuerID ? (
               <EditPostBar postID={clickPostID} postIssuerID={clickpost.postIssuer.postIssuerID} />
@@ -113,6 +117,7 @@ PostPopup.propTypes = {
   postID: PropTypes.string.isRequired,
   setisPostClick: PropTypes.func.isRequired,
   isPostClick: PropTypes.bool.isRequired,
+  post: PropTypes.object.isRequired,
 };
 
 export default PostPopup;

@@ -13,7 +13,6 @@ function ProfileShow({ paramsID }) {
       .doc(paramsID)
       .get()
       .then((doc) => {
-        console.log(doc.data());
         setProfile(doc.data());
       });
   }, []);

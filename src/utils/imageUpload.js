@@ -34,7 +34,6 @@ const uploadImage = (image, dest, callback) => {
     },
     function () {
       uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        console.log('File available at', downloadURL);
         callback(downloadURL);
       });
     },

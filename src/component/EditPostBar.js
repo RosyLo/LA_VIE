@@ -12,8 +12,6 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
   const [isEditClick, setisEditClick] = useState(false);
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
   // const [deletePost, setDeletePost] = useState('');
-  // console.log(postID);
-  // console.log(clickEdit);
 
   return (
     <>
@@ -28,7 +26,6 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
             }}>
             <img src={more} style={{ width: '15px', height: '15px' }}></img>
           </div>
-          {/* {clickEdit ? <EditPostBlock postID={postID} /> : ''} */}
           {postID === clickEdit ? (
             <StyleEditBlock show={true}>
               <div
@@ -42,22 +39,29 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
               <div
                 className='deletePost'
                 onClick={(e) => {
-                  // setDeletePost(postID);
                   setisDeletePopupClick(true);
                   e.stopPropagation();
                 }}>
                 Delete
               </div>
-              <EditPostPopup
-                setisEditClick={setisEditClick}
-                isEditClick={isEditClick}
-                editPostID={postID}
-              />
-              <DeletePopup
-                setisDeletePopupClick={setisDeletePopupClick}
-                isDeletePopupClick={isDeletePopupClick}
-                deletePostID={postID}
-              />
+              {isEditClick ? (
+                <EditPostPopup
+                  setisEditClick={setisEditClick}
+                  isEditClick={isEditClick}
+                  editPostID={postID}
+                />
+              ) : (
+                ''
+              )}
+              {isDeletePopupClick ? (
+                <DeletePopup
+                  setisDeletePopupClick={setisDeletePopupClick}
+                  isDeletePopupClick={isDeletePopupClick}
+                  deletePostID={postID}
+                />
+              ) : (
+                ''
+              )}
             </StyleEditBlock>
           ) : (
             ''
