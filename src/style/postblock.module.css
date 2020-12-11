@@ -5,6 +5,7 @@
   margin: auto;
   /* width: 100%; */
   max-width: 250px;
+  padding: 5px;
 }
 
 .commentsWrap {

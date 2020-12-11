@@ -8,18 +8,23 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function ProfileContent({ paramsID }) {
   const posts = useSelector((state) => state.posts);
+  let masterPosts = [];
+  posts.map((post) => {
+    if (post.postIssuer.postIssuerID === paramsID) {
+      masterPosts.push(post);
+    }
+  });
   // const [clickedTabs, setClickedTabs] = useState('All');
   const [clickEdit, setclickEdit] = useState('');
 
   const searchtags = useSelector((state) => state.searchtags);
   let filterTags = [];
   let filterPosts = [];
-  console.log(filterTags.length);
   searchtags.map((searchtag) => {
     filterTags.push(searchtag.value);
   });
 
-  posts.map((post) => {
+  masterPosts.map((post) => {
     filterTags.map((tag) => {
       if (post.postTag === tag) {
         filterPosts.push(post);
@@ -30,7 +35,7 @@ function ProfileContent({ paramsID }) {
     console.log('filterTags');
     //將tag 放進 filterTags array裡
   } else {
-    filterPosts = posts;
+    filterPosts = masterPosts;
     console.log('post');
   }
   // let filterPosts = [];

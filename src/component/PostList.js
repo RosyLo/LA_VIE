@@ -12,7 +12,6 @@ function PostList() {
   const searchtags = useSelector((state) => state.searchtags);
   let filterTags = [];
   let filterPosts = [];
-  console.log(filterTags.length);
   searchtags.map((searchtag) => {
     filterTags.push(searchtag.value);
   });
@@ -25,11 +24,9 @@ function PostList() {
     });
   });
   if (filterTags.length > 0) {
-    console.log('filterTags');
     //將tag 放進 filterTags array裡
   } else {
     filterPosts = posts;
-    console.log('post');
   }
 
   return (

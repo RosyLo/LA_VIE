@@ -42,14 +42,10 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
     <div className={styles.rightModel}>
       <div className={styles.decideBlock}>
         <h3>Let me Think...</h3>
-        <input
-          type='file'
-          id='uploadPictureButton'
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          onChange={handlePictureChange}
-        />
+        <label htmlFor='uploadPictureButton' className={styles.uploadButton}>
+          Choose
+        </label>
+        <input type='file' id='uploadPictureButton' onChange={handlePictureChange} />
       </div>
 
       {imageURL ? (

@@ -9,6 +9,7 @@ import {
   ADD_COMMENT,
   TOGGLE_Comment_Like,
   RECIEVED_TAGS,
+  RECIEVED_STORIES,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -21,21 +22,26 @@ const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 export const login = () => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     if (result) {
+      // result.user.photoURL += '?width=700';
+      // console.log(result.user.photoURL);
       const { user } = result;
+      console.log(user.photoURL);
+      let url = user.photoURL;
+      url += '?width=700';
       db.collection('User')
         .doc(user.uid)
         .set(
           {
             profileMessage: 'LA VIE',
             userName: user.displayName,
-            userProfileImage: user.photoURL,
+            userProfileImage: url,
           },
           { merge: true },
         )
         .then(() => {
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
-          window.location = '/main';
+          // window.location = '/main';
         });
     }
   });
@@ -255,4 +261,38 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
       commentID: docRef.id,
     });
   });
+};
+
+export const fetchStories = (paramsID) => (dispatch, getState) => {
+  const { posts } = getState();
+  const profileposts = posts.filter((post) => post.postIssuer.postIssuerID === paramsID);
+  // 組合story state
+  // 1.拿到此人的所有story
+  // 2.組合 story 資訊，包含用post id去找post 資訊
+  let story = [];
+  db.collection('Story')
+    .where('storyIssuerID', '==', paramsID)
+    .get()
+    .then((snap) => {
+      snap.forEach((doc) => {
+        let storyData = {
+          storyID: doc.data().storyID,
+          storyName: doc.data().storyName,
+          storyImageLink: doc.data().storyImageLink,
+          storyIssuerID: doc.data().storyIssuerID,
+          createTime: doc.data().createTime,
+        };
+        let stories = doc.data().stories.map((storiesID) => {
+          return profileposts.find((profilepost) => profilepost.postID === storiesID);
+        });
+        storyData.stories = stories;
+        story.push(storyData);
+      });
+    })
+    .then(() => {
+      dispatch({
+        type: RECIEVED_STORIES,
+        payload: { story },
+      });
+    });
 };

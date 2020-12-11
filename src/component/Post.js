@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import '../style/heart.css';
 
 function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setclickEdit }) {
-  const { postID, postIssuer, postImage, postLikes, postTime, postTag } = post;
+  const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
@@ -35,10 +35,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
                   <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
                 </Link>
               </div>
-              <div>
-                {postIssuer.postIssuerName}
-                {/* {postTime} */}
-              </div>
+              <div>{postIssuer.postIssuerName}</div>
             </>
           )}
           {isFromDelete || isFromUpload || isfromWelcome ? (
@@ -52,13 +49,19 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
             />
           )}
         </div>
-        <img
-          className={styles.photo}
-          src={postImage.postImageLink}
-          onClick={() => {
-            setisPostClick(true);
-            // setclickPostID(postID);
-          }}></img>
+        <div className={styles.authorPic}>
+          <div
+            className={styles.picOverlay}
+            onClick={() => {
+              setisPostClick(true);
+              // setclickPostID(postID);
+            }}>
+            <div className={styles.content}>
+              <div className={styles.textspan}>{postMessage}</div>
+            </div>
+          </div>
+          <img className={styles.photo} src={postImage.postImageLink}></img>
+        </div>
         <div className={styles.postInteraction}>
           {isFromDelete || isFromUpload || isfromWelcome ? (
             <>
@@ -123,6 +126,7 @@ Post.propTypes = {
   post: PropTypes.shape({
     postID: PropTypes.string,
     postTime: PropTypes.string,
+    postMessage: PropTypes.string,
     postTag: PropTypes.string,
     postImage: PropTypes.shape({
       postImageLink: PropTypes.string,

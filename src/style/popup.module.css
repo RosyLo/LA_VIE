@@ -60,7 +60,10 @@ button:focus {
   border: 1px solid black;
   height: 40%;
 }
-
+.postTime {
+  font-size: 10px;
+  font-family: 'Apple Chancery', sans-serif;
+}
 .cancelButton {
   cursor: pointer;
   border: none;
@@ -70,7 +73,49 @@ button:focus {
   background-color: white;
   cursor: pointer;
 }
+.cancelStory {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  float: right;
+  height: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  position: fixed;
+  right: calc(50% - 212px);
+  top: 20px;
+  z-index: 10000;
+}
 
+input {
+  display: none;
+}
+.labeluploadPic {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: #333;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: Uppercase;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.uploadButton {
+  background-color: black;
+  color: white;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px 15px 5px 15px;
+}
 .decideButton {
   background-color: black;
   width: 80px;

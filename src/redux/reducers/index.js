@@ -3,6 +3,7 @@ import user from './user';
 import comments from './comments';
 import tags from './tags';
 import searchtags from './searchtags';
+import stories from './stories';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -11,4 +12,5 @@ export default combineReducers({
   comments,
   tags,
   searchtags,
+  stories,
 });

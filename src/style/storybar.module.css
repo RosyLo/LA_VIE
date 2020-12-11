@@ -1,0 +1,16 @@
+.storyBarWrap {
+  border: 1px solid black;
+  display: flex;
+  width: 60%;
+  margin: auto;
+}
+
+.storyCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid black;
+  margin: 0px 10px;
+  cursor: pointer;
+}

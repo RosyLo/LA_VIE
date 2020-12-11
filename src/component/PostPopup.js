@@ -83,7 +83,12 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
               <div>
                 <img className={styles.postPicture} src={clickpost.postImage.postImageLink} />
               </div>
-              <div className={postblock.messageBlock}></div>
+              <div className={postblock.messageBlock}>
+                {postMessage}
+                <br />
+                <br />
+                <div className={styles.postTime}>- {postTime}</div>
+              </div>
             </div>
 
             <div className={styles.rightModel}>

@@ -32,7 +32,6 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
     setImage(e.target.files[0]);
     console.log(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
-    console.log(imageURL);
     setImageURL(imageURL);
   };
 
@@ -41,6 +40,9 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
     <div className={styles.rightModel}>
       <div className={styles.decideBlock}>
         <h3>Let me Think...</h3>
+        <label htmlFor='uploadPictureButton' className={styles.uploadButton}>
+          Choose
+        </label>
         <input type='file' id='uploadPictureButton' onChange={handlePictureChange} />
       </div>
 

@@ -11,3 +11,4 @@ export const UPDATE_TAG = 'UPDATE_TAG';
 export const ADD_TAG = 'ADD_TAG';
 export const SEARCH_TAGS = 'SEARCH_TAGS';
 export const NOSEARCH_TAGS = 'NOSEARCH_TAGS';
+export const RECIEVED_STORIES = 'RECIEVED_STORIES';

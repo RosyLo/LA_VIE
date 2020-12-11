@@ -34,6 +34,46 @@
   margin: auto 10px;
 }
 
+.authorPic {
+  font-family: sans-serif;
+  position: relative;
+  /* background-color: blanchedalmond; */
+}
+.authorPic:hover .picOverlay {
+  /* width: */
+  height: 98.5%;
+}
+
+.picOverlay {
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  right: 0;
+  background-color: rgba(48, 48, 48, 0.3);
+  width: 90%;
+  transition: 0.5s ease;
+  overflow: hidden;
+}
+
+.content {
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 15px;
+  overflow: hidden;
+  word-break: break-all;
+  /* background-color: blue; */
+}
+
+.content div {
+  font-size: 16px;
+  display: block;
+  color: white;
+}
+
 .postInteraction {
   width: 80%;
   margin: auto;
@@ -48,6 +88,7 @@
 .postTag {
   font-size: 15px;
   margin-left: auto;
+  /* font-family: sans-serif; */
 }
 
 .postComments {
@@ -65,7 +106,7 @@
 
 .photo {
   width: 90%;
-  margin: 3px auto;
+  /* margin: 3px auto; */
   min-height: 250px;
 }
 

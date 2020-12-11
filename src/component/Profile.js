@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProfileShow from './ProfileShow';
+import StoryBar from './StoryBar';
 import ProfileContent from './ProfileContent';
 import { useSelector } from 'react-redux';
 
@@ -24,6 +25,7 @@ function Profile() {
     view = (
       <>
         <ProfileShow paramsID={paramsID} />
+        <StoryBar paramsID={paramsID} />
         <ProfileContent paramsID={paramsID} />
       </>
     );
@@ -32,6 +34,8 @@ function Profile() {
     view = (
       <>
         <ProfileShow paramsID={paramsID} />
+        {/* !要判斷是否為粉絲 */}
+        <StoryBar paramsID={paramsID} />
         <ProfileContent paramsID={paramsID} />
       </>
     );
