@@ -9,18 +9,29 @@ import { StyleModal } from './PopupModal';
 
 function Image({ post, choosedStory, setChoosedStory }) {
   const { postID, postImage } = post;
-
   const [isImgChoose, setisImgChoose] = useState(false);
-  // const isImgChoose = choosedStory.includs(postID) ? true : false;
-  let chooseState = choosedStory;
-  // const toggleImgChoose = () => {};
+  console.log(choosedStory);
+  console.log(setChoosedStory);
+
+  function checkifChoose() {
+    if (choosedStory.includes(postID)) {
+      setChoosedStory(choosedStory.filter((storyID) => storyID !== postID));
+    } else {
+      let newchoosedStory = choosedStory;
+      newchoosedStory.push(postID);
+      setChoosedStory(newchoosedStory);
+    }
+  }
 
   return (
     <div
       className={styled.blockWrap}
       style={{ width: '100%' }}
-      onClick={() => setisImgChoose(true)}>
-      <div className={styled.pickPicCircle}>{isImgChoose ? 'HIHI' : ''}</div>
+      onClick={() => {
+        setisImgChoose(!isImgChoose);
+        checkifChoose();
+      }}>
+      <div className={styled.pickPicCircle}>{isImgChoose ? choosedStory.indexOf(postID) : ''}</div>
       <img src={postImage.postImageLink} className={styled.block} />
     </div>
   );

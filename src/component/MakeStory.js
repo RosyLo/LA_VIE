@@ -58,15 +58,42 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
     </>
   );
 
+  const chooseCoverTitle = (
+    <>
+      <div> Choose Cover Photo</div>{' '}
+      <button
+        className={styles.decideButton}
+        onClick={() => {
+          setMakeStoryStage(2);
+        }}>
+        Next
+      </button>
+    </>
+  );
+
+  const chooseCoverPhoto = (
+    <div className={styled.grid}>
+      {masterposts.map((post) => (
+        <Image
+          key={post.postID}
+          post={post}
+          choosedStory={choosedStory}
+          setChoosedStory={setChoosedStory}
+        />
+      ))}
+    </div>
+  );
+
   let title = '';
   let view = '';
   if (makeStoryStage === 0) {
     title = choosePostTitle;
     view = choosePost;
   } else if (makeStoryStage === 1) {
-    view = writeMsgTag;
+    title = chooseCoverTitle;
+    view = chooseCoverPhoto;
   } else if (makeStoryStage === 2) {
-    view = uploadPic;
+    // view = uploadPic;
   }
 
   return (
