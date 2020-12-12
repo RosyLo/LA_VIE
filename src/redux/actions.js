@@ -10,6 +10,7 @@ import {
   TOGGLE_Comment_Like,
   RECIEVED_TAGS,
   RECIEVED_STORIES,
+  RECIEVED_MASTERPOSTS,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -263,9 +264,20 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
   });
 };
 
-export const fetchStories = (paramsID) => (dispatch, getState) => {
+export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
   const { posts } = getState();
-  const profileposts = posts.filter((post) => post.postIssuer.postIssuerID === paramsID);
+  let masterPosts = [];
+  posts.map((post) => {
+    if (post.postIssuer.postIssuerID === paramsID) {
+      masterPosts.push(post);
+    }
+  });
+  dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
+};
+
+export const fetchStories = (paramsID) => (dispatch, getState) => {
+  const { masterposts } = getState();
+  const profileposts = masterposts.filter((post) => post.postIssuer.postIssuerID === paramsID);
   // 組合story state
   // 1.拿到此人的所有story
   // 2.組合 story 資訊，包含用post id去找post 資訊

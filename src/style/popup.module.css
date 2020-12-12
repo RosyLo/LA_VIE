@@ -73,21 +73,8 @@ button:focus {
   background-color: white;
   cursor: pointer;
 }
-.cancelStory {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  float: right;
-  height: 15px;
-  cursor: pointer;
-  margin-right: 10px;
-  position: fixed;
-  right: calc(50% - 212px);
-  top: 20px;
-  z-index: 10000;
-}
 
-input {
+.decideBlock input {
   display: none;
 }
 .labeluploadPic {

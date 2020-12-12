@@ -23,7 +23,7 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
 
   let comments = [];
 
-  //comments
+  // first get comments
   useEffect(() => {
     const db = firebase.firestore();
     db.collection('Comment')

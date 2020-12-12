@@ -1,0 +1,47 @@
+/* storypopup */
+
+.buttonModal {
+  max-height: 600px;
+  min-height: 400px;
+  background: pink;
+  overflow-y: auto;
+}
+
+.grid {
+  -webkit-column-count: 4;
+  -webkit-column-gap: 1px;
+  -webkit-column-fill: auto;
+  -moz-column-count: 4;
+  -moz-column-gap: 1px;
+  -moz-column-fill: auto;
+  column-count: 4;
+  column-gap: 1px;
+  column-fill: auto;
+  width: 100%;
+  overscroll-behavior: contain; /* Prevent SCROLL-CHAINING to parent elements. */
+}
+.blockWrap {
+  position: relative;
+}
+
+.block {
+  display: block;
+  word-wrap: break-word;
+  margin-bottom: 2px;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  cursor: pointer;
+  width: 100%;
+
+  /* column-break-inside: avoid; */
+}
+
+.pickPicCircle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.8;
+  position: absolute;
+  right: 3px;
+}

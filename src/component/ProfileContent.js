@@ -1,30 +1,33 @@
-import { React, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProfileShow from './ProfileShow';
 import styles from '../style/profilecontent.module.css';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
+import { fetchMasterPosts } from '../redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 
 function ProfileContent({ paramsID }) {
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  let masterPosts = [];
-  posts.map((post) => {
-    if (post.postIssuer.postIssuerID === paramsID) {
-      masterPosts.push(post);
-    }
-  });
-  // const [clickedTabs, setClickedTabs] = useState('All');
   const [clickEdit, setclickEdit] = useState('');
-
+  const masterposts = useSelector((state) => state.masterposts);
   const searchtags = useSelector((state) => state.searchtags);
+
+  useEffect(() => {
+    if (posts.length > 0) {
+      dispatch(fetchMasterPosts(paramsID));
+    }
+  }, [posts]);
+
+  console.log(masterposts);
   let filterTags = [];
   let filterPosts = [];
   searchtags.map((searchtag) => {
     filterTags.push(searchtag.value);
   });
 
-  masterPosts.map((post) => {
+  masterposts.map((post) => {
     filterTags.map((tag) => {
       if (post.postTag === tag) {
         filterPosts.push(post);
@@ -35,7 +38,7 @@ function ProfileContent({ paramsID }) {
     console.log('filterTags');
     //將tag 放進 filterTags array裡
   } else {
-    filterPosts = masterPosts;
+    filterPosts = masterposts;
     console.log('post');
   }
   // let filterPosts = [];

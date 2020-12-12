@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 function StoryCircle({ story }) {
   const { storyImageLink, stories } = story;
   const [isStoryClick, setisStoryClick] = useState(false);
-  console.log(story);
 
   return (
     <>

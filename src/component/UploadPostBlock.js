@@ -24,7 +24,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
       postIssuerName: user.displayName,
     },
     postMessage: '',
-    postTag: 'rosy',
+    postTag: 'YourTag',
     postLikes: [],
   };
 

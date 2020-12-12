@@ -1,16 +1,49 @@
 .storyBarWrap {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   width: 60%;
   margin: auto;
+  justify-content: center;
 }
 
 .storyCircle {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-color: white;
   border: 1px solid black;
   margin: 0px 10px;
   cursor: pointer;
+}
+
+.rightarrow {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  right: calc(50% - 212px);
+  top: 50%;
+  cursor: pointer;
+}
+
+.leftarrow {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  right: calc(50% + 240px);
+  top: 50%;
+  cursor: pointer;
+}
+
+.cancelStory {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  float: right;
+  height: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  position: fixed;
+  right: calc(50% - 212px);
+  top: 5px;
+  z-index: 10000;
 }

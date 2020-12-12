@@ -6,6 +6,9 @@
   margin-top: 50px;
   cursor: pointer;
 }
+.form {
+  height: 35px;
+}
 
 .post {
   /* background-color: antiquewhite; */
@@ -117,8 +120,7 @@
 input {
   width: 90%;
   border: none;
-  padding: 0px;
-  height: 30px;
+  padding-top: 10px;
 }
 input:focus {
   outline: none;

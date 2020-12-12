@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import Stories from 'react-insta-stories';
 import { StoryModal } from './StoryModal';
 import { useSelector } from 'react-redux';
+import rightarrow from '../img/right-arrow.png';
+import leftarrow from '../img/left-arrow.png';
+import styles from '../style/storybar.module.css';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(currentIndex);
+
   const stories = [
     {
       url: 'https://picsum.photos/1080/1920',
@@ -40,18 +43,22 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
       handleClose={() => {
         setisStoryClick(false);
       }}>
-      <div
+      <img
+        src={rightarrow}
+        className={styles.rightarrow}
         onClick={() => {
           setCurrentIndex(currentIndex + 1);
-        }}>
-        right
-      </div>
-      <div
+        }}
+      />
+
+      <img
+        src={leftarrow}
+        className={styles.leftarrow}
         onClick={() => {
           setCurrentIndex(currentIndex - 1);
-        }}>
-        left
-      </div>
+        }}
+      />
+
       {isStoryClick ? (
         <div style={{ margin: 'auto', width: '420px' }}>
           <Stories
@@ -62,6 +69,7 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
             onStoryEnd={(s, st) => console.log('story ended', s, st)}
             onAllStoriesEnd={(s, st) => console.log('all stories ended', s, st)}
             onStoryStart={(s, st) => console.log('story started', s, st)}
+            currentIndex={currentIndex}
           />
         </div>
       ) : (
