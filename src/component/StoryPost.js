@@ -12,7 +12,8 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
 
   const stories = [
     {
-      url: 'https://picsum.photos/1080/1920',
+      url:
+        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkdownload.jpeg?alt=media&token=6eee3854-0c13-42ff-b20f-532ccc7e3118',
       header: {
         heading: 'Mohit Karekar',
         subheading: 'Posted 5h ago',
@@ -20,7 +21,8 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
       },
     },
     {
-      url: 'https://picsum.photos/1080/1920',
+      url:
+        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkScreen%20Shot%202020-12-10%20at%203.18.26%20PM.png?alt=media&token=77de46bd-b8d5-4c06-a799-df0e9c28837b',
       header: {
         heading: 'Mohit Karekar',
         subheading: 'Posted 5h ago',
@@ -28,7 +30,8 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
       },
     },
     {
-      url: 'https://picsum.photos/1080/1920',
+      url:
+        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkpic11.png?alt=media&token=2559bfd3-c408-4893-a1dd-e6dc2c37471d',
       header: {
         heading: 'Mohit Karekar',
         subheading: 'Posted 5h ago',

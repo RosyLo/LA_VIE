@@ -10,10 +10,10 @@ import { StyleModal } from './PopupModal';
 function Image({ post, choosedStory, setChoosedStory }) {
   const { postID, postImage } = post;
 
-  // const [isImgChoose, setisImgChoose] = useState(false);
+  const [isImgChoose, setisImgChoose] = useState(false);
   // const isImgChoose = choosedStory.includs(postID) ? true : false;
   let chooseState = choosedStory;
-  const toggleImgChoose = () => {};
+  // const toggleImgChoose = () => {};
 
   return (
     <div

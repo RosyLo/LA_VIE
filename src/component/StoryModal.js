@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import styles from '../style/popup.module.css';
+import styles from '../style/storybar.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import cross from '../img/cross.png';
@@ -21,10 +21,9 @@ const ModalDiv = styled.div`
 `;
 
 const ContentDiv = styled.div`
-  background-color: white;
-  min-width: 400px;
-  width:70%;
-  padding:1.5%;
+
+  width:100%;
+
   align-items:center
   max-width: 85%;
   position: fixed;
@@ -32,23 +31,26 @@ const ContentDiv = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 4;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px #ced1d6;
+
   display:block;
 
 `;
 
 export const StoryModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
-    <ModalWrap show={show}>
-      <ContentDiv>
-        <button className={styles.cancelButton} onClick={handleClose}>
-          <img style={{ width: '10px', height: '10px' }} src={cross}></img>
-        </button>
-        {children}
-      </ContentDiv>
-      <ModalDiv></ModalDiv>
-    </ModalWrap>,
+    <>
+      <ModalWrap show={show}>
+        <ContentDiv>
+          {' '}
+          <div className={styles.cancelStory} onClick={handleClose}>
+            <img style={{ width: '10px', height: '10px' }} src={cross}></img>
+          </div>
+          {children}
+        </ContentDiv>
+        <ModalDiv></ModalDiv>
+      </ModalWrap>
+    </>,
+
     document.getElementById('portal'),
   );
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../redux/actions';
-import { StoryModal } from './StoryModal';
+import { MakeStoryModal } from './MakeStoryModal';
 import Image from './Image';
 import styles from '../style/popup.module.css';
 import Post from './Post';
@@ -70,7 +70,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
   }
 
   return (
-    <StoryModal
+    <MakeStoryModal
       show={isMakeStoryClick}
       handleClose={() => {
         setisMakeStoryClick(false);
@@ -81,7 +81,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
           <div>{choosePost}</div>
         </div>
       </div>
-    </StoryModal>
+    </MakeStoryModal>
   );
 }
 
