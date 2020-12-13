@@ -6,14 +6,24 @@
   justify-content: center;
 }
 
+.story {
+  display: block;
+  /* border: 1px solid black; */
+  text-align: center;
+}
 .storyCircle {
-  width: 80px;
-  height: 80px;
+  width: 115px;
+  height: 115px;
   border-radius: 50%;
   background-color: white;
   border: 1px solid black;
-  margin: 0px 10px;
+  margin: 0px 20px;
   cursor: pointer;
+}
+
+.storyName {
+  width: 100px;
+  margin: 15px 25px;
 }
 
 .rightarrow {

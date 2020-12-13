@@ -24,6 +24,7 @@ function StoryBar({ paramsID }) {
     targetElement = document.querySelector('#portal');
     console.log(targetElement);
   }, [masterposts]);
+  console.log(stories);
 
   return (
     <div className={styles.storyBarWrap}>

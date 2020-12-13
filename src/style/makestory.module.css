@@ -3,7 +3,6 @@
 .buttonModal {
   max-height: 600px;
   min-height: 400px;
-  background: pink;
   overflow-y: auto;
 }
 
@@ -41,7 +40,87 @@
   height: 25px;
   border-radius: 50%;
   background-color: white;
-  opacity: 0.8;
+  opacity: 1;
   position: absolute;
   right: 3px;
+  text-align: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.pickCoverCircle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 1;
+  position: absolute;
+  right: 30px;
+  text-align: center;
+  justify-content: center;
+  padding: 1px;
+}
+
+.pickCoverCircle {
+  width: 25px;
+  height: 25px;
+  z-index: 1000;
+}
+.check {
+  width: 15px;
+  height: 20px;
+}
+
+.storyCircle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid black;
+  margin: 0px 10px;
+  cursor: pointer;
+  margin: 25px auto;
+}
+
+.imageTime {
+  width: 40px;
+  background-color: white;
+  position: absolute;
+  border-radius: 7%;
+  opacity: 0.8;
+  margin: 5px;
+  font-size: 0.8rem;
+}
+
+.coverImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.storyNameInput {
+  width: 200px;
+  height: 30px;
+  border: 1px solid black;
+  margin: auto;
+  text-align: center;
+}
+
+.makeStoryGuide {
+  font-size: 1.2rem;
+  margin: 10px auto 0px auto;
+}
+
+.decideButton {
+  background-color: black;
+  width: 80px;
+  color: white;
+  margin: 10px 60px 10px 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+  float: right;
 }

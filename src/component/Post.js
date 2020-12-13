@@ -125,7 +125,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
 Post.propTypes = {
   post: PropTypes.shape({
     postID: PropTypes.string,
-    postTime: PropTypes.string,
+    postTime: PropTypes.object,
     postMessage: PropTypes.string,
     postTag: PropTypes.string,
     postImage: PropTypes.shape({

@@ -2,45 +2,96 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from './Post';
+import check from '../img/check.png';
 import { deletePost } from '../redux/actions';
 import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
 import { StyleModal } from './PopupModal';
 
-function Image({ post, choosedStory, setChoosedStory }) {
-  const { postID, postImage } = post;
-  const [isImgChoose, setisImgChoose] = useState(false);
-  console.log(choosedStory);
-  console.log(setChoosedStory);
-
-  function checkifChoose() {
-    if (choosedStory.includes(postID)) {
-      setChoosedStory(choosedStory.filter((storyID) => storyID !== postID));
-    } else {
-      let newchoosedStory = choosedStory;
-      newchoosedStory.push(postID);
-      setChoosedStory(newchoosedStory);
-    }
-  }
+function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
+  const { postID, postImage, postTime } = post;
+  const [isImgChoose, setIsImgChoose] = useState(false);
+  console.log(post);
 
   return (
-    <div
-      className={styled.blockWrap}
-      style={{ width: '100%' }}
-      onClick={() => {
-        setisImgChoose(!isImgChoose);
-        checkifChoose();
-      }}>
-      <div className={styled.pickPicCircle}>{isImgChoose ? choosedStory.indexOf(postID) : ''}</div>
-      <img src={postImage.postImageLink} className={styled.block} />
-    </div>
+    <>
+      {stage === 0 && (
+        <div
+          className={styled.blockWrap}
+          style={{ width: '100%' }}
+          onClick={() => {
+            setIsImgChoose(!isImgChoose);
+            chooseStory(postID);
+          }}>
+          <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>
+          <div className={styled.pickPicCircle}>
+            {isImgChoose ? choosedStory.indexOf(postID) + 1 : ''}
+          </div>
+          <img src={postImage.postImageLink} className={styled.block} />
+        </div>
+      )}
+
+      {stage === 1 && (
+        <div
+          className={styled.blockWrap}
+          style={{ width: '100%' }}
+          onClick={() => {
+            if (choosedStory.includes(post.postID)) {
+              chooseCoverfunc(post);
+            }
+          }}>
+          <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>
+          <div className={styled.pickPicCircle}>
+            {isCover === post.postImage.postImageLink ? (
+              <div className={styled.pickCoverCircle}>
+                <img className={styled.check} src={check} />
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className={styled.pickPicCircle}>
+            {isImgChoose ? choosedStory.indexOf(postID) + 1 : ''}
+          </div>
+          <img src={postImage.postImageLink} className={styled.block} />
+        </div>
+      )}
+      {/* {stage === 1 && (
+        <div
+          className={styled.blockWrap}
+          style={{ width: '100%' }}
+          onClick={() => {
+            if (choosedStory.includes(post.postID)) {
+              chooseCoverfunc(post);
+            }
+          }}>
+          <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>
+          <div>
+            {isCover === post.postImage.postImageLink ? (
+              <div className={styled.pickCoverCircle}>
+                <img src={check} />
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className={styled.pickPicCircle}>
+            {isImgChoose ? choosedStory.indexOf(postID) + 1 : ''}
+          </div>
+          <img src={postImage.postImageLink} className={styled.block} />
+        </div>
+      )} */}
+    </>
   );
 }
 
 Image.propTypes = {
   post: PropTypes.object.isRequired,
   choosedStory: PropTypes.array.isRequired,
-  setChoosedStory: PropTypes.func.isRequired,
+  stage: PropTypes.number.isRequired,
+  chooseStory: PropTypes.func,
+  chooseCoverfunc: PropTypes.func,
+  isCover: PropTypes.string,
 };
 
 export default Image;

@@ -18,6 +18,7 @@ export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
     let updateTagpostID = updateTag.postID;
     updateTagpostID.push(tagpostID);
 
+    console.log(tags);
     dispatch({
       type: UPDATE_TAG,
       payload: { tags },
@@ -34,6 +35,7 @@ export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
       label: newTag.label,
       value: newTag.value,
     };
+    console.log(tagData);
 
     dispatch({
       type: ADD_TAG,

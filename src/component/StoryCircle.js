@@ -7,26 +7,28 @@ import plus from '../img/plus.png';
 import { useSelector } from 'react-redux';
 
 function StoryCircle({ story }) {
-  const { storyImageLink, stories } = story;
+  console.log(story);
+  const { storyImageLink } = story;
   const [isStoryClick, setisStoryClick] = useState(false);
 
   return (
     <>
       <div
+        className={styles.story}
         onClick={(e) => {
           setisStoryClick(true);
           e.stopPropagation();
         }}>
         <img className={styles.storyCircle} src={storyImageLink} />
+        <div className={styles.storyName}>{story.storyName}</div>
       </div>
-      {stories.map((story) => (
-        <StoryPost
-          key={story.postID}
-          story={story}
-          isStoryClick={isStoryClick}
-          setisStoryClick={setisStoryClick}
-        />
-      ))}
+
+      <StoryPost
+        key={story.postID}
+        story={story}
+        isStoryClick={isStoryClick}
+        setisStoryClick={setisStoryClick}
+      />
     </>
   );
 }

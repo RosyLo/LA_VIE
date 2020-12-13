@@ -9,36 +9,22 @@ import styles from '../style/storybar.module.css';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const stories = [
-    {
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkdownload.jpeg?alt=media&token=6eee3854-0c13-42ff-b20f-532ccc7e3118',
-      header: {
-        heading: 'Mohit Karekar',
-        subheading: 'Posted 5h ago',
-        profileImage: 'https://picsum.photos/1000/1000',
-      },
-    },
-    {
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkScreen%20Shot%202020-12-10%20at%203.18.26%20PM.png?alt=media&token=77de46bd-b8d5-4c06-a799-df0e9c28837b',
-      header: {
-        heading: 'Mohit Karekar',
-        subheading: 'Posted 5h ago',
-        profileImage: 'https://picsum.photos/1000/1000',
-      },
-    },
-    {
-      url:
-        'https://firebasestorage.googleapis.com/v0/b/c-est-la-vie-data.appspot.com/o/Post%2FpostImageLinkpic11.png?alt=media&token=2559bfd3-c408-4893-a1dd-e6dc2c37471d',
-      header: {
-        heading: 'Mohit Karekar',
-        subheading: 'Posted 5h ago',
-        profileImage: 'https://picsum.photos/1000/1000',
-      },
-    },
-  ];
+  let postLists = [];
+  story.stories.map((post) => {
+    console.log(post);
+    if (post) {
+      let postData = {
+        url: post.postImage.postImageLink,
+        header: {
+          heading: post.postIssuer.postIssuerName,
+          subheading: post.postTime,
+          profileImage: post.postIssuer.postIssuerImage,
+        },
+      };
+      postLists.push(postData);
+    }
+  });
+  console.log(postLists);
 
   return (
     <StoryModal
@@ -68,11 +54,16 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
             loop
             keyboardNavigation
             defaultInterval={8000}
-            stories={stories}
+            stories={postLists}
             onStoryEnd={(s, st) => console.log('story ended', s, st)}
             onAllStoriesEnd={(s, st) => console.log('all stories ended', s, st)}
             onStoryStart={(s, st) => console.log('story started', s, st)}
             currentIndex={currentIndex}
+            storyStyles={{
+              width: '360px',
+              height: '100%',
+              objectFit: 'cover',
+            }}
           />
         </div>
       ) : (

@@ -11,6 +11,7 @@ import {
   RECIEVED_TAGS,
   RECIEVED_STORIES,
   RECIEVED_MASTERPOSTS,
+  ADD_STORY,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -26,7 +27,6 @@ export const login = () => (dispatch) => {
       // result.user.photoURL += '?width=700';
       // console.log(result.user.photoURL);
       const { user } = result;
-      console.log(user.photoURL);
       let url = user.photoURL;
       url += '?width=700';
       db.collection('User')
@@ -302,9 +302,51 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
       });
     })
     .then(() => {
+      console.log(story);
       dispatch({
         type: RECIEVED_STORIES,
         payload: { story },
       });
+    });
+};
+
+export const addStory = (addedstory) => (dispatch, getState) => {
+  console.log(addedstory);
+  const { user } = getState();
+  const { masterposts } = getState();
+  const story = {
+    storyID: '',
+    storyName: addedstory.storyName,
+    storyImageLink: addedstory.storyImageLink,
+    storyIssuerID: user.uid,
+    createTime: firebase.firestore.FieldValue.serverTimestamp(),
+    stories: addedstory.stories,
+  };
+  console.log(story);
+  const ref = db.collection('Story');
+  ref
+    .add(story)
+    .then((docRef) => {
+      story.storyID = docRef.id;
+      console.log(docRef.id);
+      console.log(story.storyID);
+      ref.doc(docRef.id).update({
+        storyID: docRef.id,
+      });
+      let stateStory = story;
+      let stateStoryStories = [];
+      stateStory.stories.map((postID) => {
+        masterposts.map((masterPost) => {
+          if (masterPost.postID === postID) {
+            stateStoryStories.push(masterPost);
+          }
+        });
+      });
+      stateStory.stories = stateStoryStories;
+      return stateStory;
+    })
+    .then((stateStory) => {
+      console.log(stateStory);
+      dispatch({ type: ADD_STORY, payload: { stateStory } });
     });
 };
