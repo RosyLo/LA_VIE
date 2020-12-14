@@ -36,6 +36,7 @@ const ContentDiv = styled.div`
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
   display:block;
+  background: rgb(250, 250, 250);
 
 `;
 

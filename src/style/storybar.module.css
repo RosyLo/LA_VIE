@@ -2,7 +2,7 @@
   /* border: 1px solid black; */
   display: flex;
   width: 60%;
-  margin: auto;
+  margin: 10px auto;
   justify-content: center;
 }
 
@@ -16,7 +16,7 @@
   height: 115px;
   border-radius: 50%;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid rgb(219, 219, 219);
   margin: 0px 20px;
   cursor: pointer;
 }

@@ -18,6 +18,7 @@ function Commenting({ postID }) {
         setNewCommment('');
       }}>
       <input
+        className={styles.commentInput}
         value={newComment}
         type='text'
         id={nanoid()}

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styles from '../style/profileshow.module.css';
 import firebase from '../firebase';
+import styled from 'styled-components';
 
 function ProfileShow({ paramsID }) {
   const [profile, setProfile] = useState(null);
   const user = useSelector((state) => state.user);
+  const masterposts = useSelector((state) => state.masterposts);
   useEffect(() => {
     const db = firebase.firestore();
     db.collection('User')
@@ -22,9 +24,18 @@ function ProfileShow({ paramsID }) {
       {profile ? (
         <div className={styles.profileShow}>
           <img className={styles.profilePic} src={profile.userProfileImage}></img>
-          <div className={styles.profileName}>{profile.userName}</div>
-          <div className={styles.profileWords}>{profile.profileMessage}</div>
-          <div className={styles.block}></div>
+          <div className={styles.profileInfo}>
+            <div>{profile.userName}</div>
+            <div className={styles.followerBlock}>
+              <div className={styles.followerInfo}>
+                {masterposts.length} <span>Posts</span>
+              </div>
+              <div className={styles.followerInfo}>＿Followers</div>
+              <div className={styles.followerInfo}>＿Following</div>
+            </div>
+          </div>
+          {/* <div className={styles.profileWords}>{profile.profileMessage}</div> */}
+          {/* <div className={styles.block}></div> */}
         </div>
       ) : (
         ''

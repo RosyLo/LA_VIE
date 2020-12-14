@@ -70,7 +70,7 @@ button:focus {
   outline: none;
   float: right;
   height: 15px;
-  background-color: white;
+  background: rgb(250, 250, 250);
   cursor: pointer;
 }
 

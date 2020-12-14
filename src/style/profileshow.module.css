@@ -3,24 +3,61 @@
   margin-top: 30px;
   height: 300px;
 }
+
 .profileShow {
   height: 300px;
-  width: 300px;
-  text-align: center;
   /* border: 1px solid black; */
-  position: relative;
+  width: 70%;
   margin: auto;
+  display: flex;
 }
 
 .profilePic {
-  width: 180px;
-  height: 180px;
+  max-width: 200px;
+  max-height: 200px;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  margin: auto 0px;
+}
+
+.profileInfo {
+  /* border: 1px solid black; */
+  margin: auto 0px;
+  margin-left: 10%;
+  font-size: 1.5rem;
+  align-items: center;
+}
+
+.followerBlock {
+  /* border: 1px solid black; */
+  display: flex;
+}
+.followerInfo {
+  font-size: 100%;
+  margin: 20px 20px 20px 0px;
+}
+
+/* .profileShow {
+  height: 300px;
+  text-align: center;
+  border: 1px solid black;
+  position: relative;
+  width:70%;
+  margin: auto;
+  display: flex;
+} */
+
+/* .profilePic {
+  width: 200px;
+  height: 200px;
   border: 1px solid black;
   top: 60px;
-  right: 30px;
+  left: 30px;
   position: absolute;
   z-index: 2;
-}
+  border-radius: 50%;
+} */
 
 .block {
   width: 120px;
