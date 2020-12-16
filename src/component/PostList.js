@@ -36,7 +36,7 @@ function PostList() {
         onClick={() => {
           // setclickEdit('');
         }}>
-        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={20} monitorImagesLoaded={true}>
+        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={30} monitorImagesLoaded={true}>
           {filterPosts.map((post) => (
             <Post key={post.postID} post={post} clickEdit={clickEdit} setclickEdit={setclickEdit} />
           ))}

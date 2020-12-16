@@ -17,25 +17,27 @@ const ModalDiv = styled.div`
   left: 0;
   background-color: grey;
   opacity: 0.9;
-  z-index: 6;
+  z-index: 50;
 `;
 
 const ContentDiv = styled.div`
 
-  width:100%;
+  min-width:300px;
+  height:200px;
   align-items:center
   max-width: 85%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 7;
-
+  z-index: 12;
+    background:white;
   display:block;
+  border-radius:55px
 
 `;
 
-export const StoryModal = ({ handleClose, show, children }) => {
+export const MsgPopup = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <>
       <ModalWrap show={show}>
@@ -54,7 +56,7 @@ export const StoryModal = ({ handleClose, show, children }) => {
   );
 };
 
-StoryModal.propTypes = {
+MsgPopup.propTypes = {
   handleClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.object,

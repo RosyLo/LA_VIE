@@ -28,7 +28,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
     stories: choosedStory,
   };
 
-  console.log(masterposts);
   //選擇post
   const choosePostTitle = (
     <>
@@ -157,8 +156,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       </button>
     </>
   );
-  console.log(choosedCover);
-  console.log(choosedStory);
 
   const handleMsgChange = (e) => {
     setstoryName(e.target.value);

@@ -11,7 +11,6 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
   //click edit
   const [isEditClick, setisEditClick] = useState(false);
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
-  // const [deletePost, setDeletePost] = useState('');
 
   return (
     <>

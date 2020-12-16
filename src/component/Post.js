@@ -27,11 +27,15 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
           ) : (
             <>
               <div>
-                <Link
+                {/* <Link
                   to={{
-                    pathname: `/profile/?id=${postIssuer.postIssuerID}`,
+                    pathname: `/profile?id=${postIssuer.postIssuerID}`,
                     state: { postIssuer: postIssuer, clickFrom: 'post' },
                   }}>
+                 
+                </Link> */}
+                <Link to={(location) => `/profile?id=${user.uid}`}>
+                  {' '}
                   <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
                 </Link>
               </div>
@@ -66,7 +70,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
           {isFromDelete || isFromUpload || isfromWelcome ? (
             <>
               <div className='heart heart-like'></div>
-              <div>#{postTag}</div>
+              <div>#{postTag.value}</div>
             </>
           ) : (
             <>
@@ -76,7 +80,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
                 ''
               ) : (
                 <>
-                  <div className={styles.postTag}>#{postTag}</div>
+                  <div className={styles.postTag}>#{postTag.value}</div>
                 </>
               )}
             </>
@@ -127,7 +131,7 @@ Post.propTypes = {
     postID: PropTypes.string,
     postTime: PropTypes.object,
     postMessage: PropTypes.string,
-    postTag: PropTypes.string,
+    postTag: PropTypes.object,
     postImage: PropTypes.shape({
       postImageLink: PropTypes.string,
     }),

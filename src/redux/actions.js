@@ -12,6 +12,7 @@ import {
   RECIEVED_STORIES,
   RECIEVED_MASTERPOSTS,
   ADD_STORY,
+  DELETE_STORY,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -24,8 +25,6 @@ const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 export const login = () => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     if (result) {
-      // result.user.photoURL += '?width=700';
-      // console.log(result.user.photoURL);
       const { user } = result;
       let url = user.photoURL;
       url += '?width=700';
@@ -71,11 +70,12 @@ export const fetchPosts = () => (dispatch) => {
           postLikes: post.data().postLikes || [],
           postTime: post.data().postTime,
         };
-
-        let date = postData.postTime.toDate();
-        let shortTime = date.toDateString();
-        postData.postTime = shortTime;
-        posts.push(postData);
+        if (typeof postData.postTime !== 'string') {
+          let date = postData.postTime.toDate();
+          let shortTime = date.toDateString();
+          postData.postTime = shortTime;
+          posts.push(postData);
+        }
       });
     })
     .then(() => {
@@ -125,11 +125,12 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
         postIssuerName: user.displayName,
       },
       postMessage: newMsg,
-      postTag: newTag.value,
+      postTag: newTag,
       postLikes: [],
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
     const ref = db.collection('Post');
+    console.log(post);
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
       dispatch({ type: ADD_POST, payload: { post } });
@@ -143,33 +144,59 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
   });
 };
 
-export const editPost = (editPostID, image, newMsg, newTag) => (dispatch, getState) => {
+export const editPost = (editPostID, image, imageURL, newMsg, newTag, postTime) => (
+  dispatch,
+  getState,
+) => {
   const { user } = getState();
 
   if (!user) return;
-
-  uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
-    const post = {
+  let post = {};
+  if (image === null) {
+    post = {
       postID: editPostID,
-      postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: downloadURL },
+      postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
       postIssuer: {
         postIssuerID: user.uid,
         postIssuerImage: user.photoURL,
         postIssuerName: user.displayName,
       },
       postMessage: newMsg,
-      postTag: newTag.value,
+      postTag: newTag,
       postLikes: [],
-      postTime: firebase.firestore.FieldValue.serverTimestamp(),
+      postTime: postTime,
     };
-
+    console.log(post);
     const ref = db.collection('Post').doc(editPostID);
     ref.update(post).then(() => {
       console.log('update data successful');
       dispatch({ type: EDIT_POST, payload: { post } });
     });
     dispatch(tagProcess(newTag, post.postID));
-  });
+  } else {
+    uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
+      post = {
+        postID: editPostID,
+        postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: downloadURL },
+        postIssuer: {
+          postIssuerID: user.uid,
+          postIssuerImage: user.photoURL,
+          postIssuerName: user.displayName,
+        },
+        postMessage: newMsg,
+        postTag: newTag,
+        postLikes: [],
+        postTime: postTime,
+      };
+      console.log(post);
+      const ref = db.collection('Post').doc(editPostID);
+      ref.update(post).then(() => {
+        console.log('update data successful');
+        dispatch({ type: EDIT_POST, payload: { post } });
+      });
+      dispatch(tagProcess(newTag, post.postID));
+    });
+  }
 };
 
 export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getState) => {
@@ -242,10 +269,10 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
   const { user } = getState();
   if (!user) return;
   const comment = {
-    postIssuer: {
-      postIssuerID: user.uid,
-      postIssuerImage: user.photoURL,
-      postIssuerName: user.displayName,
+    commentIssuer: {
+      commentIssuerID: user.uid,
+      commentIssuerImage: user.photoURL,
+      commentIssuerName: user.displayName,
     },
     commentIssuerMessage: newComment,
     likeIssuerID: [],
@@ -262,6 +289,17 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
       commentID: docRef.id,
     });
   });
+};
+
+export const editComment = (comment, commentContent) => (dispatch, getState) => {
+  const ref = db.collection('Comment').doc(comment.commentID);
+  ref
+    .update({
+      commentIssuerMessage: commentContent,
+    })
+    .then(() => {
+      console.log('update data successful');
+    });
 };
 
 export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
@@ -311,7 +349,6 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
 };
 
 export const addStory = (addedstory) => (dispatch, getState) => {
-  console.log(addedstory);
   const { user } = getState();
   const { masterposts } = getState();
   const story = {
@@ -322,7 +359,6 @@ export const addStory = (addedstory) => (dispatch, getState) => {
     createTime: firebase.firestore.FieldValue.serverTimestamp(),
     stories: addedstory.stories,
   };
-  console.log(story);
   const ref = db.collection('Story');
   ref
     .add(story)
@@ -350,3 +386,25 @@ export const addStory = (addedstory) => (dispatch, getState) => {
       dispatch({ type: ADD_STORY, payload: { stateStory } });
     });
 };
+
+export const deleteStory = (deleteStory, setisStoryDeleteClick) => (dispatch, getState) => {
+  //delete db
+  const storyID = deleteStory.storyID;
+  const ref = db.collection('Story');
+
+  ref
+    .doc(storyID)
+    .delete()
+    .then(() => {
+      setisStoryDeleteClick(false);
+    })
+    .then(() => {
+      console.log(deleteStory);
+      //delete state
+      dispatch({ type: DELETE_STORY, payload: { deleteStory } });
+    });
+};
+
+// export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
+
+// }

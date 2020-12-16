@@ -1,4 +1,4 @@
-import { RECIEVED_STORIES, ADD_STORY } from '../actionTypes';
+import { RECIEVED_STORIES, ADD_STORY, DELETE_STORY } from '../actionTypes';
 
 const stories = (state = [], action) => {
   switch (action.type) {
@@ -8,6 +8,10 @@ const stories = (state = [], action) => {
     case ADD_STORY: {
       console.log(action.payload.story);
       return [...state, action.payload.stateStory];
+    }
+    case DELETE_STORY: {
+      console.log(action.payload.deleteStory.storyID);
+      return state.filter((story) => story.storyID !== action.payload.deleteStory.storyID);
     }
 
     default:

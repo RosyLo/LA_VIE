@@ -5,13 +5,15 @@ import { StoryModal } from './StoryModal';
 import { useSelector } from 'react-redux';
 import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
+import more from '../img/more.png';
 import styles from '../style/storybar.module.css';
+import { StyleEditBlock } from './EditBlockCompo';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isEditStoryClick, setisEditStoryClick] = useState(false);
   let postLists = [];
   story.stories.map((post) => {
-    console.log(post);
     if (post) {
       let postData = {
         url: post.postImage.postImageLink,
@@ -24,7 +26,6 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
       postLists.push(postData);
     }
   });
-  console.log(postLists);
 
   return (
     <StoryModal
@@ -32,6 +33,29 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
       handleClose={() => {
         setisStoryClick(false);
       }}>
+      <div
+        className={styles.storyEditBar}
+        onClick={(e) => {
+          e.stopPropagation();
+          setisEditStoryClick(!isEditStoryClick);
+        }}>
+        <img src={more} style={{ width: '15px', height: '15px', zIndex: '10000' }}></img>
+        <StyleEditBlock
+          show={isEditStoryClick}
+          handleClose={() => {
+            setisEditStoryClick(!isEditStoryClick);
+          }}>
+          {' '}
+          <div
+            className='deletePost'
+            onClick={() => {
+              dispatchEvent(editStory(story));
+            }}>
+            Edit
+          </div>
+        </StyleEditBlock>
+      </div>
+
       <img
         src={rightarrow}
         className={styles.rightarrow}

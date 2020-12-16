@@ -30,11 +30,16 @@ const Header = () => {
         <>
           <UploadPostButton />
           {/* 頭貼 */}
-          <Link
+          {/* <Link
             to={{
-              pathname: `/profile/?id=${user.uid}`,
+              pathname: `/profile?id=${user.uid}`,
               state: { state: user, clickFrom: 'header' },
             }}>
+            {' '}
+            <ProfileImage />
+          </Link> */}
+
+          <Link to={(location) => `/profile?id=${user.uid}`}>
             {' '}
             <ProfileImage />
           </Link>

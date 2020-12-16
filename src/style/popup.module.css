@@ -69,9 +69,11 @@ button:focus {
   border: none;
   outline: none;
   float: right;
+  width: 15px;
   height: 15px;
   background: rgb(250, 250, 250);
   cursor: pointer;
+  z-index: 1000;
 }
 
 .decideBlock input {

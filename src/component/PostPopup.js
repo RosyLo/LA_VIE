@@ -15,11 +15,14 @@ import { Link } from 'react-router-dom';
 
 function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
   const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   const clickpost = posts.find((post) => post.postID === clickPostID);
+  console.log(clickpost);
   const [postComments, setPostComments] = useState([]);
+  const [clickEdit, setclickEdit] = useState('');
+  console.log(postComments);
+  console.log(clickpost);
 
   let comments = [];
 
@@ -38,6 +41,7 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
       });
   }, []);
 
+  //add comment
   useEffect(() => {
     const db = firebase.firestore();
     const ref = db.collection('Comment').orderBy('commentTime', 'desc');
@@ -61,18 +65,22 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
       {clickpost ? (
         <div className={styles.modelWrap}>
           <div className={styles.topModel}>
-            <Link
-              to={{
-                pathname: `/profile/?id=${postIssuer.postIssuerID}`,
-                state: { postIssuer: postIssuer, clickFrom: 'post' },
-              }}>
+            <Link to={(location) => `/profile?id=${user.uid}`}>
+              {' '}
               <img
                 className={poststyles.postProfileImage}
                 src={clickpost.postIssuer.postIssuerImage}></img>
             </Link>
+
             <p>{clickpost.postIssuer.postIssuerName}</p>
+
             {user && user.uid === clickpost.postIssuer.postIssuerID ? (
-              <EditPostBar postID={clickPostID} postIssuerID={clickpost.postIssuer.postIssuerID} />
+              <EditPostBar
+                postID={clickPostID}
+                postIssuerID={clickpost.postIssuer.postIssuerID}
+                clickEdit={clickEdit}
+                setclickEdit={setclickEdit}
+              />
             ) : (
               ''
             )}
@@ -87,7 +95,7 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
                 {postMessage}
                 <br />
                 <br />
-                <div className={styles.postTime}>- {postTime}</div>
+                {/* <div className={styles.postTime}>- {clickpost.postTime}</div> */}
               </div>
             </div>
 
@@ -95,7 +103,14 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
               <div className={postblock.commentsWrap}>
                 {postComments
                   ? postComments.slice(0, 10).map((postComment) => {
-                      return <Comment key={postComment.commentID} comment={postComment} />;
+                      return (
+                        <Comment
+                          key={postComment.commentID}
+                          comment={postComment}
+                          setPostComments={setPostComments}
+                          postComments={postComments}
+                        />
+                      );
                     })
                   : ''}
                 {user ? (
@@ -122,6 +137,7 @@ PostPopup.propTypes = {
   postID: PropTypes.string.isRequired,
   setisPostClick: PropTypes.func.isRequired,
   isPostClick: PropTypes.bool.isRequired,
+  clickEdit: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
 };
 

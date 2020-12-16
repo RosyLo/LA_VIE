@@ -30,9 +30,13 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
     postMessage: editpost.postMessage,
     postTag: editpost.postTag,
     postLikes: editpost.postLikes,
+    postTime: editpost.postTime,
   };
+  console.log(post);
+  console.log(imageURL);
 
   const handlePictureChange = (e) => {
+    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
     setImageURL(imageURL);
@@ -42,10 +46,10 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
     <div className={styles.rightModel}>
       <div className={styles.decideBlock}>
         <h3>Let me Think...</h3>
-        <label htmlFor='uploadPictureButton' className={styles.uploadButton}>
+        <label htmlFor='editPictureButton' className={styles.uploadButton}>
           Choose
         </label>
-        <input type='file' id='uploadPictureButton' onChange={handlePictureChange} />
+        <input type='file' id='editPictureButton' onChange={handlePictureChange} />
       </div>
 
       {imageURL ? (
@@ -63,8 +67,8 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
     </div>
   );
   //msg & tag
-  const [newMsg, setNewMsg] = useState('');
-  const [newTag, setNewTag] = useState({});
+  const [newMsg, setNewMsg] = useState(post.postMessage);
+  const [newTag, setNewTag] = useState(post.postTag);
 
   // Msg
   const handleMsgChange = (e) => {
@@ -79,9 +83,10 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
         name='postMsg'
         cols='20'
         rows='13'
-        placeholder='This is my Fashion Declare!'
+        value={newMsg}
+        placeholder={newMsg}
         onChange={handleMsgChange}></textarea>
-      <ChooseTags setNewTag={setNewTag} />
+      <ChooseTags newTag={newTag} setNewTag={setNewTag} />
       <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
         Back
       </button>
@@ -110,7 +115,7 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
             e.preventDefault();
             e.stopPropagation();
             alert('upload success');
-            dispatch(editPost(editPostID, image, newMsg, newTag));
+            dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, post.postTime));
             setisEditClick(false);
             setImageURL(null);
             setUploadViewStage(0);

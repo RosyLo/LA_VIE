@@ -22,9 +22,9 @@ const ModalDiv = styled.div`
 
 const ContentDiv = styled.div`
   background-color: white;
-  max-width:600px;
+  max-width:700px;
   min-width: 300px;
-  width:40%;
+  width:70%;
   padding:1.5%;
   align-items:center
   max-width: 85%;
