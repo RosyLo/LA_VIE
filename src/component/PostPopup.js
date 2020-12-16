@@ -6,7 +6,7 @@ import EditPostBar from './EditPostBar';
 import Comment from './Comment';
 import Commenting from './Commenting';
 import { deletePost } from '../redux/actions';
-import styles from '../style/popup.module.css';
+import styles from '../style/editpostpopup.module.css';
 import { StyleModal } from './PopupModal';
 import poststyles from '../style/post.module.css';
 import postblock from '../style/postblock.module.css';
@@ -18,11 +18,8 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   const clickpost = posts.find((post) => post.postID === clickPostID);
-  console.log(clickpost);
   const [postComments, setPostComments] = useState([]);
   const [clickEdit, setclickEdit] = useState('');
-  console.log(postComments);
-  console.log(clickpost);
 
   let comments = [];
 
@@ -68,11 +65,11 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
             <Link to={(location) => `/profile?id=${user.uid}`}>
               {' '}
               <img
-                className={poststyles.postProfileImage}
+                className={postblock.postProfileImage}
                 src={clickpost.postIssuer.postIssuerImage}></img>
             </Link>
 
-            <p>{clickpost.postIssuer.postIssuerName}</p>
+            <div className={postblock.postProfileName}>{clickpost.postIssuer.postIssuerName}</div>
 
             {user && user.uid === clickpost.postIssuer.postIssuerID ? (
               <EditPostBar

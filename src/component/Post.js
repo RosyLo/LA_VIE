@@ -11,13 +11,21 @@ import PostPopup from './PostPopup';
 import { Link } from 'react-router-dom';
 import '../style/heart.css';
 
-function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setclickEdit }) {
+function Post({
+  post,
+  isFromDelete,
+  isFromUpload,
+  isFromEdit,
+  isfromWelcome,
+  clickEdit,
+  setclickEdit,
+}) {
   const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
   const [isPostClick, setisPostClick] = useState(false);
-
+  console.log(isFromEdit);
   return (
     <>
       <div className={styles.post}>
@@ -42,7 +50,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
               <div>{postIssuer.postIssuerName}</div>
             </>
           )}
-          {isFromDelete || isFromUpload || isfromWelcome ? (
+          {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
             ''
           ) : (
             <EditPostBar
@@ -67,7 +75,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
           <img className={styles.photo} src={postImage.postImageLink}></img>
         </div>
         <div className={styles.postInteraction}>
-          {isFromDelete || isFromUpload || isfromWelcome ? (
+          {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
             <>
               <div className='heart heart-like'></div>
               <div>#{postTag.value}</div>
@@ -96,7 +104,7 @@ function Post({ post, isFromDelete, isFromUpload, isfromWelcome, clickEdit, setc
             See More...
           </div>
 
-          {user && !isFromDelete && !isFromUpload ? (
+          {user && !isFromDelete && !isFromUpload && !isFromEdit ? (
             <>
               {commentList.map((comment) => {
                 return <Comment key={comment.commentID} comment={comment} />;
@@ -146,6 +154,7 @@ Post.propTypes = {
   setclickEdit: PropTypes.func,
   isFromDelete: PropTypes.bool,
   isFromUpload: PropTypes.bool,
+  isFromEdit: PropTypes.bool,
   isfromWelcome: PropTypes.bool,
   clickEdit: PropTypes.string,
 };

@@ -1,14 +1,12 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
-// import 'post.module.css';
 import DeletePopup from './DeletePopup';
 import EditPostPopup from './EditPostPopup';
 
 function EditPostBlock({ postID }) {
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
   const [isEditPopupClick, setisEditPopupClick] = useState(false);
-  console.log(isEditPopupClick);
-  console.log(isDeletePopupClick);
+
   const [editPost, setEditPost] = useState('');
   return (
     <>
@@ -18,7 +16,6 @@ function EditPostBlock({ postID }) {
           onClick={() => {
             setEditPost(postID);
             setisEditPopupClick(!isEditPopupClick);
-            console.log(postID);
           }}>
           Edit
         </div>
@@ -27,7 +24,6 @@ function EditPostBlock({ postID }) {
           onClick={() => {
             setisDeletePopupClick(!isDeletePopupClick);
             // setDeletePost(postID);
-            console.log(postID);
           }}>
           Delete
         </div>

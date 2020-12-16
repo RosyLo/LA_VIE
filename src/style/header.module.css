@@ -1,6 +1,7 @@
 body {
   background: rgba(250, 250, 250);
 }
+
 nav {
   height: 60px;
   display: flex;
@@ -39,3 +40,38 @@ nav {
   margin: 0px auto 0px 0px;
   cursor: pointer;
 }
+
+/* search */
+.search {
+  max-width: 500px;
+  min-width: 100px;
+  width: 300px;
+  margin: auto;
+  max-height: 30px;
+  height: 30px;
+  /* overflow: hidden; */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+  nav {
+    height: 60px;
+    display: flex;
+    padding: 0px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 425px) {
+  html {
+    font-size: 10px;
+  }
+  nav {
+    height: 60px;
+    display: flex;
+    padding: 0px;
+    align-items: center;
+  }
+} ;

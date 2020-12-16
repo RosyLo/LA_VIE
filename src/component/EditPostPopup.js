@@ -32,8 +32,6 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
     postLikes: editpost.postLikes,
     postTime: editpost.postTime,
   };
-  console.log(post);
-  console.log(imageURL);
 
   const handlePictureChange = (e) => {
     console.log(e.target.files[0]);
@@ -50,20 +48,19 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
           Choose
         </label>
         <input type='file' id='editPictureButton' onChange={handlePictureChange} />
+        {imageURL ? (
+          <button
+            className={styles.decideButton}
+            onClick={(e) => {
+              setUploadViewStage(1);
+              e.stopPropagation();
+            }}>
+            Next
+          </button>
+        ) : (
+          ''
+        )}
       </div>
-
-      {imageURL ? (
-        <button
-          className={styles.decideButton}
-          onClick={(e) => {
-            setUploadViewStage(1);
-            e.stopPropagation();
-          }}>
-          Next
-        </button>
-      ) : (
-        ''
-      )}
     </div>
   );
   //msg & tag
@@ -76,8 +73,9 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
   };
 
   const writeMsgTag = (
-    <div className={styles.rightModel}>
+    <div className={styles.postPopupRightModel}>
       <textarea
+        className={styles.postMsgInput}
         type='text'
         id='postMsg'
         name='postMsg'
@@ -86,7 +84,9 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
         value={newMsg}
         placeholder={newMsg}
         onChange={handleMsgChange}></textarea>
-      <ChooseTags newTag={newTag} setNewTag={setNewTag} />
+      <div className={styles.postSearch}>
+        <ChooseTags newTag={newTag} setNewTag={setNewTag} />
+      </div>
       <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
         Back
       </button>
@@ -153,7 +153,7 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
         <div className={styles.topModel}></div>
         <div className={styles.buttonModal}>
           <div className={styles.leftModel}>
-            <Post post={post} />
+            <Post post={post} isFromEdit={true} />
           </div>
           {view}
         </div>

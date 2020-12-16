@@ -18,6 +18,7 @@ const ContentDiv = styled.div`
   padding: 10px;
   line-height: 1.5rem;
   cursor: pointer;
+  text-align: center;
 `;
 
 export const StyleEditBlock = ({ handleClose, show, children }) => {

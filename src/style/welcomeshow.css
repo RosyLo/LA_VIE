@@ -32,3 +32,9 @@
   width: 100px;
   margin: auto;
 }
+
+@media (max-width: 425px) {
+  .welcomeShowWrap {
+    padding: 0px;
+  }
+} ;

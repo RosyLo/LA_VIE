@@ -130,7 +130,7 @@ input:focus {
   outline: none;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 425px) {
   .postWrap {
     padding: 0px;
   }

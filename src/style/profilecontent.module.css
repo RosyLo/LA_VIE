@@ -25,3 +25,13 @@
   margin: auto;
   border: 1px solid red;
 }
+
+@media (max-width: 425px) {
+  .postWrap {
+    width: 100%;
+    margin-top: 50px;
+    cursor: pointer;
+    margin: auto;
+    border: 1px solid red;
+  }
+} ;

@@ -6,11 +6,11 @@ button:focus {
 
 .modelWrap {
   width: 100%;
-  background-color: lavender;
 }
 
 .topModel {
   height: 50px;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -28,15 +28,12 @@ button:focus {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  background-color: indianred;
 }
 
 .leftModel {
   width: 48%;
   align-items: center;
   justify-content: center;
-  background-color: burlywood;
-  display: flex;
 }
 
 .postPicture {
@@ -51,25 +48,7 @@ button:focus {
   text-align: center;
   align-items: center;
   min-height: 300px;
-  display: flex;
-  justify-content: center;
-}
-
-.postPopupRightModel {
-  width: 50%;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 300px;
-  justify-content: center;
-}
-.postMsgInput {
-  width: 40%;
-}
-.postSearch {
-  width: 40%;
-  /* margin: 0px auto; */
+  margin-top: 10px;
 }
 
 #postMsg {

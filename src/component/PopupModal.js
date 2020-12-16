@@ -44,9 +44,9 @@ export const StyleModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <ModalWrap show={show}>
       <ContentDiv>
-        <button className={styles.cancelButton} onClick={handleClose}>
-          <img style={{ width: '10px', height: '10px' }} src={cross}></img>
-        </button>
+        <div className={styles.cancelButton} onClick={handleClose}>
+          <img className={styles.cancelButtonImg} src={cross}></img>
+        </div>
         {children}
       </ContentDiv>
       <ModalDiv></ModalDiv>

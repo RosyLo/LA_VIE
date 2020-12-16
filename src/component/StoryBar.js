@@ -94,9 +94,6 @@ function StoryBar({ paramsID }) {
       />
       <div className={styles.storyCircleWrap} ref={wrapRef}>
         <div className={styles.storyCircleContain} ref={containRef}>
-          {stories.map((story) => (
-            <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
-          ))}
           <div>
             {user.uid === paramsID ? (
               <img
@@ -111,6 +108,9 @@ function StoryBar({ paramsID }) {
               ''
             )}
           </div>
+          {stories.map((story) => (
+            <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
+          ))}
         </div>
       </div>
     </div>

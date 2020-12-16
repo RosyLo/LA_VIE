@@ -38,27 +38,6 @@
   margin: 20px 20px 20px 0px;
 }
 
-/* .profileShow {
-  height: 300px;
-  text-align: center;
-  border: 1px solid black;
-  position: relative;
-  width:70%;
-  margin: auto;
-  display: flex;
-} */
-
-/* .profilePic {
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
-  top: 60px;
-  left: 30px;
-  position: absolute;
-  z-index: 2;
-  border-radius: 50%;
-} */
-
 .block {
   width: 120px;
   height: 180px;
@@ -83,3 +62,10 @@
   z-index: 2;
   font-family: 'Apple Chancery', sans-serif;
 }
+
+@media (max-width: 425px) {
+  .followerBlock {
+    /* border: 1px solid black; */
+    display: block;
+  }
+} ;

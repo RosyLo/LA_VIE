@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SEARCH_TAGS, NOSEARCH_TAGS } from '../redux/actionTypes';
 import chroma from 'chroma-js';
 import CreatableSelect from 'react-select/creatable';
+import styles from '../style/header.module.css';
 
 function SearchTags() {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function SearchTags() {
   };
 
   return (
-    <div style={{ maxWidth: '500px', minWidth: '300px', margin: 'auto' }}>
+    <div className={styles.search}>
       {' '}
       <CreatableSelect
         isMulti

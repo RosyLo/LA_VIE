@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from './Post';
 import check from '../img/check.png';
-import { deletePost } from '../redux/actions';
 import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
 import { StyleModal } from './PopupModal';
