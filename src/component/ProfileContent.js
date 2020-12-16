@@ -20,7 +20,6 @@ function ProfileContent({ paramsID }) {
     }
   }, [posts]);
 
-  console.log(masterposts);
   let filterTags = [];
   let filterPosts = [];
   searchtags.map((searchtag) => {
@@ -39,7 +38,6 @@ function ProfileContent({ paramsID }) {
     //將tag 放進 filterTags array裡
   } else {
     filterPosts = masterposts;
-    console.log('post');
   }
   // let filterPosts = [];
   // if (clickedTabs === 'All') {

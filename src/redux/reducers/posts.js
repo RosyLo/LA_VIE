@@ -10,18 +10,14 @@ const posts = (state = [], action) => {
     }
 
     case EDIT_POST: {
-      console.log('EDIT_POST');
-      console.log(state);
       let editPostList = state.map((post) => {
         console.log(post);
         if (post.postID === action.payload.post.postID) {
           console.log(action.payload.post);
           return action.payload.post;
-          // return {post , action.payload}
         }
         return post;
       });
-      console.log(editPostList);
       return editPostList;
     }
 

@@ -15,6 +15,7 @@ function StoryBar({ paramsID }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const stories = useSelector((state) => state.stories);
+  console.log(stories);
   const masterposts = useSelector((state) => state.masterposts);
   const [isMakeStoryClick, setisMakeStoryClick] = useState(false);
   const containRef = React.useRef(null);

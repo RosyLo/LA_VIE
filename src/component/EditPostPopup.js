@@ -9,7 +9,7 @@ import { StyleModal } from './PopupModal';
 import { nanoid } from 'nanoid';
 import ChooseTags from './ChooseTags';
 
-function EditPostPopup({ editPostID, setisEditClick, isEditClick }) {
+function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, setEditStory }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const editpost = posts.find((post) => post.postID === editPostID);
@@ -166,6 +166,8 @@ EditPostPopup.propTypes = {
   editPostID: PropTypes.string.isRequired,
   setisEditClick: PropTypes.func.isRequired,
   isEditClick: PropTypes.bool.isRequired,
+  editStory: PropTypes.string.isRequired,
+  setEditStory: PropTypes.object.isRequired,
 };
 
 export default EditPostPopup;

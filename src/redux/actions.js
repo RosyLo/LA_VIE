@@ -13,6 +13,7 @@ import {
   RECIEVED_MASTERPOSTS,
   ADD_STORY,
   DELETE_STORY,
+  EDIT_STORY,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -340,7 +341,6 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
       });
     })
     .then(() => {
-      console.log(story);
       dispatch({
         type: RECIEVED_STORIES,
         payload: { story },
@@ -364,8 +364,6 @@ export const addStory = (addedstory) => (dispatch, getState) => {
     .add(story)
     .then((docRef) => {
       story.storyID = docRef.id;
-      console.log(docRef.id);
-      console.log(story.storyID);
       ref.doc(docRef.id).update({
         storyID: docRef.id,
       });
@@ -405,6 +403,87 @@ export const deleteStory = (deleteStory, setisStoryDeleteClick) => (dispatch, ge
     });
 };
 
-// export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
+export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
+  console.log(story);
+  const { user } = getState();
+  const { masterposts } = getState();
+  if (!user) return;
+  //set db
+  const ref = db.collection('Story').doc(story.storyID);
+  ref
+    .update(story)
+    .then(() => {
+      console.log('update data successful');
+      let stateStory = story;
+      let stateStoryStories = [];
+      stateStory.stories.map((postID) => {
+        masterposts.map((masterPost) => {
+          if (masterPost.postID === postID) {
+            stateStoryStories.push(masterPost);
+          }
+        });
+      });
+      stateStory.stories = stateStoryStories;
+      console.log(stateStory);
+      return stateStory;
+    })
+    .then((stateStory) => {
+      //set state
+      dispatch({ type: EDIT_STORY, payload: { stateStory } });
+    });
+};
 
-// }
+// export const editPost = (editPostID, image, imageURL, newMsg, newTag, postTime) => (
+//   dispatch,
+//   getState,
+// ) => {
+//   const { user } = getState();
+
+//   if (!user) return;
+//   let post = {};
+//   if (image === null) {
+//     post = {
+//       postID: editPostID,
+//       postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
+//       postIssuer: {
+//         postIssuerID: user.uid,
+//         postIssuerImage: user.photoURL,
+//         postIssuerName: user.displayName,
+//       },
+//       postMessage: newMsg,
+//       postTag: newTag,
+//       postLikes: [],
+//       postTime: postTime,
+//     };
+//     console.log(post);
+//     const ref = db.collection('Post').doc(editPostID);
+//     ref.update(post).then(() => {
+//       console.log('update data successful');
+//       dispatch({ type: EDIT_POST, payload: { post } });
+//     });
+//     dispatch(tagProcess(newTag, post.postID));
+//   } else {
+//     uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
+//       post = {
+//         postID: editPostID,
+//         postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: downloadURL },
+//         postIssuer: {
+//           postIssuerID: user.uid,
+//           postIssuerImage: user.photoURL,
+//           postIssuerName: user.displayName,
+//         },
+//         postMessage: newMsg,
+//         postTag: newTag,
+//         postLikes: [],
+//         postTime: postTime,
+//       };
+//       console.log(post);
+//       const ref = db.collection('Post').doc(editPostID);
+//       ref.update(post).then(() => {
+//         console.log('update data successful');
+//         dispatch({ type: EDIT_POST, payload: { post } });
+//       });
+//       dispatch(tagProcess(newTag, post.postID));
+//     });
+//   }
+// };

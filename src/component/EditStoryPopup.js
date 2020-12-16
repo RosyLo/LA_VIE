@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { addStory } from '../redux/actions';
+import { addStory, edtiStory } from '../redux/actions';
 import { MakeStoryModal } from './MakeStoryModal';
-import Image from './Image';
+import EditImage from './EditImage';
 import styles from '../style/popup.module.css';
 import Post from './Post';
 import ChooseTags from './ChooseTags';
@@ -11,20 +11,57 @@ import { nanoid } from 'nanoid';
 import StackGrid from 'react-stack-grid';
 import styled from '../style/makestory.module.css';
 
-function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
+function EditStoryPopup({
+  setIsEditStoryBlockClick,
+  isEditStoryBlockClick,
+  editStory,
+  setEditStory,
+}) {
   const dispatch = useDispatch();
-  const [storyName, setstoryName] = useState('');
+  const [storyName, setstoryName] = useState(editStory.storyName);
   const [choosedCover, setChoosedCover] = useState('');
-  const [choosedStory, setChoosedStory] = useState([]);
+  const [isCover, setIsCover] = useState(null);
   const user = useSelector((state) => state.user);
   const masterposts = useSelector((state) => state.masterposts);
-  const [makeStoryStage, setMakeStoryStage] = useState(0);
-  const story = {
-    storyID: '',
+  const [editStoryStage, setEditStoryStage] = useState(0);
+
+  let storiesID = [];
+  useEffect(() => {
+    //繞成 storyID array
+    storiesID = editStory.stories.map((post) => {
+      return post.postID;
+    });
+    setChoosedStory(storiesID);
+  }, []);
+  const [choosedStory, setChoosedStory] = useState(storiesID);
+
+  //若沒有改choosedpost，沒有image link
+  useEffect(() => {
+    //check isCover 是不是在choosedStory 裡
+    let currentPosts = [];
+    masterposts.forEach((post) => {
+      let postID = choosedStory.find((id) => id === post.postID);
+      if (postID) {
+        currentPosts.push(post);
+      }
+    });
+
+    currentPosts.map((post) => {
+      if (post.postImage.postImageLink === editStory.storyImageLink) {
+        console.log(post);
+        console.log(currentPosts);
+        setChoosedCover(editStory.storyImageLink);
+        setIsCover(editStory.storyImageLink);
+      }
+    });
+  }, [choosedStory]);
+
+  let story = {
+    storyID: editStory.storyID,
     storyName: storyName,
     storyImageLink: choosedCover,
     storyIssuerID: user.uid,
-    createTime: '',
+    createTime: editStory.createTime,
     stories: choosedStory,
   };
 
@@ -34,7 +71,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       <button
         className={styled.decideButton}
         onClick={() => {
-          setisMakeStoryClick(false);
+          setIsEditStoryBlockClick(false);
         }}>
         Cancel
       </button>
@@ -42,7 +79,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       <button
         className={styled.decideButton}
         onClick={() => {
-          setMakeStoryStage(1);
+          setEditStoryStage(1);
           console.log(0);
         }}>
         Next
@@ -51,7 +88,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
   );
 
   const chooseStory = (postID) => {
-    console.log(choosedStory);
     if (choosedStory.includes(postID)) {
       let newchoosedStory = choosedStory.filter((storyID) => storyID !== postID);
       setChoosedStory(newchoosedStory);
@@ -66,7 +102,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
     <>
       <div className={styled.grid}>
         {masterposts.map((post) => (
-          <Image
+          <EditImage
             key={post.postID}
             post={post}
             choosedStory={choosedStory}
@@ -88,7 +124,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       <button
         className={styled.decideButton}
         onClick={() => {
-          setMakeStoryStage(0);
+          setEditStoryStage(0);
         }}>
         Back
       </button>
@@ -96,13 +132,13 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       <button
         className={styled.decideButton}
         onClick={() => {
-          setMakeStoryStage(2);
+          setEditStoryStage(2);
         }}>
         Next
       </button>
     </>
   );
-  const [isCover, setIsCover] = useState('');
+
   const chooseCoverfunc = (post) => {
     if (post.postImage.postImageLink !== choosedCover) {
       setChoosedCover(post.postImage.postImageLink);
@@ -113,7 +149,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
   const chooseCoverPhoto = (
     <div className={styled.grid}>
       {masterposts.map((post) => (
-        <Image
+        <EditImage
           key={post.postID}
           post={post}
           choosedStory={choosedStory}
@@ -133,7 +169,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
       <button
         className={styled.decideButton}
         onClick={() => {
-          setMakeStoryStage(1);
+          setEditStoryStage(1);
         }}>
         Back
       </button>
@@ -143,15 +179,12 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
         onClick={(e) => {
           e.preventDefault();
           alert('upload success');
-          console.log(story);
-          //要dispatch
-          dispatch(addStory(story));
-          // setMakeStoryStage(2);
-          setisMakeStoryClick(false);
+          dispatch(edtiStory(story));
+          setIsEditStoryBlockClick(false);
           setstoryName('');
           setChoosedCover('');
           setChoosedStory([]);
-          setMakeStoryStage(0);
+          setEditStoryStage(0);
         }}>
         Upload
       </button>
@@ -177,7 +210,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
           id={nanoid()}
           name='text'
           autoComplete='off'
-          placeholder='Story Name ...'
+          value={storyName}
           onChange={handleMsgChange}
           className={styled.storyNameInput}></input>
       </form>
@@ -186,22 +219,22 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
 
   let title = '';
   let view = '';
-  if (makeStoryStage === 0) {
+  if (editStoryStage === 0) {
     title = choosePostTitle;
     view = choosePost;
-  } else if (makeStoryStage === 1) {
+  } else if (editStoryStage === 1) {
     title = chooseCoverTitle;
     view = chooseCoverPhoto;
-  } else if (makeStoryStage === 2) {
+  } else if (editStoryStage === 2) {
     title = storyNameingTitle;
     view = storyNameing;
   }
 
   return (
     <MakeStoryModal
-      show={isMakeStoryClick}
+      show={isEditStoryBlockClick}
       handleClose={() => {
-        setisMakeStoryClick(false);
+        setIsEditStoryBlockClick(false);
       }}>
       <div className={styles.modelWrap}>
         <div className={styles.topModel}>{title}</div>
@@ -213,9 +246,11 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
   );
 }
 
-MakeStory.propTypes = {
-  isMakeStoryClick: PropTypes.bool.isRequired,
-  setisMakeStoryClick: PropTypes.func.isRequired,
+EditStoryPopup.propTypes = {
+  editStory: PropTypes.object.isRequired,
+  setEditStory: PropTypes.func.isRequired,
+  isEditStoryBlockClick: PropTypes.bool.isRequired,
+  setIsEditStoryBlockClick: PropTypes.func.isRequired,
 };
 
-export default MakeStory;
+export default EditStoryPopup;

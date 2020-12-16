@@ -17,7 +17,7 @@ const ModalDiv = styled.div`
   left: 0;
   background-color: grey;
   opacity: 0.9;
-  z-index: 3;
+  z-index: 2000;
 `;
 
 const ContentDiv = styled.div`
@@ -31,7 +31,7 @@ const ContentDiv = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 4;
+  z-index: 2500;
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
   display:block;
