@@ -26,7 +26,7 @@ function StoryCircle({ story, circleRef }) {
             onClick={() => {
               setisStoryDeleteClick(true);
             }}>
-            <img style={{ width: '10px', height: '10px' }} src={cross}></img>
+            <img className={styles.storyDeleteCross} src={cross}></img>
           </div>
         )}
         <img

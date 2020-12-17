@@ -9,7 +9,7 @@
   display: block;
 }
 
-p {
+.comment p {
   font-size: 0.5rem;
   text-align: left;
   word-break: break-all;

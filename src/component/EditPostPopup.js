@@ -5,6 +5,7 @@ import Post from './Post';
 import { editPost } from '../redux/actions';
 import { deletePost } from '../redux/actions';
 import styles from '../style/popup.module.css';
+import styled from '../style/editpostpopup.module.css';
 import { StyleModal } from './PopupModal';
 import { nanoid } from 'nanoid';
 import ChooseTags from './ChooseTags';
@@ -34,7 +35,6 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
   };
 
   const handlePictureChange = (e) => {
-    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
     setImageURL(imageURL);
@@ -42,24 +42,26 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
 
   const choosePic = (
     <div className={styles.rightModel}>
-      <div className={styles.decideBlock}>
-        <h3>Let me Think...</h3>
-        <label htmlFor='editPictureButton' className={styles.uploadButton}>
-          Choose
-        </label>
-        <input type='file' id='editPictureButton' onChange={handlePictureChange} />
-        {imageURL ? (
-          <button
-            className={styles.decideButton}
-            onClick={(e) => {
-              setUploadViewStage(1);
-              e.stopPropagation();
-            }}>
-            Next
-          </button>
-        ) : (
-          ''
-        )}
+      <div className={styled.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
+        <div className={styles.blockTitle}>Pick the Photo</div>
+        <div className={styled.decideButtonBlock}>
+          <label htmlFor='editPictureButton' className={styles.uploadButton}>
+            Choose
+          </label>
+          <input type='file' id='editPictureButton' onChange={handlePictureChange} />
+          {imageURL ? (
+            <button
+              className={styles.decideButton}
+              onClick={(e) => {
+                setUploadViewStage(1);
+                e.stopPropagation();
+              }}>
+              Next
+            </button>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     </div>
   );
@@ -73,63 +75,70 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
   };
 
   const writeMsgTag = (
-    <div className={styles.postPopupRightModel}>
-      <textarea
-        className={styles.postMsgInput}
-        type='text'
-        id='postMsg'
-        name='postMsg'
-        cols='20'
-        rows='13'
-        value={newMsg}
-        placeholder={newMsg}
-        onChange={handleMsgChange}></textarea>
-      <div className={styles.postSearch}>
-        <ChooseTags newTag={newTag} setNewTag={setNewTag} />
+    <div className={styled.postPopupRightModel}>
+      <div className={styled.decideBlockMsg}>
+        <textarea
+          className={styled.postMsgInput}
+          type='text'
+          id='postMsg'
+          name='postMsg'
+          cols='20'
+          rows='13'
+          value={newMsg}
+          placeholder={newMsg}
+          onChange={handleMsgChange}></textarea>
+        <div className={styled.searchButtonBlock}>
+          <div className={styled.postSearch}>
+            <ChooseTags newTag={newTag} setNewTag={setNewTag} />
+          </div>
+          <div className={styles.decideButtonWrap}>
+            <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
+              Back
+            </button>
+            {newMsg && newTag ? (
+              <button
+                className={styles.decideButton}
+                onClick={() => {
+                  setUploadViewStage(2);
+                }}>
+                Next
+              </button>
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
       </div>
-      <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>
-        Back
-      </button>
-      {newMsg && newTag ? (
-        <button
-          className={styles.decideButton}
-          onClick={() => {
-            setUploadViewStage(2);
-          }}>
-          Next
-        </button>
-      ) : (
-        ''
-      )}
     </div>
   );
 
   const uploadPic = (
     <div className={styles.rightModel}>
-      <div className={styles.decideBlock}>
-        <h3>Share!</h3>
-        <p>Enrich lives with fashion!</p>
-        <button
-          className={styles.decideButton}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            alert('upload success');
-            dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, post.postTime));
-            setisEditClick(false);
-            setImageURL(null);
-            setUploadViewStage(0);
-          }}>
-          Upload
-        </button>
-        <button
-          className={styles.decideButton}
-          onClick={(e) => {
-            setUploadViewStage(1);
-            e.stopPropagation();
-          }}>
-          Back
-        </button>
+      <div className={styles.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
+        <div className={styles.blockTitle}>Share your Story!</div>
+        <div className={styled.decideButtonBlock}>
+          <button
+            className={styles.decideButton}
+            onClick={(e) => {
+              setUploadViewStage(1);
+              e.stopPropagation();
+            }}>
+            Back
+          </button>
+          <button
+            className={styles.decideButton}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              alert('upload success');
+              dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, post.postTime));
+              setisEditClick(false);
+              setImageURL(null);
+              setUploadViewStage(0);
+            }}>
+            Upload
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -151,7 +160,7 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
       }}>
       <div className={styles.modelWrap}>
         <div className={styles.topModel}></div>
-        <div className={styles.buttonModal}>
+        <div className={styled.buttonModal}>
           <div className={styles.leftModel}>
             <Post post={post} isFromEdit={true} />
           </div>

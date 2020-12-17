@@ -60,7 +60,6 @@ const Header = () => {
               }}>
               <div
                 className='deletePost'
-                style={{ fontFamily: 'Apple Chancery, sans-serif' }}
                 onClick={() => {
                   dispatch(logout());
                 }}>

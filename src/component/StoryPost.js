@@ -7,7 +7,7 @@ import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
 import more from '../img/more.png';
 import styles from '../style/storybar.module.css';
-import { StyleEditBlock } from './EditBlockCompo';
+import { StyleEditBlock } from './EditStoryCompo';
 import { edtiStory } from '../redux/actions';
 import { MakeStoryModal } from './MakeStoryModal';
 import EditStoryPopup from './EditStoryPopup';
@@ -56,50 +56,51 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
               onClick={() => {
                 setIsEditStoryBlockClick(true);
                 setEditStory(story);
-                console.log('edit');
               }}>
               Edit
             </div>
           </StyleEditBlock>
         </div>
 
-        <img
-          src={rightarrow}
-          className={styles.rightarrow}
-          onClick={() => {
-            setCurrentIndex(currentIndex + 1);
-          }}
-        />
+        <div className={styles.storyBlockWrap}>
+          <img
+            src={rightarrow}
+            className={styles.rightarrow}
+            onClick={() => {
+              setCurrentIndex(currentIndex + 1);
+            }}
+          />
 
-        <img
-          src={leftarrow}
-          className={styles.leftarrow}
-          onClick={() => {
-            setCurrentIndex(currentIndex - 1);
-          }}
-        />
+          <img
+            src={leftarrow}
+            className={styles.leftarrow}
+            onClick={() => {
+              setCurrentIndex(currentIndex - 1);
+            }}
+          />
 
-        {isStoryClick ? (
-          <div style={{ margin: 'auto', width: '420px' }}>
-            <Stories
-              loop
-              keyboardNavigation
-              defaultInterval={8000}
-              stories={postLists}
-              onStoryEnd={(s, st) => console.log('story ended', s, st)}
-              onAllStoriesEnd={(s, st) => console.log('all stories ended', s, st)}
-              onStoryStart={(s, st) => console.log('story started', s, st)}
-              currentIndex={currentIndex}
-              storyStyles={{
-                width: '360px',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-            />
-          </div>
-        ) : (
-          ''
-        )}
+          {isStoryClick ? (
+            <div style={{ margin: 'auto', width: '420px' }}>
+              <Stories
+                loop
+                keyboardNavigation
+                defaultInterval={8000}
+                stories={postLists}
+                onStoryEnd={(s, st) => console.log('story ended', s, st)}
+                onAllStoriesEnd={(s, st) => console.log('all stories ended', s, st)}
+                onStoryStart={(s, st) => console.log('story started', s, st)}
+                currentIndex={currentIndex}
+                storyStyles={{
+                  width: '360px',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
       </StoryModal>
 
       {isEditStoryBlockClick && (

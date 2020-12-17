@@ -6,9 +6,9 @@ import EditPostBar from './EditPostBar';
 import Comment from './Comment';
 import Commenting from './Commenting';
 import { deletePost } from '../redux/actions';
-import styles from '../style/editpostpopup.module.css';
 import { StyleModal } from './PopupModal';
-import poststyles from '../style/post.module.css';
+import styles from '../style/editpostpopup.module.css';
+// import poststyles from '../style/post.module.css';
 import postblock from '../style/postblock.module.css';
 import firebase from '../firebase';
 import { Link } from 'react-router-dom';
@@ -85,8 +85,8 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
           <div className={styles.separater}></div>
           <div className={styles.buttonModal}>
             <div className={styles.leftModel} style={{ display: 'block' }}>
-              <div>
-                <img className={styles.postPicture} src={clickpost.postImage.postImageLink} />
+              <div className={postblock.postPictureWrap}>
+                <img className={postblock.postPicture} src={clickpost.postImage.postImageLink} />
               </div>
               <div className={postblock.messageBlock}>
                 {postMessage}

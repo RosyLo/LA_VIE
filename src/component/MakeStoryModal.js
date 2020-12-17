@@ -22,7 +22,8 @@ const ModalDiv = styled.div`
 
 const ContentDiv = styled.div`
   background-color: white;
-  min-width: 400px;
+  min-width: 300px;
+  max-width: 1000px;
   width:70%;
   padding:1.5%;
   align-items:center
@@ -35,16 +36,16 @@ const ContentDiv = styled.div`
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
   display:block;
-
+  background: rgb(250,250,250)
 `;
 
 export const MakeStoryModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <ModalWrap show={show}>
       <ContentDiv>
-        <button className={styles.cancelButton} onClick={handleClose}>
-          <img style={{ width: '10px', height: '10px' }} src={cross}></img>
-        </button>
+        <div className={styles.cancelButton} onClick={handleClose}>
+          <img className={styles.cancelButtonImg} src={cross}></img>
+        </div>
         {children}
       </ContentDiv>
       <ModalDiv></ModalDiv>

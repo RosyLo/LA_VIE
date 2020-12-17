@@ -27,13 +27,13 @@ function SearchTags() {
       // match with the menu
       borderRadius: state.isFocused ? '3px 3px 0 0' : 3,
       // Overwrittes the different states of border
-      borderColor: state.isFocused ? 'black' : ' rgb(187,187,187)',
+      borderColor: ' rgb(239,239,239)',
       borderRadius: '8px',
       // Removes weird border around container
       boxShadow: state.isFocused ? null : null,
       '&:hover': {
         // Overwrittes the different states of border
-        borderColor: state.isFocused ? 'rgb(187, 140, 47)' : 'black',
+        borderColor: 'rgb(187, 140, 47)',
       },
     }),
     menu: (base) => ({

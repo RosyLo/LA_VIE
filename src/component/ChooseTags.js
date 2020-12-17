@@ -16,13 +16,55 @@ function ChooseTags({ newTag, setNewTag }) {
     console.groupEnd();
   };
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      background: ' rgb(250,250,250)',
+      // match with the menu
+      borderRadius: state.isFocused ? '3px 3px 0 0' : 3,
+      // Overwrittes the different states of border
+      borderColor: 'rgb(239,239,239)',
+      borderRadius: '8px',
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+      '&:hover': {
+        // Overwrittes the different states of border
+        borderColor: 'rgb(187, 140, 47)',
+      },
+    }),
+    menu: (base) => ({
+      ...base,
+      // override border radius to match the box
+      borderRadius: '5px',
+      // kill the gap
+      marginTop: 0,
+    }),
+    menuList: (base) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0,
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+      ...styles,
+      // backgroundColor: isDisabled ? 'red' : 'blue',
+      cursor: isDisabled ? 'not-allowed' : 'default',
+    }),
+    multiValue: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+      ...styles,
+      border: 'none',
+      background: 'rgb(250,250,250)',
+      cursor: isDisabled ? 'not-allowed' : 'default',
+    }),
+  };
+
   return (
     <CreatableSelect
       isClearable
       onChange={handleChange}
       onInputChange={handleInputChange}
       options={tags}
-      placeholder={newTag.value}
+      placeholder='Choose Tag'
+      styles={customStyles}
     />
   );
 }

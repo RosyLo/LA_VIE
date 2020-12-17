@@ -10,7 +10,6 @@ button:focus {
 
 .topModel {
   height: 50px;
-
   width: 100%;
   display: flex;
   align-items: center;
@@ -27,6 +26,7 @@ button:focus {
 .buttonModal {
   display: flex;
   width: 100%;
+  /* min-height: 620px; */
   justify-content: space-between;
 }
 
@@ -34,13 +34,6 @@ button:focus {
   width: 48%;
   align-items: center;
   justify-content: center;
-}
-
-.postPicture {
-  /* width: 100%; */
-  max-width: 100%;
-  display: block;
-  margin-top: 10px;
 }
 
 .rightModel {
@@ -57,7 +50,6 @@ button:focus {
 }
 .postTime {
   font-size: 10px;
-  font-family: 'Apple Chancery', sans-serif;
 }
 .cancelButton {
   cursor: pointer;
@@ -75,6 +67,11 @@ button:focus {
   height: 15px;
 
   float: right;
+}
+
+.deleteBlockSubTitle {
+  margin-top: 0px;
+  margin-bottom: 5px;
 }
 
 .decideBlock input {
@@ -117,6 +114,57 @@ button:focus {
   cursor: pointer;
   padding: 5px;
 }
+.postPopupRightModel {
+  width: 50%;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  /* border: cornflowerblue 1px solid; */
+}
+.decideBlock {
+  /* border: black 1px solid; */
+  width: 100%;
+  height: 100%;
+  /* align-items: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding: 10px; */
+}
+.decideBlockMsg {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.postMsgInput {
+  width: 98%;
+  border: 1px solid rgba(239, 239, 239);
+  border-radius: 5px;
+  background: rgba(250, 250, 250);
+  font-size: 18px;
+  max-height: 250px;
+}
+.postMsgInput:hover {
+  outline: none;
+  border: rgb(187, 140, 47) 1px solid;
+}
+
+.postMsgInput:focus {
+  outline: none;
+  border: rgb(187, 140, 47) 1px solid;
+}
+.postSearch {
+  width: 99%;
+  margin: 10px auto;
+}
+.searchButtonBlock {
+  width: 100%;
+}
 
 @media (max-width: 768px) {
   .buttonModal {
@@ -130,5 +178,51 @@ button:focus {
   .rightModel {
     width: 100%;
     min-height: 200px;
+  }
+
+  .postPopupRightModel {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    justify-content: center;
+    border: cornflowerblue 1px solid;
+  }
+  .decideBlockMsg {
+    /* border: black 1px solid; */
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    /* padding: 10px; */
+  }
+  .postMsgInput {
+    width: 98%;
+    border: 1px solid rgba(239, 239, 239);
+    border-radius: 5px;
+    background: rgba(250, 250, 250);
+    font-size: 18px;
+    max-height: 90%;
+  }
+  .postSearch {
+    width: 99%;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .decideButton {
+    background-color: black;
+    width: 60px;
+    color: white;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    content: 'Select some files';
+    cursor: pointer;
+    padding: 5px;
   }
 }

@@ -17,22 +17,23 @@ const ModalDiv = styled.div`
   left: 0;
   background-color: grey;
   opacity: 0.9;
-  z-index: 3;
+  z-index: 4;
 `;
 
 const ContentDiv = styled.div`
+max-width: 800px;
   min-width: 300px;
-  max-width: 800px;
   max-height:800px;
+  max-width: 800px;
   width:70%;
   padding:2%;
   align-items:center
-  max-width: 800px;
+  max-width: 70%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 4;
+  z-index: 5;
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
   display:block;
@@ -40,7 +41,7 @@ const ContentDiv = styled.div`
 
 `;
 
-export const StyleModal = ({ handleClose, show, children }) => {
+export const EditPostModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <ModalWrap show={show}>
       <ContentDiv>
@@ -55,7 +56,7 @@ export const StyleModal = ({ handleClose, show, children }) => {
   );
 };
 
-StyleModal.propTypes = {
+EditPostModal.propTypes = {
   handleClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.object,

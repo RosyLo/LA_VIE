@@ -1,12 +1,12 @@
 .profileShowWrap {
   margin-top: 30px;
   height: 300px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .profileShow {
   height: 300px;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 70%;
   margin: auto;
   display: flex;
@@ -60,7 +60,6 @@
   top: 130px;
   right: 260px;
   z-index: 2;
-  font-family: 'Apple Chancery', sans-serif;
 }
 
 @media (max-width: 425px) {
