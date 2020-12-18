@@ -146,21 +146,23 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
   }
 
   return (
-    <StyleModal
-      show={isUploadPopupClick}
-      handleClose={() => {
-        setisUploadPopupClick(false);
-      }}>
-      <div className={styles.modelWrap}>
-        <div className={styles.topModel}></div>
-        <div className={styles.buttonModal}>
-          <div className={styles.leftModel}>
-            <Post post={post} isFromUpload={true} />
+    <>
+      <StyleModal
+        show={isUploadPopupClick}
+        handleClose={() => {
+          setisUploadPopupClick(false);
+        }}>
+        <div className={styles.modelWrap}>
+          <div className={styles.topModel}></div>
+          <div className={styles.buttonModal}>
+            <div className={styles.leftModel}>
+              <Post post={post} isFromUpload={true} />
+            </div>
+            {view}
           </div>
-          {view}
         </div>
-      </div>
-    </StyleModal>
+      </StyleModal>
+    </>
   );
 }
 

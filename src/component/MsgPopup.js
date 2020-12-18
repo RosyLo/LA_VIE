@@ -30,10 +30,10 @@ const ContentDiv = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 12;
+  z-index: 55;
     background:white;
   display:block;
-  border-radius:55px
+  border-radius:10px
 
 `;
 

@@ -5,15 +5,27 @@ import EditPostPopup from './EditPostPopup';
 import more from '../img/more.png';
 import { StyleEditBlock } from './EditBlockCompo';
 import DeletePopup from './DeletePopup';
+import { MsgPopup } from './MsgPopup';
+import styled from '../style/popup.module.css';
+import msgPopStyles from '../style/msgPopWrap.module.css';
 
-function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
+function EditPostBar({
+  postID,
+  postIssuerID,
+  clickEdit,
+  setclickEdit,
+  isDeletePopup,
+  setIsDeletePopup,
+}) {
   const user = useSelector((state) => state.user);
   //click edit
   const [isEditClick, setisEditClick] = useState(false);
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
+  const [isUploadPopup, setIsUploadPopup] = useState(false);
 
   return (
     <>
+      {isDeletePopup}
       {user && user.uid === postIssuerID && (
         <>
           <div
@@ -48,6 +60,7 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
                   setisEditClick={setisEditClick}
                   isEditClick={isEditClick}
                   editPostID={postID}
+                  setIsUploadPopup={setIsUploadPopup}
                 />
               ) : (
                 ''
@@ -57,6 +70,7 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
                   setisDeletePopupClick={setisDeletePopupClick}
                   isDeletePopupClick={isDeletePopupClick}
                   deletePostID={postID}
+                  setIsDeletePopup={setIsDeletePopup}
                 />
               ) : (
                 ''
@@ -67,6 +81,25 @@ function EditPostBar({ postID, postIssuerID, clickEdit, setclickEdit }) {
           )}
         </>
       )}
+      {/* EditPostPopup */}
+      <MsgPopup
+        show={isUploadPopup}
+        handleClose={() => {
+          setisUploadPopup(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>Update Successful!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setIsUploadPopup(false);
+              }}>
+              OK
+            </button>
+          </div>
+        </div>
+      </MsgPopup>
     </>
   );
 }
@@ -77,6 +110,8 @@ EditPostBar.propTypes = {
   setDeletePost: PropTypes.func,
   setclickEdit: PropTypes.func,
   clickEdit: PropTypes.string,
+  isDeletePopup: PropTypes.bool,
+  setIsDeletePopup: PropTypes.func,
 };
 
 export default EditPostBar;

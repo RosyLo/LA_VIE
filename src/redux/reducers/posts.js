@@ -22,7 +22,7 @@ const posts = (state = [], action) => {
     }
 
     case RECIEVED_POSTS: {
-      return action.payload.posts;
+      return action.payload.postsList;
     }
     case TOGGLE_LIKE_POST: {
       return state.map((post) => {

@@ -1,16 +1,19 @@
 .comment {
   display: flex;
+  align-items: center;
   /* width: 100%; */
   /* padding: 5px; */
   padding: 0 5%;
   text-align: center;
+  min-height: 40px;
+  font-size: 0.8rem;
+  border: 1px solid black;
 }
-.comment:hover .deleteComment {
+/* .comment:hover .deleteComment {
   display: block;
-}
+} */
 
 .comment p {
-  font-size: 0.5rem;
   text-align: left;
   word-break: break-all;
 }
@@ -19,14 +22,16 @@
   font-size: bold;
   margin-right: 3px;
   min-width: 60px;
+  background-color: blueviolet;
 }
 .commentImage {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   z-index: 100;
   border-radius: 50%;
   margin-right: 10px;
   margin-top: 5px;
+  background-color: brown;
 }
 
 .commentMsg {
@@ -36,7 +41,9 @@
   width: 10px;
   height: 10px;
   margin-top: 10px;
-  display: none;
+  display: block;
+  /* display: none; */
+  background-color: chocolate;
 }
 .commentMsg:focus {
   outline: 0.5px solid transparent;

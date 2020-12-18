@@ -42,11 +42,13 @@ function SearchTags() {
       borderRadius: '5px',
       // kill the gap
       marginTop: 0,
+      zIndex: '10000',
     }),
     menuList: (base) => ({
       ...base,
       // kill the white space on first and last option
       padding: 0,
+      zIndex: '10000',
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
       ...styles,
@@ -62,7 +64,7 @@ function SearchTags() {
   };
 
   return (
-    <div className={styles.search}>
+    <div className={styles.search} styles={{ zIndex: '10000' }}>
       {' '}
       <CreatableSelect
         isMulti

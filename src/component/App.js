@@ -4,17 +4,9 @@ import Header from './Header';
 import PostList from './PostList';
 import Profile from './Profile';
 import Welcome from './Welcome';
-import { fetchPosts, receiveTags } from '../redux/actions';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPosts());
-    dispatch(receiveTags());
-  }, [dispatch]);
-
   return (
     <Router>
       <Header />

@@ -6,6 +6,10 @@ import StackGrid from 'react-stack-grid';
 import Post from './Post';
 import { fetchMasterPosts } from '../redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import Loading from './Loading';
+import { MsgPopup } from './MsgPopup';
+import styled from '../style/popup.module.css';
+import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function ProfileContent({ paramsID }) {
   const dispatch = useDispatch();
@@ -13,12 +17,16 @@ function ProfileContent({ paramsID }) {
   const [clickEdit, setclickEdit] = useState('');
   const masterposts = useSelector((state) => state.masterposts);
   const searchtags = useSelector((state) => state.searchtags);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isDeletePopup, setIsDeletePopup] = useState(false);
 
   useEffect(() => {
-    if (posts.length > 0) {
-      dispatch(fetchMasterPosts(paramsID));
-    }
-  }, [posts]);
+    setTimeout(() => setIsLoading(false), 3000);
+  }, [masterposts]);
+
+  useEffect(() => {
+    dispatch(fetchMasterPosts(paramsID));
+  }, [dispatch]);
 
   let filterTags = [];
   let filterPosts = [];
@@ -39,62 +47,50 @@ function ProfileContent({ paramsID }) {
   } else {
     filterPosts = masterposts;
   }
-  // let filterPosts = [];
-  // if (clickedTabs === 'All') {
-  //   filterPosts = posts;
-  // } else {
-  //   filterPosts = posts.filter(
-  //     (post) => paramsID === post.postIssuer.postIssuerID && post.postTag === clickedTabs,
-  //   );
-  // }
 
   return (
     <>
-      {/* <div className={styles.tabs}>
-        <div
-          className={styles.tab}
-          style={{ borderLeft: '1px solid black' }}
-          onClick={() => {
-            setClickedTabs('All');
-          }}>
-          All
+      {isLoading === false ? (
+        <div className={styles.postWrap}>
+          <StackGrid
+            columnWidth={300}
+            gutterWidth={30}
+            gutterHeight={30}
+            monitorImagesLoaded={true}>
+            {filterPosts.map((post) => (
+              <Post
+                key={post.postID}
+                post={post}
+                clickEdit={clickEdit}
+                setclickEdit={setclickEdit}
+                setIsDeletePopup={setIsDeletePopup}
+              />
+            ))}
+          </StackGrid>
         </div>
-        <div
-          className={styles.tab}
-          onClick={() => {
-            setClickedTabs('OUTFIT');
-          }}>
-          OUTFIT
+      ) : (
+        <div className={styles.loading}></div>
+      )}
+
+      {/* DeletePopup */}
+      <MsgPopup
+        show={isDeletePopup}
+        handleClose={() => {
+          setIsDeletePopup(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>Delete Successful!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setIsDeletePopup(false);
+              }}>
+              OK
+            </button>
+          </div>
         </div>
-        <div
-          className={styles.tab}
-          onClick={() => {
-            setClickedTabs('FOODIE');
-          }}>
-          FOODIE
-        </div>
-        <div
-          className={styles.tab}
-          onClick={() => {
-            setClickedTabs('MAKEUP');
-          }}>
-          MAKEUP
-        </div>
-        <div
-          className={styles.tab}
-          onClick={() => {
-            setClickedTabs('TRAVEL');
-          }}>
-          TRAVEL
-        </div>
-      </div> */}
-      <div className={styles.postWrap}>
-        <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={30} monitorImagesLoaded={true}>
-          {filterPosts.map((post) => (
-            <Post key={post.postID} post={post} clickEdit={clickEdit} setclickEdit={setclickEdit} />
-          ))}
-        </StackGrid>
-      </div>
+      </MsgPopup>
     </>
   );
 }

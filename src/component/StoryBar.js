@@ -9,13 +9,13 @@ import styles from '../style/storybar.module.css';
 import plus from '../img/plus.png';
 import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
+import Loading from './Loading';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 function StoryBar({ paramsID }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const stories = useSelector((state) => state.stories);
-  console.log(stories);
   const masterposts = useSelector((state) => state.masterposts);
   const [isMakeStoryClick, setisMakeStoryClick] = useState(false);
   const containRef = React.useRef(null);
@@ -25,6 +25,12 @@ function StoryBar({ paramsID }) {
   const circleRef = React.useRef(null);
 
   const [constainMargin, setconstainMargin] = useState(0);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 3000);
+  }, [stories]);
 
   let targetElement;
   useEffect(() => {
@@ -92,27 +98,36 @@ function StoryBar({ paramsID }) {
           storyBarScrollLeft();
         }}
       />
-      <div className={styles.storyCircleWrap} ref={wrapRef}>
-        <div className={styles.storyCircleContain} ref={containRef}>
-          <div>
-            {user.uid === paramsID ? (
-              <img
-                className={styles.storyCircle}
-                src={plus}
-                onClick={() => {
-                  setisMakeStoryClick(true);
-                  disableBodyScroll(targetElement);
-                }}
-              />
-            ) : (
-              ''
-            )}
+      {isLoading === false ? (
+        <div className={styles.storyCircleWrap} ref={wrapRef}>
+          <div className={styles.storyCircleContain} ref={containRef}>
+            <div>
+              {user.uid === paramsID ? (
+                <div className={styles.storyCircle}>
+                  <img
+                    className={styles.storyCirclePlus}
+                    src={plus}
+                    onClick={() => {
+                      console.log('add');
+                      setisMakeStoryClick(true);
+                      disableBodyScroll(targetElement);
+                    }}
+                  />
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+            {stories.map((story) => (
+              <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
+            ))}
           </div>
-          {stories.map((story) => (
-            <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
-          ))}
         </div>
-      </div>
+      ) : (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      )}
     </div>
   );
 }

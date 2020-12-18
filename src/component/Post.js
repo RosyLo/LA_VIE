@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Heart from './Heart';
 import Comment from './Comment';
@@ -19,13 +19,14 @@ function Post({
   isfromWelcome,
   clickEdit,
   setclickEdit,
+  isDeletePopup,
+  setIsDeletePopup,
 }) {
   const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
   const user = useSelector((state) => state.user);
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
   const [isPostClick, setisPostClick] = useState(false);
-  console.log(isFromEdit);
   return (
     <>
       <div className={styles.post}>
@@ -58,6 +59,8 @@ function Post({
               postIssuerID={postIssuer.postIssuerID}
               clickEdit={clickEdit}
               setclickEdit={setclickEdit}
+              isDeletePopup={isDeletePopup}
+              setIsDeletePopup={setIsDeletePopup}
             />
           )}
         </div>
@@ -152,10 +155,12 @@ Post.propTypes = {
   }),
   setDeletePost: PropTypes.func,
   setclickEdit: PropTypes.func,
+  setIsDeletePopup: PropTypes.func,
   isFromDelete: PropTypes.bool,
   isFromUpload: PropTypes.bool,
   isFromEdit: PropTypes.bool,
   isfromWelcome: PropTypes.bool,
+  isDeletePopup: PropTypes.bool,
   clickEdit: PropTypes.string,
 };
 

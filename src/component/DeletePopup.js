@@ -7,7 +7,12 @@ import styles from '../style/popup.module.css';
 import { StyleModal } from './PopupModal';
 import styled from '../style/editpostpopup.module.css';
 
-function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }) {
+function DeletePopup({
+  deletePostID,
+  setisDeletePopupClick,
+  isDeletePopupClick,
+  setIsDeletePopup,
+}) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const deletepost = posts.find((post) => post.postID === deletePostID);
@@ -41,6 +46,7 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
                   className={styles.decideButton}
                   onClick={() => {
                     dispatch(deletePost(deletepost, setisDeletePopupClick));
+                    setIsDeletePopup(true);
                   }}>
                   Delete
                 </button>
@@ -56,6 +62,7 @@ function DeletePopup({ deletePostID, setisDeletePopupClick, isDeletePopupClick }
 DeletePopup.propTypes = {
   deletePostID: PropTypes.string.isRequired,
   setisDeletePopupClick: PropTypes.func.isRequired,
+  setIsDeletePopup: PropTypes.func.isRequired,
   isDeletePopupClick: PropTypes.bool.isRequired,
 };
 

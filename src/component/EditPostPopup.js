@@ -10,13 +10,21 @@ import { StyleModal } from './PopupModal';
 import { nanoid } from 'nanoid';
 import ChooseTags from './ChooseTags';
 
-function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, setEditStory }) {
+function EditPostPopup({
+  editPostID,
+  setisEditClick,
+  isEditClick,
+  editStory,
+  setEditStory,
+  setIsUploadPopup,
+}) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const editpost = posts.find((post) => post.postID === editPostID);
   const [uploadViewStage, setUploadViewStage] = useState(0);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(editpost.postImage.postImageLink);
+
   const post = {
     postID: editpost.postID,
     postImage: {
@@ -128,10 +136,20 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
           <button
             className={styles.decideButton}
             onClick={(e) => {
+              setIsUploadPopup(true);
               e.preventDefault();
               e.stopPropagation();
-              alert('upload success');
-              dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, post.postTime));
+              dispatch(
+                editPost(
+                  editPostID,
+                  image,
+                  imageURL,
+                  newMsg,
+                  newTag,
+                  post.postTime,
+                  setIsUploadPopup,
+                ),
+              );
               setisEditClick(false);
               setImageURL(null);
               setUploadViewStage(0);
@@ -153,27 +171,30 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, editStory, set
   }
 
   return (
-    <StyleModal
-      show={isEditClick}
-      handleClose={() => {
-        setisEditClick(false);
-      }}>
-      <div className={styles.modelWrap}>
-        <div className={styles.topModel}></div>
-        <div className={styled.buttonModal}>
-          <div className={styles.leftModel}>
-            <Post post={post} isFromEdit={true} />
+    <>
+      <StyleModal
+        show={isEditClick}
+        handleClose={() => {
+          setisEditClick(false);
+        }}>
+        <div className={styles.modelWrap}>
+          <div className={styles.topModel}></div>
+          <div className={styled.buttonModal}>
+            <div className={styles.leftModel}>
+              <Post post={post} isFromEdit={true} />
+            </div>
+            {view}
           </div>
-          {view}
         </div>
-      </div>
-    </StyleModal>
+      </StyleModal>
+    </>
   );
 }
 
 EditPostPopup.propTypes = {
   editPostID: PropTypes.string.isRequired,
   setisEditClick: PropTypes.func.isRequired,
+  setIsUploadPopup: PropTypes.func.isRequired,
   isEditClick: PropTypes.bool.isRequired,
   editStory: PropTypes.string.isRequired,
   setEditStory: PropTypes.object.isRequired,

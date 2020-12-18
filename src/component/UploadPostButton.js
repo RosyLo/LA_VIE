@@ -3,22 +3,45 @@ import PropTypes from 'prop-types';
 import UploadPostBlock from './UploadPostBlock';
 import styles from '../style/header.module.css';
 import plus from '../img/plus.png';
+import { MsgPopup } from './MsgPopup';
+import styled from '../style/popup.module.css';
+import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function UploadPostButton() {
   const [isUploadPopupClick, setisUploadPopupClick] = useState(false);
-
+  const [isUploadPopup, setisUploadPopup] = useState(false);
   return (
     <>
       <div
+        className={styles.navIcon}
         onClick={() => {
           setisUploadPopupClick(true);
         }}>
-        <img className={styles.navIcon} src={plus} />
+        <img className={styles.storyCirclePlus} src={plus} />
       </div>
       <UploadPostBlock
         setisUploadPopupClick={setisUploadPopupClick}
         isUploadPopupClick={isUploadPopupClick}
       />
+      {/* EditPostPopup */}
+      <MsgPopup
+        show={isUploadPopup}
+        handleClose={() => {
+          setisUploadPopup(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>Update Successful!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setIsUploadPopup(false);
+              }}>
+              OK
+            </button>
+          </div>
+        </div>
+      </MsgPopup>
     </>
   );
 }

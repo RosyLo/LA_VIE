@@ -55,36 +55,81 @@ export const logout = () => (dispatch) => {
   window.location = '/welcome';
 };
 
-export const fetchPosts = () => (dispatch) => {
-  const posts = [];
-  db.collection('Post')
-    .orderBy('postTime', 'desc')
-    .get()
-    .then((snap) => {
-      snap.forEach((post) => {
-        const postData = {
-          postID: post.id,
-          postImage: post.data().postImage,
-          postIssuer: post.data().postIssuer,
-          postMessage: post.data().postMessage,
-          postTag: post.data().postTag,
-          postLikes: post.data().postLikes || [],
-          postTime: post.data().postTime,
-        };
-        if (typeof postData.postTime !== 'string') {
-          let date = postData.postTime.toDate();
-          let shortTime = date.toDateString();
-          postData.postTime = shortTime;
-          posts.push(postData);
-        }
+export const fetchPosts = (lastVisible, setLastVisible, lastSnap, setLastSnap) => (
+  dispatch,
+  getState,
+) => {
+  const { posts } = getState();
+  if (lastVisible === 0) {
+    console.log('last visible equal zero!');
+    const postsList = [];
+    db.collection('Post')
+      .orderBy('postTime', 'desc')
+      //初始拿到10筆
+      .limit(10)
+      .get()
+      .then((snap) => {
+        snap.forEach((post) => {
+          const postData = {
+            postID: post.id,
+            postImage: post.data().postImage,
+            postIssuer: post.data().postIssuer,
+            postMessage: post.data().postMessage,
+            postTag: post.data().postTag,
+            postLikes: post.data().postLikes || [],
+            postTime: post.data().postTime,
+          };
+          if (typeof postData.postTime !== 'string') {
+            let date = postData.postTime.toDate();
+            let shortTime = date.toDateString();
+            postData.postTime = shortTime;
+          }
+          postsList.push(postData);
+        });
+        setLastSnap(snap.docs[9]);
+      })
+      .then(() => {
+        dispatch({
+          type: RECIEVED_POSTS,
+          payload: { postsList },
+        });
       });
-    })
-    .then(() => {
-      dispatch({
-        type: RECIEVED_POSTS,
-        payload: { posts },
+  } else if (lastSnap) {
+    console.log('else start, the last visible is', lastVisible);
+    let postsList = [...posts];
+    db.collection('Post')
+      .orderBy('postTime', 'desc')
+      .startAfter(lastSnap)
+      //後面拿2筆
+      .limit(10)
+      .get()
+      .then((snap) => {
+        snap.forEach((post) => {
+          const postData = {
+            postID: post.id,
+            postImage: post.data().postImage,
+            postIssuer: post.data().postIssuer,
+            postMessage: post.data().postMessage,
+            postTag: post.data().postTag,
+            postLikes: post.data().postLikes || [],
+            postTime: post.data().postTime,
+          };
+          if (typeof postData.postTime !== 'string') {
+            let date = postData.postTime.toDate();
+            let shortTime = date.toDateString();
+            postData.postTime = shortTime;
+          }
+          postsList.push(postData);
+        });
+        setLastSnap(snap.docs[snap.docs.length - 1]);
+      })
+      .then(() => {
+        dispatch({
+          type: RECIEVED_POSTS,
+          payload: { postsList },
+        });
       });
-    });
+  }
 };
 
 export const receiveTags = () => (dispatch) => {
@@ -131,7 +176,6 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
     const ref = db.collection('Post');
-    console.log(post);
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
       dispatch({ type: ADD_POST, payload: { post } });
@@ -145,12 +189,16 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
   });
 };
 
-export const editPost = (editPostID, image, imageURL, newMsg, newTag, postTime) => (
-  dispatch,
-  getState,
-) => {
+export const editPost = (
+  editPostID,
+  image,
+  imageURL,
+  newMsg,
+  newTag,
+  postTime,
+  setIsUploadPopup,
+) => (dispatch, getState) => {
   const { user } = getState();
-
   if (!user) return;
   let post = {};
   if (image === null) {
@@ -169,10 +217,16 @@ export const editPost = (editPostID, image, imageURL, newMsg, newTag, postTime) 
     };
     console.log(post);
     const ref = db.collection('Post').doc(editPostID);
-    ref.update(post).then(() => {
-      console.log('update data successful');
-      dispatch({ type: EDIT_POST, payload: { post } });
-    });
+    ref
+      .update(post)
+      .then(() => {
+        console.log('update data successful');
+        dispatch({ type: EDIT_POST, payload: { post } });
+      })
+      .then(() => {
+        console.log(setIsUploadPopup);
+        setIsUploadPopup(true);
+      });
     dispatch(tagProcess(newTag, post.postID));
   } else {
     uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
@@ -189,13 +243,20 @@ export const editPost = (editPostID, image, imageURL, newMsg, newTag, postTime) 
         postLikes: [],
         postTime: postTime,
       };
-      console.log(post);
       const ref = db.collection('Post').doc(editPostID);
-      ref.update(post).then(() => {
-        console.log('update data successful');
-        dispatch({ type: EDIT_POST, payload: { post } });
-      });
-      dispatch(tagProcess(newTag, post.postID));
+      ref
+        .update(post)
+        .then(() => {
+          console.log('update data successful');
+          dispatch({ type: EDIT_POST, payload: { post } });
+        })
+        .then(() => {
+          dispatch(tagProcess(newTag, post.postID));
+        })
+        .then(() => {
+          console.log(setIsUploadPopup);
+          setIsUploadPopup(true);
+        });
     });
   }
 };
@@ -305,13 +366,45 @@ export const editComment = (comment, commentContent) => (dispatch, getState) => 
 
 export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
   const { posts } = getState();
+  //
+  const postsList = [];
   let masterPosts = [];
-  posts.map((post) => {
-    if (post.postIssuer.postIssuerID === paramsID) {
-      masterPosts.push(post);
-    }
-  });
-  dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
+  db.collection('Post')
+    .orderBy('postTime', 'desc')
+    .get()
+    .then((snap) => {
+      snap.forEach((post) => {
+        const postData = {
+          postID: post.id,
+          postImage: post.data().postImage,
+          postIssuer: post.data().postIssuer,
+          postMessage: post.data().postMessage,
+          postTag: post.data().postTag,
+          postLikes: post.data().postLikes || [],
+          postTime: post.data().postTime,
+        };
+        if (typeof postData.postTime !== 'string') {
+          let date = postData.postTime.toDate();
+          let shortTime = date.toDateString();
+          postData.postTime = shortTime;
+        }
+        // console.log(postData);
+        postsList.push(postData);
+      });
+    })
+    .then(() => {
+      console.log(postsList);
+      //
+      postsList.map((post) => {
+        if (post.postIssuer.postIssuerID === paramsID) {
+          masterPosts.push(post);
+        }
+      });
+    })
+    .then(() => {
+      console.log(masterPosts);
+      dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
+    });
 };
 
 export const fetchStories = (paramsID) => (dispatch, getState) => {

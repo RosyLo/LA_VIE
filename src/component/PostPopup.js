@@ -20,38 +20,84 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
   const clickpost = posts.find((post) => post.postID === clickPostID);
   const [postComments, setPostComments] = useState([]);
   const [clickEdit, setclickEdit] = useState('');
+  const [lastSnap, setLastSnap] = useState('');
+  const [lastVisible, setLastVisible] = useState(0);
+  console.log(postComments.length);
+  const postCommentsLength = React.useRef(0);
 
-  let comments = [];
-
-  // first get comments
   useEffect(() => {
+    let queryOpen = false;
     const db = firebase.firestore();
-    db.collection('Comment')
-      .orderBy('commentTime', 'desc')
-      .where('postID', '==', clickPostID)
-      .get()
-      .then((querySnapshot) => {
+    let comments = [];
+    let p = db.collection('Comment').orderBy('commentTime', 'desc');
+    if (postCommentsLength.current) {
+      p = p.limit(postCommentsLength.current);
+    }
+    console.log(postCommentsLength.current);
+
+    p.onSnapshot((querySnapshot) => {
+      if (queryOpen) {
+        let refreshComments = [];
         querySnapshot.forEach((doc) => {
-          comments.push(doc.data());
+          if (doc.data().postID === postID) {
+            refreshComments.push(doc.data());
+          }
         });
-        setPostComments(comments);
-      });
-  }, []);
-
-  //add comment
-  useEffect(() => {
-    const db = firebase.firestore();
-    const ref = db.collection('Comment').orderBy('commentTime', 'desc');
-    ref.onSnapshot((querySnapshot) => {
-      let refreshComments = [];
-      querySnapshot.forEach((doc) => {
-        if (doc.data().postID === postID) {
-          refreshComments.push(doc.data());
-        }
-      });
-      setPostComments(refreshComments);
+        setPostComments(refreshComments);
+      }
     });
-  }, []);
+
+    // first get comments
+    if (lastVisible === 0) {
+      db.collection('Comment')
+        .orderBy('commentTime', 'desc')
+        .limit(10)
+        .where('postID', '==', clickPostID)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            comments.push(doc.data());
+          });
+          setPostComments(comments);
+          setLastSnap(querySnapshot.docs[9]);
+          queryOpen = true;
+          console.log(queryOpen);
+        });
+    } else if (lastSnap) {
+      let commentsList = [...postComments];
+      db.collection('Comment')
+        .orderBy('commentTime', 'desc')
+        .startAfter(lastSnap)
+        .limit(5)
+        .where('postID', '==', clickPostID)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            commentsList.push(doc.data());
+          });
+          setPostComments(commentsList);
+          setLastSnap(querySnapshot.docs[querySnapshot.docs.length - 1]);
+        });
+    }
+  }, [lastVisible]);
+
+  useEffect(() => {
+    postCommentsLength.current = postComments.length;
+  }, [postComments]);
+  //add comment
+  // useEffect(() => {
+  //   const db = firebase.firestore();
+  //   const ref = db.collection('Comment').orderBy('commentTime', 'desc');
+  //   ref.onSnapshot((querySnapshot) => {
+  //     let refreshComments = [];
+  //     querySnapshot.forEach((doc) => {
+  //       if (doc.data().postID === postID) {
+  //         refreshComments.push(doc.data());
+  //       }
+  //     });
+  //     // setPostComments(refreshComments);
+  //   });
+  // }, []);
 
   return (
     <StyleModal
@@ -82,7 +128,7 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
               ''
             )}
           </div>
-          <div className={styles.separater}></div>
+          <div className={postblock.separater}></div>
           <div className={styles.buttonModal}>
             <div className={styles.leftModel} style={{ display: 'block' }}>
               <div className={postblock.postPictureWrap}>
@@ -96,29 +142,40 @@ function PostPopup({ post, clickPostID, setisPostClick, isPostClick }) {
               </div>
             </div>
 
-            <div className={styles.rightModel}>
+            <div className={postblock.rightModel}>
               <div className={postblock.commentsWrap}>
                 {postComments
-                  ? postComments.slice(0, 10).map((postComment) => {
+                  ? // ? postComments.slice(0, 15).map((postComment) => {
+                    postComments.map((postComment) => {
                       return (
-                        <Comment
-                          key={postComment.commentID}
-                          comment={postComment}
-                          setPostComments={setPostComments}
-                          postComments={postComments}
-                        />
+                        <>
+                          <Comment
+                            key={postComment.commentID}
+                            comment={postComment}
+                            setPostComments={setPostComments}
+                            postComments={postComments}
+                          />
+                        </>
                       );
                     })
                   : ''}
-                {user ? (
-                  <>
-                    <div className={styles.separater}></div>
-                    <Commenting postID={postID} />
-                  </>
-                ) : (
-                  ''
-                )}
+                <div
+                  onClick={() => {
+                    let newLast = lastVisible + 5;
+                    setLastVisible(newLast);
+                    console.log('click');
+                  }}>
+                  +
+                </div>
               </div>
+              {user ? (
+                <div className={postblock.commenting}>
+                  <div className={postblock.separater}></div>
+                  <Commenting postID={postID} />
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>
