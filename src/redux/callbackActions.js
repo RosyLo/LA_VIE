@@ -4,7 +4,6 @@ import firebase from '../firebase';
 
 const db = firebase.firestore();
 export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
-  console.log(newTag);
   const { tags } = getState();
   const ref = db.collection('Tag').doc(newTag.value);
   //tag array
@@ -36,7 +35,6 @@ export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
       label: newTag.label,
       value: newTag.value,
     };
-    console.log(tagData);
 
     dispatch({
       type: ADD_TAG,

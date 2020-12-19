@@ -20,7 +20,7 @@ button:hover {
 }
 
 .topModel {
-  height: 80px;
+  height: 20px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -171,6 +171,7 @@ button:hover {
   .rightModel {
     width: 100%;
     min-height: 200px;
+    margin-top: 20px;
   }
 
   .decideButton {

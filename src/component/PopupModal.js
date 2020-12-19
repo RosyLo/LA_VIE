@@ -23,9 +23,9 @@ const ModalDiv = styled.div`
 const ContentDiv = styled.div`
   min-width: 300px;
   max-width: 800px;
-  max-height:800px;
+  max-height:700px;
   width:70%;
-  padding:2%;
+  padding:2% 2% 3% 2%;
   align-items:center
   max-width: 800px;
   position: fixed;

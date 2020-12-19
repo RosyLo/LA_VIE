@@ -26,7 +26,7 @@ max-width: 800px;
   max-height:800px;
   max-width: 800px;
   width:70%;
-  padding:2%;
+  padding:2%
   align-items:center
   max-width: 70%;
   position: fixed;

@@ -7,7 +7,7 @@
   text-align: center;
   min-height: 40px;
   font-size: 0.8rem;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 /* .comment:hover .deleteComment {
   display: block;
@@ -22,7 +22,6 @@
   font-size: bold;
   margin-right: 3px;
   min-width: 60px;
-  background-color: blueviolet;
 }
 .commentImage {
   width: 25px;
@@ -30,8 +29,6 @@
   z-index: 100;
   border-radius: 50%;
   margin-right: 10px;
-  margin-top: 5px;
-  background-color: brown;
 }
 
 .commentMsg {
@@ -40,10 +37,9 @@
 .deleteComment {
   width: 10px;
   height: 10px;
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
   display: block;
   /* display: none; */
-  background-color: chocolate;
 }
 .commentMsg:focus {
   outline: 0.5px solid transparent;

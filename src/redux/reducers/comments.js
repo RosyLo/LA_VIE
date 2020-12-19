@@ -3,6 +3,7 @@ import { ADD_COMMENT, TOGGLE_Comment_Like } from '../actionTypes';
 const comments = (state = [], action) => {
   switch (action.type) {
     case ADD_COMMENT: {
+      console.log(action.payload.comment);
       return [...state, action.payload.comment];
     }
     case TOGGLE_Comment_Like: {

@@ -9,7 +9,10 @@ import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function UploadPostButton() {
   const [isUploadPopupClick, setisUploadPopupClick] = useState(false);
-  const [isUploadPopup, setisUploadPopup] = useState(false);
+
+  // const [isUploadPopup, setisUploadPopup] = useState(false);
+  //for new post
+  const [isNewPostConfirm, setIsNewPostConfirm] = useState(false);
   return (
     <>
       <div
@@ -22,20 +25,21 @@ function UploadPostButton() {
       <UploadPostBlock
         setisUploadPopupClick={setisUploadPopupClick}
         isUploadPopupClick={isUploadPopupClick}
+        setIsNewPostConfirm={setIsNewPostConfirm}
       />
       {/* EditPostPopup */}
       <MsgPopup
-        show={isUploadPopup}
+        show={isNewPostConfirm}
         handleClose={() => {
-          setisUploadPopup(false);
+          setIsNewPostConfirm(false);
         }}>
         <div className={msgPopStyles.msgPopWrap}>
-          <h2>Update Successful!</h2>
+          <h2>Upload Successful!</h2>
           <div className={msgPopStyles.buttonWrap}>
             <button
               className={styled.decideButton}
               onClick={() => {
-                setIsUploadPopup(false);
+                setIsNewPostConfirm(false);
               }}>
               OK
             </button>

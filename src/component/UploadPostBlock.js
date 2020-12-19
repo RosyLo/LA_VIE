@@ -10,7 +10,7 @@ import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
 // import { tagOptions } from '../utils/data';
 
-function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
+function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPostConfirm }) {
   const [uploadViewStage, setUploadViewStage] = useState(0);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
@@ -65,7 +65,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
 
   //msg & tag
   const [newMsg, setNewMsg] = useState('');
-  const [newTag, setNewTag] = useState({});
+  const [newTag, setNewTag] = useState(null);
 
   // Msg
   const handleMsgChange = (e) => {
@@ -123,11 +123,11 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
             className={styles.decideButton}
             onClick={(e) => {
               e.preventDefault();
-              alert('upload success');
               dispatch(addPost(image, newMsg, newTag));
               setisUploadPopupClick(false);
               setImageURL(null);
               setUploadViewStage(0);
+              setIsNewPostConfirm(true);
             }}>
             Upload
           </button>
@@ -169,6 +169,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick }) {
 UploadPostBlock.propTypes = {
   isUploadPopupClick: PropTypes.bool.isRequired,
   setisUploadPopupClick: PropTypes.func.isRequired,
+  setIsNewPostConfirm: PropTypes.func.isRequired,
 };
 
 export default UploadPostBlock;

@@ -19,69 +19,63 @@ const Header = () => {
 
   return (
     <nav>
-      <div style={{ border: 'none' }}>
-        <Link to='/main'>
-          <Logo />
-        </Link>
-      </div>
-      <SearchTags />
-      {/* 登入登出 */}
-      {user ? (
-        <>
-          <UploadPostButton />
-          {/* 頭貼 */}
-          {/* <Link
-            to={{
-              pathname: `/profile?id=${user.uid}`,
-              state: { state: user, clickFrom: 'header' },
-            }}>
-            {' '}
-            <ProfileImage />
-          </Link> */}
-
-          <Link to={(location) => `/profile?id=${user.uid}`}>
-            {' '}
-            <ProfileImage />
-          </Link>
-
-          {/* Toggle */}
-          <img
-            style={{ width: '15px', height: '15px', cursor: 'pointer' }}
-            src={arrow}
-            onClick={() => {
-              setisProfileToggleClick(!isProfileToggleClick);
-            }}></img>
-
-          {isProfileToggleClick ? (
-            <StyleEditBlock
-              show={isProfileToggleClick}
-              handleClose={() => {
-                setisProfileToggleClick(!isProfileToggleClick);
-              }}>
-              <div
-                className='deletePost'
-                onClick={() => {
-                  dispatch(logout());
-                }}>
-                LogOut
-              </div>
-            </StyleEditBlock>
-          ) : (
-            ''
-          )}
-        </>
-      ) : (
-        <>
-          <Link to='/main'></Link>
-          <div className={styles.button} onClick={() => dispatch(login())}>
-            Login
-          </div>
+      <div className={styles.navWrap}>
+        <div style={{ border: 'none' }}>
           <Link to='/main'>
-            {' '}
-            <div className={styles.button}>Visit</div>
+            <Logo />
           </Link>
-        </>
-      )}
+        </div>
+        <SearchTags />
+        {/* 登入登出 */}
+        {user ? (
+          <>
+            <UploadPostButton />
+            {/* 頭貼 */}
+
+            <Link to={(location) => `/profile?id=${user.uid}`}>
+              {' '}
+              <ProfileImage />
+            </Link>
+
+            {/* Toggle */}
+            <img
+              style={{ width: '12px', height: '12px', cursor: 'pointer' }}
+              src={arrow}
+              onClick={() => {
+                setisProfileToggleClick(!isProfileToggleClick);
+              }}></img>
+
+            {isProfileToggleClick ? (
+              <StyleEditBlock
+                show={isProfileToggleClick}
+                handleClose={() => {
+                  setisProfileToggleClick(!isProfileToggleClick);
+                }}>
+                <div
+                  className='deletePost'
+                  onClick={() => {
+                    dispatch(logout());
+                  }}>
+                  LogOut
+                </div>
+              </StyleEditBlock>
+            ) : (
+              ''
+            )}
+          </>
+        ) : (
+          <>
+            <Link to='/main'></Link>
+            <div className={styles.button} onClick={() => dispatch(login())}>
+              Login
+            </div>
+            <Link to='/main'>
+              {' '}
+              <div className={styles.button}>Visit</div>
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

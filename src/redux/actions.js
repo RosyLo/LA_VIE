@@ -155,12 +155,9 @@ export const receiveTags = () => (dispatch) => {
 };
 
 export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
-  const { tags } = getState();
-
   const { user } = getState();
 
   if (!user) return;
-  let forTagPostID = '';
   uploadImage(image, `Post/postImageLink${image.name}`, (downloadURL) => {
     const post = {
       postID: '',
@@ -171,19 +168,25 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
         postIssuerName: user.displayName,
       },
       postMessage: newMsg,
-      postTag: newTag,
+      postTag: {
+        postID: '',
+        label: newTag.label,
+        value: newTag.value,
+      },
       postLikes: [],
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
     const ref = db.collection('Post');
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
-      dispatch({ type: ADD_POST, payload: { post } });
+
       //寫postID 回firebase
       ref.doc(docRef.id).update({
         postID: docRef.id,
       });
-      //  tag
+      //add post state
+      dispatch({ type: ADD_POST, payload: { post } });
+      //tag
       dispatch(tagProcess(newTag, post.postID));
     });
   });
@@ -211,7 +214,11 @@ export const editPost = (
         postIssuerName: user.displayName,
       },
       postMessage: newMsg,
-      postTag: newTag,
+      postTag: {
+        postID: '',
+        label: newTag.label,
+        value: newTag.value,
+      },
       postLikes: [],
       postTime: postTime,
     };
@@ -328,6 +335,7 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
 };
 
 export const addComment = (postID, newComment) => (dispatch, getState) => {
+  if (!newComment) return;
   const { user } = getState();
   if (!user) return;
   const comment = {
@@ -365,10 +373,10 @@ export const editComment = (comment, commentContent) => (dispatch, getState) => 
 };
 
 export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
-  const { posts } = getState();
-  //
+  //1.先拉下所有posts
   const postsList = [];
-  let masterPosts = [];
+  const { posts } = getState();
+  const { user } = getState();
   db.collection('Post')
     .orderBy('postTime', 'desc')
     .get()
@@ -388,28 +396,78 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
           let shortTime = date.toDateString();
           postData.postTime = shortTime;
         }
-        // console.log(postData);
         postsList.push(postData);
       });
     })
     .then(() => {
-      console.log(postsList);
-      //
-      postsList.map((post) => {
-        if (post.postIssuer.postIssuerID === paramsID) {
-          masterPosts.push(post);
-        }
+      dispatch({
+        type: RECIEVED_POSTS,
+        payload: { postsList },
       });
-    })
-    .then(() => {
-      console.log(masterPosts);
-      dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
     });
+  // .then(() => {
+  //   //2.再判斷是否為此人的posts
+  //   let masterPosts = [];
+  //   const { posts } = getState();
+  //   posts.forEach((post) => {
+  //     if (post.postIssuer.postIssuerID === paramsID) {
+  //       masterPosts.push(post);
+  //     }
+  //   });
+  //   return masterPosts;
+  // });
+  // //3.若是，dispatch 到masterposts，給ProfileContent用
+  // .then((masterPosts) => {
+  //   dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
+  // });
 };
 
+// export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
+//   const { posts } = getState();
+//   //
+//   const postsList = [];
+//   let masterPosts = [];
+//   db.collection('Post')
+//     .orderBy('postTime', 'desc')
+//     .get()
+//     .then((snap) => {
+//       snap.forEach((post) => {
+//         const postData = {
+//           postID: post.id,
+//           postImage: post.data().postImage,
+//           postIssuer: post.data().postIssuer,
+//           postMessage: post.data().postMessage,
+//           postTag: post.data().postTag,
+//           postLikes: post.data().postLikes || [],
+//           postTime: post.data().postTime,
+//         };
+//         if (typeof postData.postTime !== 'string') {
+//           let date = postData.postTime.toDate();
+//           let shortTime = date.toDateString();
+//           postData.postTime = shortTime;
+//         }
+//         // console.log(postData);
+//         postsList.push(postData);
+//       });
+//     })
+//     .then(() => {
+//       console.log(postsList);
+//       //
+//       postsList.map((post) => {
+//         if (post.postIssuer.postIssuerID === paramsID) {
+//           masterPosts.push(post);
+//         }
+//       });
+//     })
+//     .then(() => {
+//       console.log(masterPosts);
+//       dispatch({ type: RECIEVED_MASTERPOSTS, payload: { masterPosts } });
+//     });
+// };
+
 export const fetchStories = (paramsID) => (dispatch, getState) => {
-  const { masterposts } = getState();
-  const profileposts = masterposts.filter((post) => post.postIssuer.postIssuerID === paramsID);
+  const { posts } = getState();
+  const profileposts = posts.filter((post) => post.postIssuer.postIssuerID === paramsID);
   // 組合story state
   // 1.拿到此人的所有story
   // 2.組合 story 資訊，包含用post id去找post 資訊
@@ -443,7 +501,7 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
 
 export const addStory = (addedstory) => (dispatch, getState) => {
   const { user } = getState();
-  const { masterposts } = getState();
+  const { posts } = getState();
   const story = {
     storyID: '',
     storyName: addedstory.storyName,
@@ -463,7 +521,7 @@ export const addStory = (addedstory) => (dispatch, getState) => {
       let stateStory = story;
       let stateStoryStories = [];
       stateStory.stories.map((postID) => {
-        masterposts.map((masterPost) => {
+        posts.map((masterPost) => {
           if (masterPost.postID === postID) {
             stateStoryStories.push(masterPost);
           }
@@ -499,7 +557,7 @@ export const deleteStory = (deleteStory, setisStoryDeleteClick) => (dispatch, ge
 export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
   console.log(story);
   const { user } = getState();
-  const { masterposts } = getState();
+  const { posts } = getState();
   if (!user) return;
   //set db
   const ref = db.collection('Story').doc(story.storyID);
@@ -510,7 +568,7 @@ export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) 
       let stateStory = story;
       let stateStoryStories = [];
       stateStory.stories.map((postID) => {
-        masterposts.map((masterPost) => {
+        posts.map((masterPost) => {
           if (masterPost.postID === postID) {
             stateStoryStories.push(masterPost);
           }

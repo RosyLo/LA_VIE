@@ -1,11 +1,21 @@
+* {
+  color: #3f3f3f;
+}
+
 body {
   background: rgba(250, 250, 250);
 }
 
 nav {
-  height: 60px;
+  max-width: 975px;
+  margin: auto;
+  position: relative;
+}
+
+.navWrap {
+  width: 100%;
+  height: 100px;
   display: flex;
-  padding: 0px 30px;
   align-items: center;
 }
 
@@ -15,13 +25,13 @@ nav {
   border-radius: 50%;
   background-color: rgb(250, 250, 250);
   border: 1px solid rgb(239, 239, 239);
-  margin: 0px 10px;
   cursor: pointer;
   position: relative;
+  margin-right: 20px;
 }
 
 .storyCirclePlus {
-  width: 20%;
+  width: 30%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,7 +44,6 @@ nav {
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
-  color: black;
   margin: 10px;
   cursor: pointer;
 }
@@ -53,7 +62,7 @@ nav {
 .search {
   max-width: 500px;
   min-width: 100px;
-  width: 300px;
+  width: 50%;
   margin: auto;
   max-height: 30px;
   height: 30px;
@@ -81,5 +90,15 @@ nav {
     display: flex;
     padding: 0px;
     align-items: center;
+  }
+  .search {
+    width: 100px;
+    margin: auto;
+    max-height: 30px;
+    height: 30px;
+    /* overflow: hidden; */
+  }
+  .navIcon {
+    margin-right: 5px;
   }
 } ;

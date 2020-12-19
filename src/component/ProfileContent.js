@@ -4,7 +4,7 @@ import ProfileShow from './ProfileShow';
 import styles from '../style/profilecontent.module.css';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
-import { fetchMasterPosts } from '../redux/actions';
+import { fetchMasterPosts, receiveTags } from '../redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from './Loading';
 import { MsgPopup } from './MsgPopup';
@@ -15,18 +15,26 @@ function ProfileContent({ paramsID }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const [clickEdit, setclickEdit] = useState('');
-  const masterposts = useSelector((state) => state.masterposts);
+  const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeletePopup, setIsDeletePopup] = useState(false);
+  const stakeGridRef = React.useRef(null);
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 3000);
-  }, [masterposts]);
+  }, [posts]);
 
   useEffect(() => {
     dispatch(fetchMasterPosts(paramsID));
+    dispatch(receiveTags());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (stakeGridRef.current) {
+      stakeGridRef.current.updateLayout();
+    }
+  }, [comments]);
 
   let filterTags = [];
   let filterPosts = [];
@@ -34,9 +42,9 @@ function ProfileContent({ paramsID }) {
     filterTags.push(searchtag.value);
   });
 
-  masterposts.map((post) => {
+  posts.map((post) => {
     filterTags.map((tag) => {
-      if (post.postTag === tag) {
+      if (post.postTag.value === tag) {
         filterPosts.push(post);
       }
     });
@@ -45,28 +53,31 @@ function ProfileContent({ paramsID }) {
     console.log('filterTags');
     //將tag 放進 filterTags array裡
   } else {
-    filterPosts = masterposts;
+    filterPosts = posts;
   }
 
   return (
     <>
       {isLoading === false ? (
-        <div className={styles.postWrap}>
-          <StackGrid
-            columnWidth={300}
-            gutterWidth={30}
-            gutterHeight={30}
-            monitorImagesLoaded={true}>
-            {filterPosts.map((post) => (
-              <Post
-                key={post.postID}
-                post={post}
-                clickEdit={clickEdit}
-                setclickEdit={setclickEdit}
-                setIsDeletePopup={setIsDeletePopup}
-              />
-            ))}
-          </StackGrid>
+        <div className={styles.wrap}>
+          <div className={styles.postWrap}>
+            <StackGrid
+              gridRef={(e) => (stakeGridRef.current = e)}
+              columnWidth={300}
+              gutterWidth={30}
+              gutterHeight={30}
+              monitorImagesLoaded={true}>
+              {filterPosts.map((post) => (
+                <Post
+                  key={post.postID}
+                  post={post}
+                  clickEdit={clickEdit}
+                  setclickEdit={setclickEdit}
+                  setIsDeletePopup={setIsDeletePopup}
+                />
+              ))}
+            </StackGrid>
+          </div>
         </div>
       ) : (
         <div className={styles.loading}></div>

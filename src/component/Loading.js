@@ -17,8 +17,4 @@ function Loading() {
   );
 }
 
-Loading.propTypes = {
-  postID: PropTypes.string.isRequired,
-};
-
 export default Loading;

@@ -12,6 +12,7 @@ function DeletePopup({
   setisDeletePopupClick,
   isDeletePopupClick,
   setIsDeletePopup,
+  setisPostClick,
 }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
@@ -46,6 +47,7 @@ function DeletePopup({
                   className={styles.decideButton}
                   onClick={() => {
                     dispatch(deletePost(deletepost, setisDeletePopupClick));
+                    setisPostClick(false);
                     setIsDeletePopup(true);
                   }}>
                   Delete
@@ -63,6 +65,7 @@ DeletePopup.propTypes = {
   deletePostID: PropTypes.string.isRequired,
   setisDeletePopupClick: PropTypes.func.isRequired,
   setIsDeletePopup: PropTypes.func.isRequired,
+  setisPostClick: PropTypes.func.isRequired,
   isDeletePopupClick: PropTypes.bool.isRequired,
 };
 

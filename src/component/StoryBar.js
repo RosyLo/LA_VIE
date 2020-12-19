@@ -10,14 +10,18 @@ import plus from '../img/plus.png';
 import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
 import Loading from './Loading';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { MsgPopup } from './MsgPopup';
+import styled from '../style/popup.module.css';
+import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function StoryBar({ paramsID }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const stories = useSelector((state) => state.stories);
-  const masterposts = useSelector((state) => state.masterposts);
+  // const masterposts = useSelector((state) => state.masterposts);
+  const posts = useSelector((state) => state.posts);
   const [isMakeStoryClick, setisMakeStoryClick] = useState(false);
+  const [isMakeStorySuccess, setisMakeStorySucces] = useState(false);
   const containRef = React.useRef(null);
   const wrapRef = React.useRef(null);
   const barLeftArrowRef = React.useRef(null);
@@ -36,15 +40,15 @@ function StoryBar({ paramsID }) {
   useEffect(() => {
     barLeftArrowRef.current.hidden = true;
     barRightArrowRef.current.hidden = true;
-    if (masterposts.length > 0) {
+    if (posts.length > 0) {
       dispatch(fetchStories(paramsID));
 
-      if (masterposts.length > 5) {
+      if (posts.length > 5) {
         barLeftArrowRef.current.hidden = false;
       }
     }
     targetElement = document.querySelector('#portal');
-  }, [masterposts]);
+  }, [posts]);
 
   const storyBarScrollLeft = () => {
     let circleWidth = circleRef.current.clientWidth;
@@ -79,56 +83,77 @@ function StoryBar({ paramsID }) {
   };
 
   return (
-    <div className={styles.storyBarWrap}>
-      <MakeStory isMakeStoryClick={isMakeStoryClick} setisMakeStoryClick={setisMakeStoryClick} />
-      <img
-        src={rightarrow}
-        className={styles.barrightarrow}
-        ref={barRightArrowRef}
-        onClick={() => {
-          storyBarScrollRight();
-        }}
-      />
-      <img
-        src={leftarrow}
-        className={styles.barleftarrow}
-        ref={barLeftArrowRef}
-        onClick={() => {
-          console.log('scroll');
-          storyBarScrollLeft();
-        }}
-      />
-      {isLoading === false ? (
-        <div className={styles.storyCircleWrap} ref={wrapRef}>
-          <div className={styles.storyCircleContain} ref={containRef}>
-            <div>
-              {user.uid === paramsID ? (
-                <div className={styles.storyCircle}>
-                  <img
-                    className={styles.storyCirclePlus}
-                    src={plus}
-                    onClick={() => {
-                      console.log('add');
-                      setisMakeStoryClick(true);
-                      disableBodyScroll(targetElement);
-                    }}
-                  />
+    <>
+      <div className={styles.wrap}>
+        <div className={styles.storyBarWrap}>
+          <MakeStory
+            isMakeStoryClick={isMakeStoryClick}
+            setisMakeStoryClick={setisMakeStoryClick}
+            setisMakeStorySucces={setisMakeStorySucces}
+          />
+          <img
+            src={rightarrow}
+            className={styles.barrightarrow}
+            ref={barRightArrowRef}
+            onClick={() => {
+              storyBarScrollRight();
+            }}
+          />
+          <img
+            src={leftarrow}
+            className={styles.barleftarrow}
+            ref={barLeftArrowRef}
+            onClick={() => {
+              storyBarScrollLeft();
+            }}
+          />
+          {isLoading === false ? (
+            <div className={styles.storyCircleWrap} ref={wrapRef}>
+              <div className={styles.storyCircleContain} ref={containRef}>
+                <div>
+                  {user.uid === paramsID ? (
+                    <div
+                      className={styles.storyCircle}
+                      onClick={() => {
+                        console.log('add');
+                        setisMakeStoryClick(true);
+                      }}>
+                      <img className={styles.storyCirclePlus} src={plus} />
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
-              ) : (
-                ''
-              )}
+                {stories.map((story) => (
+                  <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
+                ))}
+              </div>
             </div>
-            {stories.map((story) => (
-              <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
-            ))}
+          ) : (
+            <div className={styles.loading}>{/* <Loading /> */}</div>
+          )}
+        </div>
+      </div>
+      {/* MakeStory Success Popup */}
+      <MsgPopup
+        show={isMakeStorySuccess}
+        handleClose={() => {
+          setisMakeStorySucces(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>Update Successful!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setisMakeStorySucces(false);
+              }}>
+              OK
+            </button>
           </div>
         </div>
-      ) : (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
-      )}
-    </div>
+      </MsgPopup>
+    </>
   );
 }
 

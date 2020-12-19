@@ -9,12 +9,13 @@ import Loading from './Loading';
 function ProfileShow({ paramsID }) {
   const [profile, setProfile] = useState(null);
   const user = useSelector((state) => state.user);
-  const masterposts = useSelector((state) => state.masterposts);
+  const posts = useSelector((state) => state.posts);
+  // const masterposts = useSelector((state) => state.masterposts);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 3000);
-  }, [masterposts]);
+  }, [posts]);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -35,7 +36,7 @@ function ProfileShow({ paramsID }) {
             <div>{profile.userName}</div>
             <div className={styles.followerBlock}>
               <div className={styles.followerInfo}>
-                {masterposts.length} <span>Posts</span>
+                {posts.length} <span>Posts</span>
               </div>
               <div className={styles.followerInfo}>＿Followers</div>
               <div className={styles.followerInfo}>＿Following</div>

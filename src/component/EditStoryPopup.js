@@ -22,7 +22,7 @@ function EditStoryPopup({
   const [choosedCover, setChoosedCover] = useState('');
   const [isCover, setIsCover] = useState(null);
   const user = useSelector((state) => state.user);
-  const masterposts = useSelector((state) => state.masterposts);
+  const posts = useSelector((state) => state.posts);
   const [editStoryStage, setEditStoryStage] = useState(0);
 
   let storiesID = [];
@@ -39,7 +39,7 @@ function EditStoryPopup({
   useEffect(() => {
     //check isCover 是不是在choosedStory 裡
     let currentPosts = [];
-    masterposts.forEach((post) => {
+    posts.forEach((post) => {
       let postID = choosedStory.find((id) => id === post.postID);
       if (postID) {
         currentPosts.push(post);
@@ -101,7 +101,7 @@ function EditStoryPopup({
   const choosePost = (
     <>
       <div className={styled.grid}>
-        {masterposts.map((post) => (
+        {posts.map((post) => (
           <EditImage
             key={post.postID}
             post={post}
@@ -148,7 +148,7 @@ function EditStoryPopup({
 
   const chooseCoverPhoto = (
     <div className={styled.grid}>
-      {masterposts.map((post) => (
+      {posts.map((post) => (
         <EditImage
           key={post.postID}
           post={post}

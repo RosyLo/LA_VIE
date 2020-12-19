@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SEARCH_TAGS, NOSEARCH_TAGS } from '../redux/actionTypes';
-import chroma from 'chroma-js';
 import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 import styles from '../style/header.module.css';
 
 function SearchTags() {
   const dispatch = useDispatch();
   const tags = useSelector((state) => state.tags);
+  const [isWindowSmall, setIsWindowSmall] = useState(false);
+  useEffect(() => {
+    if (window.innerWidth <= 425) {
+      setIsWindowSmall(true);
+    }
+  }, [dispatch]);
+
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
     console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+    if (!newValue) {
+      dispatch({ type: NOSEARCH_TAGS });
+    } else {
+      dispatch({ type: SEARCH_TAGS, payload: { newValue } });
+    }
+  };
+  const handleChangeSingle = (value, actionMeta) => {
+    console.group('Value Changed');
+    let newValue = [];
+    newValue.push(value);
+    console.log(value);
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
     if (!newValue) {
@@ -66,13 +86,22 @@ function SearchTags() {
   return (
     <div className={styles.search} styles={{ zIndex: '10000' }}>
       {' '}
-      <CreatableSelect
-        isMulti
-        onChange={handleChange}
-        options={tags}
-        placeholder={'Find Post...'}
-        styles={customStyles}
-      />
+      {isWindowSmall ? (
+        <Select
+          onChange={handleChangeSingle}
+          options={tags}
+          placeholder={'Find Post.....'}
+          styles={customStyles}
+        />
+      ) : (
+        <CreatableSelect
+          isMulti
+          onChange={handleChange}
+          options={tags}
+          placeholder={'Find Post...'}
+          styles={customStyles}
+        />
+      )}
     </div>
   );
 }

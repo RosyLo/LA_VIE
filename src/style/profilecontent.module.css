@@ -23,11 +23,16 @@
 
 .postWrap {
   /* padding: 0 80px 0 80px; */
-  width: 70%;
+  width: 100%;
   margin-top: 50px;
   cursor: pointer;
   margin: auto;
   /* border: 1px solid red; */
+}
+
+.wrap {
+  max-width: 975px;
+  margin: auto;
 }
 
 @media (max-width: 425px) {

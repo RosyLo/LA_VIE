@@ -1,17 +1,18 @@
 .loading {
-  margin: 100px auto 100px auto;
+  margin-top: 250px;
 }
 
 .profileShowWrap {
-  margin-top: 30px;
+  margin: 30px auto auto auto;
   height: 300px;
+  max-width: 975px;
   /* border: 1px solid black; */
 }
 
 .profileShow {
   height: 300px;
   /* border: 1px solid blue; */
-  width: 70%;
+  width: 100%;
   margin: auto;
   display: flex;
 }

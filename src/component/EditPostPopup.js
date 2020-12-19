@@ -76,7 +76,8 @@ function EditPostPopup({
   //msg & tag
   const [newMsg, setNewMsg] = useState(post.postMessage);
   const [newTag, setNewTag] = useState(post.postTag);
-
+  console.log(post.postTag);
+  console.log(newTag);
   // Msg
   const handleMsgChange = (e) => {
     setNewMsg(e.target.value);

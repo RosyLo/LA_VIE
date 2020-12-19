@@ -16,13 +16,14 @@ function EditPostBar({
   setclickEdit,
   isDeletePopup,
   setIsDeletePopup,
+  setisPostClick,
 }) {
   const user = useSelector((state) => state.user);
   //click edit
   const [isEditClick, setisEditClick] = useState(false);
+  const [isEditBlockClick, setIsEditBlockClick] = useState(false);
   const [isDeletePopupClick, setisDeletePopupClick] = useState(false);
   const [isUploadPopup, setIsUploadPopup] = useState(false);
-
   return (
     <>
       {isDeletePopup}
@@ -34,11 +35,12 @@ function EditPostBar({
             onClick={(e) => {
               e.stopPropagation();
               setclickEdit(postID);
+              setIsEditBlockClick(!isEditBlockClick);
             }}>
             <img src={more} style={{ width: '15px', height: '15px' }}></img>
           </div>
           {postID === clickEdit ? (
-            <StyleEditBlock show={true}>
+            <StyleEditBlock show={isEditBlockClick}>
               <div
                 className='editPost'
                 onClick={(e) => {
@@ -71,6 +73,7 @@ function EditPostBar({
                   isDeletePopupClick={isDeletePopupClick}
                   deletePostID={postID}
                   setIsDeletePopup={setIsDeletePopup}
+                  setisPostClick={setisPostClick}
                 />
               ) : (
                 ''
@@ -109,6 +112,7 @@ EditPostBar.propTypes = {
   postIssuerID: PropTypes.string.isRequired,
   setDeletePost: PropTypes.func,
   setclickEdit: PropTypes.func,
+  setisPostClick: PropTypes.func,
   clickEdit: PropTypes.string,
   isDeletePopup: PropTypes.bool,
   setIsDeletePopup: PropTypes.func,

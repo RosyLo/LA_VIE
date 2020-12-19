@@ -11,7 +11,6 @@ function Heart({ id, likes, isfrom }) {
   const heartRef = React.useRef(null);
 
   const heartClick = () => {
-    console.log(isLiked);
     if (isLiked) {
       heartRef.current.className = ' HeartAnimation';
     } else {

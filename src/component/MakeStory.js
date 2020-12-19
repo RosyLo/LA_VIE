@@ -11,13 +11,14 @@ import { nanoid } from 'nanoid';
 import StackGrid from 'react-stack-grid';
 import styled from '../style/makestory.module.css';
 
-function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
+function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces }) {
   const dispatch = useDispatch();
   const [storyName, setstoryName] = useState('');
   const [choosedCover, setChoosedCover] = useState('');
   const [choosedStory, setChoosedStory] = useState([]);
   const user = useSelector((state) => state.user);
-  const masterposts = useSelector((state) => state.masterposts);
+  // const masterposts = useSelector((state) => state.masterposts);
+  const posts = useSelector((state) => state.posts);
   const [makeStoryStage, setMakeStoryStage] = useState(0);
   const story = {
     storyID: '',
@@ -65,7 +66,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
   const choosePost = (
     <>
       <div className={styled.grid}>
-        {masterposts.map((post) => (
+        {posts.map((post) => (
           <Image
             key={post.postID}
             post={post}
@@ -112,7 +113,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
 
   const chooseCoverPhoto = (
     <div className={styled.grid}>
-      {masterposts.map((post) => (
+      {posts.map((post) => (
         <Image
           key={post.postID}
           post={post}
@@ -142,7 +143,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
         className={styled.decideButton}
         onClick={(e) => {
           e.preventDefault();
-          alert('upload success');
           console.log(story);
           //要dispatch
           dispatch(addStory(story));
@@ -152,6 +152,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
           setChoosedCover('');
           setChoosedStory([]);
           setMakeStoryStage(0);
+          setisMakeStorySucces(true);
         }}>
         Upload
       </button>
@@ -216,6 +217,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick }) {
 MakeStory.propTypes = {
   isMakeStoryClick: PropTypes.bool.isRequired,
   setisMakeStoryClick: PropTypes.func.isRequired,
+  setisMakeStorySucces: PropTypes.func.isRequired,
 };
 
 export default MakeStory;

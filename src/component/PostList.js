@@ -19,6 +19,7 @@ function PostList() {
   const [lastSnap, setLastSnap] = useState('');
   const [lastVisible, setLastVisible] = useState(0);
   const [isDeletePopup, setIsDeletePopup] = useState(false);
+  const [isScrollFetching, setIsScrollFetching] = useState(false);
   const stakeGridRef = React.useRef(null);
   const dispatch = useDispatch();
 
@@ -27,15 +28,19 @@ function PostList() {
     dispatch(receiveTags());
   }, [dispatch]);
 
+  // infinit scroll
   useEffect(() => {
     const handleScroll = () => {
+      setIsScrollFetching(!isScrollFetching);
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (winScroll > height - 20) {
-        console.log('reach the bottom!', lastVisible);
-        let newLast = lastVisible + 10;
-        setLastVisible(newLast);
-        dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
+      if (isScrollFetching) {
+        if (winScroll > height - 20) {
+          console.log('reach the bottom!', lastVisible);
+          let newLast = lastVisible + 10;
+          setLastVisible(newLast);
+          dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
+        }
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -43,12 +48,6 @@ function PostList() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastVisible]);
-
-  let filterTags = [];
-  let filterPosts = [];
-  searchtags.map((searchtag) => {
-    filterTags.push(searchtag.value);
-  });
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -62,9 +61,18 @@ function PostList() {
     }
   }, [comments]);
 
+  //tags
+
+  let filterTags = [];
+  let filterPosts = [];
+  searchtags.map((searchtag) => {
+    filterTags.push(searchtag.value);
+  });
+
   posts.forEach((post) => {
     filterTags.forEach((tag) => {
-      if (post.postTag === tag) {
+      if (post.postTag.value === tag) {
+        console.log(post);
         filterPosts.push(post);
       }
     });
@@ -78,32 +86,34 @@ function PostList() {
   return (
     <>
       {isLoading === false ? (
-        <div className={styles.postWrap} onClick={() => {}}>
-          <StackGrid
-            gridRef={(e) => (stakeGridRef.current = e)}
-            columnWidth={300}
-            gutterWidth={30}
-            gutterHeight={30}
-            monitorImagesLoaded={true}>
-            {posts.map((post) => (
-              <Post
-                key={post.postID}
-                post={post}
-                clickEdit={clickEdit}
-                setclickEdit={setclickEdit}
-                isDeletePopup={isDeletePopup}
-                setIsDeletePopup={setIsDeletePopup}
-              />
-            ))}
-          </StackGrid>
-          <button
-            onClick={() => {
-              let newLast = lastVisible + 10;
-              setLastVisible(newLast);
-              dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
-            }}>
-            ???
-          </button>
+        <div className={styles.wrap}>
+          <div className={styles.postWrap} onClick={() => {}}>
+            <StackGrid
+              gridRef={(e) => (stakeGridRef.current = e)}
+              columnWidth={300}
+              gutterWidth={30}
+              gutterHeight={30}
+              monitorImagesLoaded={true}>
+              {filterPosts.map((post) => (
+                <Post
+                  key={post.postID}
+                  post={post}
+                  clickEdit={clickEdit}
+                  setclickEdit={setclickEdit}
+                  isDeletePopup={isDeletePopup}
+                  setIsDeletePopup={setIsDeletePopup}
+                />
+              ))}
+            </StackGrid>
+            <button
+              onClick={() => {
+                let newLast = lastVisible + 10;
+                setLastVisible(newLast);
+                dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
+              }}>
+              ???
+            </button>
+          </div>
         </div>
       ) : (
         <div className={styles.loading}>

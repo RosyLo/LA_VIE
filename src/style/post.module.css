@@ -1,11 +1,16 @@
 .loading {
-  margin-top: 400px;
+  margin-top: 250px;
+}
+
+.wrap {
+  max-width: 975px;
+  margin: auto;
 }
 
 .postWrap {
-  padding: 0 80px 0 80px;
   margin-top: 50px;
   cursor: pointer;
+  width: 100%;
 }
 .form {
   height: 35px;
@@ -15,6 +20,14 @@
   width: 90%;
   background: rgb(250, 250, 250);
 }
+
+.post input {
+  width: 90%;
+  border: none;
+  padding-top: 10px;
+  font-size: 0.5rem;
+}
+
 .post {
   /* background-color: antiquewhite; */
   text-align: center;
@@ -39,7 +52,11 @@
   height: 30px;
   border: 1px solid rgb(219, 219, 219);
   border-radius: 50px;
-  margin: auto 10px;
+  /* margin: auto 10px; */
+}
+
+.postIssuerName {
+  margin-left: 10px;
 }
 
 .authorPic {
@@ -89,6 +106,10 @@
   display: flex;
 }
 
+.postLikeCount {
+  padding-bottom: 2px;
+}
+
 .postTag {
   font-size: 1rem;
   margin-left: auto;
@@ -119,12 +140,6 @@
   margin-left: auto;
 }
 
-.post input {
-  width: 90%;
-  border: none;
-  padding-top: 10px;
-  font-size: 0.5rem;
-}
 input:focus {
   outline: none;
 }

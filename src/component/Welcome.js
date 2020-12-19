@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function Welcome() {
   const posts = useSelector((state) => state.posts);
+  console.log(posts);
   return (
     <>
       <WelcomeShow />

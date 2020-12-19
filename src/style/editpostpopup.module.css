@@ -16,6 +16,10 @@ button:focus {
   margin-bottom: 10px;
 }
 
+.space {
+  width: 30px;
+}
+
 .separater {
   /* border: 1px solid red; */
   width: 99%;
@@ -28,12 +32,14 @@ button:focus {
   width: 100%;
   /* min-height: 620px; */
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .leftModel {
-  width: 48%;
+  width: 30%;
   align-items: center;
   justify-content: center;
+  margin: auto;
 }
 
 .rightModel {
@@ -188,7 +194,7 @@ button:focus {
     flex-direction: row;
     height: 200px;
     justify-content: center;
-    border: cornflowerblue 1px solid;
+    margin-top: 20px;
   }
   .decideBlockMsg {
     /* border: black 1px solid; */

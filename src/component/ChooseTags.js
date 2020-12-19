@@ -9,6 +9,7 @@ function ChooseTags({ newTag, setNewTag }) {
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
     setNewTag(newValue);
+    console.log(newValue);
     console.groupEnd();
   };
   const handleInputChange = (inputValue, actionMeta) => {
@@ -56,6 +57,12 @@ function ChooseTags({ newTag, setNewTag }) {
       cursor: isDisabled ? 'not-allowed' : 'default',
     }),
   };
+  let tagHolder;
+  if (newTag) {
+    tagHolder = newTag.value;
+  } else {
+    tagHolder = 'Choose Tag...';
+  }
 
   return (
     <CreatableSelect
@@ -63,7 +70,7 @@ function ChooseTags({ newTag, setNewTag }) {
       onChange={handleChange}
       onInputChange={handleInputChange}
       options={tags}
-      placeholder='Choose Tag'
+      placeholder={tagHolder}
       styles={customStyles}
     />
   );
@@ -71,7 +78,7 @@ function ChooseTags({ newTag, setNewTag }) {
 
 ChooseTags.propTypes = {
   setNewTag: PropTypes.func.isRequired,
-  newTag: PropTypes.object.isRequired,
+  newTag: PropTypes.object,
 };
 
 export default ChooseTags;

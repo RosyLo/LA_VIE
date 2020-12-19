@@ -10,6 +10,7 @@ import ProfileImage from './ProfileImage';
 import PostPopup from './PostPopup';
 import { Link } from 'react-router-dom';
 import '../style/heart.css';
+import '../style/heart.css';
 
 function Post({
   post,
@@ -36,19 +37,14 @@ function Post({
           ) : (
             <>
               <div>
-                {/* <Link
-                  to={{
-                    pathname: `/profile?id=${postIssuer.postIssuerID}`,
-                    state: { postIssuer: postIssuer, clickFrom: 'post' },
-                  }}>
-                 
-                </Link> */}
-                <Link to={(location) => `/profile?id=${user.uid}`}>
-                  {' '}
-                  <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
-                </Link>
+                {user && (
+                  <Link to={(location) => `/profile?id=${user.uid}`}>
+                    {' '}
+                    <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
+                  </Link>
+                )}
               </div>
-              <div>{postIssuer.postIssuerName}</div>
+              <div className={styles.postIssuerName}>{postIssuer.postIssuerName}</div>
             </>
           )}
           {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
@@ -61,6 +57,7 @@ function Post({
               setclickEdit={setclickEdit}
               isDeletePopup={isDeletePopup}
               setIsDeletePopup={setIsDeletePopup}
+              setisPostClick={setisPostClick}
             />
           )}
         </div>
@@ -80,7 +77,7 @@ function Post({
         <div className={styles.postInteraction}>
           {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
             <>
-              <div className='heart heart-like'></div>
+              <div className='HeartAnimation animate'></div>
               <div>#{postTag.value}</div>
             </>
           ) : (
@@ -129,6 +126,8 @@ function Post({
           clickPostID={postID}
           postID={postID}
           post={post}
+          isDeletePopup={isDeletePopup}
+          setIsDeletePopup={setIsDeletePopup}
         />
       ) : (
         ''
