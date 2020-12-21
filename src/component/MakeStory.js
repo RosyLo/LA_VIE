@@ -28,7 +28,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
     createTime: '',
     stories: choosedStory,
   };
-
+  console.log(choosedStory.length);
   //選擇post
   const choosePostTitle = (
     <>
@@ -40,24 +40,24 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
         Cancel
       </button>
       <div className={styled.makeStoryGuide}> Choose Story Posts</div>{' '}
-      <button
-        className={styled.decideButton}
-        onClick={() => {
-          setMakeStoryStage(1);
-          console.log(0);
-        }}>
-        Next
-      </button>
+      {choosedStory.length > 0 && (
+        <button
+          className={styled.decideButton}
+          onClick={() => {
+            setMakeStoryStage(1);
+          }}>
+          Next
+        </button>
+      )}
     </>
   );
 
   const chooseStory = (postID) => {
-    console.log(choosedStory);
     if (choosedStory.includes(postID)) {
       let newchoosedStory = choosedStory.filter((storyID) => storyID !== postID);
       setChoosedStory(newchoosedStory);
     } else {
-      let newchoosedStory = choosedStory;
+      let newchoosedStory = [...choosedStory];
       newchoosedStory.push(postID);
       setChoosedStory(newchoosedStory);
     }
@@ -94,13 +94,17 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
         Back
       </button>
       <div className={styled.makeStoryGuide}> Choose Cover Photo</div>{' '}
-      <button
-        className={styled.decideButton}
-        onClick={() => {
-          setMakeStoryStage(2);
-        }}>
-        Next
-      </button>
+      {!choosedCover ? (
+        ''
+      ) : (
+        <button
+          className={styled.decideButton}
+          onClick={() => {
+            setMakeStoryStage(2);
+          }}>
+          Next
+        </button>
+      )}
     </>
   );
   const [isCover, setIsCover] = useState('');
@@ -205,7 +209,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
         setisMakeStoryClick(false);
       }}>
       <div className={styles.modelWrap}>
-        <div className={styles.topModel}>{title}</div>
+        <div className={styled.topModel}>{title}</div>
         <div className={styled.buttonModal}>
           <div>{view}</div>
         </div>

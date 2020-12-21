@@ -34,6 +34,7 @@ function ProfileShow({ paramsID }) {
           <img className={styles.profilePic} src={profile.userProfileImage}></img>
           <div className={styles.profileInfo}>
             <div>{profile.userName}</div>
+            <div></div>
             <div className={styles.followerBlock}>
               <div className={styles.followerInfo}>
                 {posts.length} <span>Posts</span>

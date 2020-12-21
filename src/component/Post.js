@@ -28,6 +28,7 @@ function Post({
   const comments = useSelector((state) => state.comments);
   const commentList = comments.filter((comment) => comment.postID === postID);
   const [isPostClick, setisPostClick] = useState(false);
+  console.log(isfromWelcome);
   return (
     <>
       <div className={styles.post}>
@@ -37,14 +38,17 @@ function Post({
           ) : (
             <>
               <div>
-                {user && (
-                  <Link to={(location) => `/profile?id=${user.uid}`}>
-                    {' '}
-                    <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
-                  </Link>
-                )}
+                <Link
+                  to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
+                  style={{ textDecoration: 'none' }}>
+                  <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
+                </Link>
               </div>
-              <div className={styles.postIssuerName}>{postIssuer.postIssuerName}</div>
+              <Link
+                to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
+                style={{ textDecoration: 'none' }}>
+                <div className={styles.postIssuerName}>{postIssuer.postIssuerName}</div>
+              </Link>
             </>
           )}
           {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
@@ -78,6 +82,7 @@ function Post({
           {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
             <>
               <div className='HeartAnimation animate'></div>
+              <div style={{ width: '170px' }}></div>
               <div>#{postTag.value}</div>
             </>
           ) : (
@@ -95,15 +100,18 @@ function Post({
           )}
         </div>
         <>
-          <div
-            className={styles.postComments}
-            onClick={() => {
-              setisPostClick(true);
-              // setclickPostID(postID);
-            }}>
-            See More...
-          </div>
-
+          {isfromWelcome || !user ? (
+            ''
+          ) : (
+            <div
+              className={styles.postComments}
+              onClick={() => {
+                setisPostClick(true);
+                // setclickPostID(postID);
+              }}>
+              See More...
+            </div>
+          )}
           {user && !isFromDelete && !isFromUpload && !isFromEdit ? (
             <>
               {commentList.map((comment) => {
@@ -117,7 +125,7 @@ function Post({
           )}
         </>
       </div>
-      {isPostClick ? (
+      {isPostClick && user ? (
         <PostPopup
           isFromDelete={isFromDelete}
           isFromUpload={isFromUpload}

@@ -11,8 +11,10 @@ import { StyleEditBlock } from './EditStoryCompo';
 import { edtiStory } from '../redux/actions';
 import { MakeStoryModal } from './MakeStoryModal';
 import EditStoryPopup from './EditStoryPopup';
+import styled from 'styled-components';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
+  const user = useSelector((state) => state.user);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isEditStoryClick, setisEditStoryClick] = useState(false);
   const [isEditStoryBlockClick, setIsEditStoryBlockClick] = useState(false);
@@ -39,28 +41,32 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
         handleClose={() => {
           setisStoryClick(false);
         }}>
-        <div
-          className={styles.storyEditBar}
-          onClick={(e) => {
-            e.stopPropagation();
-            setisEditStoryClick(!isEditStoryClick);
-          }}>
-          <img src={more} style={{ width: '15px', height: '15px', zIndex: '10000' }}></img>
-          <StyleEditBlock
-            show={isEditStoryClick}
-            handleClose={() => {
+        {user.uid === story.storyIssuerID ? (
+          <div
+            className={styles.storyEditBar}
+            onClick={(e) => {
+              e.stopPropagation();
               setisEditStoryClick(!isEditStoryClick);
             }}>
-            {' '}
-            <div
-              onClick={() => {
-                setIsEditStoryBlockClick(true);
-                setEditStory(story);
+            <img src={more} style={{ width: '12px', height: '12px', zIndex: '10000' }}></img>
+            <StyleEditBlock
+              show={isEditStoryClick}
+              handleClose={() => {
+                setisEditStoryClick(!isEditStoryClick);
               }}>
-              Edit
-            </div>
-          </StyleEditBlock>
-        </div>
+              {' '}
+              <div
+                onClick={() => {
+                  setIsEditStoryBlockClick(true);
+                  setEditStory(story);
+                }}>
+                Edit
+              </div>
+            </StyleEditBlock>
+          </div>
+        ) : (
+          ''
+        )}
 
         <div className={styles.storyBlockWrap}>
           <img
@@ -80,7 +86,7 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
           />
 
           {isStoryClick ? (
-            <div style={{ margin: 'auto', width: '420px' }}>
+            <div className={styles.storyBlock}>
               <Stories
                 loop
                 keyboardNavigation

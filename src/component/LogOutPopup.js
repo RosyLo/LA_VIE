@@ -6,8 +6,8 @@ import ReactDom from 'react-dom';
 const ContainerDiv = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
   position: absolute;
-  top: 20px;
-  right: 0px;
+  top: 75px;
+  right: 10px;
   z-index: 3;
 `;
 
@@ -21,7 +21,7 @@ const ContentDiv = styled.div`
   text-align: center;
 `;
 
-export const StyleEditBlock = ({ handleClose, show, children }) => {
+export const LogOutPopup = ({ handleClose, show, children }) => {
   return (
     <ContainerDiv show={show}>
       <ContentDiv>{children}</ContentDiv>
@@ -29,7 +29,7 @@ export const StyleEditBlock = ({ handleClose, show, children }) => {
   );
 };
 
-StyleEditBlock.propTypes = {
+LogOutPopup.propTypes = {
   handleClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.object,

@@ -3,7 +3,7 @@ import { ADD_POST, EDIT_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } fr
 const posts = (state = [], action) => {
   switch (action.type) {
     case ADD_POST: {
-      return [...state, action.payload.post];
+      return [action.payload.post, ...state];
     }
     case DELETE_POST: {
       return state.filter((post) => post.postID !== action.payload.postID);

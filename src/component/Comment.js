@@ -90,7 +90,7 @@ function Comment({ comment, setPostComments, postComments }) {
           setisCommentDeleteClick(false);
         }}>
         <div className={msgPopStyles.msgPopWrap}>
-          <h2>Sure to Deltete ?!</h2>
+          <h2>Sure to Delete ?!</h2>
           <div className={msgPopStyles.buttonWrap}>
             <button
               className={styled.decideButton}

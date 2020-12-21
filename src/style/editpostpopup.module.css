@@ -62,9 +62,7 @@ button:focus {
   border: none;
   outline: none;
   width: 100%;
-  height: 15px;
   background: rgb(250, 250, 250);
-  cursor: pointer;
   z-index: 1000;
 }
 

@@ -24,7 +24,7 @@ function EditStoryPopup({
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   const [editStoryStage, setEditStoryStage] = useState(0);
-
+  console.log(editStory);
   let storiesID = [];
   useEffect(() => {
     //繞成 storyID array

@@ -25,7 +25,7 @@ const ContentDiv = styled.div`
   min-width: 300px;
   max-width: 1000px;
   width:70%;
-  padding:1.5%;
+  padding:2%;
   align-items:center
   max-width: 85%;
   position: fixed;

@@ -66,7 +66,6 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   //msg & tag
   const [newMsg, setNewMsg] = useState('');
   const [newTag, setNewTag] = useState(null);
-
   // Msg
   const handleMsgChange = (e) => {
     setNewMsg(e.target.value);
@@ -82,11 +81,12 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
           name='postMsg'
           cols='20'
           rows='13'
+          value={newMsg}
           placeholder='This is my Fashion Declare!'
           onChange={handleMsgChange}></textarea>
         <div className={styled.searchButtonBlock}>
           <div className={styled.postSearch}>
-            <ChooseTags setNewTag={setNewTag} />
+            <ChooseTags newTag={newTag} setNewTag={setNewTag} />
           </div>
           <div className={styles.decideButtonWrap}>
             <button className={styles.decideButton} onClick={() => setUploadViewStage(0)}>

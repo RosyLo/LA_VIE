@@ -10,7 +10,6 @@ import { StyleModal } from './PopupModal';
 function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
   const { postID, postImage, postTime } = post;
   const [isImgChoose, setIsImgChoose] = useState(false);
-
   return (
     <>
       {stage === 0 && (

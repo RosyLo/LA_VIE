@@ -4,6 +4,7 @@
   max-height: 600px;
   min-height: 400px;
   overflow-y: auto;
+  margin-top: 20px;
 }
 
 .grid {
@@ -118,11 +119,17 @@
   margin: 10px auto 0px auto;
 }
 
+.topModel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .decideButton {
   background-color: black;
   width: 80px;
   color: white;
-  margin: 10px;
   border: 1px solid black;
   border-radius: 5px;
   content: 'Select some files';

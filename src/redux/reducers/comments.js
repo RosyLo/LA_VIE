@@ -8,9 +8,11 @@ const comments = (state = [], action) => {
     }
     case TOGGLE_Comment_Like: {
       return state.map((comment) => {
+        console.log(comment);
         if (comment.commentID === action.payload.id) {
           return { ...comment, likeIssuerID: action.payload.likeIssuerID };
         }
+        console.log(comment);
         return comment;
       });
     }

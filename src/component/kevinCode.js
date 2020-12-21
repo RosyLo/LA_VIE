@@ -60,7 +60,7 @@ export default function Board(props) {
       }
     }
   }
-  //
+
   function renderAllFeeds(feedItems) {
     if (feedItems) {
       let feedList = [];
@@ -92,7 +92,6 @@ export default function Board(props) {
     }
   }
 
-  //
   const user = useSelector((state) => {
     return state.memberReducer.user;
   });

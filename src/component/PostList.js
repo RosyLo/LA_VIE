@@ -10,6 +10,7 @@ import { fetchPosts, receiveTags } from '../redux/actions';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
+import { contextType } from 'react-modal';
 
 function PostList() {
   const [clickEdit, setclickEdit] = useState('');
@@ -17,37 +18,37 @@ function PostList() {
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
   const [lastSnap, setLastSnap] = useState('');
-  const [lastVisible, setLastVisible] = useState(0);
+  // const [lastVisible, setLastVisible] = useState(0);
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const [isScrollFetching, setIsScrollFetching] = useState(false);
   const stakeGridRef = React.useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
+    dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
     dispatch(receiveTags());
   }, [dispatch]);
 
+  const lastVisible = React.useRef(0);
   // infinit scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrollFetching(!isScrollFetching);
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (isScrollFetching) {
-        if (winScroll > height - 20) {
-          console.log('reach the bottom!', lastVisible);
-          let newLast = lastVisible + 10;
-          setLastVisible(newLast);
-          dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
-        }
+      if (winScroll > height - 20) {
+        console.log('reach the bottom!', lastVisible);
+        let newLast = lastVisible.current + 10;
+        dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
+        lastVisible.current = newLast;
+        // setLastVisible(newLast);
       }
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastVisible]);
+  }, [lastSnap]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -87,7 +88,7 @@ function PostList() {
     <>
       {isLoading === false ? (
         <div className={styles.wrap}>
-          <div className={styles.postWrap} onClick={() => {}}>
+          <div className={styles.postWrap}>
             <StackGrid
               gridRef={(e) => (stakeGridRef.current = e)}
               columnWidth={300}
@@ -105,14 +106,14 @@ function PostList() {
                 />
               ))}
             </StackGrid>
-            <button
+            {/* <button
               onClick={() => {
                 let newLast = lastVisible + 10;
                 setLastVisible(newLast);
                 dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
               }}>
               ???
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (

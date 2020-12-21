@@ -16,32 +16,55 @@ const ModalDiv = styled.div`
   bottom: 0;
   left: 0;
   background-color: grey;
-  opacity: 0.9;
+  opacity: 0.95;
   z-index: 3;
-`;
 
+  @media (max-width: 425px) {
+    .postWrap {
+      padding: 0px;
+    }
+    .titleWrap {
+      display: none;
+    }
+  }
+`;
 const ContentDiv = styled.div`
   min-width: 300px;
-  max-width: 800px;
+  max-width: 300px;
   max-height:700px;
   width:70%;
-  padding:2% 2% 3% 2%;
+  padding:2% 2% 3% 3%;
   align-items:center
   max-width: 800px;
   position: fixed;
   top: 50%;
-  left: 50%;
+  left: 65%;
   transform: translate(-50%, -50%);
-  z-index: 4;
+  z-index: 2000;
   border-radius: 5px;
   box-shadow: 3px 3px 3px #ced1d6;
-  display:block;
-  background: rgb(250, 250, 250);
+  background: rgb(250,250,250);
 `;
 
-export const StyleModal = ({ handleClose, show, children }) => {
+const Title = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  font-size: 3rem;
+  max-width: 300px;
+  }
+`;
+
+export const WelcomePopup = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <ModalWrap show={show}>
+      <div className='titleWrap'>
+        <Title>
+          <div className={styles.shareText}>Share your Life with the World!</div>
+        </Title>
+      </div>
       <ContentDiv>
         <div className={styles.cancelButton} onClick={handleClose}>
           <img className={styles.cancelButtonImg} src={cross}></img>
@@ -54,7 +77,7 @@ export const StyleModal = ({ handleClose, show, children }) => {
   );
 };
 
-StyleModal.propTypes = {
+WelcomePopup.propTypes = {
   handleClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.object,

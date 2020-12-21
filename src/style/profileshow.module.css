@@ -3,9 +3,10 @@
 }
 
 .profileShowWrap {
-  margin: 30px auto auto auto;
+  margin: 40px auto auto auto;
   height: 300px;
   max-width: 975px;
+
   /* border: 1px solid black; */
 }
 

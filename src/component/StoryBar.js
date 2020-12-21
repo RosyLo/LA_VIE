@@ -38,7 +38,7 @@ function StoryBar({ paramsID }) {
 
   let targetElement;
   useEffect(() => {
-    barLeftArrowRef.current.hidden = true;
+    barLeftArrowRef.current.style.display = 'none';
     barRightArrowRef.current.hidden = true;
     if (posts.length > 0) {
       dispatch(fetchStories(paramsID));
@@ -54,14 +54,14 @@ function StoryBar({ paramsID }) {
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
       if (-constainMargin + wrapRef.current.clientWidth >= containRef.current.clientWidth) {
-        barLeftArrowRef.current.hidden = true;
-        barRightArrowRef.current.hidden = false;
+        barRightArrowRef.current.style.display = 'none';
+        barLeftArrowRef.current.style.display = 'block';
       } else {
         let newconstainMargin = constainMargin - circleWidth;
         setconstainMargin(newconstainMargin);
         containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
         containRef.current.style.transition = 'transform 1s ease-in-out';
-        barRightArrowRef.current.hidden = false;
+        barLeftArrowRef.current.style.display = 'block';
       }
     }
   };
@@ -69,7 +69,8 @@ function StoryBar({ paramsID }) {
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
       if (constainMargin === 0) {
-        barLeftArrowRef.current.hidden = true;
+        barLeftArrowRef.current.style.display = 'none';
+        // barLeftArrowRef.current.hidden = true;
         barRightArrowRef.current.hidden = false;
         console.log('<');
       } else {
@@ -96,7 +97,7 @@ function StoryBar({ paramsID }) {
             className={styles.barrightarrow}
             ref={barRightArrowRef}
             onClick={() => {
-              storyBarScrollRight();
+              storyBarScrollLeft();
             }}
           />
           <img
@@ -104,7 +105,7 @@ function StoryBar({ paramsID }) {
             className={styles.barleftarrow}
             ref={barLeftArrowRef}
             onClick={() => {
-              storyBarScrollLeft();
+              storyBarScrollRight();
             }}
           />
           {isLoading === false ? (

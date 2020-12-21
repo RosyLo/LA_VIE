@@ -30,58 +30,59 @@ function EditPostBar({
       {user && user.uid === postIssuerID && (
         <>
           <div
-            style={{ marginLeft: 'auto' }}
+            style={{ marginLeft: 'auto', position: 'relative' }}
             className='editPostBar'
             onClick={(e) => {
               e.stopPropagation();
               setclickEdit(postID);
               setIsEditBlockClick(!isEditBlockClick);
             }}>
-            <img src={more} style={{ width: '15px', height: '15px' }}></img>
+            <img src={more} style={{ width: '12px', height: '12px', cursor: 'pointer' }}></img>
+
+            {postID === clickEdit ? (
+              <StyleEditBlock show={isEditBlockClick}>
+                <div
+                  className='editPost'
+                  onClick={(e) => {
+                    setisEditClick(true);
+                    e.stopPropagation();
+                  }}>
+                  Edit
+                </div>
+                <div
+                  className='deletePost'
+                  onClick={(e) => {
+                    setisDeletePopupClick(true);
+                    e.stopPropagation();
+                  }}>
+                  Delete
+                </div>
+                {isEditClick ? (
+                  <EditPostPopup
+                    setisEditClick={setisEditClick}
+                    isEditClick={isEditClick}
+                    editPostID={postID}
+                    setIsUploadPopup={setIsUploadPopup}
+                  />
+                ) : (
+                  ''
+                )}
+                {isDeletePopupClick ? (
+                  <DeletePopup
+                    setisDeletePopupClick={setisDeletePopupClick}
+                    isDeletePopupClick={isDeletePopupClick}
+                    deletePostID={postID}
+                    setIsDeletePopup={setIsDeletePopup}
+                    setisPostClick={setisPostClick}
+                  />
+                ) : (
+                  ''
+                )}
+              </StyleEditBlock>
+            ) : (
+              ''
+            )}
           </div>
-          {postID === clickEdit ? (
-            <StyleEditBlock show={isEditBlockClick}>
-              <div
-                className='editPost'
-                onClick={(e) => {
-                  setisEditClick(true);
-                  e.stopPropagation();
-                }}>
-                Edit
-              </div>
-              <div
-                className='deletePost'
-                onClick={(e) => {
-                  setisDeletePopupClick(true);
-                  e.stopPropagation();
-                }}>
-                Delete
-              </div>
-              {isEditClick ? (
-                <EditPostPopup
-                  setisEditClick={setisEditClick}
-                  isEditClick={isEditClick}
-                  editPostID={postID}
-                  setIsUploadPopup={setIsUploadPopup}
-                />
-              ) : (
-                ''
-              )}
-              {isDeletePopupClick ? (
-                <DeletePopup
-                  setisDeletePopupClick={setisDeletePopupClick}
-                  isDeletePopupClick={isDeletePopupClick}
-                  deletePostID={postID}
-                  setIsDeletePopup={setIsDeletePopup}
-                  setisPostClick={setisPostClick}
-                />
-              ) : (
-                ''
-              )}
-            </StyleEditBlock>
-          ) : (
-            ''
-          )}
         </>
       )}
       {/* EditPostPopup */}

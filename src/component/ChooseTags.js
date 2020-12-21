@@ -61,18 +61,33 @@ function ChooseTags({ newTag, setNewTag }) {
   if (newTag) {
     tagHolder = newTag.value;
   } else {
-    tagHolder = 'Choose Tag...';
+    tagHolder = '#Tag...';
   }
 
   return (
-    <CreatableSelect
-      isClearable
-      onChange={handleChange}
-      onInputChange={handleInputChange}
-      options={tags}
-      placeholder={tagHolder}
-      styles={customStyles}
-    />
+    <>
+      {newTag ? (
+        <CreatableSelect
+          isClearable
+          onChange={handleChange}
+          onInputChange={handleInputChange}
+          options={tags}
+          placeholder={tagHolder}
+          styles={customStyles}
+          value={newTag.value}
+        />
+      ) : (
+        <CreatableSelect
+          isClearable
+          onChange={handleChange}
+          onInputChange={handleInputChange}
+          options={tags}
+          placeholder={tagHolder}
+          styles={customStyles}
+          value='#Tag...'
+        />
+      )}
+    </>
   );
 }
 

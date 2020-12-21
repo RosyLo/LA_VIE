@@ -4,6 +4,10 @@
   /* font-family: 'Noto Sans TC','Noto Serif TC', serif,Arial, Helvetica, sans-serif; */
 }
 
+.shareText {
+  color: rgb(250, 250, 250);
+}
+
 button:focus {
   outline: 0px;
   /* border: 1px solid white; */
@@ -25,6 +29,12 @@ button:hover {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.moreBar {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
 }
 
 .separater {
@@ -92,8 +102,8 @@ button:hover {
 }
 
 .cancelButtonImg {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
 
   float: right;
 }

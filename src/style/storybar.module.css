@@ -14,7 +14,6 @@
   margin: 10px auto;
   justify-content: center;
   position: relative;
-  background-color: rosybrown;
   width: 100%;
 }
 .storyBarWrap:hover .barleftarrow {
@@ -26,8 +25,7 @@
 
 .storyCircleWrap {
   display: flex;
-  width: 70%;
-  background-color: saddlebrown;
+  width: 100%;
   /* border: 1px solid pink; */
   /* justify-content: center; */
   overflow: hidden;
@@ -36,6 +34,11 @@
   display: flex;
   /* border: 1px solid black; */
   /* background-color: gold; */
+}
+
+.storyBlock {
+  margin: auto;
+  width: 420px;
 }
 
 .story {
@@ -79,6 +82,7 @@
   display: none;
   width: 10px;
   height: 10px;
+  cursor: pointer;
 }
 .storyDeleteCross:hover {
   display: block;
@@ -133,30 +137,30 @@
 }
 
 .barrightarrow {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   position: absolute;
-  right: 15%;
+  right: 0;
   transform: translate(50%, -50%);
   top: 50%;
   cursor: pointer;
   background: rgba(250, 250, 250, 0.8);
   border-radius: 50%;
   z-index: 3;
-  display: none;
+  display: block;
 }
 .barleftarrow {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   position: absolute;
-  left: 15%;
+  left: 0;
   transform: translate(-50%, -50%);
   top: 50%;
   cursor: pointer;
   background: rgba(250, 250, 250, 0.8);
   border-radius: 50%;
   z-index: 3;
-  display: none;
+  display: block;
 }
 
 .cancelStory {
@@ -168,7 +172,7 @@
   cursor: pointer;
   margin-right: 10px;
   position: fixed;
-  right: calc(50% - 212px);
+  right: 0;
   top: 5px;
   z-index: 10000;
 }

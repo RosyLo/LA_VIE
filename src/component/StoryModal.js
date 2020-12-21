@@ -39,13 +39,10 @@ export const StoryModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
     <>
       <ModalWrap show={show}>
-        <ContentDiv>
-          {' '}
-          <div className={styles.cancelStory} onClick={handleClose}>
-            <img style={{ width: '10px', height: '10px' }} src={cross}></img>
-          </div>
-          {children}
-        </ContentDiv>
+        <div className={styles.cancelStory} onClick={handleClose}>
+          <img style={{ width: '12px', height: '12px' }} src={cross}></img>
+        </div>
+        <ContentDiv> {children}</ContentDiv>
         <ModalDiv></ModalDiv>
       </ModalWrap>
     </>,

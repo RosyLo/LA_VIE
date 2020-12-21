@@ -39,6 +39,7 @@
   height: 10px;
   margin: 10px 0 10px 0;
   display: block;
+  cursor: pointer;
   /* display: none; */
 }
 .commentMsg:focus {

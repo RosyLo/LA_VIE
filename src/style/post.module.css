@@ -47,6 +47,11 @@
   padding-top: 20px;
   display: flex;
 }
+
+.new {
+  width: 30px;
+  height: 30px;
+}
 .postProfileImage {
   width: 30px;
   height: 30px;
@@ -62,22 +67,29 @@
 .authorPic {
   font-family: sans-serif;
   position: relative;
+  /* opacity: 0.6; */
+  /* transition: 0.3s; */
+  transition: 1s;
+  display: flex;
+  justify-content: center;
   /* background-color: blanchedalmond; */
 }
 .authorPic:hover .picOverlay {
   /* width: */
-  height: 98.5%;
+  height: 100%;
+  opacity: 0.8;
 }
 
 .picOverlay {
   position: absolute;
-  top: 0px;
+  bottom: 0px;
   left: 15px;
   right: 0;
   background-color: rgba(48, 48, 48, 0.3);
   width: 90%;
   transition: 0.5s ease;
   overflow: hidden;
+  height: 0;
 }
 
 .content {
@@ -103,6 +115,7 @@
   width: 100%;
   /* margin: auto; */
   padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
 }
 
@@ -144,8 +157,38 @@ input:focus {
   outline: none;
 }
 
+.title {
+  position: fixed;
+  top: 0%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  font-size: 2rem;
+  max-width: 300px;
+}
+.contentDiv {
+  min-width: 300px;
+  max-width: 300px;
+  max-height: 700px;
+  width: 70%;
+  padding: 2% 2% 3% 3%;
+  align-items: center;
+  max-width: 800px;
+  position: fixed;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  z-index: 5000;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px #ced1d6;
+  background: rgb(250, 250, 250);
+}
+
 @media (max-width: 425px) {
   .postWrap {
     padding: 0px;
   }
+  /* .title {
+    display: none;
+  } */
 }

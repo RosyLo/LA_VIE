@@ -27,6 +27,7 @@ export const login = () => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     if (result) {
       const { user } = result;
+      console.log(user);
       let url = user.photoURL;
       url += '?width=700';
       db.collection('User')
@@ -42,7 +43,7 @@ export const login = () => (dispatch) => {
         .then(() => {
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
-          // window.location = '/main';
+          window.location = '/main';
         });
     }
   });
@@ -55,10 +56,35 @@ export const logout = () => (dispatch) => {
   window.location = '/welcome';
 };
 
-export const fetchPosts = (lastVisible, setLastVisible, lastSnap, setLastSnap) => (
-  dispatch,
-  getState,
-) => {
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const loginGoogle = () => (dispatch) => {
+  auth.signInWithPopup(googleAuthProvider).then(async (result) => {
+    if (result) {
+      const { user } = result;
+      let url = user.photoURL;
+      url += '?width=700';
+      db.collection('User')
+        .doc(user.uid)
+        .set(
+          {
+            profileMessage: 'LA VIE',
+            userName: user.displayName,
+            userProfileImage: url,
+          },
+          { merge: true },
+        )
+        .then(() => {
+          localStorage.setItem('User', JSON.stringify(user));
+          dispatch({ type: RECIEVED_USER, payload: { user } });
+          window.location = '/main';
+        });
+    }
+  });
+};
+
+export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, getState) => {
+  console.log(lastVisible);
+  console.log(lastSnap);
   const { posts } = getState();
   if (lastVisible === 0) {
     console.log('last visible equal zero!');
@@ -282,6 +308,7 @@ export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getS
 };
 
 export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
+  console.log('comment');
   const { user } = getState();
 
   if (!user) return;
@@ -295,6 +322,7 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
     set = 'postLikes';
     type = TOGGLE_LIKE_POST;
   } else if (isfrom === 'comment') {
+    console.log('comment');
     ref = db.collection('Comment').doc(id);
     set = 'likeIssuerID';
     type = TOGGLE_Comment_Like;
@@ -325,6 +353,8 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
         } else if (isfrom === 'comment') {
           let likeIssuerID = Array.from(likeSet);
           transaction.update(ref, { likeIssuerID });
+          console.log(likeIssuerID);
+          console.log(type);
           dispatch({ type: type, payload: { id, likeIssuerID } });
         }
       })
@@ -374,13 +404,13 @@ export const editComment = (comment, commentContent) => (dispatch, getState) => 
 
 export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
   //1.先拉下所有posts
-  const postsList = [];
   const { posts } = getState();
   const { user } = getState();
   db.collection('Post')
     .orderBy('postTime', 'desc')
     .get()
     .then((snap) => {
+      const postsList = [];
       snap.forEach((post) => {
         const postData = {
           postID: post.id,
@@ -398,8 +428,21 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
         }
         postsList.push(postData);
       });
+      return postsList;
     })
-    .then(() => {
+    .then((postsList) => {
+      //   //2.再判斷是否為此人的posts
+      let masterPosts = [];
+      //   const { posts } = getState();
+      postsList.forEach((post) => {
+        if (post.postIssuer.postIssuerID === paramsID) {
+          masterPosts.push(post);
+        }
+      });
+      return masterPosts;
+    })
+    .then((masterPosts) => {
+      let postsList = masterPosts;
       dispatch({
         type: RECIEVED_POSTS,
         payload: { postsList },

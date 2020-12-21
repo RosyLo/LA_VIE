@@ -29,24 +29,24 @@ function PostPopup({
   const [clickEdit, setclickEdit] = useState('');
   const [lastSnap, setLastSnap] = useState('');
   const [lastVisible, setLastVisible] = useState(0);
-
+  console.log(postComments);
   const db = firebase.firestore();
   let queryOpen = false;
-
+  console.log(comments);
   useEffect(() => {
+    console.log(comments);
     if (comments.length > 0) {
-      console.log(comments);
-      console.log(postComments);
       let commentsList = comments.map((comment) => {
         if (comment.postID === postID) {
           return comment;
         }
       });
-      console.log(commentsList[commentsList.length - 1]);
-      postComments.unshift(commentsList[commentsList.length - 1]);
-      setPostComments(postComments);
+      let newPostComments = [...postComments];
+      newPostComments.unshift(commentsList[commentsList.length - 1]);
+      console.log(newPostComments);
+      setPostComments(newPostComments);
     }
-  }, [comments]);
+  }, [comments.length]);
   console.log(postComments);
 
   useEffect(() => {
@@ -151,14 +151,19 @@ function PostPopup({
                       );
                     })
                   : ''}
-                <div
-                  onClick={() => {
-                    let newLast = lastVisible + 5;
-                    setLastVisible(newLast);
-                    console.log('click');
-                  }}>
-                  +
-                </div>
+
+                {postComments.length > 9 ? (
+                  <div
+                    onClick={() => {
+                      let newLast = lastVisible + 5;
+                      setLastVisible(newLast);
+                      console.log('click');
+                    }}>
+                    +
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
               {user ? (
                 <div className={postblock.commenting}>
