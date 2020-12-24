@@ -5,7 +5,7 @@ import ProfileImage from './ProfileImage';
 import EditPostBar from './EditPostBar';
 import Comment from './Comment';
 import Commenting from './Commenting';
-import { deletePost, fetchComments } from '../redux/actions';
+import { deletePost } from '../redux/actions';
 import { StyleModal } from './PopupModal';
 import styles from '../style/editpostpopup.module.css';
 import postblock from '../style/postblock.module.css';
@@ -25,31 +25,62 @@ function PostPopup({
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
   const clickpost = posts.find((post) => post.postID === clickPostID);
-  // postComments: 符合post id的
   const [postComments, setPostComments] = useState([]);
   const [clickEdit, setclickEdit] = useState('');
   const [lastSnap, setLastSnap] = useState('');
   const [lastVisible, setLastVisible] = useState(0);
   const db = firebase.firestore();
-  const dispatch = useDispatch();
-  console.log(comments);
-  // filter 出最後一筆黏上去
+  let queryOpen = false;
   useEffect(() => {
-    console.log(comments);
-    console.log(postComments);
-    let commentsList = comments.map((comment) => {
-      if (comment.postID === postID) {
-        return comment;
-      }
-    });
-    console.log(commentsList);
-    setPostComments(commentsList);
-  }, [comments]);
+    if (comments.length > 0) {
+      let commentsList = comments.map((comment) => {
+        if (comment.postID === postID) {
+          return comment;
+        }
+      });
+      let newPostComments = [...postComments];
+      newPostComments.unshift(commentsList[commentsList.length - 1]);
+      console.log(newPostComments);
+      setPostComments(newPostComments);
+    }
+  }, [comments.length]);
   console.log(postComments);
-  console.log(comments);
 
   useEffect(() => {
-    dispatch(fetchComments(clickPostID, postID, lastSnap, setLastSnap, lastVisible));
+    console.log(postComments);
+    if (lastVisible === 0) {
+      let commentsList = [];
+      db.collection('Comment')
+        .orderBy('commentTime', 'desc')
+        .limit(10)
+        .where('postID', '==', clickPostID)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            commentsList.push(doc.data());
+          });
+          setPostComments(commentsList);
+          setLastSnap(querySnapshot.docs[9]);
+          queryOpen = true;
+          console.log(queryOpen);
+        });
+    } else if (lastSnap) {
+      let commentsList = [...postComments];
+      db.collection('Comment')
+        .orderBy('commentTime', 'desc')
+        .startAfter(lastSnap)
+        .limit(5)
+        .where('postID', '==', clickPostID)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            commentsList.push(doc.data());
+          });
+          setPostComments(commentsList);
+          console.log(commentsList);
+          setLastSnap(querySnapshot.docs[querySnapshot.docs.length - 1]);
+        });
+    }
   }, [lastVisible]);
 
   return (
@@ -103,7 +134,8 @@ function PostPopup({
             <div className={postblock.rightModel}>
               <div className={postblock.commentsWrap}>
                 {postComments
-                  ? postComments.map((postComment) => {
+                  ? // ? postComments.slice(0, 15).map((postComment) => {
+                    postComments.map((postComment) => {
                       if (postComment) {
                         return (
                           <>

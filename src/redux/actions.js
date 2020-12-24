@@ -6,14 +6,22 @@ import {
   DELETE_POST,
   RECIEVED_POSTS,
   TOGGLE_LIKE_POST,
+  RECEIVED_COMMENT,
   ADD_COMMENT,
+  EDIT_COMMENT,
+  DELETE_COMMENT,
+  ADD_POST_COMMENT,
+  EDIT_POST_COMMENT,
+  DELETE_POST_COMMENT,
   TOGGLE_Comment_Like,
+  TOGGLE_POST_Comment_Like,
   RECIEVED_TAGS,
   RECIEVED_STORIES,
   RECIEVED_MASTERPOSTS,
   ADD_STORY,
   DELETE_STORY,
   EDIT_STORY,
+  RECIEVING_LOADING,
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
@@ -83,8 +91,6 @@ export const loginGoogle = () => (dispatch) => {
 };
 
 export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, getState) => {
-  console.log(lastVisible);
-  console.log(lastSnap);
   const { posts } = getState();
   if (lastVisible === 0) {
     console.log('last visible equal zero!');
@@ -119,6 +125,9 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
           type: RECIEVED_POSTS,
           payload: { postsList },
         });
+      })
+      .then(() => {
+        dispatch({ type: RECIEVING_LOADING, payload: false });
       });
   } else if (lastSnap) {
     console.log('else start, the last visible is', lastVisible);
@@ -154,6 +163,9 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
           type: RECIEVED_POSTS,
           payload: { postsList },
         });
+      })
+      .then(() => {
+        dispatch({ type: RECIEVING_LOADING, payload: false });
       });
   }
 };
@@ -308,7 +320,7 @@ export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getS
 };
 
 export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
-  console.log('comment');
+  console.log(id);
   const { user } = getState();
 
   if (!user) return;
@@ -346,6 +358,7 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
         }
       })
       .then(() => {
+        console.log(id);
         if (isfrom === 'post') {
           let postLikes = Array.from(likeSet);
           transaction.update(ref, { postLikes });
@@ -355,7 +368,8 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
           transaction.update(ref, { likeIssuerID });
           console.log(likeIssuerID);
           console.log(type);
-          dispatch({ type: type, payload: { id, likeIssuerID } });
+          dispatch({ type: TOGGLE_Comment_Like, payload: { id, likeIssuerID } });
+          dispatch({ type: TOGGLE_POST_Comment_Like, payload: { id, likeIssuerID } });
         }
       })
       .then((type) => {
@@ -364,7 +378,57 @@ export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
   });
 };
 
+export const fetchComments = (clickPostID, postID, lastSnap, setLastSnap, lastVisible) => (
+  dispatch,
+  getState,
+) => {
+  let queryOpen = false;
+  let commentsList = [];
+  if (lastVisible === 0) {
+    console.log(commentsList);
+    db.collection('Comment')
+      .orderBy('commentTime', 'desc')
+      .limit(10)
+      .where('postID', '==', clickPostID)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          commentsList.push(doc.data());
+        });
+        // setPostComments(commentsList);
+        setLastSnap(querySnapshot.docs[9]);
+        queryOpen = true;
+      })
+      .then(() => {
+        console.log(commentsList);
+        dispatch({ type: RECEIVED_COMMENT, payload: { commentsList } });
+      });
+  } else if (lastSnap) {
+    console.log(commentsList);
+    db.collection('Comment')
+      .orderBy('commentTime', 'desc')
+      .startAfter(lastSnap)
+      .limit(5)
+      .where('postID', '==', clickPostID)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          commentsList.push(doc.data());
+        });
+        // setPostComments(commentsList);
+        console.log(commentsList);
+        setLastSnap(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      })
+      .then(() => {
+        console.log(commentsList);
+        dispatch({ type: RECEIVED_COMMENT, payload: { commentsList } });
+      });
+  }
+};
+
 export const addComment = (postID, newComment) => (dispatch, getState) => {
+  console.log('ADD_POST_COMMENTS');
+  console.log(newComment);
   if (!newComment) return;
   const { user } = getState();
   if (!user) return;
@@ -383,7 +447,9 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
   const ref = db.collection('Comment');
   ref.add(comment).then((docRef) => {
     comment.commentID = docRef.id;
+    dispatch({ type: ADD_POST_COMMENT, payload: { comment } });
     dispatch({ type: ADD_COMMENT, payload: { comment } });
+    console.log('ADD_POST_COMMENTS');
     //寫commentID 回firebase
     ref.doc(docRef.id).update({
       commentID: docRef.id,
@@ -392,22 +458,91 @@ export const addComment = (postID, newComment) => (dispatch, getState) => {
 };
 
 export const editComment = (comment, commentContent) => (dispatch, getState) => {
+  console.log(commentContent);
+  let editedComment = [];
+
+  let editedPostComment = [];
   const ref = db.collection('Comment').doc(comment.commentID);
   ref
     .update({
       commentIssuerMessage: commentContent,
     })
     .then(() => {
-      console.log('update data successful');
+      //撈出有編輯的那筆，改那筆
+      const { comments } = getState();
+      const { postcomments } = getState();
+      console.log(comments);
+      console.log(postcomments);
+      // comments.forEach((postComment) => {
+      //   console.log(postComment);
+      //   console.log(comment);
+      //   if (postComment.commentID === comment.commentID) {
+      //     postComment.commentIssuerMessage = commentContent;
+      //     return postComment;
+      //   }
+      //   console.log(postComment);
+      //   editedComment.push(postComment);
+      // });
+
+      postcomments.forEach((postComment) => {
+        let newPostComment = { ...postComment };
+        if (postComment.commentID === comment.commentID) {
+          newPostComment.commentIssuerMessage = commentContent;
+          // postComment.commentIssuerMessage = commentContent;
+        }
+        // let newPostComment = { ...postComment };
+        editedPostComment.push(newPostComment);
+      });
+
+      dispatch({
+        type: EDIT_POST_COMMENT,
+        payload: { editedPostComment },
+      });
     });
+  // .then(() => {
+  //   console.log(editedComment);
+  //   dispatch({
+  //     type: EDIT_COMMENT,
+  //     payload: { editedComment },
+  //   });
+  //   console.log(editedPostComment);
+  //   dispatch({
+  //     type: EDIT_POST_COMMENT,
+  //     payload: { editedPostComment },
+  //   });
+  // });
+};
+export const deleteComment = (comment, setPostComments, postComments) => (dispatch, getState) => {
+  const { comments } = getState();
+  const { postcomments } = getState();
+  let newComments = comments.filter((postComment) => postComment.commentID !== comment.commentID);
+  console.log(newComments);
+
+  let newPostComments = postcomments.filter(
+    (postComment) => postComment.commentID !== comment.commentID,
+  );
+  // setPostComments(newComments);
+  dispatch({
+    type: DELETE_COMMENT,
+    payload: { newComments },
+  });
+  dispatch({
+    type: DELETE_POST_COMMENT,
+    payload: { newPostComments },
+  });
+
+  const db = firebase.firestore();
+  const ref = db.collection('Comment').doc(comment.commentID);
+  ref.delete().then(() => {
+    console.log('delete data successful');
+  });
 };
 
 export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
   //1.先拉下所有posts
-  const { posts } = getState();
-  const { user } = getState();
   db.collection('Post')
     .orderBy('postTime', 'desc')
+    .where('postIssuer.postIssuerID', '==', paramsID)
     .get()
     .then((snap) => {
       const postsList = [];
@@ -431,23 +566,15 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
       return postsList;
     })
     .then((postsList) => {
-      //   //2.再判斷是否為此人的posts
-      let masterPosts = [];
-      //   const { posts } = getState();
-      postsList.forEach((post) => {
-        if (post.postIssuer.postIssuerID === paramsID) {
-          masterPosts.push(post);
-        }
-      });
-      return masterPosts;
-    })
-    .then((masterPosts) => {
-      let postsList = masterPosts;
       dispatch({
         type: RECIEVED_POSTS,
         payload: { postsList },
       });
-    });
+    })
+    .then(() => {
+      dispatch({ type: RECIEVING_LOADING, payload: false });
+    })
+    .catch((error) => console.log(error));
   // .then(() => {
   //   //2.再判斷是否為此人的posts
   //   let masterPosts = [];
@@ -510,15 +637,20 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
 
 export const fetchStories = (paramsID) => (dispatch, getState) => {
   const { posts } = getState();
+  console.log(posts);
   const profileposts = posts.filter((post) => post.postIssuer.postIssuerID === paramsID);
+  console.log(profileposts);
+  console.log(paramsID);
   // 組合story state
   // 1.拿到此人的所有story
   // 2.組合 story 資訊，包含用post id去找post 資訊
   let story = [];
   db.collection('Story')
     .where('storyIssuerID', '==', paramsID)
+    .orderBy('createTime', 'desc')
     .get()
     .then((snap) => {
+      console.log(snap);
       snap.forEach((doc) => {
         let storyData = {
           storyID: doc.data().storyID,
@@ -527,19 +659,23 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
           storyIssuerID: doc.data().storyIssuerID,
           createTime: doc.data().createTime,
         };
+        console.log('hi');
         let stories = doc.data().stories.map((storiesID) => {
           return profileposts.find((profilepost) => profilepost.postID === storiesID);
         });
         storyData.stories = stories;
         story.push(storyData);
       });
+      console.log(story);
     })
     .then(() => {
+      console.log(story);
       dispatch({
         type: RECIEVED_STORIES,
         payload: { story },
       });
-    });
+    })
+    .catch((error) => console.log(error));
 };
 
 export const addStory = (addedstory) => (dispatch, getState) => {

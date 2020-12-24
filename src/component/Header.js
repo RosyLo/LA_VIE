@@ -15,12 +15,14 @@ import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
 import styles from '../style/header.module.css';
 import { WelcomePopup } from './WelcomePopup';
+import travel from '../img/travel.jpg';
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [isProfileToggleClick, setisProfileToggleClick] = useState(false);
   const [loginPopup, setLoginPopup] = useState(false);
+
   return (
     <>
       <nav>
@@ -31,7 +33,6 @@ const Header = () => {
             </Link>
           </div>
           <SearchTags />
-          {/* 登入登出 */}
           {user ? (
             <>
               <UploadPostButton />
@@ -42,7 +43,6 @@ const Header = () => {
                 to={{
                   pathname: '/profile',
                   search: `?id=${user.uid}`,
-                  state: { fromDashboard: true },
                 }}>
                 {' '}
                 <ProfileImage />
@@ -51,7 +51,7 @@ const Header = () => {
 
               {/* Toggle */}
               <img
-                style={{ width: '12px', height: '12px', cursor: 'pointer' }}
+                style={{ width: '12px', height: '12px', marginLeft: '10px', cursor: 'pointer' }}
                 src={arrow}
                 onClick={() => {
                   setisProfileToggleClick(!isProfileToggleClick);
@@ -95,20 +95,28 @@ const Header = () => {
         handleClose={() => {
           setLoginPopup(false);
         }}>
-        <div className={styles.loginWrap}>
-          <Logo />
-          <br />
-          <div className={styles.title}> Welcome to LA VIE</div>
-          <div className={styles.text}> Choose to login with</div>
-          <div className={styles.google} onClick={() => dispatch(loginGoogle())}>
-            {' '}
-            <img src={google} className={styles.googleIcon} />
-            oogle Login
+        <div className={styles.loginPopContain}>
+          <div className={styles.loginTitle}>
+            <img src={travel}></img>
           </div>
+          <div className={styles.loginWrap}>
+            <Logo />
+            <br />
+            <div className={styles.title1}> Share your life in</div>
+            <div className={styles.title2}> LA VIE</div>
+            <br />
+            <br />
+            <div className={styles.text}> Login with</div>
+            <div className={styles.google} onClick={() => dispatch(loginGoogle())}>
+              {' '}
+              <img src={google} className={styles.googleIcon} />
+              oogle Login
+            </div>
 
-          <div> OR</div>
-          <div className={styles.facebook} onClick={() => dispatch(login())}>
-            <img src={facebook} className={styles.facebookIcon} /> acebook Login
+            <div className={styles.text}> OR</div>
+            <div className={styles.facebook} onClick={() => dispatch(login())}>
+              <img src={facebook} className={styles.facebookIcon} /> acebook Login
+            </div>
           </div>
         </div>
       </WelcomePopup>

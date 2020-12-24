@@ -8,6 +8,8 @@ import firebase from '../firebase';
 import styles from '../style/post.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts } from '../redux/actions';
+import Loading from './Loading';
+import { RECIEVING_LOADING } from '../redux/actionTypes';
 
 function Welcome() {
   const slogans = [
@@ -19,7 +21,8 @@ function Welcome() {
     {
       tag: 'TRAVEL',
       tagName: '旅行',
-      backgroundColor: 'blue',
+      backgroundColor: 'rgb(114, 202, 232)',
+      // 114, 202, 232
     },
     {
       tag: 'FOODIE',
@@ -27,10 +30,12 @@ function Welcome() {
       backgroundColor: 'green',
     },
   ];
-  const [outfitList, setOutfitList] = useState([]);
-  const [travelList, setTravelList] = useState([]);
-  const [foodieList, setFoodieList] = useState([]);
+
+  //loading
+  const loading = useSelector((state) => state.loading);
+
   //posts
+  const [displayPosts, setDisplayPosts] = useState([]);
   const db = firebase.firestore();
   const postsList = [];
   useEffect(() => {
@@ -58,30 +63,12 @@ function Welcome() {
         return postsList;
       })
       .then((postsList) => {
-        console.log(postsList);
-        let outfit = [];
-        let travel = [];
-        let foodie = [];
-        postsList.forEach((post) => {
-          if (post.postTag.value === 'OUTFIT') {
-            outfit.push(post);
-          } else if (post.postTag.value === 'TRAVEL') {
-            travel.push(post);
-          } else if (post.postTag.value === 'FOODIE') {
-            foodie.push(post);
-          }
-        });
-        return outfit, travel, foodie;
-      })
-      .then((outfit, travel, foodie) => {
-        console.log(outfit);
-        console.log(travel);
-        console.log(foodie);
+        setDisplayPosts(postsList);
+        dispatch({ type: RECIEVING_LOADING, payload: false });
       });
-    console.log(postsList);
   }, []);
 
-  const delay = 5000;
+  const delay = 8000;
   const [index, setIndex] = React.useState(0);
   const [isTo2, setIsTo2] = useState(true);
   const timeoutRef = React.useRef(null);
@@ -128,10 +115,8 @@ function Welcome() {
   useEffect(() => {
     const handleScroll = () => {
       if (topOrButton === 'top') {
-        console.log('top');
         seTopOrButton('button');
       } else if (topOrButton === 'button') {
-        console.log('button');
         seTopOrButton('top');
       }
     };
@@ -142,50 +127,64 @@ function Welcome() {
     };
   }, []);
 
+  // filter((post) => post.type === 'food');
+  const filteredPosts = displayPosts.filter((post) => {
+    if (index === 0) return post.postTag.value === 'OUTFIT';
+    if (index === 1) return post.postTag.value === 'TRAVEL';
+    if (index === 2) return post.postTag.value === 'FOODIE';
+  });
+
   return (
     <>
-      <div className='slideshow'>
-        <div
-          className='slideshowSlider'
-          style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
-          {slogans.map((slogan, index) => (
-            <div className='slide' key={index}>
-              <div className='welcomeShow'>
-                <div>分享你的</div>
-                <div className='welcomeShowTag' style={{ color: slogan.backgroundColor }}>
-                  {slogan.tagName}
+      {loading === false ? (
+        <div className='slideshow'>
+          <div
+            className='slideshowSlider'
+            style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+            {slogans.map((slogan, index) => (
+              <div className='slide' key={index}>
+                <div className='welcomeShow'>
+                  <div>分享你的</div>
+                  <div className='welcomeShowTag' style={{ color: slogan.backgroundColor }}>
+                    {slogan.tagName}
+                  </div>
+                  <div>精彩生活</div>
                 </div>
-                <div>精彩生活</div>
-              </div>
-              <div className='slideshowDots'>
-                {slogans.map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={`slideshowDot${index === idx ? ' active' : ''}`}
-                    // className={`slideshowDot${index === idx ? " active" : ""}`}
-                    onClick={() => {
-                      setIndex(idx);
-                    }}></div>
-                ))}
-              </div>
-              <div className='wrap'>
-                <div className='postWrap'>
-                  <StackGrid
-                    gridRef={(e) => (stakeGridRef.current = e)}
-                    columnWidth={300}
-                    gutterWidth={30}
-                    gutterHeight={30}
-                    monitorImagesLoaded={true}>
-                    {posts.map((post) => (
-                      <Post key={post.postID} post={post} isfromWelcome={true} />
-                    ))}
-                  </StackGrid>
+                <div className='slideshowDots'>
+                  {slogans.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`slideshowDot${index === idx ? ' active' : ''}`}
+                      // className={`slideshowDot${index === idx ? " active" : ""}`}
+                      onClick={() => {
+                        setIndex(idx);
+                      }}></div>
+                  ))}
+                </div>
+                <div className='wrap'>
+                  <div className='postWrap'>
+                    <StackGrid
+                      gridRef={(e) => (stakeGridRef.current = e)}
+                      columnWidth={300}
+                      gutterWidth={33}
+                      gutterHeight={30}
+                      monitorImagesLoaded={true}>
+                      {filteredPosts.map((post) => (
+                        <Post key={post.postID} post={post} isfromWelcome={true} />
+                      ))}
+                    </StackGrid>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.loading}>
+          {' '}
+          <Loading />
+        </div>
+      )}
     </>
   );
 

@@ -7,7 +7,7 @@ const stories = (state = [], action) => {
     }
     case ADD_STORY: {
       console.log(action.payload.story);
-      return [...state, action.payload.stateStory];
+      return [action.payload.stateStory, ...state];
     }
     case DELETE_STORY: {
       return state.filter((story) => story.storyID !== action.payload.deleteStory.storyID);

@@ -11,11 +11,11 @@ function ProfileShow({ paramsID }) {
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   // const masterposts = useSelector((state) => state.masterposts);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 3000);
-  }, [posts]);
+  // useEffect(() => {
+  //   setTimeout(() => setIsLoading(false), 3000);
+  // }, [posts]);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -25,11 +25,12 @@ function ProfileShow({ paramsID }) {
       .then((doc) => {
         setProfile(doc.data());
       });
-  }, []);
+  }, [paramsID]);
+  const loading = useSelector((state) => state.loading);
 
   return (
     <div className={styles.profileShowWrap}>
-      {isLoading === false && profile ? (
+      {loading === false && profile ? (
         <div className={styles.profileShow}>
           <img className={styles.profilePic} src={profile.userProfileImage}></img>
           <div className={styles.profileInfo}>
@@ -39,12 +40,10 @@ function ProfileShow({ paramsID }) {
               <div className={styles.followerInfo}>
                 {posts.length} <span>Posts</span>
               </div>
-              <div className={styles.followerInfo}>＿Followers</div>
-              <div className={styles.followerInfo}>＿Following</div>
+              {/* <div className={styles.followerInfo}>＿Followers</div>
+              <div className={styles.followerInfo}>＿Following</div> */}
             </div>
           </div>
-          {/* <div className={styles.profileWords}>{profile.profileMessage}</div> */}
-          {/* <div className={styles.block}></div> */}
         </div>
       ) : (
         <div className={styles.loading}>

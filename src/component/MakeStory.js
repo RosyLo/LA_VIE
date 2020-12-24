@@ -10,6 +10,8 @@ import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
 import StackGrid from 'react-stack-grid';
 import styled from '../style/makestory.module.css';
+import msgPopStyles from '../style/msgPopWrap.module.css';
+import { MsgPopup } from './MsgPopup';
 
 function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces }) {
   const dispatch = useDispatch();
@@ -201,20 +203,41 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
     title = storyNameingTitle;
     view = storyNameing;
   }
-
+  const [isMakeSuccess, setIsMakeSuccess] = useState(0);
   return (
-    <MakeStoryModal
-      show={isMakeStoryClick}
-      handleClose={() => {
-        setisMakeStoryClick(false);
-      }}>
-      <div className={styles.modelWrap}>
-        <div className={styled.topModel}>{title}</div>
-        <div className={styled.buttonModal}>
-          <div>{view}</div>
+    <>
+      <MakeStoryModal
+        show={isMakeStoryClick}
+        handleClose={() => {
+          setisMakeStoryClick(false);
+        }}>
+        <div className={styles.modelWrap}>
+          <div className={styled.topModel}>{title}</div>
+          <div className={styled.buttonModal}>
+            <div>{view}</div>
+          </div>
         </div>
-      </div>
-    </MakeStoryModal>
+      </MakeStoryModal>
+      {/* EditPostPopup */}
+      <MsgPopup
+        show={isMakeSuccess}
+        handleClose={() => {
+          setIsMakeSuccess(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>New Story Is On!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setIsMakeSuccess(false);
+              }}>
+              OK
+            </button>
+          </div>
+        </div>
+      </MsgPopup>
+    </>
   );
 }
 

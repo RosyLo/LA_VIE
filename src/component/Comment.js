@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Heart from './Heart';
 import { MsgPopup } from './MsgPopup';
-import { editComment } from '../redux/actions';
+import { editComment, deleteComment } from '../redux/actions';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
@@ -20,19 +20,6 @@ function Comment({ comment, setPostComments, postComments }) {
   const [isCommentEdit, setIsCommentEdit] = useState(false);
   const [commentContent, setCommentContent] = useState(commentIssuerMessage);
 
-  const deleteComment = (comment) => {
-    let newComments = postComments.filter(
-      (postComment) => postComment.commentID !== comment.commentID,
-    );
-    setPostComments(newComments);
-
-    const db = firebase.firestore();
-    const ref = db.collection('Comment').doc(comment.commentID);
-    ref.delete().then(() => {
-      console.log('delete data successful');
-    });
-  };
-
   //edit
   const keyDownEvent = (e) => {
     if (e.key === 'Enter') {
@@ -42,7 +29,9 @@ function Comment({ comment, setPostComments, postComments }) {
       dispatch(editComment(comment, commentContent));
     }
   };
-
+  useEffect(() => {
+    setCommentContent(comment.commentIssuerMessage);
+  }, [commentIssuerMessage]);
   return (
     <>
       <div className={styles.comment}>
@@ -103,7 +92,7 @@ function Comment({ comment, setPostComments, postComments }) {
               className={styled.decideButton}
               onClick={() => {
                 setisCommentDeleteClick(false);
-                deleteComment(comment);
+                dispatch(deleteComment(comment, setPostComments, postComments));
               }}>
               Delete
             </button>

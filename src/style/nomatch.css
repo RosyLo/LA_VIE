@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+}
+
+.noMatch {
+  text-align: center;
+  margin-top: 200px;
+}
+
+.noMatchTitle {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.noMatchBtn {
+  background-color: black;
+  width: 80px;
+  color: white;
+  margin: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+}
+
+@media (max-width: 425px) {
+  .noMatchBtn {
+    margin: 10px;
+  }
+}

@@ -34,6 +34,17 @@
   max-width: 975px;
   margin: auto;
 }
+.noPostUpload {
+  display: flex;
+  margin-top: 100px;
+  font-size: 1.5rem;
+  width: 100%;
+  /* background-color: blue; */
+  justify-content: center;
+}
+.noPostGuide {
+  margin-right: 10px;
+}
 
 @media (max-width: 425px) {
   .postWrap {

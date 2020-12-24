@@ -1,14 +1,13 @@
 import { React, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProfileShow from './ProfileShow';
 import StoryBar from './StoryBar';
 import ProfileContent from './ProfileContent';
 import { useSelector } from 'react-redux';
 
-function Profile() {
+function Profile({ userId }) {
   const user = useSelector((state) => state.user);
-  const params = new URLSearchParams(window.location.search);
-  const paramsID = params.get('id');
 
   let view = '';
 
@@ -16,27 +15,27 @@ function Profile() {
     //visitor
     view = (
       <>
-        <ProfileShow paramsID={paramsID} />
-        <ProfileContent paramsID={paramsID} />
+        <ProfileShow paramsID={userId} />
+        <ProfileContent paramsID={userId} />
       </>
     );
-  } else if (user.uid === paramsID) {
+  } else if (user.uid === userId) {
     //master?
     view = (
       <>
-        <ProfileShow paramsID={paramsID} />
-        <StoryBar paramsID={paramsID} />
-        <ProfileContent paramsID={paramsID} />
+        <ProfileShow paramsID={userId} />
+        <StoryBar paramsID={userId} />
+        <ProfileContent paramsID={userId} />
       </>
     );
   } else {
     //viewer
     view = (
       <>
-        <ProfileShow paramsID={paramsID} />
+        <ProfileShow paramsID={userId} />
         {/* !要判斷是否為粉絲 */}
-        <StoryBar paramsID={paramsID} />
-        <ProfileContent paramsID={paramsID} />
+        <StoryBar paramsID={userId} />
+        <ProfileContent paramsID={userId} />
       </>
     );
   }
@@ -44,4 +43,8 @@ function Profile() {
   return <>{view}</>;
 }
 
-export default Profile;
+Profile.propTypes = {
+  userId: PropTypes.string,
+};
+
+export default withRouter(Profile);

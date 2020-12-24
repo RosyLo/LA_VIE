@@ -27,7 +27,7 @@ nav {
   border: 1px solid rgb(239, 239, 239);
   cursor: pointer;
   position: relative;
-  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .storyCirclePlus {
@@ -54,7 +54,7 @@ nav {
   border-radius: 50%;
   background-color: white;
   border: 1px solid black;
-  margin: 0px auto 0px 0px;
+  margin: 20px auto 0px 0px;
   cursor: pointer;
 }
 
@@ -69,23 +69,52 @@ nav {
   /* overflow: hidden; */
 }
 
+.loginPopContain {
+  /* align-self: start; */
+  height: 350px;
+  display: flex;
+  /* background-color: rosybrown; */
+
+  justify-content: space-around;
+}
+
 .loginWrap {
+  /* background-color: blueviolet; */
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  /* justify-content: space-around; */
+  width: 300px;
+  height: 100%;
 }
-.title {
-  font-size: 30px;
-  margin-top: 10px;
-  margin-bottom: 40px;
+.loginTitle {
+  width: 280px;
+  display: flex;
+  font-size: 2rem;
+  color: #3f3f33;
+  justify-content: center;
+  align-items: center;
+  /* padding: 10px; */
+}
+
+.loginTitle img {
+  width: 100%;
+}
+.title1 {
+  font-size: 1rem;
+}
+.title2 {
+  font-size: 1.5rem;
 }
 .text {
-  font-size: 15px;
+  font-size: 1rem;
 }
 .google {
   text-align: center;
   width: 80%;
-  height: 50px;
+  height: 45px;
   /* background: red; */
   border-radius: 20px;
   margin-top: 10px;
@@ -113,7 +142,7 @@ nav {
 .facebook {
   text-align: center;
   width: 80%;
-  height: 50px;
+  height: 45px;
   /* background: blue; */
   border-radius: 20px;
   margin-top: 10px;
@@ -157,5 +186,8 @@ nav {
   }
   .navIcon {
     margin-right: 5px;
+  }
+  .loginTitle {
+    display: none;
   }
 } ;

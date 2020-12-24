@@ -14,8 +14,10 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   const [uploadViewStage, setUploadViewStage] = useState(0);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
+  // const [test, settest] = useState('o');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
   const post = {
     postID: 'postID' + nanoid(),
     postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
@@ -33,14 +35,19 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
     setImage(e.target.files[0]);
     console.log(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
+    console.log(imageURL);
     setImageURL(imageURL);
+    // settest('x');
   };
 
   //選擇照片
   const choosePic = (
     <div className={styles.rightModel}>
       <div className={styled.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
-        <div className={styles.blockTitle}>Pick the Photo</div>
+        <div className={styles.blockTitle}>
+          Pick the Photo{imageURL}
+          {/* {test} */}
+        </div>
         <div className={styled.decideButtonBlock}>
           <label htmlFor='uploadPictureButton' className={styles.uploadButton}>
             Choose
@@ -125,7 +132,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
               e.preventDefault();
               dispatch(addPost(image, newMsg, newTag));
               setisUploadPopupClick(false);
-              setImageURL(null);
+              setImageURL('hihi');
               setUploadViewStage(0);
               setIsNewPostConfirm(true);
             }}>
@@ -144,7 +151,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   } else if (uploadViewStage === 2) {
     view = uploadPic;
   }
-
+  console.log(imageURL);
   return (
     <>
       <StyleModal

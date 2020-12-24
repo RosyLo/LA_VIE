@@ -10,6 +10,8 @@ import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
 import StackGrid from 'react-stack-grid';
 import styled from '../style/makestory.module.css';
+import { MsgPopup } from './MsgPopup';
+import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function EditStoryPopup({
   setIsEditStoryBlockClick,
@@ -230,19 +232,40 @@ function EditStoryPopup({
     view = storyNameing;
   }
 
+  const [isEditSuccess, setIsEditSuccess] = useState(0);
   return (
-    <MakeStoryModal
-      show={isEditStoryBlockClick}
-      handleClose={() => {
-        setIsEditStoryBlockClick(false);
-      }}>
-      <div className={styles.modelWrap}>
-        <div className={styles.topModel}>{title}</div>
-        <div className={styled.buttonModal}>
-          <div>{view}</div>
+    <>
+      <MakeStoryModal
+        show={isEditStoryBlockClick}
+        handleClose={() => {
+          setIsEditStoryBlockClick(false);
+        }}>
+        <div className={styles.modelWrap}>
+          <div className={styled.topModel}>{title}</div>
+          <div className={styled.buttonModal}>
+            <div>{view}</div>
+          </div>
         </div>
-      </div>
-    </MakeStoryModal>
+      </MakeStoryModal>
+      <MsgPopup
+        show={isEditSuccess}
+        handleClose={() => {
+          setIsEditSuccess(false);
+        }}>
+        <div className={msgPopStyles.msgPopWrap}>
+          <h2>Update Successful!</h2>
+          <div className={msgPopStyles.buttonWrap}>
+            <button
+              className={styled.decideButton}
+              onClick={() => {
+                setIsEditSuccess(false);
+              }}>
+              OK
+            </button>
+          </div>
+        </div>
+      </MsgPopup>
+    </>
   );
 }
 

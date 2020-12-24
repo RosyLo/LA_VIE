@@ -14,6 +14,7 @@ function Commenting({ postID }) {
       className={styles.form}
       onSubmit={(e) => {
         e.preventDefault();
+        console.log('commenting');
         dispatch(addComment(postID, newComment));
         setNewCommment('');
       }}>

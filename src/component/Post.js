@@ -25,10 +25,16 @@ function Post({
 }) {
   const { postID, postIssuer, postImage, postLikes, postTime, postTag, postMessage } = post;
   const user = useSelector((state) => state.user);
-  const comments = useSelector((state) => state.comments);
-  const commentList = comments.filter((comment) => comment.postID === postID);
+  const postcomments = useSelector((state) => state.postcomments);
+  const [commentList, setCommentList] = useState([]);
+  useEffect(() => {
+    let newList = postcomments.filter((comment) => comment.postID === postID);
+    console.log(newList);
+    setCommentList(newList);
+  }, [postcomments]);
+  // const commentList = postcomments.filter((comment) => comment.postID === postID);
+  console.log(post);
   const [isPostClick, setisPostClick] = useState(false);
-  console.log(isfromWelcome);
   return (
     <>
       <div className={styles.post}>

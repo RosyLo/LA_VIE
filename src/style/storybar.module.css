@@ -32,6 +32,7 @@
 }
 .storyCircleContain {
   display: flex;
+  /* width: 100%; */
   /* border: 1px solid black; */
   /* background-color: gold; */
 }
@@ -97,6 +98,7 @@
   z-index: 10000;
   width: 100px;
   height: 100px;
+  cursor: pointer;
 }
 
 .storyBlockWrap:hover .rightarrow {
@@ -142,7 +144,7 @@
   position: absolute;
   right: 0;
   transform: translate(50%, -50%);
-  top: 50%;
+  top: 45%;
   cursor: pointer;
   background: rgba(250, 250, 250, 0.8);
   border-radius: 50%;
@@ -155,7 +157,7 @@
   position: absolute;
   left: 0;
   transform: translate(-50%, -50%);
-  top: 50%;
+  top: 45%;
   cursor: pointer;
   background: rgba(250, 250, 250, 0.8);
   border-radius: 50%;
@@ -189,4 +191,15 @@
   right: 10px;
   top: 5px;
   z-index: 1;
+}
+
+.noPostUpload {
+  display: flex;
+  text-align: center;
+  margin-top: 200px;
+  font-size: 1.5rem;
+  width: 100%;
+}
+.noPostGuide {
+  margin-right: 10px;
 }

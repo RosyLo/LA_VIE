@@ -13,6 +13,7 @@ import Loading from './Loading';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
+import UploadPostButton from './UploadPostButton';
 
 function StoryBar({ paramsID }) {
   const dispatch = useDispatch();
@@ -30,111 +31,153 @@ function StoryBar({ paramsID }) {
 
   const [constainMargin, setconstainMargin] = useState(0);
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 3000);
-  }, [stories]);
+  // useEffect(() => {
+  //   setTimeout(() => setIsLoading(false), 3000);
+  // }, [stories]);
 
-  let targetElement;
+  const loading = useSelector((state) => state.loading);
+  //stories 慢，判斷完了
+  // let targetElement;
   useEffect(() => {
-    barLeftArrowRef.current.style.display = 'none';
-    barRightArrowRef.current.hidden = true;
     if (posts.length > 0) {
-      dispatch(fetchStories(paramsID));
-
-      if (posts.length > 5) {
-        barLeftArrowRef.current.hidden = false;
+      if (barLeftArrowRef.current) {
+        barLeftArrowRef.current.style.display = 'none';
       }
+      // barRightArrowRef.current.style.display = 'none';
+      console.log(paramsID);
+      dispatch(fetchStories(paramsID));
     }
-    targetElement = document.querySelector('#portal');
+    // targetElement = document.querySelector('#portal');
   }, [posts]);
 
+  useEffect(() => {
+    if (stories.length > 3) {
+      console.log(stories.length);
+      barRightArrowRef.current.style.display = 'block';
+    }
+  }, [stories]);
+
   const storyBarScrollLeft = () => {
+    console.log('rightarrow');
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
-      if (-constainMargin + wrapRef.current.clientWidth >= containRef.current.clientWidth) {
+      let newconstainMargin = constainMargin - circleWidth;
+      setconstainMargin(newconstainMargin);
+      containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
+      containRef.current.style.transition = 'transform 1s ease-in-out';
+      barLeftArrowRef.current.style.display = 'block';
+      if (
+        -constainMargin + wrapRef.current.clientWidth + circleWidth >=
+        containRef.current.clientWidth
+      ) {
         barRightArrowRef.current.style.display = 'none';
         barLeftArrowRef.current.style.display = 'block';
-      } else {
-        let newconstainMargin = constainMargin - circleWidth;
-        setconstainMargin(newconstainMargin);
-        containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
-        containRef.current.style.transition = 'transform 1s ease-in-out';
-        barLeftArrowRef.current.style.display = 'block';
       }
     }
   };
+
   const storyBarScrollRight = () => {
+    console.log(wrapRef.current.clientWidth);
+    console.log(containRef.current.clientWidth);
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
-      if (constainMargin === 0) {
-        barLeftArrowRef.current.style.display = 'none';
-        // barLeftArrowRef.current.hidden = true;
-        barRightArrowRef.current.hidden = false;
-        console.log('<');
+      let newconstainMargin = constainMargin + circleWidth;
+      setconstainMargin(newconstainMargin);
+      containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
+      containRef.current.style.transition = 'transform 1s ease-in-out';
+      if (user.uid === paramsID) {
+        console.log(-constainMargin);
+        console.log(wrapRef.current.clientWidth);
+        console.log(containRef.current.clientWidth);
+        if (-constainMargin <= circleWidth) {
+          console.log(-constainMargin);
+          console.log(wrapRef.current.clientWidth);
+          console.log(containRef.current.clientWidth);
+          barLeftArrowRef.current.style.display = 'none';
+          barRightArrowRef.current.style.display = 'block';
+        }
       } else {
-        let newconstainMargin = constainMargin + circleWidth;
-        setconstainMargin(newconstainMargin);
-        containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
-        containRef.current.style.transition = 'transform 1s ease-in-out';
-        barLeftArrowRef.current.hidden = false;
+        if (-constainMargin + wrapRef.current.clientWidth > containRef.current.clientWidth) {
+          console.log(-constainMargin);
+          console.log(wrapRef.current.clientWidth);
+          console.log(containRef.current.clientWidth);
+          barLeftArrowRef.current.style.display = 'none';
+          barRightArrowRef.current.style.display = 'block';
+        }
       }
     }
   };
+  console.log(stories);
 
   return (
     <>
       <div className={styles.wrap}>
-        <div className={styles.storyBarWrap}>
-          <MakeStory
-            isMakeStoryClick={isMakeStoryClick}
-            setisMakeStoryClick={setisMakeStoryClick}
-            setisMakeStorySucces={setisMakeStorySucces}
-          />
-          <img
-            src={rightarrow}
-            className={styles.barrightarrow}
-            ref={barRightArrowRef}
-            onClick={() => {
-              storyBarScrollLeft();
-            }}
-          />
-          <img
-            src={leftarrow}
-            className={styles.barleftarrow}
-            ref={barLeftArrowRef}
-            onClick={() => {
-              storyBarScrollRight();
-            }}
-          />
-          {isLoading === false ? (
+        {loading === false ? (
+          <div className={styles.storyBarWrap}>
             <div className={styles.storyCircleWrap} ref={wrapRef}>
               <div className={styles.storyCircleContain} ref={containRef}>
-                <div>
-                  {user.uid === paramsID ? (
-                    <div
-                      className={styles.storyCircle}
-                      onClick={() => {
-                        console.log('add');
-                        setisMakeStoryClick(true);
-                      }}>
-                      <img className={styles.storyCirclePlus} src={plus} />
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                {stories.map((story) => (
-                  <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
-                ))}
+                {user.uid === paramsID && posts.length > 0 ? (
+                  <div
+                    className={styles.storyCircle}
+                    onClick={() => {
+                      console.log('add');
+                      setisMakeStoryClick(true);
+                    }}>
+                    <img className={styles.storyCirclePlus} src={plus} />
+                  </div>
+                ) : (
+                  ''
+                )}
+                {posts.length > 0 ? (
+                  <>
+                    {stories.map((story) => (
+                      <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
+                    ))}
+                  </>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
-          ) : (
-            <div className={styles.loading}>{/* <Loading /> */}</div>
-          )}
-        </div>
+            {stories.length > 0 ? (
+              <>
+                <img
+                  src={rightarrow}
+                  className={styles.barrightarrow}
+                  ref={barRightArrowRef}
+                  onClick={() => {
+                    storyBarScrollLeft();
+                  }}
+                />
+                <img
+                  src={leftarrow}
+                  className={styles.barleftarrow}
+                  ref={barLeftArrowRef}
+                  onClick={() => {
+                    storyBarScrollRight();
+                  }}
+                />
+              </>
+            ) : (
+              ''
+            )}
+          </div>
+        ) : (
+          <div className={styles.loading}></div>
+          // <div className={styles.noPostUpload}>
+          //   <div className={styles.noPostGuide}>No Posts Yet, Upload My First Post:</div>{' '}
+          //   <UploadPostButton />
+          // </div>
+        )}
       </div>
+      {/* make story */}
+      <MakeStory
+        isMakeStoryClick={isMakeStoryClick}
+        setisMakeStoryClick={setisMakeStoryClick}
+        setisMakeStorySucces={setisMakeStorySucces}
+      />
       {/* MakeStory Success Popup */}
       <MsgPopup
         show={isMakeStorySuccess}

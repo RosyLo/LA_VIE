@@ -9,7 +9,7 @@ import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function UploadPostButton() {
   const [isUploadPopupClick, setisUploadPopupClick] = useState(false);
-
+  console.log('upload');
   // const [isUploadPopup, setisUploadPopup] = useState(false);
   //for new post
   const [isNewPostConfirm, setIsNewPostConfirm] = useState(false);

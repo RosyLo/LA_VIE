@@ -8,9 +8,15 @@ import MainShow from './MainShow';
 import styles from '../style/post.module.css';
 import { fetchPosts, receiveTags } from '../redux/actions';
 import { MsgPopup } from './MsgPopup';
+import { WelcomePopup } from './WelcomePopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
 import { contextType } from 'react-modal';
+import Logo from './Logo';
+import headerstyle from '../style/header.module.css';
+import google from '../img/google.png';
+import facebook from '../img/facebookt.png';
+import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function PostList() {
   const [clickEdit, setclickEdit] = useState('');
@@ -29,32 +35,29 @@ function PostList() {
     dispatch(receiveTags());
   }, [dispatch]);
 
+  //loading
+  const loading = useSelector((state) => state.loading);
+
   const lastVisible = React.useRef(0);
+  const handleScroll = () => {
+    setIsScrollFetching(!isScrollFetching);
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (winScroll > height - 20) {
+      console.log('reach the bottom!', lastVisible);
+      let newLast = lastVisible.current + 10;
+      dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
+      lastVisible.current = newLast;
+      // setLastVisible(newLast);
+    }
+  };
   // infinit scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrollFetching(!isScrollFetching);
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (winScroll > height - 20) {
-        console.log('reach the bottom!', lastVisible);
-        let newLast = lastVisible.current + 10;
-        dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
-        lastVisible.current = newLast;
-        // setLastVisible(newLast);
-      }
-    };
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastSnap]);
-
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
-  }, [posts]);
 
   useEffect(() => {
     if (stakeGridRef.current) {
@@ -84,43 +87,82 @@ function PostList() {
     filterPosts = posts;
   }
 
+  const [pleaseLogin, setPleaseLogin] = useState(false);
+  const user = useSelector((state) => state.user);
+  const checkLogin = () => {
+    if (!user) {
+      setPleaseLogin(!pleaseLogin);
+    }
+  };
+
   return (
     <>
-      {isLoading === false ? (
-        <div className={styles.wrap}>
-          <div className={styles.postWrap}>
-            <StackGrid
-              gridRef={(e) => (stakeGridRef.current = e)}
-              columnWidth={300}
-              gutterWidth={30}
-              gutterHeight={30}
-              monitorImagesLoaded={true}>
-              {filterPosts.map((post) => (
-                <Post
-                  key={post.postID}
-                  post={post}
-                  clickEdit={clickEdit}
-                  setclickEdit={setclickEdit}
-                  isDeletePopup={isDeletePopup}
-                  setIsDeletePopup={setIsDeletePopup}
-                />
-              ))}
-            </StackGrid>
-            {/* <button
+      {loading === false ? (
+        <>
+          <div className={styles.wrap}>
+            <div
+              className={styles.postWrap}
               onClick={() => {
-                let newLast = lastVisible + 10;
-                setLastVisible(newLast);
-                dispatch(fetchPosts(lastVisible, setLastVisible, lastSnap, setLastSnap));
+                checkLogin();
               }}>
-              ???
-            </button> */}
+              <StackGrid
+                gridRef={(e) => (stakeGridRef.current = e)}
+                columnWidth={300}
+                gutterWidth={30}
+                gutterHeight={30}
+                monitorImagesLoaded={true}>
+                {filterPosts.map((post) => (
+                  <Post
+                    key={post.postID}
+                    post={post}
+                    clickEdit={clickEdit}
+                    setclickEdit={setclickEdit}
+                    isDeletePopup={isDeletePopup}
+                    setIsDeletePopup={setIsDeletePopup}
+                  />
+                ))}
+              </StackGrid>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <div className={styles.loading}>
           <Loading />
         </div>
       )}
+      {/* please login  */}
+      <WelcomePopup
+        show={pleaseLogin}
+        handleClose={() => {
+          setPleaseLogin(false);
+        }}>
+        <div className={headerstyle.loginWrap}>
+          <Logo />
+          <br />
+          <div className={headerstyle.title}> Welcome to LA VIE</div>
+          <div className={headerstyle.text}> Choose to login with</div>
+          <div
+            className={headerstyle.google}
+            onClick={() => {
+              dispatch(loginGoogle());
+              setPleaseLogin(false);
+            }}>
+            {' '}
+            <img src={google} className={headerstyle.googleIcon} />
+            oogle Login
+          </div>
+
+          <div> OR</div>
+          <div
+            className={headerstyle.facebook}
+            onClick={() => {
+              dispatch(login());
+              setPleaseLogin(false);
+            }}>
+            <img src={facebook} className={headerstyle.facebookIcon} /> acebook Login
+          </div>
+        </div>
+      </WelcomePopup>
       {/* DeletePopup */}
       <MsgPopup
         show={isDeletePopup}

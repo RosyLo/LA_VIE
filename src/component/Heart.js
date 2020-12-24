@@ -9,8 +9,6 @@ function Heart({ id, likes, isfrom }) {
   const user = useSelector((state) => state.user);
   const isLiked = user ? likes.includes(user.uid) : false;
   const heartRef = React.useRef(null);
-  console.log(likes);
-  console.log(isLiked);
   const heartClick = () => {
     if (isLiked) {
       heartRef.current.className = ' HeartAnimation';
@@ -28,9 +26,7 @@ function Heart({ id, likes, isfrom }) {
           onClick={() => {
             dispatch(togglePostLike(id, isfrom));
             heartClick();
-          }}>
-          OOO
-        </div>
+          }}></div>
       ) : (
         <div
           className='HeartAnimation'
@@ -38,9 +34,7 @@ function Heart({ id, likes, isfrom }) {
           onClick={() => {
             dispatch(togglePostLike(id, isfrom));
             heartClick();
-          }}>
-          XXX
-        </div>
+          }}></div>
       )}
     </>
   );

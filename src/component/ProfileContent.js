@@ -10,6 +10,7 @@ import Loading from './Loading';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
+import UploadPostButton from './UploadPostButton';
 
 function ProfileContent({ paramsID }) {
   const dispatch = useDispatch();
@@ -17,18 +18,17 @@ function ProfileContent({ paramsID }) {
   const [clickEdit, setclickEdit] = useState('');
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
-  const [isLoading, setIsLoading] = useState(true);
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const stakeGridRef = React.useRef(null);
 
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 3000);
-  }, [posts]);
+  //loading
+  const loading = useSelector((state) => state.loading);
+  console.log(loading);
 
   useEffect(() => {
     dispatch(fetchMasterPosts(paramsID));
     dispatch(receiveTags());
-  }, [dispatch]);
+  }, [dispatch, paramsID]);
 
   useEffect(() => {
     if (stakeGridRef.current) {
@@ -50,7 +50,6 @@ function ProfileContent({ paramsID }) {
     });
   });
   if (filterTags.length > 0) {
-    console.log('filterTags');
     //將tag 放進 filterTags array裡
   } else {
     filterPosts = posts;
@@ -58,25 +57,32 @@ function ProfileContent({ paramsID }) {
 
   return (
     <>
-      {isLoading === false ? (
+      {loading === false ? (
         <div className={styles.wrap}>
           <div className={styles.postWrap}>
-            <StackGrid
-              gridRef={(e) => (stakeGridRef.current = e)}
-              columnWidth={300}
-              gutterWidth={30}
-              gutterHeight={30}
-              monitorImagesLoaded={true}>
-              {filterPosts.map((post) => (
-                <Post
-                  key={post.postID}
-                  post={post}
-                  clickEdit={clickEdit}
-                  setclickEdit={setclickEdit}
-                  setIsDeletePopup={setIsDeletePopup}
-                />
-              ))}
-            </StackGrid>
+            {posts.length > 0 ? (
+              <StackGrid
+                gridRef={(e) => (stakeGridRef.current = e)}
+                columnWidth={300}
+                gutterWidth={30}
+                gutterHeight={30}
+                monitorImagesLoaded={true}>
+                {filterPosts.map((post) => (
+                  <Post
+                    key={post.postID}
+                    post={post}
+                    clickEdit={clickEdit}
+                    setclickEdit={setclickEdit}
+                    setIsDeletePopup={setIsDeletePopup}
+                  />
+                ))}
+              </StackGrid>
+            ) : (
+              <div className={styles.noPostUpload}>
+                <div className={styles.noPostGuide}>No Posts Yet, Upload My First Post:</div>{' '}
+                <UploadPostButton />
+              </div>
+            )}
           </div>
         </div>
       ) : (
