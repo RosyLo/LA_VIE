@@ -7,7 +7,7 @@ import { editComment, deleteComment } from '../redux/actions';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import cross from '../img/cross.png';
+import cross from '../img/icon.png';
 import firebase from '../firebase';
 
 function Comment({ comment, setPostComments, postComments }) {
@@ -62,14 +62,18 @@ function Comment({ comment, setPostComments, postComments }) {
         </p>
         <div className={styles.commentLike}>
           <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
-          {user.uid === commentIssuer.commentIssuerID && (
-            <img
-              className={styles.deleteComment}
-              src={cross}
-              onClick={() => {
-                setisCommentDeleteClick(true);
-              }}
-            />
+          {user.uid === commentIssuer.commentIssuerID ? (
+            <div className={styles.cancelWrap}>
+              <img
+                className={styles.cancelButtonImg}
+                src={cross}
+                onClick={() => {
+                  setisCommentDeleteClick(true);
+                }}
+              />
+            </div>
+          ) : (
+            <div className={styles.cancelWrapNone}></div>
           )}
         </div>
       </div>
@@ -79,7 +83,7 @@ function Comment({ comment, setPostComments, postComments }) {
           setisCommentDeleteClick(false);
         }}>
         <div className={msgPopStyles.msgPopWrap}>
-          <h2>Sure to Delete ?!</h2>
+          <h2>Sure to Delete ?</h2>
           <div className={msgPopStyles.buttonWrap}>
             <button
               className={styled.decideButton}

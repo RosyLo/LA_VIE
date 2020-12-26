@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import StoryCircle from '../component/StoryCircle';
 import MakeStory from '../component/MakeStory';
 import styles from '../style/storybar.module.css';
-import plus from '../img/plus.png';
+import plus from '../img/plusIcon.png';
 import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
 import Loading from './Loading';
@@ -36,15 +36,18 @@ function StoryBar({ paramsID }) {
   // useEffect(() => {
   //   setTimeout(() => setIsLoading(false), 3000);
   // }, [stories]);
-
+  console.log(posts);
   const loading = useSelector((state) => state.loading);
   //stories 慢，判斷完了
   // let targetElement;
   useEffect(() => {
+    console.log('start');
     if (posts.length > 0) {
-      if (barLeftArrowRef.current) {
-        barLeftArrowRef.current.style.display = 'none';
-      }
+      // console.log('postlength');
+      // console.log(barLeftArrowRef);
+      // if (barLeftArrowRef) {
+      //   barLeftArrowRef.current.style.display = 'none';
+      // }
       // barRightArrowRef.current.style.display = 'none';
       console.log(paramsID);
       dispatch(fetchStories(paramsID));
@@ -53,9 +56,14 @@ function StoryBar({ paramsID }) {
   }, [posts]);
 
   useEffect(() => {
-    if (stories.length > 3) {
-      console.log(stories.length);
-      barRightArrowRef.current.style.display = 'block';
+    if (barRightArrowRef.current && barRightArrowRef.current) {
+      barRightArrowRef.current.style.display = 'none';
+      barLeftArrowRef.current.style.display = 'none';
+      if (stories.length > 3) {
+        console.log('here');
+        console.log(stories.length);
+        barRightArrowRef.current.style.display = 'block';
+      }
     }
   }, [stories]);
 

@@ -5,7 +5,6 @@ import Post from './Post';
 import check from '../img/check.png';
 import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
-import { StyleModal } from './PopupModal';
 
 function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
   const { postID, postImage, postTime } = post;

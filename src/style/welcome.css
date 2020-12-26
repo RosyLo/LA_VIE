@@ -10,7 +10,7 @@
   width: 100%;
 }
 .slideshow {
-  margin: 0 auto;
+  margin: 130px auto;
   overflow: hidden;
   max-width: 975px;
 }
@@ -31,12 +31,13 @@
 
 .slideshowDots {
   text-align: center;
+  margin: auto auto 50px auto;
 }
 
 .slideshowDot {
   display: inline-block;
-  height: 20px;
-  width: 20px;
+  height: 10px;
+  width: 10px;
   border-radius: 50%;
 
   cursor: pointer;

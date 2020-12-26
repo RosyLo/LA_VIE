@@ -14,83 +14,91 @@ import arrow from '../img/arrow.png';
 import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
 import styles from '../style/header.module.css';
-import { WelcomePopup } from './WelcomePopup';
+import { PostLoginPopup } from './PostLoginPopup';
 import travel from '../img/travel.jpg';
+
+import { useHistory } from 'react-router';
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [isProfileToggleClick, setisProfileToggleClick] = useState(false);
   const [loginPopup, setLoginPopup] = useState(false);
-
+  const history = useHistory();
+  console.log(history.location.pathname);
   return (
     <>
-      <nav>
-        <div className={styles.navWrap}>
-          <div style={{ border: 'none' }}>
-            <Link to='/main'>
-              <Logo />
-            </Link>
-          </div>
-          <SearchTags />
-          {user ? (
-            <>
-              <UploadPostButton />
-              {/* 頭貼 */}
-
-              {/* <Link to={(location) => `/profile?id=${user.uid}`}> */}
-              <Link
-                to={{
-                  pathname: '/profile',
-                  search: `?id=${user.uid}`,
-                }}>
-                {' '}
-                <ProfileImage />
+      <div className={styles.headerWrap}>
+        <nav>
+          <div className={styles.navWrap}>
+            <div style={{ border: 'none' }}>
+              <Link to='/main'>
+                <Logo />
               </Link>
-              {/* </Link> */}
+            </div>
+            {history.location.pathname === '/welcome' ? (
+              <div className={styles.search} styles={{ zIndex: '10000' }}></div>
+            ) : (
+              <SearchTags />
+            )}
+            {user ? (
+              <>
+                <UploadPostButton />
+                {/* 頭貼 */}
 
-              {/* Toggle */}
-              <img
-                style={{ width: '12px', height: '12px', marginLeft: '10px', cursor: 'pointer' }}
-                src={arrow}
-                onClick={() => {
-                  setisProfileToggleClick(!isProfileToggleClick);
-                }}></img>
-
-              {isProfileToggleClick ? (
-                <LogOutPopup
-                  show={isProfileToggleClick}
-                  handleClose={() => {
-                    setisProfileToggleClick(!isProfileToggleClick);
+                {/* <Link to={(location) => `/profile?id=${user.uid}`}> */}
+                <Link
+                  to={{
+                    pathname: '/profile',
+                    search: `?id=${user.uid}`,
                   }}>
-                  <div
-                    className='deletePost'
-                    onClick={() => {
-                      dispatch(logout());
-                    }}>
-                    LogOut
-                  </div>
-                </LogOutPopup>
-              ) : (
-                ''
-              )}
-            </>
-          ) : (
-            <>
-              {/* <div className={styles.button} onClick={() => dispatch(login())}> */}
-              <div className={styles.button} onClick={() => setLoginPopup(true)}>
-                Login
-              </div>
-              <Link to='/main' style={{ textDecoration: 'none' }}>
-                {' '}
-                <div className={styles.button}>Visit</div>
-              </Link>
-            </>
-          )}
-        </div>
-      </nav>
+                  {' '}
+                  <ProfileImage />
+                </Link>
+                {/* </Link> */}
 
-      <WelcomePopup
+                {/* Toggle */}
+                <img
+                  style={{ width: '12px', height: '12px', marginLeft: '10px', cursor: 'pointer' }}
+                  src={arrow}
+                  onClick={() => {
+                    setisProfileToggleClick(!isProfileToggleClick);
+                  }}></img>
+
+                {isProfileToggleClick ? (
+                  <LogOutPopup
+                    show={isProfileToggleClick}
+                    handleClose={() => {
+                      setisProfileToggleClick(!isProfileToggleClick);
+                    }}>
+                    <div
+                      className='deletePost'
+                      onClick={() => {
+                        dispatch(logout());
+                      }}>
+                      LogOut
+                    </div>
+                  </LogOutPopup>
+                ) : (
+                  ''
+                )}
+              </>
+            ) : (
+              <>
+                {/* <div className={styles.button} onClick={() => dispatch(login())}> */}
+                <div className={styles.button} onClick={() => setLoginPopup(true)}>
+                  Login
+                </div>
+                <Link to='/main' style={{ textDecoration: 'none' }}>
+                  {' '}
+                  <div className={styles.button}>Visit</div>
+                </Link>
+              </>
+            )}
+          </div>
+        </nav>
+      </div>
+      <PostLoginPopup
         show={loginPopup}
         handleClose={() => {
           setLoginPopup(false);
@@ -107,19 +115,20 @@ const Header = () => {
             <br />
             <br />
             <div className={styles.text}> Login with</div>
-            <div className={styles.google} onClick={() => dispatch(loginGoogle())}>
+            <div className={styles.google} onClick={() => dispatch(loginGoogle(setLoginPopup))}>
               {' '}
-              <img src={google} className={styles.googleIcon} />
-              oogle Login
+              {/* <img src={google} className={styles.googleIcon} /> */}
+              Google Login
             </div>
 
             <div className={styles.text}> OR</div>
-            <div className={styles.facebook} onClick={() => dispatch(login())}>
-              <img src={facebook} className={styles.facebookIcon} /> acebook Login
+            <div className={styles.facebook} onClick={() => dispatch(login(setLoginPopup))}>
+              {/* <img src={facebook} className={styles.facebookIcon} />  */}
+              Facebook Login
             </div>
           </div>
         </div>
-      </WelcomePopup>
+      </PostLoginPopup>
     </>
   );
 };

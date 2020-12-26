@@ -6,7 +6,6 @@ import check from '../img/check.png';
 import { deletePost } from '../redux/actions';
 import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
-import { StyleModal } from './PopupModal';
 
 function EditImage({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
   const { postID, postImage, postTime } = post;

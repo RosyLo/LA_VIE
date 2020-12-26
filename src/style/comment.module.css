@@ -13,13 +13,54 @@
   display: block;
 } */
 
+.cancelWrapNone {
+  width: 15px;
+  height: 15px;
+  /* background-color: royalblue; */
+  float: right;
+  border-radius: 50%;
+  border: 1px solid rgb(255, 255, 255);
+  margin-top: 5px;
+  margin: auto;
+  /* padding: 3px; */
+  cursor: pointer;
+  display: block;
+}
+
+.cancelWrap {
+  width: 15px;
+  height: 15px;
+  /* background-color: royalblue; */
+  float: right;
+  border-radius: 50%;
+  border: 1px solid rgb(219, 219, 219);
+  margin-top: 5px;
+  margin: auto;
+  /* padding: 3px; */
+  cursor: pointer;
+  display: block;
+}
+/* .comment:hover + .cancelWrap {
+  display: block;
+} */
+.cancelButtonImg {
+  width: 6px;
+  height: 6px;
+  margin-bottom: 4px;
+  margin-left: 0.7px;
+  /* top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);  */
+}
+
 .comment p {
   text-align: left;
   word-break: break-all;
+  max-width: 150px;
 }
 
 .postIssuerName {
-  font-size: bold;
+  font-weight: bold;
   margin-right: 10px;
   min-width: 60px;
 }
@@ -50,4 +91,5 @@
   /* border: gainsboro 1px solid; */
   min-width: 60px;
   display: flex;
+  height: 30px;
 }

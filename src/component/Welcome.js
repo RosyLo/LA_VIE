@@ -9,7 +9,12 @@ import styles from '../style/post.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts } from '../redux/actions';
 import Loading from './Loading';
+import Logo from './Logo';
+import { WelcomePopup } from './WelcomePopup';
+import headerstyle from '../style/header.module.css';
 import { RECIEVING_LOADING } from '../redux/actionTypes';
+import travel from '../img/travel.jpg';
+import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function Welcome() {
   const slogans = [
@@ -33,7 +38,9 @@ function Welcome() {
 
   //loading
   const loading = useSelector((state) => state.loading);
-
+  const [pleaseLogin, setPleaseLogin] = useState(false);
+  const [isPostClick, setisPostClick] = useState(false);
+  console.log(loading);
   //posts
   const [displayPosts, setDisplayPosts] = useState([]);
   const db = firebase.firestore();
@@ -68,7 +75,7 @@ function Welcome() {
       });
   }, []);
 
-  const delay = 8000;
+  const delay = 3000;
   const [index, setIndex] = React.useState(0);
   const [isTo2, setIsTo2] = useState(true);
   const timeoutRef = React.useRef(null);
@@ -79,7 +86,12 @@ function Welcome() {
     }
   }
 
-  React.useEffect(() => {
+  // function reStartSlide() {
+  //   setTimeout();
+  // }
+
+  const slideTime = () => {
+    console.log('slidetime');
     resetTimeout();
     timeoutRef.current = setTimeout(
       () =>
@@ -101,6 +113,9 @@ function Welcome() {
     return () => {
       resetTimeout();
     };
+  };
+  useEffect(() => {
+    slideTime();
   }, [index]);
 
   const posts = useSelector((state) => state.posts);
@@ -133,11 +148,15 @@ function Welcome() {
     if (index === 1) return post.postTag.value === 'TRAVEL';
     if (index === 2) return post.postTag.value === 'FOODIE';
   });
-
   return (
     <>
       {loading === false ? (
-        <div className='slideshow'>
+        <div
+          className='slideshow'
+          onClick={() => {
+            resetTimeout();
+            setPleaseLogin(true);
+          }}>
           <div
             className='slideshowSlider'
             style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
@@ -184,6 +203,44 @@ function Welcome() {
           {' '}
           <Loading />
         </div>
+      )}
+      {/* please login  */}
+      {slideTime && (
+        <WelcomePopup
+          show={pleaseLogin}
+          handleClose={() => {
+            setPleaseLogin(false);
+          }}
+          slideTime={slideTime}>
+          <div className={headerstyle.loginPopContain}>
+            <div className={headerstyle.loginTitle}>
+              <img src={travel}></img>
+            </div>
+            <div className={headerstyle.loginWrap}>
+              <Logo />
+              <br />
+              <div className={headerstyle.title1}> Share your life in</div>
+              <div className={headerstyle.title2}> LA VIE</div>
+              <br />
+              <br />
+              <div className={headerstyle.text}> Login with</div>
+              <div
+                className={headerstyle.google}
+                onClick={() => dispatch(loginGoogle(setPleaseLogin, setisPostClick))}>
+                {/* <img src={google} className={headerstyle.googleIcon} /> */}
+                Google Login
+              </div>
+
+              <div className={headerstyle.text}> OR</div>
+              <div
+                className={headerstyle.facebook}
+                onClick={() => dispatch(login(setPleaseLogin, setisPostClick))}>
+                {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
+                Facebook Login
+              </div>
+            </div>
+          </div>
+        </WelcomePopup>
       )}
     </>
   );

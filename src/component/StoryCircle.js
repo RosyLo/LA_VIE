@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StoryPost from './StoryPost';
 import styles from '../style/storybar.module.css';
-import plus from '../img/plus.png';
-import cross from '../img/cross.png';
+import plus from '../img/plusIcon.png';
+import cross from '../img/icon.png';
 import { useDispatch, useSelector } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import { MsgPopup } from './MsgPopup';
@@ -52,7 +52,7 @@ function StoryCircle({ story, circleRef }) {
           setisStoryDeleteClick(false);
         }}>
         <div className={msgPopStyles.msgPopWrap}>
-          <h2>Sure to Delete ?!</h2>
+          <h2>Sure to Delete ?</h2>
           <div className={msgPopStyles.buttonWrap}>
             <button
               className={styled.decideButton}

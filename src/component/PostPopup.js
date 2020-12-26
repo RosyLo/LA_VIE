@@ -30,23 +30,17 @@ function PostPopup({
   const [clickEdit, setclickEdit] = useState('');
   const [lastSnap, setLastSnap] = useState('');
   const [lastVisible, setLastVisible] = useState(0);
-  const db = firebase.firestore();
   const dispatch = useDispatch();
   console.log(comments);
   // filter 出最後一筆黏上去
   useEffect(() => {
-    console.log(comments);
-    console.log(postComments);
     let commentsList = comments.map((comment) => {
       if (comment.postID === postID) {
         return comment;
       }
     });
-    console.log(commentsList);
     setPostComments(commentsList);
   }, [comments]);
-  console.log(postComments);
-  console.log(comments);
 
   useEffect(() => {
     dispatch(fetchComments(clickPostID, postID, lastSnap, setLastSnap, lastVisible));
@@ -62,10 +56,13 @@ function PostPopup({
         <div className={styles.modelWrap}>
           <div className={styles.topModel}>
             <div className={styles.space}></div>
-            <Link to={(location) => `/profile?id=${user.uid}`}>
+            <Link
+              to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
+              style={{ textDecoration: 'none' }}>
               {' '}
               <img
                 className={postblock.postProfileImage}
+                style={{ borderRadius: '50%', width: '50px', height: '50px', cursor: 'pointer' }}
                 src={clickpost.postIssuer.postIssuerImage}></img>
             </Link>
 

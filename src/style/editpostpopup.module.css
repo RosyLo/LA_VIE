@@ -1,7 +1,7 @@
 button:focus {
   outline: 0px;
   border: 1px solid white;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 .modelWrap {
@@ -24,7 +24,7 @@ button:focus {
   /* border: 1px solid red; */
   width: 99%;
   margin: auto;
-  border: 1px solid rgba(239, 239, 239);
+  border: 1px solid rgba(219, 219, 219);
 }
 
 .buttonModal {
@@ -64,12 +64,12 @@ button:focus {
   width: 100%;
   background: rgb(250, 250, 250);
   z-index: 1000;
+  transition: 0.3s;
 }
 
 .cancelButtonImg {
   width: 15px;
   height: 15px;
-
   float: right;
 }
 
@@ -93,7 +93,7 @@ button:focus {
   font-family: 'Open Sans', sans-serif;
   text-transform: Uppercase;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -102,10 +102,11 @@ button:focus {
   color: white;
   margin: 10px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px 15px 5px 15px;
+  transition: 0.3s;
 }
 .decideButton {
   background-color: black;
@@ -113,10 +114,11 @@ button:focus {
   color: white;
   margin: 10px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px;
+  transition: 0.3s;
 }
 .postPopupRightModel {
   width: 50%;
@@ -147,8 +149,8 @@ button:focus {
 }
 .postMsgInput {
   width: 98%;
-  border: 1px solid rgba(239, 239, 239);
-  border-radius: 5px;
+  border: 1px solid rgba(219, 219, 219);
+  border-radius: 8px;
   background: rgba(250, 250, 250);
   font-size: 18px;
   max-height: 250px;
@@ -205,8 +207,8 @@ button:focus {
   }
   .postMsgInput {
     width: 98%;
-    border: 1px solid rgba(239, 239, 239);
-    border-radius: 5px;
+    border: 1px solid rgba(219, 219, 219);
+    border-radius: 8px;
     background: rgba(250, 250, 250);
     font-size: 18px;
     max-height: 90%;
@@ -224,9 +226,10 @@ button:focus {
     color: white;
     margin: 10px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
     content: 'Select some files';
     cursor: pointer;
     padding: 5px;
+    transition: 0.3s;
   }
 }

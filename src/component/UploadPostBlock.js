@@ -8,6 +8,7 @@ import styled from '../style/editpostpopup.module.css';
 import Post from './Post';
 import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
+
 // import { tagOptions } from '../utils/data';
 
 function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPostConfirm }) {
@@ -17,7 +18,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   // const [test, settest] = useState('o');
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   const post = {
     postID: 'postID' + nanoid(),
     postImage: { postImageID: 'postImageID_' + nanoid(), postImageLink: imageURL },
@@ -41,18 +42,19 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   };
 
   //選擇照片
+  const uploadPicID = nanoid();
   const choosePic = (
     <div className={styles.rightModel}>
       <div className={styled.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
         <div className={styles.blockTitle}>
-          Pick the Photo{imageURL}
+          Pick the Photo
           {/* {test} */}
         </div>
         <div className={styled.decideButtonBlock}>
-          <label htmlFor='uploadPictureButton' className={styles.uploadButton}>
+          <label htmlFor={uploadPicID} className={styles.uploadButton}>
             Choose
           </label>
-          <input type='file' id='uploadPictureButton' onChange={handlePictureChange} />
+          <input type='file' id={uploadPicID} onChange={handlePictureChange} />
 
           {imageURL ? (
             <button

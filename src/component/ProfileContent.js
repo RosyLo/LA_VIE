@@ -61,22 +61,32 @@ function ProfileContent({ paramsID }) {
         <div className={styles.wrap}>
           <div className={styles.postWrap}>
             {posts.length > 0 ? (
-              <StackGrid
-                gridRef={(e) => (stakeGridRef.current = e)}
-                columnWidth={300}
-                gutterWidth={30}
-                gutterHeight={30}
-                monitorImagesLoaded={true}>
-                {filterPosts.map((post) => (
-                  <Post
-                    key={post.postID}
-                    post={post}
-                    clickEdit={clickEdit}
-                    setclickEdit={setclickEdit}
-                    setIsDeletePopup={setIsDeletePopup}
-                  />
-                ))}
-              </StackGrid>
+              <>
+                {filterPosts.length > 0 ? (
+                  <StackGrid
+                    gridRef={(e) => (stakeGridRef.current = e)}
+                    columnWidth={300}
+                    gutterWidth={30}
+                    gutterHeight={30}
+                    monitorImagesLoaded={true}>
+                    {filterPosts.map((post) => (
+                      <Post
+                        key={post.postID}
+                        post={post}
+                        clickEdit={clickEdit}
+                        setclickEdit={setclickEdit}
+                        setIsDeletePopup={setIsDeletePopup}
+                      />
+                    ))}
+                  </StackGrid>
+                ) : (
+                  <div className={styles.noPostWrap}>
+                    <div className={styles.noPostGuide}>
+                      No post match the search, please adjust the filter.
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
               <div className={styles.noPostUpload}>
                 <div className={styles.noPostGuide}>No Posts Yet, Upload My First Post:</div>{' '}

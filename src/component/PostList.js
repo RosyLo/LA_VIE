@@ -16,6 +16,8 @@ import Logo from './Logo';
 import headerstyle from '../style/header.module.css';
 import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
+import { ReactComponent as FaceBook } from '../img/facebook.svg';
+import travel from '../img/travel.jpg';
 import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function PostList() {
@@ -37,7 +39,7 @@ function PostList() {
 
   //loading
   const loading = useSelector((state) => state.loading);
-
+  console.log(loading);
   const lastVisible = React.useRef(0);
   const handleScroll = () => {
     setIsScrollFetching(!isScrollFetching);
@@ -87,41 +89,45 @@ function PostList() {
     filterPosts = posts;
   }
 
-  const [pleaseLogin, setPleaseLogin] = useState(false);
-  const user = useSelector((state) => state.user);
-  const checkLogin = () => {
-    if (!user) {
-      setPleaseLogin(!pleaseLogin);
-    }
-  };
+  // const [pleaseLogin, setPleaseLogin] = useState(false);
+  // const user = useSelector((state) => state.user);
+  // const checkLogin = () => {
+  //   if (!user) {
+  //     setPleaseLogin(!pleaseLogin);
+  //   }
+  // };
 
   return (
     <>
       {loading === false ? (
         <>
           <div className={styles.wrap}>
-            <div
-              className={styles.postWrap}
-              onClick={() => {
-                checkLogin();
-              }}>
-              <StackGrid
-                gridRef={(e) => (stakeGridRef.current = e)}
-                columnWidth={300}
-                gutterWidth={30}
-                gutterHeight={30}
-                monitorImagesLoaded={true}>
-                {filterPosts.map((post) => (
-                  <Post
-                    key={post.postID}
-                    post={post}
-                    clickEdit={clickEdit}
-                    setclickEdit={setclickEdit}
-                    isDeletePopup={isDeletePopup}
-                    setIsDeletePopup={setIsDeletePopup}
-                  />
-                ))}
-              </StackGrid>
+            <div className={styles.postWrap}>
+              {filterPosts.length > 0 ? (
+                <StackGrid
+                  gridRef={(e) => (stakeGridRef.current = e)}
+                  columnWidth={300}
+                  gutterWidth={30}
+                  gutterHeight={30}
+                  monitorImagesLoaded={true}>
+                  {filterPosts.map((post) => (
+                    <Post
+                      key={post.postID}
+                      post={post}
+                      clickEdit={clickEdit}
+                      setclickEdit={setclickEdit}
+                      isDeletePopup={isDeletePopup}
+                      setIsDeletePopup={setIsDeletePopup}
+                    />
+                  ))}
+                </StackGrid>
+              ) : (
+                <div className={styles.noPostWrap}>
+                  <div className={styles.noPostGuide}>
+                    No post match the search, please adjust the filter.
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </>
@@ -130,39 +136,7 @@ function PostList() {
           <Loading />
         </div>
       )}
-      {/* please login  */}
-      <WelcomePopup
-        show={pleaseLogin}
-        handleClose={() => {
-          setPleaseLogin(false);
-        }}>
-        <div className={headerstyle.loginWrap}>
-          <Logo />
-          <br />
-          <div className={headerstyle.title}> Welcome to LA VIE</div>
-          <div className={headerstyle.text}> Choose to login with</div>
-          <div
-            className={headerstyle.google}
-            onClick={() => {
-              dispatch(loginGoogle());
-              setPleaseLogin(false);
-            }}>
-            {' '}
-            <img src={google} className={headerstyle.googleIcon} />
-            oogle Login
-          </div>
 
-          <div> OR</div>
-          <div
-            className={headerstyle.facebook}
-            onClick={() => {
-              dispatch(login());
-              setPleaseLogin(false);
-            }}>
-            <img src={facebook} className={headerstyle.facebookIcon} /> acebook Login
-          </div>
-        </div>
-      </WelcomePopup>
       {/* DeletePopup */}
       <MsgPopup
         show={isDeletePopup}

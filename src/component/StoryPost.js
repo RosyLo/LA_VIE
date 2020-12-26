@@ -19,7 +19,6 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const [isEditStoryClick, setisEditStoryClick] = useState(false);
   const [isEditStoryBlockClick, setIsEditStoryBlockClick] = useState(false);
   const [editStory, setEditStory] = useState(story);
-  const dispatch = useDispatch();
   let postLists = [];
   story.stories.map((post) => {
     if (post) {

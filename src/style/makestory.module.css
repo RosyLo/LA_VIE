@@ -87,7 +87,7 @@
   width: 40px;
   background-color: white;
   position: absolute;
-  border-radius: 7%;
+  border-radius: 8px;
   opacity: 0.8;
   margin: 5px;
   font-size: 0.8rem;
@@ -103,11 +103,11 @@
 .storyNameInput {
   width: 200px;
   height: 30px;
-  border: 1px solid rgb(239, 239, 239);
+  border: 1px solid rgb(219, 219, 219);
   margin: auto;
   text-align: center;
-  border-radius: 5px;
-  background-color: rgb(250, 250, 250);
+  border-radius: 8px;
+  background-color: rgb(219, 219, 219);
 }
 
 .storyNameInput:hover {
@@ -131,10 +131,24 @@
   width: 80px;
   color: white;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px;
+  transition: 0.3s;
+}
+
+.decideButtonVag {
+  background-color: black;
+  width: 80px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s;
+  opacity: 0.3;
 }
 
 @media (max-width: 768px) {
@@ -144,10 +158,11 @@
     color: white;
     margin: 10px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
     content: 'Select some files';
     cursor: pointer;
     padding: 5px;
+    transition: 0.3s;
   }
 }
 
@@ -158,10 +173,11 @@
     color: white;
     margin: 10px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
     content: 'Select some files';
     cursor: pointer;
     padding: 5px;
     font-size: 0.8rem;
+    transition: 0.3s;
   }
 }

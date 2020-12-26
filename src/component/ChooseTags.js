@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import CreatableSelect from 'react-select/creatable';
 import { useSelector } from 'react-redux';
 
@@ -24,7 +23,7 @@ function ChooseTags({ newTag, setNewTag }) {
       // match with the menu
       borderRadius: state.isFocused ? '3px 3px 0 0' : 3,
       // Overwrittes the different states of border
-      borderColor: 'rgb(239,239,239)',
+      borderColor: 'rgb(219,219,219)',
       borderRadius: '8px',
       // Removes weird border around container
       boxShadow: state.isFocused ? null : null,

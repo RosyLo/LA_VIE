@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Heart from './Heart';
 import Comment from './Comment';
 import Commenting from './Commenting';
-import { useSelector } from 'react-redux';
 import styles from '../style/post.module.css';
 import EditPostBar from './EditPostBar';
 import ProfileImage from './ProfileImage';
@@ -11,6 +11,12 @@ import PostPopup from './PostPopup';
 import { Link } from 'react-router-dom';
 import '../style/heart.css';
 import '../style/heart.css';
+import { MsgPopup } from './MsgPopup';
+import { PostLoginPopup } from './PostLoginPopup';
+import travel from '../img/travel.jpg';
+import Logo from './Logo';
+import headerstyle from '../style/header.module.css';
+import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function Post({
   post,
@@ -27,17 +33,27 @@ function Post({
   const user = useSelector((state) => state.user);
   const postcomments = useSelector((state) => state.postcomments);
   const [commentList, setCommentList] = useState([]);
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [pleaseLogin, setPleaseLogin] = useState(false);
+  const dispatch = useDispatch();
+  const checkLogin = () => {
+    if (!user) {
+      setPleaseLogin(!pleaseLogin);
+    }
+  };
   useEffect(() => {
     let newList = postcomments.filter((comment) => comment.postID === postID);
-    console.log(newList);
     setCommentList(newList);
   }, [postcomments]);
   // const commentList = postcomments.filter((comment) => comment.postID === postID);
-  console.log(post);
   const [isPostClick, setisPostClick] = useState(false);
   return (
     <>
-      <div className={styles.post}>
+      <div
+        className={styles.post}
+        onClick={() => {
+          checkLogin();
+        }}>
         <div className={styles.postHeader}>
           {isfromWelcome ? (
             ''
@@ -115,7 +131,7 @@ function Post({
                 setisPostClick(true);
                 // setclickPostID(postID);
               }}>
-              See More...
+              See More
             </div>
           )}
           {user && !isFromDelete && !isFromUpload && !isFromEdit ? (
@@ -131,7 +147,7 @@ function Post({
           )}
         </>
       </div>
-      {isPostClick && user ? (
+      {isPostClick && user && !isFromDelete && !isFromUpload && !isFromEdit && !isfromWelcome ? (
         <PostPopup
           isFromDelete={isFromDelete}
           isFromUpload={isFromUpload}
@@ -145,6 +161,44 @@ function Post({
         />
       ) : (
         ''
+      )}
+      {/* please login  */}
+      {!isfromWelcome && (
+        <PostLoginPopup
+          show={pleaseLogin}
+          handleClose={() => {
+            setPleaseLogin(false);
+          }}>
+          <div className={headerstyle.loginPopContain}>
+            <div className={headerstyle.loginTitle}>
+              <img src={travel}></img>
+            </div>
+            <div className={headerstyle.loginWrap}>
+              <Logo />
+              <br />
+              <div className={headerstyle.title1}> Share your life in</div>
+              <div className={headerstyle.title2}> LA VIE</div>
+              <br />
+              <br />
+              <div className={headerstyle.text}> Login with</div>
+              <div
+                className={headerstyle.google}
+                onClick={() => dispatch(loginGoogle(setPleaseLogin, setisPostClick))}>
+                {' '}
+                {/* <img src={google} className={headerstyle.googleIcon} /> */}
+                Google Login
+              </div>
+
+              <div className={headerstyle.text}> OR</div>
+              <div
+                className={headerstyle.facebook}
+                onClick={() => dispatch(login(setPleaseLogin, setisPostClick))}>
+                {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
+                Facebook Login
+              </div>
+            </div>
+          </div>
+        </PostLoginPopup>
       )}
     </>
   );

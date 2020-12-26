@@ -4,8 +4,16 @@
 
 body {
   background: rgba(250, 250, 250);
+  position: relative;
 }
-
+.headerWrap {
+  z-index: 3;
+  top: 0px;
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
 nav {
   max-width: 975px;
   margin: auto;
@@ -13,7 +21,7 @@ nav {
 
 .navWrap {
   width: 100%;
-  height: 100px;
+  height: 80px;
   display: flex;
   align-items: center;
   position: relative;
@@ -24,7 +32,7 @@ nav {
   height: 40px;
   border-radius: 50%;
   background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(239, 239, 239);
+  border: 1px solid rgb(219, 219, 219);
   cursor: pointer;
   position: relative;
   margin-left: 10px;
@@ -41,11 +49,19 @@ nav {
 .button {
   width: 50px;
   padding: 3px;
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 1px solid rgb(219, 219, 219);
+  background-color: rgb(250, 250, 250);
+  border-radius: 8px;
   text-align: center;
   margin: 10px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(187, 140, 47);
+  border: 1px solid rgb(187, 140, 47);
+  color: rgb(255, 255, 255);
 }
 
 .logo {
@@ -116,7 +132,7 @@ nav {
   width: 80%;
   height: 45px;
   /* background: red; */
-  border-radius: 20px;
+  border-radius: 8px;
   margin-top: 10px;
   margin-bottom: 5px;
   color: #3f3f3f;
@@ -126,6 +142,12 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.google:hover {
+  background-color: rgb(240, 68, 54);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(240, 68, 54);
 }
 
 .googleIcon {
@@ -144,7 +166,7 @@ nav {
   width: 80%;
   height: 45px;
   /* background: blue; */
-  border-radius: 20px;
+  border-radius: 8px;
   margin-top: 10px;
   color: #3f3f3f;
   line-height: 50px;
@@ -153,6 +175,11 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.facebook:hover {
+  background-color: rgb(59, 89, 153);
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(59, 89, 153);
 }
 
 @media (max-width: 768px) {

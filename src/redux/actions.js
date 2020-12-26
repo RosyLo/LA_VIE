@@ -31,8 +31,12 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 
-export const login = () => (dispatch) => {
+export const login = (setLoginPopup, setisPostClick) => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
+    setLoginPopup(false);
+    if (setisPostClick) {
+      setisPostClick(false);
+    }
     if (result) {
       const { user } = result;
       console.log(user);
@@ -49,9 +53,9 @@ export const login = () => (dispatch) => {
           { merge: true },
         )
         .then(() => {
+          window.location = '/main';
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
-          window.location = '/main';
         });
     }
   });
@@ -65,8 +69,12 @@ export const logout = () => (dispatch) => {
 };
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export const loginGoogle = () => (dispatch) => {
+export const loginGoogle = (setLoginPopup, setisPostClick) => (dispatch) => {
   auth.signInWithPopup(googleAuthProvider).then(async (result) => {
+    setLoginPopup(false);
+    if (setisPostClick) {
+      setisPostClick(false);
+    }
     if (result) {
       const { user } = result;
       let url = user.photoURL;
@@ -382,9 +390,11 @@ export const fetchComments = (clickPostID, postID, lastSnap, setLastSnap, lastVi
   dispatch,
   getState,
 ) => {
+  const { comments } = getState();
+  console.log(comments);
   let queryOpen = false;
-  let commentsList = [];
   if (lastVisible === 0) {
+    let commentsList = [];
     console.log(commentsList);
     db.collection('Comment')
       .orderBy('commentTime', 'desc')
@@ -404,6 +414,7 @@ export const fetchComments = (clickPostID, postID, lastSnap, setLastSnap, lastVi
         dispatch({ type: RECEIVED_COMMENT, payload: { commentsList } });
       });
   } else if (lastSnap) {
+    let commentsList = [...comments];
     console.log(commentsList);
     db.collection('Comment')
       .orderBy('commentTime', 'desc')

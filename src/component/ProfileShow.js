@@ -10,12 +10,6 @@ function ProfileShow({ paramsID }) {
   const [profile, setProfile] = useState(null);
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
-  // const masterposts = useSelector((state) => state.masterposts);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => setIsLoading(false), 3000);
-  // }, [posts]);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -30,7 +24,7 @@ function ProfileShow({ paramsID }) {
 
   return (
     <div className={styles.profileShowWrap}>
-      {loading === false && profile ? (
+      {profile ? (
         <div className={styles.profileShow}>
           <img className={styles.profilePic} src={profile.userProfileImage}></img>
           <div className={styles.profileInfo}>
@@ -46,9 +40,10 @@ function ProfileShow({ paramsID }) {
           </div>
         </div>
       ) : (
-        <div className={styles.loading}>
-          <Loading />
-        </div>
+        ''
+        // <div className={styles.loading}>
+        //   <Loading />
+        // </div>
       )}
     </div>
   );

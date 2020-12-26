@@ -10,8 +10,9 @@ import {
 const comments = (state = [], action) => {
   switch (action.type) {
     case RECEIVED_COMMENT: {
-      console.log(action.payload.commentsList);
-      return action.payload.commentsList;
+      let newComments = [...state];
+      newComments = action.payload.commentsList;
+      return newComments;
     }
     // 不管來自哪篇。都加進comments
     case ADD_COMMENT: {

@@ -30,7 +30,6 @@ const ContentDiv = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 7;
-
   display:block;
 
 `;

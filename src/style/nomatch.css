@@ -19,7 +19,7 @@ body {
   color: white;
   margin: 30px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px;

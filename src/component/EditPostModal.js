@@ -34,7 +34,7 @@ max-width: 800px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
   display:block;
   background: rgb(250, 250, 250);

@@ -3,7 +3,7 @@
 }
 
 .profileShowWrap {
-  margin: 40px auto auto auto;
+  margin: 130px auto auto auto;
   height: 300px;
   max-width: 975px;
 
@@ -16,21 +16,22 @@
   width: 100%;
   margin: auto;
   display: flex;
+  /* background-color: royalblue; */
 }
 
 .profilePic {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 150px;
+  max-height: 150px;
   width: 20vw;
   height: 20vw;
   border-radius: 50%;
-  margin: auto 0px;
+  margin: auto 20px;
 }
 
 .profileInfo {
   /* border: 1px solid black; */
   margin: auto 0px;
-  margin-left: 10%;
+  margin-left: 20px;
   font-size: 1.5rem;
   align-items: center;
 }

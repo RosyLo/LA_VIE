@@ -10,13 +10,14 @@ const ModalWrap = styled.div`
 `;
 
 const ModalDiv = styled.div`
+  display: ${(props) => (props.show ? 'block' : 'none')};
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background-color: grey;
-  opacity: 0.95;
+  opacity: 0.9;
   z-index: 3;
 
   @media (max-width: 425px) {
@@ -29,6 +30,7 @@ const ModalDiv = styled.div`
   }
 `;
 const ContentDiv = styled.div`
+
   min-width: 300px;
   padding:2% 2% 3% 2%;
   align-items:center
@@ -38,9 +40,10 @@ const ContentDiv = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2000;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
-  background: rgb(250,250,250);
+  background: rgb(255,255,255);
+  margin:auto 
 `;
 // const Title = styled.div`;
 //   position: fixed;
@@ -52,24 +55,37 @@ const ContentDiv = styled.div`
 //   max-width: 300px;
 //   }
 
-export const WelcomePopup = ({ handleClose, show, children }) => {
+export const WelcomePopup = ({ handleClose, show, children, slideTime }) => {
   return ReactDom.createPortal(
-    <ModalWrap show={show}>
-      <div className='titleWrap'></div>
-      <ContentDiv>
-        <div className={styles.cancelButton} onClick={handleClose}>
-          <img className={styles.cancelButtonImg} src={cross}></img>
-        </div>
-        {children}
-      </ContentDiv>
-      <ModalDiv></ModalDiv>
-    </ModalWrap>,
+    // <ModalWrap show={show}>
+    <>
+      <div className={`${show ? styles.contentWrap : styles.contentWrapNone}`}>
+        <div className='titleWrap'></div>
+        <ContentDiv>
+          <div
+            className={styles.cancelButton}
+            onClick={() => {
+              handleClose();
+              slideTime();
+            }}>
+            <div className={styles.cancelWrap}>
+              <img className={styles.cancelButtonImg} src={cross}></img>
+            </div>
+          </div>
+
+          {children}
+        </ContentDiv>
+      </div>
+      <ModalDiv show={show}></ModalDiv>
+    </>,
+
     document.getElementById('portal'),
   );
 };
 
 WelcomePopup.propTypes = {
   handleClose: PropTypes.func,
+  slideTime: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.object,
 };

@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cross.png';
+import cross from '../img/icon.png';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
 `;
 
 const ModalDiv = styled.div`
+  display: ${(props) => (props.show ? 'block' : 'none')};
   position: fixed;
   top: 0;
   right: 0;
@@ -28,28 +29,32 @@ const ContentDiv = styled.div`
   padding:2% 2% 3% 2%;
   align-items:center
   max-width: 800px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 4;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
-  display:block;
-  background: rgb(250, 250, 250);
+  background: rgb(255, 255, 255);
+  margin:auto
+
+  
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(
-    <ModalWrap show={show}>
-      <ContentDiv>
-        <div className={styles.cancelButton} onClick={handleClose}>
-          <img className={styles.cancelButtonImg} src={cross}></img>
-        </div>
-        {children}
-      </ContentDiv>
-      <ModalDiv></ModalDiv>
-    </ModalWrap>,
+    // <ModalWrap show={show}>
+    <>
+      <div className={`${show ? styles.contentWrap : styles.contentWrapNone}`}>
+        <ContentDiv>
+          <div className={styles.cancelButton} onClick={handleClose}>
+            <div className={styles.cancelWrap}>
+              <img className={styles.cancelButtonImg} src={cross}></img>
+            </div>
+          </div>
+          {children}
+        </ContentDiv>
+      </div>
+      <ModalDiv show={show}></ModalDiv>
+    </>,
+    // </ModalWrap>,
     document.getElementById('portal'),
   );
 };

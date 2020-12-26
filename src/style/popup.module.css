@@ -11,16 +11,46 @@
 button:focus {
   outline: 0px;
   /* border: 1px solid white; */
-  border-radius: 5px;
+  border-radius: 8px;
 }
 button:hover {
   background-color: rgb(187, 140, 47);
+  border: 1px solid rgb(187, 140, 47);
   /* background-color: rgb(167, 142, 107); */
 }
 
 .modelWrap {
   width: 100%;
   /* background-color: lavender; */
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.contentWrapNone {
+  display: none;
+}
+
+.contentWrap {
+  /* animation: fade 2s;  */
+
+  animation-name: fade;
+  animation-duration: 0.5s;
+  width: 100vw;
+  height: 80vh;
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  z-index: 2500;
+  /* background-color: rgb(187, 140, 47); */
+  transform: translate(-50%, -50%);
 }
 
 .topModel {
@@ -41,7 +71,7 @@ button:hover {
   /* border: 1px solid red; */
   width: 99%;
   margin: auto;
-  border: 1px solid rgba(239, 239, 239);
+  border: 1px solid rgb(219, 219, 219);
 }
 
 .buttonModal {
@@ -90,22 +120,39 @@ button:hover {
 .postTime {
   font-size: 10px;
 }
+
 .cancelButton {
   cursor: pointer;
   border: none;
   outline: none;
   width: 100%;
   height: 15px;
-  background: rgb(250, 250, 250);
+  background: rgb(255, 255, 255);
   cursor: pointer;
   z-index: 1000;
+  transition: 0.3s;
+}
+
+.cancelWrap {
+  width: 15px;
+  height: 15px;
+  /* background-color: royalblue; */
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgb(219, 219, 219);
+  margin-top: 5px;
+  margin: auto;
+  padding: 3px;
+  cursor: pointer;
 }
 
 .cancelButtonImg {
-  width: 12px;
-  height: 12px;
-
-  float: right;
+  width: 40%;
+  height: 40%;
+  margin: auto;
 }
 .decideBlock {
   /* border: black 1px solid; */
@@ -132,7 +179,7 @@ button:hover {
   font-family: 'Open Sans', sans-serif;
   text-transform: Uppercase;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -141,20 +188,26 @@ button:hover {
   color: white;
   margin: 10px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px 15px 5px 15px;
   font-size: 13.3px;
+  transition: 0.3s;
+  transition: 0.3s;
+  transition: 0.3s;
+  transition: 0.3s;
 }
 
 .uploadButton:focus {
   outline: 0px;
   /* border: 1px solid white; */
-  border-radius: 5px;
+  border-radius: 8px;
 }
 .uploadButton:hover {
   background-color: rgb(187, 140, 47);
+  border: 1px solid rgb(187, 140, 47);
+  color: rgb(255, 255, 255);
 }
 
 .decideButton {
@@ -163,10 +216,11 @@ button:hover {
   color: white;
   margin: 10px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   content: 'Select some files';
   cursor: pointer;
   padding: 5px;
+  transition: 0.3s;
 }
 
 @media (max-width: 768px) {
@@ -190,20 +244,22 @@ button:hover {
     color: white;
     margin: 10px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
     content: 'Select some files';
     cursor: pointer;
     padding: 5px;
+    transition: 0.3s;
   }
   .uploadButton {
     background-color: black;
     color: white;
     margin: 10px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
     content: 'Select some files';
     cursor: pointer;
     padding: 4px 10px 4px 10px;
     font-size: 13.3px;
+    transition: 0.3s;
   }
 }

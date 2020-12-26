@@ -24,15 +24,14 @@
 .postWrap {
   /* padding: 0 80px 0 80px; */
   width: 100%;
-  margin-top: 50px;
-  cursor: pointer;
-  margin: auto;
+  margin: 50 auto auto auto;
   /* border: 1px solid red; */
 }
 
 .wrap {
   max-width: 975px;
   margin: auto;
+  margin-top: 30px;
 }
 .noPostUpload {
   display: flex;

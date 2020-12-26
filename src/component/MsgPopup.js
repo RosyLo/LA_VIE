@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import styles from '../style/storybar.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cross.png';
+import cross from '../img/icon.png';
+import popupstyles from '../style/popup.module.css';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -17,7 +18,7 @@ const ModalDiv = styled.div`
   left: 0;
   background-color: grey;
   opacity: 0.9;
-  z-index: 50;
+  z-index: 4500;
 `;
 
 const ContentDiv = styled.div`
@@ -30,10 +31,10 @@ const ContentDiv = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 55;
+  z-index: 5000;
     background:white;
   display:block;
-  border-radius:10px
+  border-radius: 8px;
 
 `;
 
@@ -42,9 +43,10 @@ export const MsgPopup = ({ handleClose, show, children }) => {
     <>
       <ModalWrap show={show}>
         <ContentDiv>
-          {' '}
           <div className={styles.cancelStory} onClick={handleClose}>
-            <img style={{ width: '10px', height: '10px' }} src={cross}></img>
+            <div className={popupstyles.cancelWrap}>
+              <img style={{ width: '6px', height: '6px' }} src={cross}></img>
+            </div>
           </div>
           {children}
         </ContentDiv>

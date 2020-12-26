@@ -13,7 +13,6 @@ function useQuery() {
 
 function Routers() {
   const query = useQuery();
-  console.log('router', query.get('id'));
 
   return (
     <>

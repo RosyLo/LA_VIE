@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import EditPostPopup from './EditPostPopup';
-import more from '../img/more.png';
+import more from '../img/moreIcon.png';
 import { StyleEditBlock } from './EditBlockCompo';
 import DeletePopup from './DeletePopup';
 import { MsgPopup } from './MsgPopup';
@@ -37,7 +37,7 @@ function EditPostBar({
               setclickEdit(postID);
               setIsEditBlockClick(!isEditBlockClick);
             }}>
-            <img src={more} style={{ width: '12px', height: '12px', cursor: 'pointer' }}></img>
+            <img src={more} style={{ width: '17px', height: '5px', cursor: 'pointer' }}></img>
 
             {postID === clickEdit ? (
               <StyleEditBlock show={isEditBlockClick}>

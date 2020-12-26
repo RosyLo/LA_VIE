@@ -13,7 +13,7 @@ const ContainerDiv = styled.div`
 
 const ContentDiv = styled.div`
   box-shadow: 3px 3px 3px #ced1d6;
-  border-radius: 5px;
+  border-radius: 8px;
   background: white;
   padding: 10px;
   line-height: 1.5rem;

@@ -42,7 +42,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
         Cancel
       </button>
       <div className={styled.makeStoryGuide}> Choose Story Posts</div>{' '}
-      {choosedStory.length > 0 && (
+      {choosedStory.length > 0 ? (
         <button
           className={styled.decideButton}
           onClick={() => {
@@ -50,6 +50,8 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
           }}>
           Next
         </button>
+      ) : (
+        <button className={styled.decideButtonVag}>Next</button>
       )}
     </>
   );
