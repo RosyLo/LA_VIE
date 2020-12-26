@@ -26,6 +26,8 @@ function EditStoryPopup({
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
   const [editStoryStage, setEditStoryStage] = useState(0);
+
+  const [isEditSuccess, setIsEditSuccess] = useState(false);
   console.log(editStory);
   let storiesID = [];
   useEffect(() => {
@@ -180,13 +182,14 @@ function EditStoryPopup({
         className={styled.decideButton}
         onClick={(e) => {
           e.preventDefault();
-          alert('upload success');
           dispatch(edtiStory(story));
           setIsEditStoryBlockClick(false);
           setstoryName('');
           setChoosedCover('');
           setChoosedStory([]);
           setEditStoryStage(0);
+          setIsEditSuccess(true);
+          console.log('edit');
         }}>
         Upload
       </button>
@@ -232,7 +235,6 @@ function EditStoryPopup({
     view = storyNameing;
   }
 
-  const [isEditSuccess, setIsEditSuccess] = useState(0);
   return (
     <>
       <MakeStoryModal

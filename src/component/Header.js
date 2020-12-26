@@ -10,7 +10,7 @@ import '../style/header.module.css';
 import { login, logout, addPost, loginGoogle } from '../redux/actions';
 import ProfileImage from './ProfileImage';
 import { StyleEditBlock } from './EditBlockCompo';
-import arrow from '../img/arrow.png';
+import arrow from '../img/downarrow.svg';
 import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
 import styles from '../style/header.module.css';
@@ -36,7 +36,7 @@ const Header = () => {
                 <Logo />
               </Link>
             </div>
-            {history.location.pathname === '/welcome' ? (
+            {history.location.pathname === '/' ? (
               <div className={styles.search} styles={{ zIndex: '10000' }}></div>
             ) : (
               <SearchTags />
@@ -59,7 +59,7 @@ const Header = () => {
 
                 {/* Toggle */}
                 <img
-                  style={{ width: '12px', height: '12px', marginLeft: '10px', cursor: 'pointer' }}
+                  className={styles.downarrow}
                   src={arrow}
                   onClick={() => {
                     setisProfileToggleClick(!isProfileToggleClick);

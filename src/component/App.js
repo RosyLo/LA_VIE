@@ -18,7 +18,7 @@ function Routers() {
     <>
       <Header />
       <Switch>
-        <Route exact path='/welcome' component={Welcome} />
+        <Route exact path='/' component={Welcome} />
         <Route
           path='/profile'
           render={(props) => <Profile {...props} userId={query.get('id')} />}

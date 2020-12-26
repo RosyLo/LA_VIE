@@ -99,7 +99,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
       </button>
       <div className={styled.makeStoryGuide}> Choose Cover Photo</div>{' '}
       {!choosedCover ? (
-        ''
+        <button className={styled.decideButtonVag}>Next</button>
       ) : (
         <button
           className={styled.decideButton}
@@ -147,23 +147,27 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
         Back
       </button>
       <div className={styled.makeStoryGuide}> Name Your Story</div>{' '}
-      <button
-        className={styled.decideButton}
-        onClick={(e) => {
-          e.preventDefault();
-          console.log(story);
-          //要dispatch
-          dispatch(addStory(story));
-          // setMakeStoryStage(2);
-          setisMakeStoryClick(false);
-          setstoryName('');
-          setChoosedCover('');
-          setChoosedStory([]);
-          setMakeStoryStage(0);
-          setisMakeStorySucces(true);
-        }}>
-        Upload
-      </button>
+      {storyName === '' ? (
+        <button className={styled.decideButtonVag}>Upload</button>
+      ) : (
+        <button
+          className={styled.decideButton}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(story);
+            //要dispatch
+            dispatch(addStory(story));
+            // setMakeStoryStage(2);
+            setisMakeStoryClick(false);
+            setstoryName('');
+            setChoosedCover('');
+            setChoosedStory([]);
+            setMakeStoryStage(0);
+            setisMakeStorySucces(true);
+          }}>
+          Upload
+        </button>
+      )}
     </>
   );
 

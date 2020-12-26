@@ -107,7 +107,7 @@
   margin: auto;
   text-align: center;
   border-radius: 8px;
-  background-color: rgb(219, 219, 219);
+  background-color: rgb(250, 250, 250);
 }
 
 .storyNameInput:hover {
@@ -150,6 +150,10 @@
   transition: 0.3s;
   opacity: 0.3;
 }
+.decideButtonVag:hover {
+  background-color: black;
+  border: 1px solid black;
+}
 
 @media (max-width: 768px) {
   .decideButton {
@@ -163,6 +167,52 @@
     cursor: pointer;
     padding: 5px;
     transition: 0.3s;
+  }
+
+  .pickPicCircle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 1;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    justify-content: center;
+    padding: 1px;
+  }
+
+  .pickCoverCircle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 1;
+    position: absolute;
+    right: 20px;
+    text-align: center;
+    justify-content: center;
+    padding: 1px;
+  }
+
+  .pickCoverCircle {
+    width: 15px;
+    height: 15px;
+    z-index: 1000;
+  }
+  .check {
+    width: 10px;
+    height: 15px;
+  }
+
+  .imageTime {
+    width: 20px;
+    background-color: white;
+    position: absolute;
+    border-radius: 8px;
+    opacity: 0.8;
+    margin: 5px;
+    font-size: 0.8rem;
   }
 }
 
@@ -179,5 +229,24 @@
     padding: 5px;
     font-size: 0.8rem;
     transition: 0.3s;
+  }
+
+  .decideButtonVag {
+    background-color: black;
+    width: 40px;
+    color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    content: 'Select some files';
+    cursor: pointer;
+    padding: 5px;
+    transition: 0.3s;
+    opacity: 0.3;
+    font-size: 0.8rem;
+    margin: 10px;
+  }
+  .decideButtonVag:hover {
+    background-color: black;
+    border: 1px solid black;
   }
 }

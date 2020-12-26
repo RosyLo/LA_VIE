@@ -5,6 +5,7 @@
 body {
   background: rgba(250, 250, 250);
   position: relative;
+  margin: 0;
 }
 .headerWrap {
   z-index: 3;
@@ -36,6 +37,13 @@ nav {
   cursor: pointer;
   position: relative;
   margin-left: 10px;
+}
+
+.downarrow {
+  width: 12px;
+  height: 12px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 
 .storyCirclePlus {
@@ -191,6 +199,7 @@ nav {
     display: flex;
     padding: 0px;
     align-items: center;
+    width: 100%;
   }
 }
 

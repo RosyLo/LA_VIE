@@ -14,7 +14,7 @@ function NoMatch() {
         <button
           className='noMatchBtn'
           onClick={() => {
-            window.location = './welcome';
+            window.location = './';
           }}>
           Welcome
         </button>

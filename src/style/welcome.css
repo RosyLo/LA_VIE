@@ -1,7 +1,7 @@
 /* Slideshow */
 .wrap {
   max-width: 975px;
-  margin: auto;
+  margin: 100px auto;
 }
 
 .postWrap {
@@ -10,7 +10,7 @@
   width: 100%;
 }
 .slideshow {
-  margin: 130px auto;
+  margin: 150px auto;
   overflow: hidden;
   max-width: 975px;
 }

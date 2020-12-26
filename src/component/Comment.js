@@ -7,7 +7,7 @@ import { editComment, deleteComment } from '../redux/actions';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import cross from '../img/icon.png';
+import cross from '../img/cancel.svg';
 import firebase from '../firebase';
 
 function Comment({ comment, setPostComments, postComments }) {

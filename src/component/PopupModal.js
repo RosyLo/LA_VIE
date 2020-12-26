@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/icon.png';
+import cross from '../img/cancel.svg';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -24,7 +24,7 @@ const ModalDiv = styled.div`
 const ContentDiv = styled.div`
   min-width: 300px;
   max-width: 800px;
-  max-height:700px;
+  max-height:650px;
   width:70%;
   padding:2% 2% 3% 2%;
   align-items:center
@@ -35,7 +35,7 @@ const ContentDiv = styled.div`
   background: rgb(255, 255, 255);
   margin:auto
 
-  
+
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {

@@ -155,7 +155,7 @@
   width: 12px;
   height: 12px;
   position: absolute;
-  left: 0;
+  left: 3px;
   transform: translate(-50%, -50%);
   top: 45%;
   cursor: pointer;

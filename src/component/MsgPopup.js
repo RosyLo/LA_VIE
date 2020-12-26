@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/storybar.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/icon.png';
+import cross from '../img/cancel.svg';
 import popupstyles from '../style/popup.module.css';
 
 const ModalWrap = styled.div`
@@ -39,6 +39,7 @@ const ContentDiv = styled.div`
 `;
 
 export const MsgPopup = ({ handleClose, show, children }) => {
+  console.log('editmsg');
   return ReactDom.createPortal(
     <>
       <ModalWrap show={show}>

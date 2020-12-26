@@ -65,7 +65,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
               Next
             </button>
           ) : (
-            ''
+            <button className={styles.decideButtonVag}> Next</button>
           )}
         </div>
       </div>
@@ -111,7 +111,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
                 Next
               </button>
             ) : (
-              ''
+              <button className={styles.decideButtonVag}> Next</button>
             )}
           </div>
         </div>

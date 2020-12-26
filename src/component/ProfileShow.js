@@ -40,10 +40,9 @@ function ProfileShow({ paramsID }) {
           </div>
         </div>
       ) : (
-        ''
-        // <div className={styles.loading}>
-        //   <Loading />
-        // </div>
+        <div className={styles.loading}>
+          <Loading />
+        </div>
       )}
     </div>
   );

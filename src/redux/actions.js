@@ -65,7 +65,7 @@ export const logout = () => (dispatch) => {
   auth.signOut();
   localStorage.clear();
   dispatch({ type: RECIEVED_USER, payload: { user: null } });
-  window.location = '/welcome';
+  window.location = '/';
 };
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();

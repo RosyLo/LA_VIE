@@ -26,13 +26,13 @@ function Welcome() {
     {
       tag: 'TRAVEL',
       tagName: '旅行',
-      backgroundColor: 'rgb(114, 202, 232)',
+      backgroundColor: 'rgb(86, 131, 183)',
       // 114, 202, 232
     },
     {
       tag: 'FOODIE',
       tagName: '美食',
-      backgroundColor: 'green',
+      backgroundColor: 'rgb(106, 138,106)',
     },
   ];
 
@@ -155,7 +155,6 @@ function Welcome() {
           className='slideshow'
           onClick={() => {
             resetTimeout();
-            setPleaseLogin(true);
           }}>
           <div
             className='slideshowSlider'
@@ -180,13 +179,18 @@ function Welcome() {
                       }}></div>
                   ))}
                 </div>
-                <div className='wrap'>
+                <div
+                  className='wrap'
+                  onClick={() => {
+                    setPleaseLogin(true);
+                  }}>
                   <div className='postWrap'>
                     <StackGrid
                       gridRef={(e) => (stakeGridRef.current = e)}
                       columnWidth={300}
                       gutterWidth={33}
                       gutterHeight={30}
+                      duration={0}
                       monitorImagesLoaded={true}>
                       {filteredPosts.map((post) => (
                         <Post key={post.postID} post={post} isfromWelcome={true} />
