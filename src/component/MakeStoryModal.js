@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cross.png';
+import CancelButton from './CancelButton';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -32,7 +32,8 @@ const ContentDiv = styled.div`
   border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
   background: rgb(255,255,255);
-margin:auto 
+  margin:auto;
+  position: relative;
 `;
 
 export const MakeStoryModal = ({ handleClose, show, children }) => {
@@ -41,10 +42,8 @@ export const MakeStoryModal = ({ handleClose, show, children }) => {
       {/* <ModalWrap show={show}> */}
       <div className={`${show ? styles.contentWrap : styles.contentWrapNone}`}>
         <ContentDiv>
-          <div className={styles.cancelButton} onClick={handleClose}>
-            <div className={styles.cancelWrap}>
-              <img className={styles.cancelButtonImg} src={cross}></img>
-            </div>
+          <div className={styles.close}>
+            <CancelButton onClick={handleClose} />
           </div>
           {children}
         </ContentDiv>

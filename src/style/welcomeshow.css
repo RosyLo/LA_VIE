@@ -10,6 +10,8 @@
   width: 100%;
   text-align: center;
   font-size: 50px;
+
+  /* background-color: rosybrown; */
 }
 
 .welcomeShowTag {
@@ -17,6 +19,13 @@
   color: rgb(187, 140, 47);
   /* -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; */
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  position: relative;
+  /* background-color: rosybrown; */
 }
 
 .circle {

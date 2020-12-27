@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cross.png';
+import CancelButton from './CancelButton';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -43,17 +43,8 @@ const ContentDiv = styled.div`
   border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
   background: rgb(255,255,255);
-  margin:auto 
+  margin:auto
 `;
-// const Title = styled.div`;
-//   position: fixed;
-//   top: 50%;
-//   left: 40%;
-//   transform: translate(-50%, -50%);
-//   z-index: 2000;
-//   font-size: 3rem;
-//   max-width: 300px;
-//   }
 
 export const WelcomePopup = ({ handleClose, show, children, slideTime }) => {
   return ReactDom.createPortal(
@@ -63,14 +54,11 @@ export const WelcomePopup = ({ handleClose, show, children, slideTime }) => {
         <div className='titleWrap'></div>
         <ContentDiv>
           <div
-            className={styles.cancelButton}
+            className={styles.close}
             onClick={() => {
-              handleClose();
               slideTime();
             }}>
-            <div className={styles.cancelWrap}>
-              <img className={styles.cancelButtonImg} src={cross}></img>
-            </div>
+            <CancelButton onClick={handleClose} />
           </div>
 
           {children}

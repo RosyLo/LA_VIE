@@ -137,7 +137,6 @@ button:hover {
   width: 15px;
   height: 15px;
   /* background-color: royalblue; */
-  float: right;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,6 +146,11 @@ button:hover {
   margin: auto;
   padding: 3px;
   cursor: pointer;
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
 }
 
 .cancelButtonImg {
@@ -224,6 +228,7 @@ button:hover {
 }
 
 .decideButtonVag {
+  margin: 10px;
   background-color: black;
   width: 80px;
   color: white;

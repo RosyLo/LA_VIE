@@ -7,8 +7,7 @@ import { editComment, deleteComment } from '../redux/actions';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import cross from '../img/cancel.svg';
-import firebase from '../firebase';
+import CancelButton from './CancelButton';
 
 function Comment({ comment, setPostComments, postComments }) {
   const dispatch = useDispatch();
@@ -60,18 +59,21 @@ function Comment({ comment, setPostComments, postComments }) {
             </span>
           )}
         </p>
-        <div className={styles.commentLike}>
-          <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
+        <div className={styles.commentActions}>
+          <div className={styles.commentLike}>
+            <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
+          </div>
           {user.uid === commentIssuer.commentIssuerID ? (
-            <div className={styles.cancelWrap}>
-              <img
-                className={styles.cancelButtonImg}
-                src={cross}
-                onClick={() => {
-                  setisCommentDeleteClick(true);
-                }}
-              />
-            </div>
+            // <div className={styles.cancelWrap}>
+            //   <img
+            //     className={styles.cancelButtonImg}
+            //     src={cross}
+            //     onClick={() => {
+            //       setisCommentDeleteClick(true);
+            //     }}
+            //   />
+            // </div>
+            <CancelButton onClick={() => setisCommentDeleteClick(true)} />
           ) : (
             <div className={styles.cancelWrapNone}></div>
           )}

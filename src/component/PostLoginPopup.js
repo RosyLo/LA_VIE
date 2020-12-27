@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cross.png';
+import CancelButton from './CancelButton';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -43,7 +43,7 @@ const ContentDiv = styled.div`
   border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
   background: rgb(255,255,255);
-  margin:auto 
+  margin: auto 
 `;
 
 export const PostLoginPopup = ({ handleClose, show, children }) => {
@@ -53,10 +53,8 @@ export const PostLoginPopup = ({ handleClose, show, children }) => {
       <div className={`${show ? styles.contentWrap : styles.contentWrapNone}`}>
         <div className='titleWrap'></div>
         <ContentDiv>
-          <div className={styles.cancelButton} onClick={handleClose}>
-            <div className={styles.cancelWrap}>
-              <img className={styles.cancelButtonImg} src={cross}></img>
-            </div>
+          <div className={styles.close}>
+            <CancelButton onClick={handleClose} />
           </div>
           {children}
         </ContentDiv>

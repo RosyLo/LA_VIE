@@ -32,9 +32,15 @@ const Header = () => {
         <nav>
           <div className={styles.navWrap}>
             <div style={{ border: 'none' }}>
-              <Link to='/main'>
-                <Logo />
-              </Link>
+              {user ? (
+                <Link to='/main'>
+                  <Logo />
+                </Link>
+              ) : (
+                <Link to='/'>
+                  <Logo />
+                </Link>
+              )}
             </div>
             {history.location.pathname === '/' ? (
               <div className={styles.search} styles={{ zIndex: '10000' }}></div>

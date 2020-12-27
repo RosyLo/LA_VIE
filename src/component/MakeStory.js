@@ -22,6 +22,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
   // const masterposts = useSelector((state) => state.masterposts);
   const posts = useSelector((state) => state.posts);
   const [makeStoryStage, setMakeStoryStage] = useState(0);
+  console.log(posts);
   const story = {
     storyID: '',
     storyName: storyName,

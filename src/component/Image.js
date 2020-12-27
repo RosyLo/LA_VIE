@@ -7,8 +7,9 @@ import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
 
 function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
+  const posts = useSelector((state) => state.posts);
   const { postID, postImage, postTime } = post;
-  const [isImgChoose, setIsImgChoose] = useState(false);
+  const isImgChoose = choosedStory.includes(postID);
   return (
     <>
       {stage === 0 && (
@@ -16,7 +17,6 @@ function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCove
           className={styled.blockWrap}
           style={{ width: '100%' }}
           onClick={() => {
-            setIsImgChoose(!isImgChoose);
             chooseStory(postID);
           }}>
           <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>

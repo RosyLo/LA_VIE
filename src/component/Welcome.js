@@ -15,23 +15,25 @@ import headerstyle from '../style/header.module.css';
 import { RECIEVING_LOADING } from '../redux/actionTypes';
 import travel from '../img/travel.jpg';
 import { login, logout, addPost, loginGoogle } from '../redux/actions';
+import { Redirect } from 'react-router-dom';
+import chrisIcon from '../img/mistletoe.svg';
 
 function Welcome() {
   const slogans = [
     {
       tag: 'OUTFIT',
-      tagName: '穿搭',
+      tagName: 'HOLIDAY   OUTFIT',
       backgroundColor: 'rgb(187,140,47)',
     },
     {
       tag: 'TRAVEL',
-      tagName: '旅行',
+      tagName: 'AMAZING VACATION',
       backgroundColor: 'rgb(86, 131, 183)',
       // 114, 202, 232
     },
     {
       tag: 'FOODIE',
-      tagName: '美食',
+      tagName: 'CHRISTMAS DINNER',
       backgroundColor: 'rgb(106, 138,106)',
     },
   ];
@@ -75,7 +77,7 @@ function Welcome() {
       });
   }, []);
 
-  const delay = 3000;
+  const delay = 5000;
   const [index, setIndex] = React.useState(0);
   const [isTo2, setIsTo2] = useState(true);
   const timeoutRef = React.useRef(null);
@@ -162,11 +164,23 @@ function Welcome() {
             {slogans.map((slogan, index) => (
               <div className='slide' key={index}>
                 <div className='welcomeShow'>
-                  <div>分享你的</div>
+                  <div>Share Your</div>
+
                   <div className='welcomeShowTag' style={{ color: slogan.backgroundColor }}>
                     {slogan.tagName}
+                    <div
+                      style={{
+                        width: '35px',
+                        height: '35px',
+                        // backgroundColor: 'blue',
+                        position: 'absolute',
+                        right: '150px',
+                        top: '-55px',
+                      }}>
+                      <img src={chrisIcon}></img>
+                    </div>
                   </div>
-                  <div>精彩生活</div>
+                  <div>with the World</div>
                 </div>
                 <div className='slideshowDots'>
                   {slogans.map((_, idx) => (

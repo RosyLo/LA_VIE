@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import cross from '../img/cancel.svg';
+import CancelButton from './CancelButton';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -24,18 +24,17 @@ const ModalDiv = styled.div`
 const ContentDiv = styled.div`
   min-width: 300px;
   max-width: 800px;
-  max-height:650px;
-  width:70%;
-  padding:2% 2% 3% 2%;
-  align-items:center
+  max-height: 650px;
+  width: 70%;
+  padding: 2% 2% 3% 2%;
+  align-items: center
   max-width: 800px;
   z-index: 4;
   border-radius: 8px;
   box-shadow: 3px 3px 3px #ced1d6;
   background: rgb(255, 255, 255);
-  margin:auto
-
-
+  margin: auto;
+  position: relative;
 `;
 
 export const StyleModal = ({ handleClose, show, children }) => {
@@ -44,10 +43,8 @@ export const StyleModal = ({ handleClose, show, children }) => {
     <>
       <div className={`${show ? styles.contentWrap : styles.contentWrapNone}`}>
         <ContentDiv>
-          <div className={styles.cancelButton} onClick={handleClose}>
-            <div className={styles.cancelWrap}>
-              <img className={styles.cancelButtonImg} src={cross}></img>
-            </div>
+          <div className={styles.close}>
+            <CancelButton onClick={handleClose} />
           </div>
           {children}
         </ContentDiv>

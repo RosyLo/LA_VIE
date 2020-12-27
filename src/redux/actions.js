@@ -26,6 +26,7 @@ import {
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
 import firebase from '../firebase';
+import formatPost from '../utils/formatPost';
 
 const db = firebase.firestore();
 const auth = firebase.auth();
@@ -119,11 +120,7 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
             postLikes: post.data().postLikes || [],
             postTime: post.data().postTime,
           };
-          if (typeof postData.postTime !== 'string') {
-            let date = postData.postTime.toDate();
-            let shortTime = date.toDateString();
-            postData.postTime = shortTime;
-          }
+          formatPost(postData);
           postsList.push(postData);
         });
         setLastSnap(snap.docs[9]);
@@ -157,11 +154,7 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
             postLikes: post.data().postLikes || [],
             postTime: post.data().postTime,
           };
-          if (typeof postData.postTime !== 'string') {
-            let date = postData.postTime.toDate();
-            let shortTime = date.toDateString();
-            postData.postTime = shortTime;
-          }
+          formatPost(postData);
           postsList.push(postData);
         });
         setLastSnap(snap.docs[snap.docs.length - 1]);
@@ -222,18 +215,25 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
       postLikes: [],
       postTime: firebase.firestore.FieldValue.serverTimestamp(),
     };
+    console.log(post);
     const ref = db.collection('Post');
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
-
       //寫postID 回firebase
       ref.doc(docRef.id).update({
         postID: docRef.id,
       });
-      //add post state
-      dispatch({ type: ADD_POST, payload: { post } });
-      //tag
-      dispatch(tagProcess(newTag, post.postID));
+      ref
+        .doc(docRef.id)
+        .get()
+        .then((post) => {
+          const postData = post.data();
+          formatPost(postData);
+          //add post state
+          dispatch({ type: ADD_POST, payload: { post: postData } });
+          //tag
+          dispatch(tagProcess(newTag, docRef.id));
+        });
     });
   });
 };
@@ -266,7 +266,6 @@ export const editPost = (
         value: newTag.value,
       },
       postLikes: [],
-      postTime: postTime,
     };
     console.log(post);
     const ref = db.collection('Post').doc(editPostID);
@@ -294,7 +293,6 @@ export const editPost = (
         postMessage: newMsg,
         postTag: newTag,
         postLikes: [],
-        postTime: postTime,
       };
       const ref = db.collection('Post').doc(editPostID);
       ref
@@ -567,11 +565,8 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
           postLikes: post.data().postLikes || [],
           postTime: post.data().postTime,
         };
-        if (typeof postData.postTime !== 'string') {
-          let date = postData.postTime.toDate();
-          let shortTime = date.toDateString();
-          postData.postTime = shortTime;
-        }
+        console.log(postData.postTime);
+        formatPost(postData);
         postsList.push(postData);
       });
       return postsList;
