@@ -20,6 +20,7 @@ import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function Post({
   post,
+  newTag,
   isFromDelete,
   isFromUpload,
   isFromEdit,
@@ -105,7 +106,7 @@ function Post({
             <>
               <div className='HeartAnimation animate'></div>
               <div style={{ width: '170px' }}></div>
-              <div>#{postTag.value}</div>
+              {newTag ? <div>#{newTag.value}</div> : <div>#{postTag.value}</div>}
             </>
           ) : (
             <>
@@ -229,6 +230,7 @@ Post.propTypes = {
   isfromWelcome: PropTypes.bool,
   isDeletePopup: PropTypes.bool,
   clickEdit: PropTypes.string,
+  newTag: PropTypes.object,
 };
 
 export default Post;

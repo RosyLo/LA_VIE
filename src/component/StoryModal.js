@@ -4,6 +4,7 @@ import styles from '../style/storybar.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import cross from '../img/cross.png';
+import CancelButton from './CancelButton';
 
 const ModalWrap = styled.div`
   display: ${(props) => (props.show ? 'block' : 'none')};
@@ -39,7 +40,16 @@ export const StoryModal = ({ handleClose, show, children }) => {
     <>
       <ModalWrap show={show}>
         <div className={styles.cancelStory} onClick={handleClose}>
-          <img style={{ width: '12px', height: '12px' }} src={cross}></img>
+          <img
+            style={{
+              width: '15px',
+              height: '15px',
+              borderRadius: '50%',
+              backgroundColor: 'rgb(255, 255, 255)',
+              opacity: '0.3',
+              padding: '5px',
+            }}
+            src={cross}></img>
         </div>
         <ContentDiv> {children}</ContentDiv>
         <ModalDiv></ModalDiv>

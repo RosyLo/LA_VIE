@@ -103,30 +103,38 @@
 
 .storyBlockWrap:hover .rightarrow {
   display: block;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.3;
 }
 
 .storyBlockWrap:hover .leftarrow {
   display: block;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  opacity: 0.3;
 }
 
 .rightarrow {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   position: fixed;
   right: calc(50% - 212px);
   top: 50%;
   cursor: pointer;
   display: none;
+  padding: 5px;
 }
 
 .leftarrow {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   position: fixed;
   right: calc(50% + 240px);
   top: 50%;
   cursor: pointer;
   display: none;
+  padding: 5px;
 }
 
 .storyEdit {

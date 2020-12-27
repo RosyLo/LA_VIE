@@ -182,7 +182,7 @@ function EditPostPopup({
           <div className={styles.topModel}></div>
           <div className={styled.buttonModal}>
             <div className={styles.leftModel}>
-              <Post post={post} isFromEdit={true} />
+              <Post post={post} isFromEdit={true} newTag={newTag} />
             </div>
             {view}
           </div>

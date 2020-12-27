@@ -165,7 +165,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
           <div className={styles.topModel}></div>
           <div className={styles.buttonModal}>
             <div className={styles.leftModel}>
-              <Post post={post} isFromUpload={true} />
+              <Post post={post} isFromUpload={true} newTag={newTag} />
             </div>
             {view}
           </div>

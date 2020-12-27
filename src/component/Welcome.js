@@ -22,19 +22,22 @@ function Welcome() {
   const slogans = [
     {
       tag: 'OUTFIT',
-      tagName: 'HOLIDAY   OUTFIT',
+      tagName: 'STUNNING OUTFIT',
       backgroundColor: 'rgb(187,140,47)',
+      backgroundImage: '#cfc1ae',
     },
     {
       tag: 'TRAVEL',
       tagName: 'AMAZING VACATION',
-      backgroundColor: 'rgb(86, 131, 183)',
+      backgroundColor: 'rgb(86, 181, 183)',
+      backgroundImage: '#fbde90',
       // 114, 202, 232
     },
     {
       tag: 'FOODIE',
       tagName: 'CHRISTMAS DINNER',
       backgroundColor: 'rgb(106, 138,106)',
+      backgroundImage: '#b3cd8f',
     },
   ];
 
@@ -166,8 +169,14 @@ function Welcome() {
                 <div className='welcomeShow'>
                   <div>Share Your</div>
 
-                  <div className='welcomeShowTag' style={{ color: slogan.backgroundColor }}>
-                    {slogan.tagName}
+                  <div className='welcomeShowTag'>
+                    <div
+                      className='tagNameLine'
+                      style={{ backgroundColor: slogan.backgroundImage }}></div>
+                    <div className='tagNameText' style={{ color: slogan.backgroundColor }}>
+                      {' '}
+                      {slogan.tagName}
+                    </div>
                     <div
                       style={{
                         width: '35px',
@@ -177,7 +186,7 @@ function Welcome() {
                         right: '150px',
                         top: '-55px',
                       }}>
-                      <img src={chrisIcon}></img>
+                      {/* <img src={chrisIcon}></img> */}
                     </div>
                   </div>
                   <div>with the World</div>
