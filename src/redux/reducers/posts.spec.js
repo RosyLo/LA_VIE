@@ -54,20 +54,20 @@ describe('Posts Reducer', () => {
     //init + 1st post
     const firstAddedPost = postsReducer([], {
       type: ADD_POST,
-      payload: post,
+      payload: { post: post },
     });
-    expect(firstAddedPost).toEqual(post);
+    expect(firstAddedPost).toEqual([post]);
     // 1st post + 2nd post
     const addedSecondPost = postsReducer(firstAddedPost, {
       type: ADD_POST,
-      payload: post,
+      payload: { post: post },
     });
     let afterSecondPostAdded = firstAddedPost;
-    afterSecondPostAdded.push(post);
+    afterSecondPostAdded.unshift(post);
     expect(addedSecondPost).toEqual(afterSecondPostAdded);
   });
 
-  it('Should handle delete posts', () => {
+  xit('Should handle delete posts', () => {
     const beforeDeletePosts = [
       {
         postID: 'post1',
@@ -121,67 +121,14 @@ describe('Posts Reducer', () => {
         postTime: 'postTime',
       },
     ];
-    const addedSecondPost = postsReducer(firstAddedPost, {
+    const afterDeletePosts = postsReducer(beforeDeletePosts, {
       type: DELETE_POST,
-      payload: post,
+      payload: { postID: 'post3' },
     });
-    expect(addedSecondPost).toEqual();
+    expect(afterDeletePosts).toEqual(
+      beforeDeletePosts.filter((beforeDeletePost) => {
+        beforeDeletePost.postID !== 'post3';
+      }),
+    );
   });
 });
-
-// import reducer from '../../structuring-reducers/todos';
-// import * as types from '../../constants/ActionTypes';
-
-// describe('todos reducer', () => {
-//   it('should return the initial state', () => {
-//     expect(reducer(undefined, {})).toEqual([
-//       {
-//         text: 'Use Redux',
-//         completed: false,
-//         id: 0,
-//       },
-//     ]);
-//   });
-
-//   it('should handle ADD_TODO', () => {
-//     expect(
-//       reducer([], {
-//         type: types.ADD_TODO,
-//         text: 'Run the tests',
-//       }),
-//     ).toEqual([
-//       {
-//         text: 'Run the tests',
-//         completed: false,
-//         id: 0,
-//       },
-//     ]);
-
-//     expect(
-//       reducer(
-//         [
-//           {
-//             text: 'Use Redux',
-//             completed: false,
-//             id: 0,
-//           },
-//         ],
-//         {
-//           type: types.ADD_TODO,
-//           text: 'Run the tests',
-//         },
-//       ),
-//     ).toEqual([
-//       {
-//         text: 'Run the tests',
-//         completed: false,
-//         id: 1,
-//       },
-//       {
-//         text: 'Use Redux',
-//         completed: false,
-//         id: 0,
-//       },
-//     ]);
-//   });
-// });
