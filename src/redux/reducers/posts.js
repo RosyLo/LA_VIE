@@ -2,6 +2,9 @@ import { ADD_POST, EDIT_POST, DELETE_POST, RECIEVED_POSTS, TOGGLE_LIKE_POST } fr
 
 const posts = (state = [], action) => {
   switch (action.type) {
+    case RECIEVED_POSTS: {
+      return action.payload.postsList;
+    }
     case ADD_POST: {
       return [action.payload.post, ...state];
     }
@@ -20,9 +23,6 @@ const posts = (state = [], action) => {
       return editPostList;
     }
 
-    case RECIEVED_POSTS: {
-      return action.payload.postsList;
-    }
     case TOGGLE_LIKE_POST: {
       return state.map((post) => {
         if (post.postID === action.payload.id) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePostLike } from '../redux/actions';
+import { togglePostLike } from '../redux/actions/postAction';
 import '../style/heart.css';
 
 function Heart({ id, likes, isfrom }) {

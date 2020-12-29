@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Heart from './Heart';
 import { MsgPopup } from './MsgPopup';
-import { editComment, deleteComment } from '../redux/actions';
+import { editComment, deleteComment } from '../redux/actions/commentAction';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
@@ -64,15 +64,6 @@ function Comment({ comment, setPostComments, postComments }) {
             <Heart id={comment.commentID} likes={comment.likeIssuerID} isfrom='comment' />
           </div>
           {user.uid === commentIssuer.commentIssuerID ? (
-            // <div className={styles.cancelWrap}>
-            //   <img
-            //     className={styles.cancelButtonImg}
-            //     src={cross}
-            //     onClick={() => {
-            //       setisCommentDeleteClick(true);
-            //     }}
-            //   />
-            // </div>
             <CancelButton onClick={() => setisCommentDeleteClick(true)} />
           ) : (
             <div className={styles.cancelWrapNone}></div>

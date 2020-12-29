@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { addStory, edtiStory } from '../redux/actions';
+import { addStory, edtiStory } from '../redux/actions/storyAction';
 import { MakeStoryModal } from './MakeStoryModal';
 import EditImage from './EditImage';
 import styles from '../style/popup.module.css';

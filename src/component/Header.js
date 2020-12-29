@@ -7,9 +7,9 @@ import Logo from './Logo';
 import SearchTags from './SearchTags';
 import PropTypes from 'prop-types';
 import '../style/header.module.css';
-import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
+import { login, logout } from '../redux/actions/loginAction';
 import ProfileImage from './ProfileImage';
-import { StyleEditBlock } from './EditBlockCompo';
+
 import arrow from '../img/downarrow.svg';
 import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
@@ -122,14 +122,16 @@ const Header = () => {
             <br />
             <br />
             <div className={styles.text}> Login with</div>
-            <div className={styles.google} onClick={() => dispatch(loginGoogle(setLoginPopup))}>
+            <div className={styles.google} onClick={() => dispatch(login('google', setLoginPopup))}>
               {' '}
               {/* <img src={google} className={styles.googleIcon} /> */}
               Google Login
             </div>
 
             <div className={styles.text}> OR</div>
-            <div className={styles.facebook} onClick={() => dispatch(loginFacebook(setLoginPopup))}>
+            <div
+              className={styles.facebook}
+              onClick={() => dispatch(login('facebook', setLoginPopup))}>
               Facebook Login
             </div>
           </div>

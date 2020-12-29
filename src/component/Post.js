@@ -16,8 +16,7 @@ import { PostLoginPopup } from './PostLoginPopup';
 import travel from '../img/travel.jpg';
 import Logo from './Logo';
 import headerstyle from '../style/header.module.css';
-import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
-
+import { login } from '../redux/actions/loginAction';
 function Post({
   post,
   newTag,
@@ -183,17 +182,14 @@ function Post({
               <div className={headerstyle.text}> Login with</div>
               <div
                 className={headerstyle.google}
-                onClick={() => dispatch(loginGoogle(setPleaseLogin, setisPostClick))}>
-                {' '}
-                {/* <img src={google} className={headerstyle.googleIcon} /> */}
+                onClick={() => dispatch(login('google', setPleaseLogin, setisPostClick))}>
                 Google Login
               </div>
 
               <div className={headerstyle.text}> OR</div>
               <div
                 className={headerstyle.facebook}
-                onClick={() => dispatch(loginFacebook(setPleaseLogin, setisPostClick))}>
-                {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
+                onClick={() => dispatch(login('facebook', setPleaseLogin, setisPostClick))}>
                 Facebook Login
               </div>
             </div>

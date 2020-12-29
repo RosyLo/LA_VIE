@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from './Post3';
-import { editPost } from '../redux/actions';
-import { deletePost } from '../redux/actions';
+import { editPost } from '../redux/actions/postAction';
 import styles from '../style/popup.module.css';
 import styled from '../style/editpostpopup.module.css';
 import { StyleModal } from './PopupModal';
-import { nanoid } from 'nanoid';
 import ChooseTags from './ChooseTags';
 
 function EditPostPopup({

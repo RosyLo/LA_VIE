@@ -6,16 +6,16 @@ import Post from './Post';
 import '../style/welcome.css';
 import styles from '../style/post.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../redux/actions';
-import Loading from './Loading';
+import { fetchPosts } from '../redux/actions/postAction';
 import Logo from './Logo';
 import { WelcomePopup } from './WelcomePopup';
 import headerstyle from '../style/header.module.css';
 import { RECIEVING_LOADING } from '../redux/actionTypes';
 import travel from '../img/travel.jpg';
-import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
+import { login } from '../redux/actions/loginAction';
 import { Redirect } from 'react-router-dom';
 import chrisIcon from '../img/mistletoe.svg';
+import Loading from './Loading';
 import firebase, { db, auth, facebookAuthProvider, googleAuthProvider } from '../firebase';
 
 function Welcome() {
@@ -252,7 +252,7 @@ function Welcome() {
               <div className={headerstyle.text}> Login with</div>
               <div
                 className={headerstyle.google}
-                onClick={() => dispatch(loginGoogle(setPleaseLogin, setisPostClick))}>
+                onClick={() => dispatch(login('google', setPleaseLogin, setisPostClick))}>
                 {/* <img src={google} className={headerstyle.googleIcon} /> */}
                 Google Login
               </div>
@@ -260,7 +260,7 @@ function Welcome() {
               <div className={headerstyle.text}> OR</div>
               <div
                 className={headerstyle.facebook}
-                onClick={() => dispatch(loginFacebook(setPleaseLogin, setisPostClick))}>
+                onClick={() => dispatch(login('facebook', setPleaseLogin, setisPostClick))}>
                 {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
                 Facebook Login
               </div>

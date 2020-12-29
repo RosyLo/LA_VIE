@@ -19,7 +19,7 @@ function ProfileShow({ paramsID }) {
         setProfile(doc.data());
       });
   }, [paramsID]);
-  const loading = useSelector((state) => state.loading);
+  // const loading = useSelector((state) => state.loading);
 
   return (
     <div className={styles.profileShowWrap}>

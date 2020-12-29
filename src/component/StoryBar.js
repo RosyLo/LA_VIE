@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import firebase from '../firebase';
-import { fetchStories } from '../redux/actions';
+import { fetchStories } from '../redux/actions/storyAction';
 import { useSelector, useDispatch } from 'react-redux';
 import StoryCircle from '../component/StoryCircle';
 import MakeStory from '../component/MakeStory';

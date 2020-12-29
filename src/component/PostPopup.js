@@ -5,11 +5,10 @@ import ProfileImage from './ProfileImage';
 import EditPostBar from './EditPostBar';
 import Comment from './Comment';
 import Commenting from './Commenting';
-import { deletePost, fetchComments } from '../redux/actions';
+import { fetchComments } from '../redux/actions/commentAction';
 import { StyleModal } from './PopupModal';
 import styles from '../style/editpostpopup.module.css';
 import postblock from '../style/postblock.module.css';
-import firebase from '../firebase';
 import { Link } from 'react-router-dom';
 
 function PostPopup({

@@ -8,10 +8,7 @@ import leftarrow from '../img/left-arrow.png';
 import more from '../img/more.png';
 import styles from '../style/storybar.module.css';
 import { StyleEditBlock } from './EditStoryCompo';
-import { edtiStory } from '../redux/actions';
-import { MakeStoryModal } from './MakeStoryModal';
 import EditStoryPopup from './EditStoryPopup';
-import styled from 'styled-components';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const user = useSelector((state) => state.user);

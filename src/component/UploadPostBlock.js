@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPost } from '../redux/actions';
+import { addPost } from '../redux/actions/postAction';
 import { StyleModal } from './PopupModal';
 import styles from '../style/popup.module.css';
 import styled from '../style/editpostpopup.module.css';

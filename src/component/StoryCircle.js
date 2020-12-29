@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import { deleteStory } from '../redux/actions';
+import { deleteStory } from '../redux/actions/storyAction';
 
 function StoryCircle({ story, circleRef }) {
   const { storyImageLink, storyIssuerID } = story;
