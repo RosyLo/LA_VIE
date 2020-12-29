@@ -18,7 +18,6 @@ import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
 import { ReactComponent as FaceBook } from '../img/facebook.svg';
 import travel from '../img/travel.jpg';
-import { login, logout, addPost, loginGoogle } from '../redux/actions';
 
 function PostList() {
   const [clickEdit, setclickEdit] = useState('');

@@ -2,9 +2,9 @@ import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styles from '../style/profileshow.module.css';
-import firebase from '../firebase';
 import styled from 'styled-components';
 import Loading from './Loading';
+import firebase, { db, auth, facebookAuthProvider, googleAuthProvider } from '../firebase';
 
 function ProfileShow({ paramsID }) {
   const [profile, setProfile] = useState(null);
@@ -12,7 +12,6 @@ function ProfileShow({ paramsID }) {
   const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
-    const db = firebase.firestore();
     db.collection('User')
       .doc(paramsID)
       .get()

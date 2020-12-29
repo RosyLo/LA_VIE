@@ -16,7 +16,7 @@ import { PostLoginPopup } from './PostLoginPopup';
 import travel from '../img/travel.jpg';
 import Logo from './Logo';
 import headerstyle from '../style/header.module.css';
-import { login, logout, addPost, loginGoogle } from '../redux/actions';
+import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
 
 function Post({
   post,
@@ -93,7 +93,7 @@ function Post({
             className={styles.picOverlay}
             onClick={() => {
               setisPostClick(true);
-              // setclickPostID(postID);
+              setclickPostID(postID);
             }}>
             <div className={styles.content}>
               <div className={styles.textspan}>{postMessage}</div>
@@ -130,7 +130,7 @@ function Post({
               className={styles.postComments}
               onClick={() => {
                 setisPostClick(true);
-                // setclickPostID(postID);
+                setclickPostID(postID);
               }}>
               See More
             </div>
@@ -163,7 +163,6 @@ function Post({
       ) : (
         ''
       )}
-      {/* please login  */}
       {!isfromWelcome && (
         <PostLoginPopup
           show={pleaseLogin}
@@ -193,7 +192,7 @@ function Post({
               <div className={headerstyle.text}> OR</div>
               <div
                 className={headerstyle.facebook}
-                onClick={() => dispatch(login(setPleaseLogin, setisPostClick))}>
+                onClick={() => dispatch(loginFacebook(setPleaseLogin, setisPostClick))}>
                 {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
                 Facebook Login
               </div>

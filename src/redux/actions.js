@@ -25,14 +25,10 @@ import {
 } from './actionTypes';
 import uploadImage from '../utils/imageUpload';
 import { tagProcess } from './callbackActions';
-import firebase from '../firebase';
+import firebase, { db, auth, facebookAuthProvider, googleAuthProvider } from '../firebase';
 import formatPost from '../utils/formatPost';
 
-const db = firebase.firestore();
-const auth = firebase.auth();
-const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-
-export const login = (setLoginPopup, setisPostClick) => (dispatch) => {
+export const loginFacebook = (setLoginPopup, setisPostClick) => (dispatch) => {
   auth.signInWithPopup(facebookAuthProvider).then(async (result) => {
     setLoginPopup(false);
     if (setisPostClick) {
@@ -40,7 +36,6 @@ export const login = (setLoginPopup, setisPostClick) => (dispatch) => {
     }
     if (result) {
       const { user } = result;
-      console.log(user);
       let url = user.photoURL;
       url += '?width=700';
       db.collection('User')
@@ -69,7 +64,6 @@ export const logout = () => (dispatch) => {
   window.location = '/';
 };
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 export const loginGoogle = (setLoginPopup, setisPostClick) => (dispatch) => {
   auth.signInWithPopup(googleAuthProvider).then(async (result) => {
     setLoginPopup(false);
@@ -91,9 +85,9 @@ export const loginGoogle = (setLoginPopup, setisPostClick) => (dispatch) => {
           { merge: true },
         )
         .then(() => {
+          window.location = '/main';
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
-          window.location = '/main';
         });
     }
   });
@@ -540,7 +534,6 @@ export const deleteComment = (comment, setPostComments, postComments) => (dispat
     payload: { newPostComments },
   });
 
-  const db = firebase.firestore();
   const ref = db.collection('Comment').doc(comment.commentID);
   ref.delete().then(() => {
     console.log('delete data successful');

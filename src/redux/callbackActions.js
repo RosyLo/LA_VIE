@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
 import { UPDATE_TAG, ADD_TAG } from './actionTypes';
-import firebase from '../firebase';
+import { db } from '../firebase';
 
-const db = firebase.firestore();
 export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
   const { tags } = getState();
   const ref = db.collection('Tag').doc(newTag.value);
@@ -18,7 +17,6 @@ export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {
     let updateTagpostID = updateTag.postID;
     updateTagpostID.push(tagpostID);
 
-    console.log(tags);
     dispatch({
       type: UPDATE_TAG,
       payload: { tags },

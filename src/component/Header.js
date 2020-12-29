@@ -7,7 +7,7 @@ import Logo from './Logo';
 import SearchTags from './SearchTags';
 import PropTypes from 'prop-types';
 import '../style/header.module.css';
-import { login, logout, addPost, loginGoogle } from '../redux/actions';
+import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
 import ProfileImage from './ProfileImage';
 import { StyleEditBlock } from './EditBlockCompo';
 import arrow from '../img/downarrow.svg';
@@ -15,6 +15,7 @@ import google from '../img/google.png';
 import facebook from '../img/facebookt.png';
 import styles from '../style/header.module.css';
 import { PostLoginPopup } from './PostLoginPopup';
+import ChatRoom from './ChatRoom';
 import travel from '../img/travel.jpg';
 
 import { useHistory } from 'react-router';
@@ -25,7 +26,6 @@ const Header = () => {
   const [isProfileToggleClick, setisProfileToggleClick] = useState(false);
   const [loginPopup, setLoginPopup] = useState(false);
   const history = useHistory();
-  console.log(history.location.pathname);
   return (
     <>
       <div className={styles.headerWrap}>
@@ -49,6 +49,8 @@ const Header = () => {
             )}
             {user ? (
               <>
+                <h1>⚛️🔥💬</h1>
+                {/* <section>{user && <ChatRoom /> }</section> */}
                 <UploadPostButton />
                 {/* 頭貼 */}
 
@@ -91,7 +93,6 @@ const Header = () => {
               </>
             ) : (
               <>
-                {/* <div className={styles.button} onClick={() => dispatch(login())}> */}
                 <div className={styles.button} onClick={() => setLoginPopup(true)}>
                   Login
                 </div>
@@ -128,8 +129,7 @@ const Header = () => {
             </div>
 
             <div className={styles.text}> OR</div>
-            <div className={styles.facebook} onClick={() => dispatch(login(setLoginPopup))}>
-              {/* <img src={facebook} className={styles.facebookIcon} />  */}
+            <div className={styles.facebook} onClick={() => dispatch(loginFacebook(setLoginPopup))}>
               Facebook Login
             </div>
           </div>

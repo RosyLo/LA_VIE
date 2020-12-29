@@ -4,7 +4,6 @@ import WelcomeShow from './WelcomeShow';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
 import '../style/welcome.css';
-import firebase from '../firebase';
 import styles from '../style/post.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPosts } from '../redux/actions';
@@ -14,9 +13,10 @@ import { WelcomePopup } from './WelcomePopup';
 import headerstyle from '../style/header.module.css';
 import { RECIEVING_LOADING } from '../redux/actionTypes';
 import travel from '../img/travel.jpg';
-import { login, logout, addPost, loginGoogle } from '../redux/actions';
+import { loginFacebook, logout, addPost, loginGoogle } from '../redux/actions';
 import { Redirect } from 'react-router-dom';
 import chrisIcon from '../img/mistletoe.svg';
+import firebase, { db, auth, facebookAuthProvider, googleAuthProvider } from '../firebase';
 
 function Welcome() {
   const slogans = [
@@ -48,7 +48,7 @@ function Welcome() {
   console.log(loading);
   //posts
   const [displayPosts, setDisplayPosts] = useState([]);
-  const db = firebase.firestore();
+
   const postsList = [];
   useEffect(() => {
     db.collection('Post')
@@ -231,7 +231,6 @@ function Welcome() {
           <Loading />
         </div>
       )}
-      {/* please login  */}
       {slideTime && (
         <WelcomePopup
           show={pleaseLogin}
@@ -261,7 +260,7 @@ function Welcome() {
               <div className={headerstyle.text}> OR</div>
               <div
                 className={headerstyle.facebook}
-                onClick={() => dispatch(login(setPleaseLogin, setisPostClick))}>
+                onClick={() => dispatch(loginFacebook(setPleaseLogin, setisPostClick))}>
                 {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
                 Facebook Login
               </div>
