@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Heart from './Heart';
 import Comment from './Comment';
 import Commenting from './Commenting';
-import styles from '../style/post.module.css';
 import EditPostBar from './EditPostBar';
-import ProfileImage from './ProfileImage';
 import PostPopup from './PostPopup';
-import { Link } from 'react-router-dom';
-import '../style/heart.css';
-import '../style/heart.css';
-import { MsgPopup } from './MsgPopup';
-import { PostLoginPopup } from './PostLoginPopup';
-import travel from '../img/travel.jpg';
+import { LoginPopup } from './LoginPopup';
 import Logo from './Logo';
+import '../style/heart.css';
+import '../style/heart.css';
+import travel from '../img/travel.jpg';
+import styles from '../style/post.module.css';
 import headerstyle from '../style/header.module.css';
 import { login } from '../redux/actions/loginAction';
 function Post({
@@ -33,20 +31,19 @@ function Post({
   const user = useSelector((state) => state.user);
   const postcomments = useSelector((state) => state.postcomments);
   const [commentList, setCommentList] = useState([]);
-  const [loginPopup, setLoginPopup] = useState(false);
   const [pleaseLogin, setPleaseLogin] = useState(false);
+  const [isPostClick, setisPostClick] = useState(false);
   const dispatch = useDispatch();
+  useEffect(() => {
+    let newList = postcomments.filter((comment) => comment.postID === postID);
+    setCommentList(newList);
+  }, [postcomments]);
+
   const checkLogin = () => {
     if (!user) {
       setPleaseLogin(!pleaseLogin);
     }
   };
-  useEffect(() => {
-    let newList = postcomments.filter((comment) => comment.postID === postID);
-    setCommentList(newList);
-  }, [postcomments]);
-  // const commentList = postcomments.filter((comment) => comment.postID === postID);
-  const [isPostClick, setisPostClick] = useState(false);
   return (
     <>
       <div
@@ -55,9 +52,7 @@ function Post({
           checkLogin();
         }}>
         <div className={styles.postHeader}>
-          {isfromWelcome ? (
-            ''
-          ) : (
+          {!isfromWelcome && (
             <>
               <div>
                 <Link
@@ -73,9 +68,7 @@ function Post({
               </Link>
             </>
           )}
-          {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (
-            ''
-          ) : (
+          {!isFromDelete && !isFromUpload && !isfromWelcome && !isFromEdit && (
             <EditPostBar
               postID={postID}
               postIssuerID={postIssuer.postIssuerID}
@@ -92,7 +85,6 @@ function Post({
             className={styles.picOverlay}
             onClick={() => {
               setisPostClick(true);
-              setclickPostID(postID);
             }}>
             <div className={styles.content}>
               <div className={styles.textspan}>{postMessage}</div>
@@ -110,11 +102,9 @@ function Post({
           ) : (
             <>
               <Heart id={postID} likes={postLikes} isfrom='post' />
-              {isfromWelcome ? '' : <div className={styles.postLikeCount}>{postLikes.length}</div>}
-              {isfromWelcome ? (
-                ''
-              ) : (
+              {!isfromWelcome && (
                 <>
+                  <div className={styles.postLikeCount}>{postLikes.length}</div>{' '}
                   <div className={styles.postTag}>#{postTag.value}</div>
                 </>
               )}
@@ -129,12 +119,12 @@ function Post({
               className={styles.postComments}
               onClick={() => {
                 setisPostClick(true);
-                setclickPostID(postID);
+                // setclickPostID(postID);
               }}>
               See More
             </div>
           )}
-          {user && !isFromDelete && !isFromUpload && !isFromEdit ? (
+          {user && !isFromDelete && !isFromUpload && !isFromEdit && (
             <>
               {commentList.map((comment) => {
                 return <Comment key={comment.commentID} comment={comment} />;
@@ -142,12 +132,10 @@ function Post({
               <div className={styles.separater}></div>
               <Commenting postID={postID} />
             </>
-          ) : (
-            ''
           )}
         </>
       </div>
-      {isPostClick && user && !isFromDelete && !isFromUpload && !isFromEdit && !isfromWelcome ? (
+      {isPostClick && user && !isFromDelete && !isFromUpload && !isFromEdit && !isfromWelcome && (
         <PostPopup
           isFromDelete={isFromDelete}
           isFromUpload={isFromUpload}
@@ -159,18 +147,16 @@ function Post({
           isDeletePopup={isDeletePopup}
           setIsDeletePopup={setIsDeletePopup}
         />
-      ) : (
-        ''
       )}
       {!isfromWelcome && (
-        <PostLoginPopup
+        <LoginPopup
           show={pleaseLogin}
           handleClose={() => {
             setPleaseLogin(false);
           }}>
           <div className={headerstyle.loginPopContain}>
             <div className={headerstyle.loginTitle}>
-              <img src={travel}></img>
+              <img src={travel} />
             </div>
             <div className={headerstyle.loginWrap}>
               <Logo />
@@ -185,7 +171,6 @@ function Post({
                 onClick={() => dispatch(login('google', setPleaseLogin, setisPostClick))}>
                 Google Login
               </div>
-
               <div className={headerstyle.text}> OR</div>
               <div
                 className={headerstyle.facebook}
@@ -194,7 +179,7 @@ function Post({
               </div>
             </div>
           </div>
-        </PostLoginPopup>
+        </LoginPopup>
       )}
     </>
   );

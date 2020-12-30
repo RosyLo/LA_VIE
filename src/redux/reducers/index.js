@@ -7,6 +7,7 @@ import stories from './stories';
 import masterposts from './masterposts';
 import postcomments from './postcomments';
 import loading from './loading';
+import welcomeposts from './welcomeposts';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
   masterposts,
   postcomments,
   loading,
+  welcomeposts,
 });

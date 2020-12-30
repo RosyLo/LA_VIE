@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addComment } from '../redux/actions/commentAction';
 import PropTypes from 'prop-types';
+import { addComment } from '../redux/actions/commentAction';
 import styles from '../style/post.module.css';
 import { nanoid } from 'nanoid';
 

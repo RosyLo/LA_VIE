@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CreatableSelect from 'react-select/creatable';
 import { useSelector } from 'react-redux';
+import CreatableSelect from 'react-select/creatable';
 
 function ChooseTags({ newTag, setNewTag }) {
   const tags = useSelector((state) => state.tags);
   const handleChange = (newValue, actionMeta) => {
-    console.group('Value Changed');
     setNewTag(newValue);
-    console.log(newValue);
-    console.groupEnd();
   };
   const handleInputChange = (inputValue, actionMeta) => {
     console.group('Input Changed');

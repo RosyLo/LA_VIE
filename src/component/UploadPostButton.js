@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import UploadPostBlock from './UploadPostBlock';
-import styles from '../style/header.module.css';
-import plus from '../img/plusIcon.png';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
+import styles from '../style/header.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
+import plus from '../img/plusIcon.png';
 
 function UploadPostButton() {
   const [isUploadPopupClick, setisUploadPopupClick] = useState(false);
-  // const [isUploadPopup, setisUploadPopup] = useState(false);
   //for new post
   const [isNewPostConfirm, setIsNewPostConfirm] = useState(false);
   return (

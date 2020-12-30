@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Post from './Post3';
+import Post from './Post';
+import ChooseTags from './ChooseTags';
+import { StyleModal } from './PopupModal';
 import { editPost } from '../redux/actions/postAction';
 import styles from '../style/popup.module.css';
 import styled from '../style/editpostpopup.module.css';
-import { StyleModal } from './PopupModal';
-import ChooseTags from './ChooseTags';
 
-function EditPostPopup({
-  editPostID,
-  setisEditClick,
-  isEditClick,
-  editStory,
-  setEditStory,
-  setIsUploadPopup,
-}) {
+function EditPostPopup({ editPostID, setisEditClick, isEditClick, setIsUploadPopup }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const editpost = posts.find((post) => post.postID === editPostID);
   const [uploadViewStage, setUploadViewStage] = useState(0);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(editpost.postImage.postImageLink);
-
   const post = {
     postID: editpost.postID,
     postImage: {
@@ -48,14 +40,14 @@ function EditPostPopup({
 
   const choosePic = (
     <div className={styles.rightModel}>
-      <div className={styled.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
+      <div className={styled.decideBlock}>
         <div className={styles.blockTitle}>Pick the Photo</div>
         <div className={styled.decideButtonBlock}>
           <label htmlFor='editPictureButton' className={styles.uploadButton}>
             Choose
           </label>
           <input type='file' id='editPictureButton' onChange={handlePictureChange} />
-          {imageURL ? (
+          {imageURL && (
             <button
               className={styles.decideButton}
               onClick={(e) => {
@@ -64,8 +56,6 @@ function EditPostPopup({
               }}>
               Next
             </button>
-          ) : (
-            ''
           )}
         </div>
       </div>
@@ -74,8 +64,7 @@ function EditPostPopup({
   //msg & tag
   const [newMsg, setNewMsg] = useState(post.postMessage);
   const [newTag, setNewTag] = useState(post.postTag);
-  console.log(post.postTag);
-  console.log(newTag);
+
   // Msg
   const handleMsgChange = (e) => {
     setNewMsg(e.target.value);
@@ -111,7 +100,7 @@ function EditPostPopup({
                 Next
               </button>
             ) : (
-              ''
+              <button className={styles.decideButtonVag}> Next</button>
             )}
           </div>
         </div>
@@ -121,7 +110,7 @@ function EditPostPopup({
 
   const uploadPic = (
     <div className={styles.rightModel}>
-      <div className={styles.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
+      <div className={styles.decideBlock}>
         <div className={styles.blockTitle}>Share your Story!</div>
         <div className={styled.decideButtonBlock}>
           <button
@@ -138,17 +127,7 @@ function EditPostPopup({
               setIsUploadPopup(true);
               e.preventDefault();
               e.stopPropagation();
-              dispatch(
-                editPost(
-                  editPostID,
-                  image,
-                  imageURL,
-                  newMsg,
-                  newTag,
-                  post.postTime,
-                  setIsUploadPopup,
-                ),
-              );
+              dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, setIsUploadPopup));
               setisEditClick(false);
               setImageURL(null);
               setUploadViewStage(0);

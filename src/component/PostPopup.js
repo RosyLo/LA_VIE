@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import ProfileImage from './ProfileImage';
 import EditPostBar from './EditPostBar';
 import Comment from './Comment';
+import { StyleModal } from './PopupModal';
 import Commenting from './Commenting';
 import { fetchComments } from '../redux/actions/commentAction';
-import { StyleModal } from './PopupModal';
 import styles from '../style/editpostpopup.module.css';
 import postblock from '../style/postblock.module.css';
-import { Link } from 'react-router-dom';
 
 function PostPopup({
   post,
@@ -30,8 +29,7 @@ function PostPopup({
   const [lastSnap, setLastSnap] = useState('');
   const [lastVisible, setLastVisible] = useState(0);
   const dispatch = useDispatch();
-  console.log(comments);
-  // filter 出最後一筆黏上去
+
   useEffect(() => {
     let commentsList = comments.map((comment) => {
       if (comment.postID === postID) {
@@ -42,7 +40,7 @@ function PostPopup({
   }, [comments]);
 
   useEffect(() => {
-    dispatch(fetchComments(clickPostID, postID, lastSnap, setLastSnap, lastVisible));
+    dispatch(fetchComments(clickPostID, lastSnap, setLastSnap, lastVisible));
   }, [lastVisible]);
 
   return (
@@ -58,7 +56,6 @@ function PostPopup({
             <Link
               to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
               style={{ textDecoration: 'none' }}>
-              {' '}
               <img
                 className={postblock.postProfileImage}
                 style={{ borderRadius: '50%', width: '50px', height: '50px', cursor: 'pointer' }}
@@ -92,7 +89,6 @@ function PostPopup({
                 {postMessage}
                 <br />
                 <br />
-                {/* <div className={styles.postTime}>- {clickpost.postTime}</div> */}
               </div>
             </div>
 
@@ -129,7 +125,6 @@ function PostPopup({
               </div>
               {user ? (
                 <div className={postblock.commenting}>
-                  {/* <div className={postblock.separater} ></div> */}
                   <Commenting postID={postID} />
                 </div>
               ) : (

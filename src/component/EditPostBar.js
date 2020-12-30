@@ -1,13 +1,13 @@
 import { React, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import EditPostPopup from './EditPostPopup';
-import more from '../img/more.svg';
-import { StyleEditBlock } from './EditBlockCompo';
+import { BarPopup } from './BarPopup';
 import DeletePopup from './DeletePopup';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
+import more from '../img/more.svg';
 
 function EditPostBar({
   postID,
@@ -37,10 +37,10 @@ function EditPostBar({
               setclickEdit(postID);
               setIsEditBlockClick(!isEditBlockClick);
             }}>
-            <img src={more} style={{ width: '17px', height: '17px', cursor: 'pointer' }}></img>
+            <img src={more} style={{ width: '17px', height: '17px', cursor: 'pointer' }} />
 
-            {postID === clickEdit ? (
-              <StyleEditBlock show={isEditBlockClick}>
+            {postID === clickEdit && (
+              <BarPopup show={isEditBlockClick} top='20px' right='0px'>
                 <div
                   className='editPost'
                   onClick={(e) => {
@@ -57,17 +57,15 @@ function EditPostBar({
                   }}>
                   Delete
                 </div>
-                {isEditClick ? (
+                {isEditClick && (
                   <EditPostPopup
                     setisEditClick={setisEditClick}
                     isEditClick={isEditClick}
                     editPostID={postID}
                     setIsUploadPopup={setIsUploadPopup}
                   />
-                ) : (
-                  ''
                 )}
-                {isDeletePopupClick ? (
+                {isDeletePopupClick && (
                   <DeletePopup
                     setisDeletePopupClick={setisDeletePopupClick}
                     isDeletePopupClick={isDeletePopupClick}
@@ -75,12 +73,8 @@ function EditPostBar({
                     setIsDeletePopup={setIsDeletePopup}
                     setisPostClick={setisPostClick}
                   />
-                ) : (
-                  ''
                 )}
-              </StyleEditBlock>
-            ) : (
-              ''
+              </BarPopup>
             )}
           </div>
         </>

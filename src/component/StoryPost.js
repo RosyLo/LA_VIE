@@ -7,7 +7,7 @@ import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
 import more from '../img/more.png';
 import styles from '../style/storybar.module.css';
-import { StyleEditBlock } from './EditStoryCompo';
+import { BarPopup } from './BarPopup';
 import EditStoryPopup from './EditStoryPopup';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
@@ -45,8 +45,10 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
               setisEditStoryClick(!isEditStoryClick);
             }}>
             <img src={more} style={{ width: '12px', height: '12px', zIndex: '10000' }}></img>
-            <StyleEditBlock
+            <BarPopup
               show={isEditStoryClick}
+              top='20px'
+              right='80px'
               handleClose={() => {
                 setisEditStoryClick(!isEditStoryClick);
               }}>
@@ -58,7 +60,7 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
                 }}>
                 Edit
               </div>
-            </StyleEditBlock>
+            </BarPopup>
           </div>
         ) : (
           ''

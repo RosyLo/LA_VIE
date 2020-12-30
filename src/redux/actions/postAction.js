@@ -8,6 +8,7 @@ import {
   TOGGLE_Comment_Like,
   TOGGLE_POST_Comment_Like,
   RECIEVING_LOADING,
+  RECEIVED_WELCOMEPOSTS,
 } from '../actionTypes';
 import uploadImage from '../../utils/imageUpload';
 import { tagProcess } from '../callbackActions';
@@ -130,6 +131,7 @@ export const editPost = (editPostID, image, imageURL, newMsg, newTag, setIsUploa
   dispatch,
   getState,
 ) => {
+  console.log(setIsUploadPopup);
   const { user } = getState();
   if (!user) return;
   let post = {};
@@ -276,6 +278,38 @@ export const fetchMasterPosts = (paramsID) => (dispatch, getState) => {
       });
     })
     .then(() => {
+      dispatch({ type: RECIEVING_LOADING, payload: false });
+    });
+};
+
+export const fetchWelcomePosts = () => (dispatch) => {
+  const postsList = [];
+  db.collection('Post')
+    .orderBy('postTime', 'desc')
+    .get()
+    .then((snap) => {
+      snap.forEach((post) => {
+        const postData = {
+          postID: post.id,
+          postImage: post.data().postImage,
+          postIssuer: post.data().postIssuer,
+          postMessage: post.data().postMessage,
+          postTag: post.data().postTag,
+          postLikes: post.data().postLikes || [],
+          postTime: post.data().postTime,
+        };
+        if (typeof postData.postTime !== 'string') {
+          let date = postData.postTime.toDate();
+          let shortTime = date.toDateString();
+          postData.postTime = shortTime;
+        }
+        postsList.push(postData);
+      });
+      return postsList;
+    })
+    .then((postsList) => {
+      console.log(postsList);
+      dispatch({ type: RECEIVED_WELCOMEPOSTS, payload: postsList });
       dispatch({ type: RECIEVING_LOADING, payload: false });
     });
 };

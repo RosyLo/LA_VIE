@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Heart from './Heart';
 import { MsgPopup } from './MsgPopup';
+import CancelButton from './CancelButton';
 import { editComment, deleteComment } from '../redux/actions/commentAction';
 import styles from '../style/comment.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import CancelButton from './CancelButton';
 
 function Comment({ comment, setPostComments, postComments }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { commentIssuer, commentIssuerMessage } = comment;
-  //isedit, commentcontent(init: commentmsg)
   //(div) comment onclick >>isedit true >>從 div 改為 input >>input onchange 改 commentcontent state, onkeydown 觸發 fun 若是 13，(0)改isedit 為false，回div(1)dispatch  edit comment, (2)用commentid 改db,改state >>
   const [isCommentDeleteClick, setisCommentDeleteClick] = useState(false);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
@@ -34,7 +33,7 @@ function Comment({ comment, setPostComments, postComments }) {
   return (
     <>
       <div className={styles.comment}>
-        <img className={styles.commentImage} src={commentIssuer.commentIssuerImage}></img>
+        <img className={styles.commentImage} src={commentIssuer.commentIssuerImage} />
         <p>
           <span className={styles.postIssuerName}>{commentIssuer.commentIssuerName}</span>
 

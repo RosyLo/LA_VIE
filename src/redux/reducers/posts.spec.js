@@ -67,7 +67,7 @@ describe('Posts Reducer', () => {
     expect(addedSecondPost).toEqual(afterSecondPostAdded);
   });
 
-  xit('Should handle delete posts', () => {
+  it('Should handle delete posts', () => {
     const beforeDeletePosts = [
       {
         postID: 'post1',
@@ -121,7 +121,7 @@ describe('Posts Reducer', () => {
         postTime: 'postTime',
       },
     ];
-    const afterDeletePosts = postsReducer(beforeDeletePosts, {
+    const afterDeletePosts = postsReducer([], {
       type: DELETE_POST,
       payload: { postID: 'post3' },
     });

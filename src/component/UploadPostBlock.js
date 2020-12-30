@@ -3,21 +3,18 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../redux/actions/postAction';
 import { StyleModal } from './PopupModal';
-import styles from '../style/popup.module.css';
-import styled from '../style/editpostpopup.module.css';
-import Post from './Post';
 import ChooseTags from './ChooseTags';
+import Post from './Post';
+import styled from '../style/editpostpopup.module.css';
+import styles from '../style/popup.module.css';
 import { nanoid } from 'nanoid';
 
-// import { tagOptions } from '../utils/data';
-
 function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPostConfirm }) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [uploadViewStage, setUploadViewStage] = useState(0);
   const [image, setImage] = useState(null);
   const [imageURL, setImageURL] = useState(null);
-  // const [test, settest] = useState('o');
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
 
   const post = {
     postID: 'postID' + nanoid(),
@@ -34,22 +31,15 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
 
   const handlePictureChange = (e) => {
     setImage(e.target.files[0]);
-    console.log(e.target.files[0]);
     const imageURL = URL.createObjectURL(e.target.files[0]);
-    console.log(imageURL);
     setImageURL(imageURL);
-    // settest('x');
   };
 
-  //選擇照片
   const uploadPicID = nanoid();
   const choosePic = (
     <div className={styles.rightModel}>
-      <div className={styled.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
-        <div className={styles.blockTitle}>
-          Pick the Photo
-          {/* {test} */}
-        </div>
+      <div className={styled.decideBlock}>
+        <div className={styles.blockTitle}>Pick the Photo</div>
         <div className={styled.decideButtonBlock}>
           <label htmlFor={uploadPicID} className={styles.uploadButton}>
             Choose
@@ -122,7 +112,7 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   //最終上傳
   const uploadPic = (
     <div className={styles.rightModel}>
-      <div className={styles.decideBlock} style={{ margin: '0px 0px 50px 0px' }}>
+      <div className={styled.decideBlock}>
         <div className={styles.blockTitle}>Share your Story!</div>
         <div className={styled.decideButtonBlock}>
           <button className={styles.decideButton} onClick={() => setUploadViewStage(1)}>

@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import ProfileShow from './ProfileShow';
-import styles from '../style/profilecontent.module.css';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
+import { MsgPopup } from './MsgPopup';
+import UploadPostButton from './UploadPostButton';
+import Loading from './Loading';
 import { fetchMasterPosts } from '../redux/actions/postAction';
 import { receiveTags } from '../redux/actions/searchAction';
-import { useSelector, useDispatch } from 'react-redux';
-import Loading from './Loading';
-import { MsgPopup } from './MsgPopup';
+import styles from '../style/profilecontent.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import UploadPostButton from './UploadPostButton';
 
 function ProfileContent({ paramsID }) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  const [clickEdit, setclickEdit] = useState('');
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
+  const [clickEdit, setclickEdit] = useState('');
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const stakeGridRef = React.useRef(null);
 

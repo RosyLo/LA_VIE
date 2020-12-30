@@ -12,7 +12,7 @@ function Profile({ userId }) {
   let view = '';
 
   if (!user) {
-    //visitor
+    //visitor/not log in
     view = (
       <>
         <ProfileShow paramsID={userId} />
@@ -20,7 +20,7 @@ function Profile({ userId }) {
       </>
     );
   } else if (user.uid === userId) {
-    //master?
+    //master
     view = (
       <>
         <ProfileShow paramsID={userId} />
@@ -33,7 +33,6 @@ function Profile({ userId }) {
     view = (
       <>
         <ProfileShow paramsID={userId} />
-        {/* !要判斷是否為粉絲 */}
         <StoryBar paramsID={userId} />
         <ProfileContent paramsID={userId} />
       </>

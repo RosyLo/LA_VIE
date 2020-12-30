@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import Post from './Post';
-import check from '../img/check.png';
-import { deletePost } from '../redux/actions/postAction';
-import styles from '../style/popup.module.css';
 import styled from '../style/makestory.module.css';
+import check from '../img/check.png';
 
 function EditImage({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {
   const { postID, postImage, postTime } = post;
@@ -23,7 +19,6 @@ function EditImage({ post, choosedStory, chooseStory, stage, chooseCoverfunc, is
       {stage === 0 && (
         <div
           className={styled.blockWrap}
-          style={{ width: '100%' }}
           onClick={() => {
             setIsImgChoose(!isImgChoose);
             chooseStory(postID);
@@ -39,7 +34,6 @@ function EditImage({ post, choosedStory, chooseStory, stage, chooseCoverfunc, is
       {stage === 1 && (
         <div
           className={styled.blockWrap}
-          style={{ width: '100%' }}
           onClick={() => {
             if (choosedStory.includes(post.postID)) {
               chooseCoverfunc(post);

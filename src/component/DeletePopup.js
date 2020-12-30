@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Post from './Post3';
+import Post from './Post';
+import { StyleModal } from './PopupModal';
 import { deletePost } from '../redux/actions/postAction';
 import styles from '../style/popup.module.css';
-import { StyleModal } from './PopupModal';
 import styled from '../style/editpostpopup.module.css';
 
 function DeletePopup({
@@ -28,7 +28,7 @@ function DeletePopup({
         <div className={styles.topModel}></div>
         <div className={styled.buttonModal}>
           <div className={styles.leftModel}>
-            {deletepost ? <Post post={deletepost} isFromDelete={true} /> : ''}
+            {deletepost && <Post post={deletepost} isFromDelete={true} />}
           </div>
 
           <div className={styles.rightModel}>

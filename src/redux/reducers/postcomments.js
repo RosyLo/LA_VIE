@@ -7,7 +7,6 @@ import {
 
 //comments: 該post popup 的comments 們（10,5），若有別篇的add，一樣加進來，在各compo render 時再判斷是哪篇post的
 const postcomments = (state = [], action) => {
-  console.log('postcomments');
   switch (action.type) {
     case ADD_POST_COMMENT: {
       return [...state, action.payload.comment];

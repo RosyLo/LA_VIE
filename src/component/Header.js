@@ -1,23 +1,19 @@
 import { React, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import UploadPostButton from './UploadPostButton';
-import { LogOutPopup } from './LogOutPopup';
-import { Link, Redirect } from 'react-router-dom';
+import { BarPopup } from './BarPopup';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import SearchTags from './SearchTags';
 import PropTypes from 'prop-types';
 import '../style/header.module.css';
 import { login, logout } from '../redux/actions/loginAction';
 import ProfileImage from './ProfileImage';
-
 import arrow from '../img/downarrow.svg';
-import google from '../img/google.png';
-import facebook from '../img/facebookt.png';
 import styles from '../style/header.module.css';
-import { PostLoginPopup } from './PostLoginPopup';
+import { LoginPopup } from './LoginPopup';
 import ChatRoom from './ChatRoom';
 import travel from '../img/travel.jpg';
-
 import { useHistory } from 'react-router';
 
 const Header = () => {
@@ -50,22 +46,16 @@ const Header = () => {
             {user ? (
               <>
                 <h1>⚛️🔥💬</h1>
-                {/* <section>{user && <ChatRoom /> }</section> */}
                 <UploadPostButton />
                 {/* 頭貼 */}
 
-                {/* <Link to={(location) => `/profile?id=${user.uid}`}> */}
                 <Link
                   to={{
                     pathname: '/profile',
                     search: `?id=${user.uid}`,
                   }}>
-                  {' '}
                   <ProfileImage />
                 </Link>
-                {/* </Link> */}
-
-                {/* Toggle */}
                 <img
                   className={styles.downarrow}
                   src={arrow}
@@ -74,8 +64,10 @@ const Header = () => {
                   }}></img>
 
                 {isProfileToggleClick ? (
-                  <LogOutPopup
+                  <BarPopup
                     show={isProfileToggleClick}
+                    top='75px'
+                    right='0px'
                     handleClose={() => {
                       setisProfileToggleClick(!isProfileToggleClick);
                     }}>
@@ -86,7 +78,7 @@ const Header = () => {
                       }}>
                       LogOut
                     </div>
-                  </LogOutPopup>
+                  </BarPopup>
                 ) : (
                   ''
                 )}
@@ -97,7 +89,6 @@ const Header = () => {
                   Login
                 </div>
                 <Link to='/main' style={{ textDecoration: 'none' }}>
-                  {' '}
                   <div className={styles.button}>Visit</div>
                 </Link>
               </>
@@ -105,7 +96,7 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      <PostLoginPopup
+      <LoginPopup
         show={loginPopup}
         handleClose={() => {
           setLoginPopup(false);
@@ -123,8 +114,6 @@ const Header = () => {
             <br />
             <div className={styles.text}> Login with</div>
             <div className={styles.google} onClick={() => dispatch(login('google', setLoginPopup))}>
-              {' '}
-              {/* <img src={google} className={styles.googleIcon} /> */}
               Google Login
             </div>
 
@@ -136,7 +125,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </PostLoginPopup>
+      </LoginPopup>
     </>
   );
 };

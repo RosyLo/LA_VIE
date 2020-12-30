@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import WelcomeShow from './WelcomeShow';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
-import '../style/welcome.css';
-import styles from '../style/post.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../redux/actions/postAction';
-import Logo from './Logo';
-import { WelcomePopup } from './WelcomePopup';
-import headerstyle from '../style/header.module.css';
-import { RECIEVING_LOADING } from '../redux/actionTypes';
-import travel from '../img/travel.jpg';
-import { login } from '../redux/actions/loginAction';
-import { Redirect } from 'react-router-dom';
-import chrisIcon from '../img/mistletoe.svg';
 import Loading from './Loading';
-import firebase, { db, auth, facebookAuthProvider, googleAuthProvider } from '../firebase';
+import Logo from './Logo';
+import { LoginPopup } from './LoginPopup';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchWelcomePosts } from '../redux/actions/postAction';
+import { login } from '../redux/actions/loginAction';
+import headerstyle from '../style/header.module.css';
+import styles from '../style/post.module.css';
+import '../style/welcome.css';
+import '../style/welcomeshow.css';
+import travel from '../img/travel.jpg';
 
 function Welcome() {
+  const dispatch = useDispatch();
   const slogans = [
     {
       tag: 'OUTFIT',
@@ -41,45 +37,19 @@ function Welcome() {
     },
   ];
 
+  //get welcome posts
+  useEffect(() => {
+    dispatch(fetchWelcomePosts());
+  }, []);
+  const welcomeposts = useSelector((state) => state.welcomeposts);
+
   //loading
   const loading = useSelector((state) => state.loading);
   const [pleaseLogin, setPleaseLogin] = useState(false);
   const [isPostClick, setisPostClick] = useState(false);
-  console.log(loading);
-  //posts
-  const [displayPosts, setDisplayPosts] = useState([]);
+  const stakeGridRef = React.useRef(null);
 
-  const postsList = [];
-  useEffect(() => {
-    db.collection('Post')
-      .orderBy('postTime', 'desc')
-      .get()
-      .then((snap) => {
-        snap.forEach((post) => {
-          const postData = {
-            postID: post.id,
-            postImage: post.data().postImage,
-            postIssuer: post.data().postIssuer,
-            postMessage: post.data().postMessage,
-            postTag: post.data().postTag,
-            postLikes: post.data().postLikes || [],
-            postTime: post.data().postTime,
-          };
-          if (typeof postData.postTime !== 'string') {
-            let date = postData.postTime.toDate();
-            let shortTime = date.toDateString();
-            postData.postTime = shortTime;
-          }
-          postsList.push(postData);
-        });
-        return postsList;
-      })
-      .then((postsList) => {
-        setDisplayPosts(postsList);
-        dispatch({ type: RECIEVING_LOADING, payload: false });
-      });
-  }, []);
-
+  //slide show
   const delay = 5000;
   const [index, setIndex] = React.useState(0);
   const [isTo2, setIsTo2] = useState(true);
@@ -91,12 +61,7 @@ function Welcome() {
     }
   }
 
-  // function reStartSlide() {
-  //   setTimeout();
-  // }
-
   const slideTime = () => {
-    console.log('slidetime');
     resetTimeout();
     timeoutRef.current = setTimeout(
       () =>
@@ -123,32 +88,7 @@ function Welcome() {
     slideTime();
   }, [index]);
 
-  const posts = useSelector((state) => state.posts);
-  const [lastSnap, setLastSnap] = useState('');
-  const [lastVisible, setLastVisible] = useState(0);
-  const stakeGridRef = React.useRef(null);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchPosts(lastVisible, lastSnap, setLastSnap));
-  }, [dispatch]);
-  const [topOrButton, seTopOrButton] = useState('top');
-  useEffect(() => {
-    const handleScroll = () => {
-      if (topOrButton === 'top') {
-        seTopOrButton('button');
-      } else if (topOrButton === 'button') {
-        seTopOrButton('top');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  // filter((post) => post.type === 'food');
-  const filteredPosts = displayPosts.filter((post) => {
+  const filteredPosts = welcomeposts.filter((post) => {
     if (index === 0) return post.postTag.value === 'OUTFIT';
     if (index === 1) return post.postTag.value === 'TRAVEL';
     if (index === 2) return post.postTag.value === 'FOODIE';
@@ -174,20 +114,16 @@ function Welcome() {
                       className='tagNameLine'
                       style={{ backgroundColor: slogan.backgroundImage }}></div>
                     <div className='tagNameText' style={{ color: slogan.backgroundColor }}>
-                      {' '}
                       {slogan.tagName}
                     </div>
                     <div
                       style={{
                         width: '35px',
                         height: '35px',
-                        // backgroundColor: 'blue',
                         position: 'absolute',
                         right: '150px',
                         top: '-55px',
-                      }}>
-                      {/* <img src={chrisIcon}></img> */}
-                    </div>
+                      }}></div>
                   </div>
                   <div>with the World</div>
                 </div>
@@ -196,7 +132,6 @@ function Welcome() {
                     <div
                       key={idx}
                       className={`slideshowDot${index === idx ? ' active' : ''}`}
-                      // className={`slideshowDot${index === idx ? " active" : ""}`}
                       onClick={() => {
                         setIndex(idx);
                       }}></div>
@@ -227,12 +162,11 @@ function Welcome() {
         </div>
       ) : (
         <div className={styles.loading}>
-          {' '}
           <Loading />
         </div>
       )}
       {slideTime && (
-        <WelcomePopup
+        <LoginPopup
           show={pleaseLogin}
           handleClose={() => {
             setPleaseLogin(false);
@@ -261,26 +195,14 @@ function Welcome() {
               <div
                 className={headerstyle.facebook}
                 onClick={() => dispatch(login('facebook', setPleaseLogin, setisPostClick))}>
-                {/* <img src={facebook} className={headerstyle.facebookIcon} />  */}
                 Facebook Login
               </div>
             </div>
           </div>
-        </WelcomePopup>
+        </LoginPopup>
       )}
     </>
   );
-
-  // return (
-  //   <>
-  //     {/* <WelcomeShow />
-  //     <StackGrid columnWidth={300} gutterWidth={30} gutterHeight={30} monitorImagesLoaded={true}>
-  //       {posts.map((post) => (
-  //         <Post key={post.postID} post={post} isfromWelcome={true} />
-  //       ))}
-  //     </StackGrid> */}
-  //   </>
-  // );
 }
 
 export default Welcome;

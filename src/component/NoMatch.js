@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import '../style/nomatch.css';
-import styles from '../style/popup.module.css';
-
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 
 function NoMatch() {
   const user = useSelector((state) => state.user);

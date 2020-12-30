@@ -3,18 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
 import Loading from './Loading';
-import styles from '../style/post.module.css';
+import { MsgPopup } from './MsgPopup';
 import { fetchPosts } from '../redux/actions/postAction';
 import { receiveTags } from '../redux/actions/searchAction';
-import { MsgPopup } from './MsgPopup';
+import styles from '../style/post.module.css';
 import styled from '../style/popup.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
 
 function PostList() {
-  const [clickEdit, setclickEdit] = useState('');
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
+  const [clickEdit, setclickEdit] = useState('');
   const [lastSnap, setLastSnap] = useState('');
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const [isScrollFetching, setIsScrollFetching] = useState(false);
@@ -41,9 +41,8 @@ function PostList() {
   };
   // infinit scroll
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    onscroll = () => {
+      handleScroll();
     };
   }, [lastSnap]);
 
@@ -53,8 +52,7 @@ function PostList() {
     }
   }, [comments]);
 
-  //tags
-
+  //search tags
   let filterTags = [];
   let filterPosts = [];
   searchtags.map((searchtag) => {
