@@ -36,7 +36,6 @@ function ProfileContent({ paramsID }) {
   }, [comments]);
 
   useEffect(() => {
-    console.log(posts);
     setTimeout(() => {
       if (stakeGridRef.current) {
         stakeGridRef.current.updateLayout();

@@ -29,7 +29,6 @@ function StoryBar({ paramsID }) {
   const loading = useSelector((state) => state.loading);
   //stories 慢，判斷完了
   useEffect(() => {
-    console.log('start');
     if (posts.length > 0) {
       dispatch(fetchStories(paramsID));
     }

@@ -13,22 +13,18 @@ const postcomments = (state = [], action) => {
     }
 
     case EDIT_POST_COMMENT: {
-      console.log(action.payload.editedPostComment);
       let newComments = [...state];
       newComments = action.payload.editedPostComment;
       return newComments;
     }
     case DELETE_POST_COMMENT: {
-      console.log(action.payload.newPostComments);
       return action.payload.newPostComments;
     }
     case TOGGLE_POST_Comment_Like: {
-      console.log(action);
       return state.map((comment) => {
         if (comment.commentID === action.payload.id) {
           return { ...comment, likeIssuerID: action.payload.likeIssuerID };
         }
-        console.log(comment);
         return comment;
       });
     }

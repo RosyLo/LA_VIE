@@ -143,7 +143,6 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
   } else if (uploadViewStage === 2) {
     view = uploadPic;
   }
-  console.log(imageURL);
   return (
     <>
       <StyleModal

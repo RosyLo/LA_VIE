@@ -11,7 +11,7 @@ import {
   RECEIVED_WELCOMEPOSTS,
 } from '../actionTypes';
 import uploadImage from '../../utils/imageUpload';
-import { tagProcess } from '../callbackActions';
+import { tagProcess } from '../../utils/tagProcess';
 import firebase, { db } from '../../firebase';
 import formatPost from '../../utils/formatPost';
 
@@ -307,7 +307,6 @@ export const fetchWelcomePosts = () => (dispatch) => {
       return postsList;
     })
     .then((postsList) => {
-      console.log(postsList);
       dispatch({ type: RECEIVED_WELCOMEPOSTS, payload: postsList });
       dispatch({ type: RECIEVING_LOADING, payload: false });
     });

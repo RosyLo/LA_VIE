@@ -51,8 +51,6 @@ function EditStoryPopup({
 
     currentPosts.map((post) => {
       if (post.postImage.postImageLink === editStory.storyImageLink) {
-        console.log(post);
-        console.log(currentPosts);
         setChoosedCover(editStory.storyImageLink);
         setIsCover(editStory.storyImageLink);
       }
@@ -83,7 +81,6 @@ function EditStoryPopup({
         className={styled.decideButton}
         onClick={() => {
           setEditStoryStage(1);
-          console.log(0);
         }}>
         Next
       </button>
@@ -188,7 +185,6 @@ function EditStoryPopup({
           setChoosedStory([]);
           setEditStoryStage(0);
           setIsEditSuccess(true);
-          console.log('edit');
         }}>
         Upload
       </button>

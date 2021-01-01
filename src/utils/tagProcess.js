@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { UPDATE_TAG, ADD_TAG } from './actionTypes';
+import { UPDATE_TAG, ADD_TAG } from '../redux/actionTypes';
 import { db } from '../firebase';
 
 export const tagProcess = (newTag, tagpostID) => (dispatch, getState) => {

@@ -17,7 +17,6 @@ function SearchTags() {
 
   const handleChange = (newValue, actionMeta) => {
     console.group('Value Changed');
-    console.log(newValue);
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
     if (!newValue) {
@@ -30,7 +29,6 @@ function SearchTags() {
     console.group('Value Changed');
     let newValue = [];
     newValue.push(value);
-    console.log(value);
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
     if (!newValue) {

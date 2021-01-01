@@ -52,7 +52,6 @@ function PostList() {
     }
   }, [comments]);
   useEffect(() => {
-    console.log(posts);
     if (stakeGridRef.current) {
       stakeGridRef.current.updateLayout();
     }

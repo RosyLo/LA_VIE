@@ -19,7 +19,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
   // const masterposts = useSelector((state) => state.masterposts);
   const posts = useSelector((state) => state.posts);
   const [makeStoryStage, setMakeStoryStage] = useState(0);
-  console.log(posts);
   const story = {
     storyID: '',
     storyName: storyName,
@@ -28,7 +27,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
     createTime: '',
     stories: choosedStory,
   };
-  console.log(choosedStory.length);
   //選擇post
   const choosePostTitle = (
     <>
@@ -152,7 +150,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
           className={styled.decideButton}
           onClick={(e) => {
             e.preventDefault();
-            console.log(story);
             //要dispatch
             dispatch(addStory(story));
             // setMakeStoryStage(2);

@@ -14,7 +14,6 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
     .where('storyIssuerID', '==', paramsID)
     .get()
     .then((snap) => {
-      console.log(snap);
       snap.forEach((doc) => {
         let storyData = {
           storyID: doc.data().storyID,
@@ -31,7 +30,6 @@ export const fetchStories = (paramsID) => (dispatch, getState) => {
       });
     })
     .then(() => {
-      console.log(story);
       dispatch({
         type: RECIEVED_STORIES,
         payload: { story },
@@ -94,7 +92,6 @@ export const deleteStory = (deleteStory, setisStoryDeleteClick) => (dispatch, ge
 };
 
 export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
-  console.log(story);
   const { user } = getState();
   const { posts } = getState();
   if (!user) return;
