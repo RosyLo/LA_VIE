@@ -121,14 +121,12 @@ describe('Posts Reducer', () => {
         postTime: 'postTime',
       },
     ];
-    const afterDeletePosts = postsReducer([], {
+    const afterDeletePosts = postsReducer(beforeDeletePosts, {
       type: DELETE_POST,
       payload: { postID: 'post3' },
     });
     expect(afterDeletePosts).toEqual(
-      beforeDeletePosts.filter((beforeDeletePost) => {
-        beforeDeletePost.postID !== 'post3';
-      }),
+      beforeDeletePosts.filter((beforeDeletePost) => beforeDeletePost.postID !== 'post3'),
     );
   });
 });

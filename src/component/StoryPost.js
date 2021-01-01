@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Stories from 'react-insta-stories';
 import { StoryModal } from './StoryModal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import rightarrow from '../img/right-arrow.png';
 import leftarrow from '../img/left-arrow.png';
 import more from '../img/more.png';
@@ -37,7 +37,7 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
         handleClose={() => {
           setisStoryClick(false);
         }}>
-        {user.uid === story.storyIssuerID ? (
+        {user.uid === story.storyIssuerID && (
           <div
             className={styles.storyEditBar}
             onClick={(e) => {
@@ -62,8 +62,6 @@ function StoryPost({ story, isStoryClick, setisStoryClick }) {
               </div>
             </BarPopup>
           </div>
-        ) : (
-          ''
         )}
 
         <div className={styles.storyBlockWrap}>

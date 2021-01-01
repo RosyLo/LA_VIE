@@ -58,13 +58,12 @@ function PostPopup({
               style={{ textDecoration: 'none' }}>
               <img
                 className={postblock.postProfileImage}
-                style={{ borderRadius: '50%', width: '50px', height: '50px', cursor: 'pointer' }}
                 src={clickpost.postIssuer.postIssuerImage}></img>
             </Link>
 
             <div className={postblock.postProfileName}>{clickpost.postIssuer.postIssuerName}</div>
 
-            {user && user.uid === clickpost.postIssuer.postIssuerID ? (
+            {user && user.uid === clickpost.postIssuer.postIssuerID && (
               <EditPostBar
                 postID={clickPostID}
                 postIssuerID={clickpost.postIssuer.postIssuerID}
@@ -72,11 +71,8 @@ function PostPopup({
                 setclickEdit={setclickEdit}
                 isDeletePopup={isDeletePopup}
                 setIsDeletePopup={setIsDeletePopup}
-                //當刪除post時，先消失！
                 setisPostClick={setisPostClick}
               />
-            ) : (
-              ''
             )}
           </div>
           <div className={postblock.separater}></div>
@@ -94,22 +90,21 @@ function PostPopup({
 
             <div className={postblock.rightModel}>
               <div className={postblock.commentsWrap}>
-                {postComments
-                  ? postComments.map((postComment) => {
-                      if (postComment) {
-                        return (
-                          <>
-                            <Comment
-                              key={postComment.commentID}
-                              comment={postComment}
-                              setPostComments={setPostComments}
-                              postComments={postComments}
-                            />
-                          </>
-                        );
-                      }
-                    })
-                  : ''}
+                {postComments &&
+                  postComments.map((postComment) => {
+                    if (postComment) {
+                      return (
+                        <>
+                          <Comment
+                            key={postComment.commentID}
+                            comment={postComment}
+                            setPostComments={setPostComments}
+                            postComments={postComments}
+                          />
+                        </>
+                      );
+                    }
+                  })}
 
                 {postComments.length > 9 ? (
                   <div

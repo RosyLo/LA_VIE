@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import firebase from '../firebase';
-import { fetchStories } from '../redux/actions/storyAction';
 import { useSelector, useDispatch } from 'react-redux';
 import StoryCircle from '../component/StoryCircle';
 import MakeStory from '../component/MakeStory';
-import styles from '../style/storybar.module.css';
-import plus from '../img/plusIcon.png';
-import rightarrow from '../img/right-arrow.png';
-import leftarrow from '../img/left-arrow.png';
-import Loading from './Loading';
 import { MsgPopup } from './MsgPopup';
-import styled from '../style/popup.module.css';
+import { fetchStories } from '../redux/actions/storyAction';
+import styles from '../style/storybar.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import UploadPostButton from './UploadPostButton';
+import styled from '../style/popup.module.css';
+import plus from '../img/plusIcon.png';
+import leftarrow from '../img/left-arrow.png';
+import rightarrow from '../img/right-arrow.png';
 
 function StoryBar({ paramsID }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const stories = useSelector((state) => state.stories);
-  // const masterposts = useSelector((state) => state.masterposts);
   const posts = useSelector((state) => state.posts);
   const [isMakeStoryClick, setisMakeStoryClick] = useState(false);
   const [isMakeStorySuccess, setisMakeStorySucces] = useState(false);
@@ -30,29 +26,13 @@ function StoryBar({ paramsID }) {
   const circleRef = React.useRef(null);
 
   const [constainMargin, setconstainMargin] = useState(0);
-
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => setIsLoading(false), 3000);
-  // }, [stories]);
-  console.log(posts);
   const loading = useSelector((state) => state.loading);
   //stories 慢，判斷完了
-  // let targetElement;
   useEffect(() => {
     console.log('start');
     if (posts.length > 0) {
-      // console.log('postlength');
-      // console.log(barLeftArrowRef);
-      // if (barLeftArrowRef) {
-      //   barLeftArrowRef.current.style.display = 'none';
-      // }
-      // barRightArrowRef.current.style.display = 'none';
-      console.log(paramsID);
       dispatch(fetchStories(paramsID));
     }
-    // targetElement = document.querySelector('#portal');
   }, [posts]);
 
   useEffect(() => {
@@ -60,15 +40,12 @@ function StoryBar({ paramsID }) {
       barRightArrowRef.current.style.display = 'none';
       barLeftArrowRef.current.style.display = 'none';
       if (stories.length > 3) {
-        console.log('here');
-        console.log(stories.length);
         barRightArrowRef.current.style.display = 'block';
       }
     }
   }, [stories]);
 
   const storyBarScrollLeft = () => {
-    console.log('rightarrow');
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
       let newconstainMargin = constainMargin - circleWidth;
@@ -87,8 +64,6 @@ function StoryBar({ paramsID }) {
   };
 
   const storyBarScrollRight = () => {
-    console.log(wrapRef.current.clientWidth);
-    console.log(containRef.current.clientWidth);
     let circleWidth = circleRef.current.clientWidth;
     if (containRef.current.clientWidth > wrapRef.current.clientWidth) {
       let newconstainMargin = constainMargin + circleWidth;
@@ -96,28 +71,18 @@ function StoryBar({ paramsID }) {
       containRef.current.style.transform = `translateX(${newconstainMargin}px)`;
       containRef.current.style.transition = 'transform 1s ease-in-out';
       if (user.uid === paramsID) {
-        console.log(-constainMargin);
-        console.log(wrapRef.current.clientWidth);
-        console.log(containRef.current.clientWidth);
         if (-constainMargin <= circleWidth) {
-          console.log(-constainMargin);
-          console.log(wrapRef.current.clientWidth);
-          console.log(containRef.current.clientWidth);
           barLeftArrowRef.current.style.display = 'none';
           barRightArrowRef.current.style.display = 'block';
         }
       } else {
         if (-constainMargin + wrapRef.current.clientWidth > containRef.current.clientWidth) {
-          console.log(-constainMargin);
-          console.log(wrapRef.current.clientWidth);
-          console.log(containRef.current.clientWidth);
           barLeftArrowRef.current.style.display = 'none';
           barRightArrowRef.current.style.display = 'block';
         }
       }
     }
   };
-  console.log(stories);
 
   return (
     <>
@@ -126,30 +91,25 @@ function StoryBar({ paramsID }) {
           <div className={styles.storyBarWrap}>
             <div className={styles.storyCircleWrap} ref={wrapRef}>
               <div className={styles.storyCircleContain} ref={containRef}>
-                {user.uid === paramsID && posts.length > 0 ? (
+                {user.uid === paramsID && posts.length > 0 && (
                   <div
                     className={styles.storyCircle}
                     onClick={() => {
-                      console.log('add');
                       setisMakeStoryClick(true);
                     }}>
                     <img className={styles.storyCirclePlus} src={plus} />
                   </div>
-                ) : (
-                  ''
                 )}
-                {posts.length > 0 ? (
+                {posts.length > 0 && (
                   <>
                     {stories.map((story) => (
                       <StoryCircle key={story.storyID} story={story} circleRef={circleRef} />
                     ))}
                   </>
-                ) : (
-                  ''
                 )}
               </div>
             </div>
-            {stories.length > 0 ? (
+            {stories.length > 0 && (
               <>
                 <img
                   src={rightarrow}
@@ -168,16 +128,10 @@ function StoryBar({ paramsID }) {
                   }}
                 />
               </>
-            ) : (
-              ''
             )}
           </div>
         ) : (
-          <div className={styles.loading}></div>
-          // <div className={styles.noPostUpload}>
-          //   <div className={styles.noPostGuide}>No Posts Yet, Upload My First Post:</div>{' '}
-          //   <UploadPostButton />
-          // </div>
+          <div className={styles.loading} />
         )}
       </div>
       {/* make story */}

@@ -131,7 +131,6 @@ export const editPost = (editPostID, image, imageURL, newMsg, newTag, setIsUploa
   dispatch,
   getState,
 ) => {
-  console.log(setIsUploadPopup);
   const { user } = getState();
   if (!user) return;
   let post = {};

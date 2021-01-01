@@ -1,10 +1,6 @@
-import { React, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addComment } from '../redux/actions/commentAction';
-import PropTypes from 'prop-types';
-import '../style/loading.css';
-import { nanoid } from 'nanoid';
+import { React } from 'react';
 import Logo from './Logo';
+import '../style/loading.css';
 
 function Loading() {
   return (

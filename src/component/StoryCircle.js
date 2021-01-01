@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import StoryPost from './StoryPost';
-import styles from '../style/storybar.module.css';
-import plus from '../img/plusIcon.png';
-import cross from '../img/cancel.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import userEvent from '@testing-library/user-event';
 import { MsgPopup } from './MsgPopup';
 import styled from '../style/popup.module.css';
+import styles from '../style/storybar.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
 import { deleteStory } from '../redux/actions/storyAction';
+import cross from '../img/cancel.svg';
 
 function StoryCircle({ story, circleRef }) {
   const { storyImageLink, storyIssuerID } = story;
@@ -26,7 +24,7 @@ function StoryCircle({ story, circleRef }) {
             onClick={() => {
               setisStoryDeleteClick(true);
             }}>
-            <img className={styles.storyDeleteCross} src={cross}></img>
+            <img className={styles.storyDeleteCross} src={cross} />
           </div>
         )}
         <img

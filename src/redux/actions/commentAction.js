@@ -33,7 +33,6 @@ export const fetchComments = (clickPostID, lastSnap, setLastSnap, lastVisible) =
       });
   } else if (lastSnap) {
     let commentsList = [...comments];
-    console.log(commentsList);
     db.collection('Comment')
       .orderBy('commentTime', 'desc')
       .startAfter(lastSnap)

@@ -44,6 +44,7 @@
 .followerInfo {
   font-size: 100%;
   margin: 20px 20px 20px 0px;
+  display: flex;
 }
 
 .block {

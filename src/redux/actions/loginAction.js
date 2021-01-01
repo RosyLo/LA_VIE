@@ -28,7 +28,7 @@ export const login = (provider, setLoginPopup, setisPostClick) => (dispatch) => 
           { merge: true },
         )
         .then(() => {
-          window.location = '/main';
+          // window.location = '/main';
           localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
         });

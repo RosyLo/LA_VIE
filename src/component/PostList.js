@@ -51,6 +51,12 @@ function PostList() {
       stakeGridRef.current.updateLayout();
     }
   }, [comments]);
+  useEffect(() => {
+    console.log(posts);
+    if (stakeGridRef.current) {
+      stakeGridRef.current.updateLayout();
+    }
+  }, [posts]);
 
   //search tags
   let filterTags = [];

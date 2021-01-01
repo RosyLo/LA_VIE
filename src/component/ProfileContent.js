@@ -23,7 +23,6 @@ function ProfileContent({ paramsID }) {
 
   //loading
   const loading = useSelector((state) => state.loading);
-  console.log(loading);
 
   useEffect(() => {
     dispatch(fetchMasterPosts(paramsID));
@@ -35,6 +34,15 @@ function ProfileContent({ paramsID }) {
       stakeGridRef.current.updateLayout();
     }
   }, [comments]);
+
+  useEffect(() => {
+    console.log(posts);
+    setTimeout(() => {
+      if (stakeGridRef.current) {
+        stakeGridRef.current.updateLayout();
+      }
+    }, 500);
+  }, [posts]);
 
   let filterTags = [];
   let filterPosts = [];

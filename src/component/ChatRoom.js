@@ -1,11 +1,14 @@
 // import React, { useState } from 'react';
 // import ChatMessage from './ChatMessage';
+// import styles from '../style/chatroom.module.css';
+// import '../style/chatroom.css';
 // import PropTypes from 'prop-types';
-// import firebase from '../firebase';
+// import firebase, { auth } from '../firebase';
 // import { useAuthState } from 'react-firebase-hooks/auth';
 // import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 // function ChatRoom() {
+//   console.log('chatqwe');
 //   const dummy = React.useRef();
 //   const db = firebase.firestore();
 //   const messagesRef = db.collection('messages');
@@ -33,23 +36,26 @@
 
 //   return (
 //     <>
-//       <main>
+//       {/* <div className={styles.chatRoomWrap}>
 //         {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-
 //         <span ref={dummy}></span>
-//       </main>
+//       </div> */}
+//       <div className={styles.chatRoomWrap}>
+//         {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+//         <span ref={dummy}></span>
 
-//       <form onSubmit={sendMessage}>
-//         <input
-//           value={formValue}
-//           onChange={(e) => setFormValue(e.target.value)}
-//           placeholder='say something nice'
-//         />
-
-//         <button type='submit' disabled={!formValue}>
-//           🕊️
-//         </button>
-//       </form>
+//         <form onSubmit={sendMessage}>
+//           <input
+//             value={formValue}
+//             onChange={(e) => setFormValue(e.target.value)}
+//             placeholder='say something nice'
+//           />
+//           1234567
+//           <button type='submit' disabled={!formValue}>
+//
+//           </button>
+//         </form>
+//       </div>
 //     </>
 //   );
 // }

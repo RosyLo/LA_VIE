@@ -12,7 +12,7 @@ import ProfileImage from './ProfileImage';
 import arrow from '../img/downarrow.svg';
 import styles from '../style/header.module.css';
 import { LoginPopup } from './LoginPopup';
-import ChatRoom from './ChatRoom';
+// import ChatRoom from './ChatRoom';
 import travel from '../img/travel.jpg';
 import { useHistory } from 'react-router';
 
@@ -22,6 +22,7 @@ const Header = () => {
   const [isProfileToggleClick, setisProfileToggleClick] = useState(false);
   const [loginPopup, setLoginPopup] = useState(false);
   const history = useHistory();
+  const [isChatRoomOpen, setIsChatRoomOpen] = useState(false);
   return (
     <>
       <div className={styles.headerWrap}>
@@ -45,7 +46,14 @@ const Header = () => {
             )}
             {user ? (
               <>
-                <h1>⚛️🔥💬</h1>
+                <Link
+                  to={{
+                    pathname: '/chatroom',
+                    search: `?id=${user.uid}`,
+                  }}>
+                  <h1>⚛️🔥💬</h1>
+                </Link>
+
                 <UploadPostButton />
                 {/* 頭貼 */}
 
@@ -126,6 +134,7 @@ const Header = () => {
           </div>
         </div>
       </LoginPopup>
+      {/* {isChatRoomOpen && <ChatRoom />} */}
     </>
   );
 };

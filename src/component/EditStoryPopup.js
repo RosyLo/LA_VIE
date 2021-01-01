@@ -28,7 +28,6 @@ function EditStoryPopup({
   const [editStoryStage, setEditStoryStage] = useState(0);
 
   const [isEditSuccess, setIsEditSuccess] = useState(false);
-  console.log(editStory);
   let storiesID = [];
   useEffect(() => {
     //繞成 storyID array
@@ -44,7 +43,7 @@ function EditStoryPopup({
     //check isCover 是不是在choosedStory 裡
     let currentPosts = [];
     posts.forEach((post) => {
-      let postID = choosedStory.find((id) => id === post.postID);
+      const postID = choosedStory.find((id) => id === post.postID);
       if (postID) {
         currentPosts.push(post);
       }
@@ -60,7 +59,7 @@ function EditStoryPopup({
     });
   }, [choosedStory]);
 
-  let story = {
+  const story = {
     storyID: editStory.storyID,
     storyName: storyName,
     storyImageLink: choosedCover,

@@ -8,6 +8,10 @@ import masterposts from './masterposts';
 import postcomments from './postcomments';
 import loading from './loading';
 import welcomeposts from './welcomeposts';
+import relationship from './relationship';
+import friendship from './friendship';
+import requestfriend from './requestfriend';
+import friendrequest from './friendrequest';
 import { combineReducers } from 'redux';
 
 export default combineReducers({
@@ -21,4 +25,8 @@ export default combineReducers({
   postcomments,
   loading,
   welcomeposts,
+  // relationship,
+  // friendship,
+  // requestfriend,
+  // friendrequest,
 });
