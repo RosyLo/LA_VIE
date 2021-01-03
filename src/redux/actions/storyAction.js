@@ -4,7 +4,7 @@ import firebase, { db } from '../../firebase';
 export const fetchStories = (paramsID) => (dispatch, getState) => {
   const { posts } = getState();
   const profileposts = posts.filter((post) => post.postIssuer.postIssuerID === paramsID);
-
+  console.log(profileposts);
   // 組合story state
   // 1.拿到此人的所有story
   // 2.組合 story 資訊，包含用post id去找post 資訊

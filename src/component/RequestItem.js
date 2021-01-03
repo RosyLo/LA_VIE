@@ -3,18 +3,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptFriendRequest, unFriend } from '../redux/actions/relationshipAction';
 import styles from '../style/request.module.css';
-import {
-  FRIEND,
-  REQUESTED,
-  REQUESTING,
-  NORELATIONSHIP,
-  UNFRIEND,
-  fromMasterProfile,
-} from '../utils/names';
+import { FRIEND, REQUESTED, fromMasterProfile } from '../utils/names';
 
 function RequestItem({ request, status, friend }) {
   console.log(request);
   console.log(friend);
+  console.log(status);
   //request,friend：都只有對方的資料，沒有status,和自己的
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
@@ -36,7 +30,7 @@ function RequestItem({ request, status, friend }) {
         userName: profile.userName,
         userProfileImage: profile.userProfileImage,
       },
-      status: 'requesting',
+      status: 'REQUESTING',
       relationshipID: `${request.uid}-${profile.uid}`,
     };
   }
@@ -60,7 +54,6 @@ function RequestItem({ request, status, friend }) {
       className={styles.requestButton}
       onClick={() => {
         dispatch(unFriend(friend, fromMasterProfile));
-        // setRequestStateButton(UNFRIEND);
       }}>
       UnFriend
     </button>

@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../style/popup.module.css';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import CancelButton from './CancelButton';
+import styles from '../style/popup.module.css';
 
 export const StyleModal = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(

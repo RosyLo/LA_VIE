@@ -11,10 +11,10 @@ import { LoginPopup } from './LoginPopup';
 import Logo from './Logo';
 import '../style/heart.css';
 import '../style/heart.css';
-import travel from '../img/travel.jpg';
-import styles from '../style/post.module.css';
-import headerstyle from '../style/header.module.css';
 import { login } from '../redux/actions/loginAction';
+import travel from '../img/travel.jpg';
+import headerstyle from '../style/header.module.css';
+import styles from '../style/post.module.css';
 function Post({
   post,
   newTag,

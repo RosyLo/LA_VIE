@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Stories from 'react-insta-stories';
 import { StoryModal } from './StoryModal';
-import { useSelector } from 'react-redux';
-import rightarrow from '../img/right-arrow.png';
-import leftarrow from '../img/left-arrow.png';
-import more from '../img/more.png';
-import styles from '../style/storybar.module.css';
-import { BarPopup } from './BarPopup';
 import EditStoryPopup from './EditStoryPopup';
+import { BarPopup } from './BarPopup';
+import leftarrow from '../img/left-arrow.png';
+import styles from '../style/storybar.module.css';
+import more from '../img/more.png';
+import rightarrow from '../img/right-arrow.png';
 
 function StoryPost({ story, isStoryClick, setisStoryClick }) {
   const user = useSelector((state) => state.user);

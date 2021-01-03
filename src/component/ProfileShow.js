@@ -31,6 +31,7 @@ function ProfileShow({ paramsID }) {
   const [isMessageClick, setIsMessageClick] = useState(false);
   console.log(requestingList);
   console.log(requestedList);
+  console.log(friendList);
 
   useEffect(() => {
     dispatch(getProfile(paramsID));
@@ -54,7 +55,6 @@ function ProfileShow({ paramsID }) {
         }
         setFriendList(friendList);
         console.log(relationship);
-        setRelationshipButton(relationship);
       }
       //requesting >>requester >>此人所有送出的要求
       else if (relationship.requester.uid === paramsID) {
@@ -63,7 +63,6 @@ function ProfileShow({ paramsID }) {
         if (relationship.requestee.uid === user.uid) {
           console.log(relationship);
           relationship.status = REQUESTED;
-          setRelationshipButton(relationship);
           //來到此人頁面，得到此人送出的所有要求，若我是被此人邀請的話，我可以按加入
         }
 
@@ -74,9 +73,9 @@ function ProfileShow({ paramsID }) {
         setRequestedList(requestedList);
         if (relationship.requester.uid === user.uid) {
           console.log(relationship);
-          setRelationshipButton(relationship);
         }
       } else console.log(relationship);
+      setRelationshipButton(relationship);
     });
   };
   //dipatch relationship
@@ -146,22 +145,18 @@ function ProfileShow({ paramsID }) {
 
   //request state view
   let requestView = '';
-  const makeRequestItems = () => {
-    console.log(requestViewState);
-    console.log(requestingList);
+  if (requestViewState === REQUESTING) {
+    requestView = requestingList.map((request) => (
+      <RequestItem key={request.relationshipID} request={request} status={REQUESTING} />
+    ));
+    console.log(requestView);
+  } else if (requestViewState === REQUESTED) {
     console.log(requestedList);
-    if (requestViewState === REQUESTING) {
-      requestView = requestingList.map((request) => (
-        <RequestItem key={request.relationshipID} request={request} status={REQUESTING} />
-      ));
-    } else if (requestViewState === REQUESTED) {
-      console.log(requestedList);
-      requestView = requestedList.map((request) => (
-        <RequestItem key={request.relationshipID} request={request} status={REQUESTED} />
-      ));
-      console.log(requestView);
-    }
-  };
+    requestView = requestedList.map((request) => (
+      <RequestItem key={request.relationshipID} request={request} status={REQUESTED} />
+    ));
+    console.log(requestView);
+  }
   console.log(requestView);
   return (
     <>
@@ -190,7 +185,6 @@ function ProfileShow({ paramsID }) {
                     className={styles.followerInfo}
                     onClick={() => {
                       setIsRequestClick(!isRequestClick);
-                      makeRequestItems();
                     }}>
                     <span>Requests...</span>
                   </div>

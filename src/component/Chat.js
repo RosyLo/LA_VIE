@@ -1,8 +1,6 @@
-import { React, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { React } from 'react';
 import ChatList from './ChatList';
 import ChatRoom from './ChatRoom';
-// import styles from '../style/chat.module.css';
 
 function Chat() {
   return (

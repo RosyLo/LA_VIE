@@ -5,7 +5,6 @@ import StackGrid from 'react-stack-grid';
 import Post from './Post';
 import { MsgPopup } from './MsgPopup';
 import UploadPostButton from './UploadPostButton';
-import Loading from './Loading';
 import { fetchMasterPosts } from '../redux/actions/postAction';
 import { receiveTags } from '../redux/actions/searchAction';
 import styles from '../style/profilecontent.module.css';

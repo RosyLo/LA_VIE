@@ -24,15 +24,16 @@ function StoryBar({ paramsID }) {
   const barLeftArrowRef = React.useRef(null);
   const barRightArrowRef = React.useRef(null);
   const circleRef = React.useRef(null);
-
   const [constainMargin, setconstainMargin] = useState(0);
   const loading = useSelector((state) => state.loading);
   //stories 慢，判斷完了
   useEffect(() => {
     if (posts.length > 0) {
+      console.log('storypost');
       dispatch(fetchStories(paramsID));
     }
   }, [posts]);
+  console.log(stories);
 
   useEffect(() => {
     if (barRightArrowRef.current && barRightArrowRef.current) {

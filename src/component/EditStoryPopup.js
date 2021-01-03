@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { addStory, edtiStory } from '../redux/actions/storyAction';
+import { edtiStory } from '../redux/actions/storyAction';
 import { MakeStoryModal } from './MakeStoryModal';
 import EditImage from './EditImage';
 import styles from '../style/popup.module.css';
-import Post from './Post';
-import ChooseTags from './ChooseTags';
 import { nanoid } from 'nanoid';
-import StackGrid from 'react-stack-grid';
 import styled from '../style/makestory.module.css';
 import { MsgPopup } from './MsgPopup';
 import msgPopStyles from '../style/msgPopWrap.module.css';

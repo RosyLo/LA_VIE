@@ -112,6 +112,6 @@ export const unFriend = (friend, isFrom) => (dispatch, getState) => {
     // } else if (!relationship.requester) {
     //   whereCondition = `${user.uid}-${relationshipOrFriend.uid}`;
     // }
-    // [`${profile.uid}-${user.uid}`, `${user.uid}-${profile.uid}`]
+    [`${profile.uid}-${user.uid}`, `${user.uid}-${profile.uid}`];
   }
 };

@@ -1,20 +1,20 @@
 import { React, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import UploadPostButton from './UploadPostButton';
 import { BarPopup } from './BarPopup';
-import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import ChatRoom from './ChatRoom';
 import SearchTags from './SearchTags';
-import PropTypes from 'prop-types';
-import '../style/header.module.css';
-import { login, logout } from '../redux/actions/loginAction';
+import { LoginPopup } from './LoginPopup';
 import ProfileImage from './ProfileImage';
+import { login, logout } from '../redux/actions/loginAction';
 import arrow from '../img/downarrow.svg';
 import styles from '../style/header.module.css';
-import { LoginPopup } from './LoginPopup';
-import ChatRoom from './ChatRoom';
+import '../style/header.module.css';
 import travel from '../img/travel.jpg';
-import { useHistory } from 'react-router';
 
 const Header = () => {
   const dispatch = useDispatch();

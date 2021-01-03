@@ -49,7 +49,7 @@ function PostPopup({
       handleClose={() => {
         setisPostClick(false);
       }}>
-      {clickpost ? (
+      {clickpost && (
         <div className={styles.modelWrap}>
           <div className={styles.topModel}>
             <div className={styles.space}></div>
@@ -118,18 +118,14 @@ function PostPopup({
                   ''
                 )}
               </div>
-              {user ? (
+              {user && (
                 <div className={postblock.commenting}>
                   <Commenting postID={postID} />
                 </div>
-              ) : (
-                ''
               )}
             </div>
           </div>
         </div>
-      ) : (
-        ''
       )}
     </StyleModal>
   );
