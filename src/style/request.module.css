@@ -1,0 +1,60 @@
+.request {
+  display: flex;
+  padding: 0 5%;
+  min-height: 50px;
+  font-size: 1rem;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.requestImage {
+  width: 35px;
+  height: 35px;
+  z-index: 100;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.requestName {
+  font-weight: bold;
+  margin-right: 10px;
+  min-width: 60px;
+  font-size: 1rem;
+}
+
+.requestMsg {
+  min-width: 40px;
+}
+
+.requestActions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  /* background-color: royalblue; */
+}
+
+.requestButton {
+  font-size: 1rem;
+  background-color: black;
+  width: 80px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s;
+}
+
+.stateBlock {
+  background-color: black;
+  width: 80px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  content: 'Select some files';
+  padding: 5px;
+  transition: 0.3s;
+  opacity: 0.3;
+}

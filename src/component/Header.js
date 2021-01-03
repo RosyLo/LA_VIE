@@ -12,7 +12,7 @@ import ProfileImage from './ProfileImage';
 import arrow from '../img/downarrow.svg';
 import styles from '../style/header.module.css';
 import { LoginPopup } from './LoginPopup';
-// import ChatRoom from './ChatRoom';
+import ChatRoom from './ChatRoom';
 import travel from '../img/travel.jpg';
 import { useHistory } from 'react-router';
 
@@ -134,7 +134,7 @@ const Header = () => {
           </div>
         </div>
       </LoginPopup>
-      {/* {isChatRoomOpen && <ChatRoom />} */}
+      {isChatRoomOpen && <ChatRoom />}
     </>
   );
 };

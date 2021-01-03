@@ -1,14 +1,14 @@
-body {
+.chatRoomWrap body {
   background-color: #282c34;
 }
 
-.App {
+.chatRoomWrap .App {
   text-align: center;
   max-width: 728px;
   margin: 0 auto;
 }
 
-.App header {
+.chatRoomWrap .App header {
   background-color: #181717;
   height: 10vh;
   min-height: 50px;
@@ -25,7 +25,7 @@ body {
   box-sizing: border-box;
 }
 
-.App section {
+.chatRoomWrap .App section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +33,7 @@ body {
   background-color: rgb(40, 37, 53);
 }
 
-main {
+.chatRoomWrap main {
   padding: 10px;
   height: 80vh;
   margin: 10vh 0 10vh;
@@ -54,7 +54,7 @@ main::-webkit-scrollbar-thumb {
   background: #6649b8;
 }
 
-form {
+.chatRoomWrap form {
   height: 10vh;
   position: fixed;
   bottom: 0;
@@ -65,12 +65,12 @@ form {
   font-size: 1.5rem;
 }
 
-form button {
+.chatRoomWrap form button {
   width: 20%;
   background-color: rgb(56, 56, 143);
 }
 
-input {
+.chatRoomWrap input {
   line-height: 1.5;
   width: 100%;
   font-size: 1.5rem;
@@ -81,7 +81,7 @@ input {
   padding: 0 10px;
 }
 
-button {
+.chatRoomWrap button {
   background-color: #282c34; /* Green */
   border: none;
   color: white;
@@ -93,7 +93,7 @@ button {
   font-size: 1.25rem;
 }
 
-button:disabled {
+.chatRoomWrap button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -104,14 +104,13 @@ button:disabled {
   max-width: 400px;
   margin: 0 auto;
 }
-
-ul,
+.chatRoomWrap ul,
 li {
   text-align: left;
   list-style: none;
 }
 
-p {
+.chatRoomWrap p {
   max-width: 500px;
   margin-bottom: 12px;
   line-height: 24px;
@@ -122,26 +121,26 @@ p {
   text-align: center;
 }
 
-.message {
+.chatRoomWrap .message {
   display: flex;
   align-items: center;
 }
 
-.sent {
+.chatRoomWrap .sent {
   flex-direction: row-reverse;
 }
 
-.sent p {
+.chatRoomWrap .sent p {
   color: white;
   background: #0b93f6;
   align-self: flex-end;
 }
-.received p {
+.chatRoomWrap .received p {
   background: #e5e5ea;
   color: black;
 }
 
-img {
+.chatRoomWrap img {
   width: 40px;
   height: 40px;
   border-radius: 50%;

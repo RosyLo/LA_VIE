@@ -109,7 +109,7 @@
 }
 
 .editContentDiv {
-  box-shadow: 3px 3px 3px #ced1d6;
+  box-shadow: 1px 1px 3px #ced1d6;
   border-radius: 8px;
   background: white;
   padding: 10px;
@@ -144,7 +144,7 @@
   border-radius: 8px;
   background: rgb(255, 255, 255);
   margin: auto;
-  box-shadow: 3px 3px 3px #ced1d6;
+  box-shadow: 1px 1px 3px #ced1d6;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -181,7 +181,7 @@
   align-items: center;
   max-width: 85%;
   border-radius: 8px;
-  box-shadow: 3px 3px 3px #ced1d6;
+  box-shadow: 1px 1px 3px #ced1d6;
   background: rgb(255, 255, 255);
   margin: auto;
   position: relative;
@@ -204,16 +204,13 @@
 }
 
 .postContentDiv {
-  min-width: 300px;
   max-width: 800px;
   max-height: 650px;
-  width: 70%;
   padding: 2% 2% 3% 2%;
   align-items: center;
-  max-width: 800px;
   z-index: 4;
   border-radius: 8px;
-  box-shadow: 3px 3px 3px #ced1d6;
+  box-shadow: 1px 1px 3px #ced1d6;
   background: rgb(255, 255, 255);
   margin: auto;
   position: relative;
@@ -236,7 +233,6 @@ button:hover {
 
 .modelWrap {
   width: 100%;
-  /* background-color: lavender; */
 }
 
 @keyframes fade {
@@ -527,15 +523,3 @@ button:hover {
     display: flex;
   }
 }
-
-/* .contentWrap {
-  animation-name: fade;
-  animation-duration: 0.5s;
-  width: 100vw;
-  height: 80vh;
-  top: 50%;
-  left: 50%;
-  position: fixed;
-  z-index: 2500;
-  transform: translate(-50%, -50%);
-} */

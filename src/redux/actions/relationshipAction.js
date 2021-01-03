@@ -1,39 +1,8 @@
 import { generatePath } from 'react-router';
 import { useSelector } from 'react-redux';
-import { RECEIVED_RELATIONSHIP, SEND_FRIEND_REQUEST } from '../actionTypes';
+import { RECEIVED_RELATIONSHIP, SEND_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST } from '../actionTypes';
 import { db } from '../../firebase';
-
-// export const getProfileRelationShip = (paramsID) => (dispatch, getState) => {
-//   const { user } = getState();
-//   console.log(paramsID);
-//   const relationships = [];
-//   //get profile request friends list
-//   db.collection('RelationShip')
-//     .where('requester.uid', '==', paramsID)
-//     .get()
-//     .then((querySnapshot) => {
-//       querySnapshot.forEach((doc) => {
-//         console.log(doc.data());
-//         relationships.push(doc.data());
-//       });
-//     })
-//     .then(() => {
-//       //get profile friends request list
-//       db.collection('RelationShip')
-//         .where('requestee.uid', '==', paramsID)
-//         .get()
-//         .then((querySnapshot) => {
-//           querySnapshot.forEach((doc) => {
-//             console.log(doc.data());
-//             relationships.push(doc.data());
-//           });
-//         });
-//     })
-//     .then(() => {
-//       console.log(relationships);
-//       dispatch({ type: RECEIVED_RELATIONSHIP, payload: { relationships } });
-//     });
-// };
+import { UNFRIEND, FRIEND, fromProfile, fromMasterProfile } from '../../utils/names';
 
 //state: 以使用者的角色
 //db 上的state : friend,requesting
@@ -49,7 +18,6 @@ export const getProfileRelationShip = (paramsID) => (dispatch, getState) => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.data());
         relationships.push(doc.data());
       });
       //get profile friends request list
@@ -58,7 +26,6 @@ export const getProfileRelationShip = (paramsID) => (dispatch, getState) => {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            console.log(doc.data());
             relationships.push(doc.data());
           });
           dispatch({ type: RECEIVED_RELATIONSHIP, payload: { relationships } });
@@ -66,11 +33,9 @@ export const getProfileRelationShip = (paramsID) => (dispatch, getState) => {
     });
 };
 
-export const sendFriendRequest = (paramsID) => (dispatch, getState) => {
+export const sendFriendRequest = () => (dispatch, getState) => {
   const { user } = getState();
   const { profile } = getState();
-  console.log(user);
-  console.log(profile);
   const relationship = {
     requester: {
       uid: user.uid,
@@ -82,7 +47,8 @@ export const sendFriendRequest = (paramsID) => (dispatch, getState) => {
       userName: profile.userName,
       userProfileImage: profile.userProfileImage,
     },
-    status: 'requesting',
+    status: REQUESTING,
+    relationshipID: `${user.uid}-${profile.uid}`,
   };
 
   // //更新db
@@ -91,7 +57,61 @@ export const sendFriendRequest = (paramsID) => (dispatch, getState) => {
     .set(relationship)
     .then(() => {
       console.log('send request successful');
+      relationship.relationshipID = `${user.uid}-${profile.uid}`;
+      //＋relationship
+      dispatch({ type: SEND_FRIEND_REQUEST, payload: { relationship } });
     });
-  //＋relationship
-  dispatch({ type: SEND_FRIEND_REQUEST, payload: { relationship } });
+};
+
+export const acceptFriendRequest = (relationship) => (dispatch, getState) => {
+  const { user } = getState();
+  const { profile } = getState();
+  console.log(relationship);
+
+  // db:找到該relationship, 改status
+  db.collection('RelationShip')
+    .doc(relationship.relationshipID)
+    .update({
+      status: FRIEND,
+    })
+    .then(() => {
+      console.log('update request successful');
+      console.log(relationship);
+      //找到該relationship，改status
+      dispatch({ type: ACCEPT_FRIEND_REQUEST, payload: { relationship } });
+    });
+};
+
+export const unFriend = (friend, isFrom) => (dispatch, getState) => {
+  const { user } = getState();
+  const { profile } = getState();
+  let docName;
+  if (isFrom === fromProfile) {
+    docName = friend.uid;
+    db.collection('RelationShip')
+      .doc(docName)
+      .delete()
+      .then(() => {
+        console.log('delete request successful');
+        //找到該relationship，刪除
+        dispatch({ type: UNFRIEND, payload: { docName } });
+      });
+  } else if (isFrom === fromMasterProfile) {
+    db.collection('RelationShip')
+      .doc(docName)
+      .get()
+      .then(() => {
+        console.log('delete request successful');
+        //找到該relationship，刪除
+        dispatch({ type: UNFRIEND, payload: { docName } });
+      });
+
+    // if (!relationship.requestee) {
+    //   //在自己的頁面要unfriend別人，此時傳進來的是friend的資料，沒有requestee:對方是requester>>docid：對方在前
+    //   whereCondition = `${relationshipOrFriend.requester.uid}-${user.uid}`;
+    // } else if (!relationship.requester) {
+    //   whereCondition = `${user.uid}-${relationshipOrFriend.uid}`;
+    // }
+    // [`${profile.uid}-${user.uid}`, `${user.uid}-${profile.uid}`]
+  }
 };

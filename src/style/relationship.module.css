@@ -1,0 +1,39 @@
+.request {
+  display: flex;
+  padding: 0 5%;
+  text-align: center;
+  min-height: 40px;
+  font-size: 0.8rem;
+}
+
+.requestImage {
+  width: 25px;
+  height: 25px;
+  z-index: 100;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.requestName {
+  font-weight: bold;
+  margin-right: 10px;
+  min-width: 60px;
+}
+
+.requestMsg {
+  min-width: 40px;
+}
+
+.requestActions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  background-color: royalblue;
+}
+
+.requestButton {
+  min-width: 60px;
+  display: flex;
+  height: 30px;
+  margin-top: 2px;
+}

@@ -28,7 +28,13 @@
   margin: auto 20px;
   object-fit: cover;
 }
+.postInfo {
+  /* margin: auto 0px; */
 
+  font-size: 1.5rem;
+  align-items: center;
+  margin: 20px 5rem 20px 0px;
+}
 .profileInfo {
   /* border: 1px solid black; */
   margin: auto 0px;
@@ -43,8 +49,9 @@
 }
 .followerInfo {
   font-size: 100%;
-  margin: 20px 20px 20px 0px;
+  margin: 20px 5rem 20px 0px;
   display: flex;
+  cursor: pointer;
 }
 
 .block {
@@ -69,6 +76,91 @@
   top: 130px;
   right: 260px;
   z-index: 2;
+}
+
+.friendModelWrap {
+  width: 100%;
+}
+.friendTopModal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rosybrown; */
+}
+
+.friendButtonModal {
+  max-height: 400px;
+  overflow-y: auto;
+  /* background-color: royalblue; */
+}
+
+.requestModelWrap {
+  width: 100%;
+}
+.requestTopModal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: rosybrown; */
+}
+.requestButtonModal {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.requestToggle {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.guide {
+  font-size: 1.5rem;
+  margin: 10px auto 10px auto;
+}
+
+.requestStateChoose {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  font-size: 1.5rem;
+  margin: 10px auto 10px auto;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(187, 140, 47);
+}
+.requestStateNone {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  font-size: 1.5rem;
+  margin: 10px auto 10px auto;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.separater {
+  /* border: 1px solid red; */
+  width: 99%;
+  margin: auto;
+  border: 1px solid rgba(219, 219, 219);
+}
+
+.relationshipButton {
+  background-color: black;
+  /* width: 80px; */
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s;
 }
 
 @media (max-width: 425px) {

@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addStory } from '../redux/actions/storyAction';
 import { MakeStoryModal } from './MakeStoryModal';
 import Image from './Image';
+import { MsgPopup } from './MsgPopup';
 import styles from '../style/popup.module.css';
-import { nanoid } from 'nanoid';
 import styled from '../style/makestory.module.css';
 import msgPopStyles from '../style/msgPopWrap.module.css';
-import { MsgPopup } from './MsgPopup';
+import { nanoid } from 'nanoid';
 
 function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces }) {
   const dispatch = useDispatch();
@@ -131,6 +131,7 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
     </div>
   );
 
+  console.log(chooseCoverPhoto);
   //Story 命名
 
   const storyNameingTitle = (
