@@ -18,13 +18,9 @@ const relationships = (state = [], action) => {
 
     case ACCEPT_FRIEND_REQUEST: {
       return state.map((relationship) => {
-        console.log(relationship);
-        console.log(action.payload.relationship);
-        if (relationship.relationshipID === action.payload.relationship.relationshipID) {
-          console.log(relationship);
+        if (relationship.relationshipID === action.payload.relationshipID) {
           return { ...relationship, status: FRIEND };
         }
-        console.log(relationship);
         return relationship;
       });
     }

@@ -3,11 +3,9 @@ import { RECIEVED_STORIES, ADD_STORY, DELETE_STORY, EDIT_STORY } from '../action
 const stories = (state = [], action) => {
   switch (action.type) {
     case RECIEVED_STORIES: {
-      console.log(action.payload.story);
       return action.payload.story;
     }
     case ADD_STORY: {
-      console.log(action.payload.story);
       return [action.payload.stateStory, ...state];
     }
     case DELETE_STORY: {

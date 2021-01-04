@@ -2,7 +2,7 @@ import { generatePath } from 'react-router';
 import { useSelector } from 'react-redux';
 import { RECEIVED_RELATIONSHIP, SEND_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST } from '../actionTypes';
 import { db } from '../../firebase';
-import { UNFRIEND, FRIEND, fromProfile, fromMasterProfile } from '../../utils/names';
+import { UNFRIEND, FRIEND, REQUESTING, fromProfile, fromMasterProfile } from '../../utils/names';
 
 //state: 以使用者的角色
 //db 上的state : friend,requesting
@@ -63,55 +63,65 @@ export const sendFriendRequest = () => (dispatch, getState) => {
     });
 };
 
-export const acceptFriendRequest = (relationship) => (dispatch, getState) => {
-  const { user } = getState();
-  const { profile } = getState();
-  console.log(relationship);
-
+export const acceptFriendRequest = (relationshipID) => (dispatch, getState) => {
   // db:找到該relationship, 改status
   db.collection('RelationShip')
-    .doc(relationship.relationshipID)
+    .doc(relationshipID)
     .update({
       status: FRIEND,
     })
     .then(() => {
       console.log('update request successful');
-      console.log(relationship);
       //找到該relationship，改status
-      dispatch({ type: ACCEPT_FRIEND_REQUEST, payload: { relationship } });
+      dispatch({ type: ACCEPT_FRIEND_REQUEST, payload: { relationshipID } });
     });
 };
 
 export const unFriend = (friend, isFrom) => (dispatch, getState) => {
   const { user } = getState();
-  const { profile } = getState();
   let docName;
   if (isFrom === fromProfile) {
-    docName = friend.uid;
+    docName = friend.rlationshipID;
     db.collection('RelationShip')
       .doc(docName)
       .delete()
       .then(() => {
         console.log('delete request successful');
+        dispatch(excuteDeleteRelationship(docName));
         //找到該relationship，刪除
-        dispatch({ type: UNFRIEND, payload: { docName } });
       });
   } else if (isFrom === fromMasterProfile) {
+    //找到該relationship，刪除
     db.collection('RelationShip')
-      .doc(docName)
+      .where('relationshipID', '==', `${friend.uid}-${user.uid}`)
       .get()
-      .then(() => {
-        console.log('delete request successful');
-        //找到該relationship，刪除
-        dispatch({ type: UNFRIEND, payload: { docName } });
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          docName = `${friend.uid}-${user.uid}`;
+          console.log(docName);
+          dispatch(excuteDeleteRelationship(docName));
+        } else if (!res) {
+          db.collection('RelationShip')
+            .where('relationshipID', '==', `${user.uid}-${friend.uid}`)
+            .get()
+            .then((res) => {
+              console.log(res);
+              docName = `${user.uid}-${friend.uid}`;
+              dispatch(excuteDeleteRelationship(docName));
+            });
+        }
       });
-
-    // if (!relationship.requestee) {
-    //   //在自己的頁面要unfriend別人，此時傳進來的是friend的資料，沒有requestee:對方是requester>>docid：對方在前
-    //   whereCondition = `${relationshipOrFriend.requester.uid}-${user.uid}`;
-    // } else if (!relationship.requester) {
-    //   whereCondition = `${user.uid}-${relationshipOrFriend.uid}`;
-    // }
-    [`${profile.uid}-${user.uid}`, `${user.uid}-${profile.uid}`];
   }
+};
+
+const excuteDeleteRelationship = (docName) => (dispatch) => {
+  console.log(docName);
+  db.collection('RelationShip')
+    .doc(docName)
+    .delete()
+    .then(() => {
+      console.log(docName);
+      dispatch({ type: UNFRIEND, payload: { docName } });
+    });
 };

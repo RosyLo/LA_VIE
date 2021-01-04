@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Header from './Header';
-import PostList from './PostList';
-import Profile from './Profile';
-import Welcome from './Welcome';
-import NoMatch from './NoMatch';
+import Header from './header/Header';
+import PostList from './post/PostList';
+import Profile from './profile/Profile';
+import Welcome from './welcome/Welcome';
+import NoMatch from './common/NoMatch';
 import { BrowserRouter as Router, Switch, Route, useLocation, Redirect } from 'react-router-dom';
-import ChatRoom from './ChatRoom';
+import ChatRoom from './chat/ChatRoom';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -28,7 +28,7 @@ function Routers() {
           render={(props) => <Profile {...props} userId={query.get('id')} />}
         />
         <Route
-          path='/chatroom'
+          path='/chatroom/:'
           render={(props) => <ChatRoom {...props} userId={query.get('id')} />}
         />
         <Route path='/main' component={PostList} />
