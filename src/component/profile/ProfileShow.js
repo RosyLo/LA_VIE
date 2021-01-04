@@ -15,60 +15,47 @@ import styles from '../../style/profileshow.module.css';
 import { FRIEND, REQUESTED, REQUESTING, fromProfile } from '../../utils/names';
 
 function ProfileShow({ paramsID }) {
-  const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
   const posts = useSelector((state) => state.posts);
   const user = useSelector((state) => state.user);
   const relationships = useSelector((state) => state.relationships);
   const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
   const [friendList, setFriendList] = useState(null);
   const [requestingList, setRequestingList] = useState([]);
   const [requestedList, setRequestedList] = useState([]);
   const [relationshipButton, setRelationshipButton] = useState(null);
   const [isRequestClick, setIsRequestClick] = useState(false);
-  const [requestViewState, setRequestViewState] = useState(null); //??
+  const [requestViewState, setRequestViewState] = useState(REQUESTED);
   const [isFriendClick, setIsFriendClick] = useState(false);
   const [isMessageClick, setIsMessageClick] = useState(false);
-  console.log(requestedList);
 
   useEffect(() => {
     dispatch(getProfile(paramsID));
     dispatch(getProfileRelationShip(paramsID));
   }, [paramsID]);
-  //當使用者在別人/自己頁面時，要判斷與此人關係為何
+  //當使用者在別人頁面時，要判斷與此人關係為何
   useEffect(() => {
+    // relationshipSplit();
     if (relationships && user && profile) {
-      //在自己/別人頁面，都需要friendlist
       const friendList = relationships
         .filter((rel) => rel.status === FRIEND)
         .map((rel) => (rel.requester.uid === profile.uid ? rel.requestee : rel.requester));
-      //到對方頁面：找relationship
-      let ourRelationship = relationships.find(
+
+      const ourRelationship = relationships.find(
         (rel) => rel.requestee.uid === profile.uid || rel.requester.uid === profile.uid,
       );
-      console.log(ourRelationship);
-      console.log(user.uid);
-      //若沒有關係：
-      //到對方頁面：若是我邀請對方，對方被我邀請
-      if (ourRelationship?.requester?.uid === user.uid) {
-        ourRelationship.status = REQUESTING;
-        console.log(ourRelationship);
-      } else if (ourRelationship?.requestee?.uid === user.uid) {
-        //到對方頁面：若是對方邀請我，我被對方邀請
-        ourRelationship.status = REQUESTED;
-        console.log(ourRelationship);
-      } else ourRelationship = null;
-      console.log(ourRelationship);
       setRelationshipButton(ourRelationship);
       setFriendList(friendList);
-      //到自己頁面，有request list
+
+      //到自己頁面有requestlist
       if (user.uid === profile.uid) {
         const requestingList = relationships
           .filter((rel) => rel.status === REQUESTING && rel.requester.uid === profile.uid)
           .map((rel) => rel.requestee);
 
         const requestedList = relationships
-          .filter((rel) => rel.status === REQUESTED && rel.requestee.uid === profile.uid)
+          .filter((rel) => rel.status === REQUESTING && rel.requestee.uid === profile.uid)
           .map((rel) => rel.requester);
 
         setRequestedList(requestedList);
@@ -101,7 +88,7 @@ function ProfileShow({ paramsID }) {
     <button
       className={styles.relationshipButton}
       onClick={() => {
-        dispatch(acceptFriendRequest(relationshipButton.relationshipID));
+        dispatch(acceptFriendRequest(relationshipButton));
       }}>
       Accept
     </button>
@@ -130,16 +117,14 @@ function ProfileShow({ paramsID }) {
   } else {
     buttonView = buttonViewSendRequest;
   }
-  console.log(requestViewState);
+
   //request state view
   let requestView = '';
   if (requestViewState === REQUESTING) {
-    console.log(requestingList);
     requestView = requestingList.map((relatedUser) => (
       <RequestItem key={relatedUser.uid} relatedUser={relatedUser} status={REQUESTING} />
     ));
   } else if (requestViewState === REQUESTED) {
-    console.log(requestedList);
     requestView = requestedList.map((relatedUser) => (
       <RequestItem key={relatedUser.uid} relatedUser={relatedUser} status={REQUESTED} />
     ));
@@ -259,7 +244,7 @@ ProfileShow.propTypes = {
 
 export default ProfileShow;
 
-// //得到 relationships reducer 後，要做成 ProfileShow 的4個state，用來呈現數字跟list
+//得到 relationships reducer 後，要做成 ProfileShow 的4個state，用來呈現數字跟list
 // const relationshipSplit = () => {
 //   const friendList = [];
 //   const requestingList = [];
@@ -299,4 +284,4 @@ export default ProfileShow;
 //     setRelationshipButton(relationship);
 //   });
 // };
-// dipatch relationship
+//dipatch relationship
