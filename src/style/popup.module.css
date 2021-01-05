@@ -176,6 +176,7 @@
 .storyContentDiv {
   min-width: 300px;
   max-width: 1000px;
+
   width: 70%;
   padding: 2%;
   align-items: center;
@@ -521,5 +522,13 @@ button:hover {
 
   .decideButtonWrap {
     display: flex;
+  }
+}
+
+@media (max-width: 425px) {
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
   }
 }

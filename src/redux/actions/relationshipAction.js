@@ -78,10 +78,12 @@ export const acceptFriendRequest = (relationshipID) => (dispatch, getState) => {
 };
 
 export const unFriend = (friend, isFrom) => (dispatch, getState) => {
+  console.log(friend);
+  console.log(isFrom);
   const { user } = getState();
   let docName;
   if (isFrom === fromProfile) {
-    docName = friend.rlationshipID;
+    docName = friend.relationshipID;
     db.collection('RelationShip')
       .doc(docName)
       .delete()

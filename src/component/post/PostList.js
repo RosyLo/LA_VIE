@@ -33,7 +33,7 @@ function PostList() {
     setIsScrollFetching(!isScrollFetching);
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (winScroll > height - 20) {
+    if (winScroll <= height - 20) {
       let newLast = lastVisible.current + 10;
       dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
       lastVisible.current = newLast;

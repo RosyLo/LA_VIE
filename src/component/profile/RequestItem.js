@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptFriendRequest, unFriend } from '../../redux/actions/relationshipAction';
 import styles from '../../style/request.module.css';
-import { FRIEND, REQUESTED, fromMasterProfile } from '../../utils/names';
+import { FRIEND, REQUESTED, REQUESTING, fromMasterProfile } from '../../utils/names';
 
 function RequestItem({ relatedUser, status }) {
   //request,friend：都只有對方的資料，沒有status,和自己的

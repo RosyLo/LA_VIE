@@ -43,7 +43,9 @@ function ProfileShow({ paramsID }) {
         .map((rel) => (rel.requester.uid === profile.uid ? rel.requestee : rel.requester));
 
       const ourRelationship = relationships.find(
-        (rel) => rel.requestee.uid === profile.uid || rel.requester.uid === profile.uid,
+        (rel) =>
+          (rel.requestee.uid === profile.uid || rel.requester.uid === profile.uid) &&
+          (rel.requestee.uid === user.uid || rel.requester.uid === user.uid),
       );
       setRelationshipButton(ourRelationship);
       setFriendList(friendList);
@@ -88,12 +90,12 @@ function ProfileShow({ paramsID }) {
     <button
       className={styles.relationshipButton}
       onClick={() => {
-        dispatch(acceptFriendRequest(relationshipButton));
+        dispatch(acceptFriendRequest(relationshipButton.relationshipID));
       }}>
       Accept
     </button>
   );
-  const buttonViewRequesting = <div className={styles.relationshipButton}>Waiting</div>;
+  const buttonViewRequesting = <div className={styles.decideButtonVag}>Waiting</div>;
   const buttonViewSendRequest = (
     <button
       className={styles.relationshipButton}
@@ -110,10 +112,12 @@ function ProfileShow({ paramsID }) {
   let buttonView = '';
   if (relationshipButton?.status === FRIEND) {
     buttonView = buttonViewFriend;
-  } else if (relationshipButton?.status === REQUESTED) {
-    buttonView = buttonViewRequested;
   } else if (relationshipButton?.status === REQUESTING) {
-    buttonView = buttonViewRequesting;
+    if (relationshipButton.requestee.uid === user.uid) {
+      buttonView = buttonViewRequested;
+    } else if (relationshipButton.requester.uid === user.uid) {
+      buttonView = buttonViewRequesting;
+    }
   } else {
     buttonView = buttonViewSendRequest;
   }
@@ -233,7 +237,6 @@ function ProfileShow({ paramsID }) {
           <div>{requestView}</div>
         </div>
       </StyleModal>
-      ，{' '}
     </>
   );
 }
@@ -243,45 +246,3 @@ ProfileShow.propTypes = {
 };
 
 export default ProfileShow;
-
-//得到 relationships reducer 後，要做成 ProfileShow 的4個state，用來呈現數字跟list
-// const relationshipSplit = () => {
-//   const friendList = [];
-//   const requestingList = [];
-//   const requestedList = [];
-
-//   relationships.forEach((relationship) => {
-//     console.log(relationship);
-//     //friend
-//     if (relationship.status === FRIEND) {
-//       if (relationship.requester.uid === paramsID) {
-//         friendList.push(relationship.requestee);
-//       } else if (relationship.requestee.uid === paramsID) {
-//         friendList.push(relationship.requester);
-//       }
-//       setFriendList(friendList);
-//       console.log(relationship);
-//     }
-//     //requesting >>requester >>此人所有送出的要求
-//     else if (relationship.requester.uid === paramsID) {
-//       requestingList.push(relationship.requestee);
-//       setRequestingList(requestingList);
-//       if (relationship.requestee.uid === user.uid) {
-//         console.log(relationship);
-//         relationship.status = REQUESTED;
-//         //來到此人頁面，得到此人送出的所有要求，若我是被此人邀請的話，我可以按加入
-//       }
-
-//       //requesting >>requestee  >>此人所有收到的要求
-//       //+若是自己的頁面，要送另一個accept action
-//     } else if (relationship.requestee.uid === paramsID) {
-//       requestedList.push(relationship.requester);
-//       setRequestedList(requestedList);
-//       if (relationship.requester.uid === user.uid) {
-//         console.log(relationship);
-//       }
-//     } else console.log(relationship);
-//     setRelationshipButton(relationship);
-//   });
-// };
-//dipatch relationship

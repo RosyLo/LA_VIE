@@ -51,7 +51,7 @@ const Header = () => {
                     pathname: '/chatroom',
                     search: `?id=${user.uid}`,
                   }}>
-                  <h1>⚛️🔥💬</h1>
+                  {/* <h1>⚛️🔥💬</h1> */}
                 </Link>
 
                 <UploadPostButton />
@@ -134,7 +134,7 @@ const Header = () => {
           </div>
         </div>
       </LoginPopup>
-      {isChatRoomOpen && <ChatRoom />}
+      {/* {isChatRoomOpen && <ChatRoom />} */}
     </>
   );
 };

@@ -62,6 +62,18 @@
   width: 100px;
 }
 
+@media (max-width: 768px) {
+  .welcomeShow {
+    font-size: 40px;
+  }
+  .welcomeShowTag {
+    font-size: 30px;
+  }
+  .tagNameLine {
+    width: 90vw;
+  }
+}
+
 @media (max-width: 425px) {
   .welcomeShowWrap {
     padding: 0px;

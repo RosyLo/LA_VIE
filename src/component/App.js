@@ -27,10 +27,10 @@ function Routers() {
           path='/profile'
           render={(props) => <Profile {...props} userId={query.get('id')} />}
         />
-        <Route
+        {/* <Route
           path='/chatroom/:'
           render={(props) => <ChatRoom {...props} userId={query.get('id')} />}
-        />
+        /> */}
         <Route path='/main' component={PostList} />
         <Route component={NoMatch} />
       </Switch>

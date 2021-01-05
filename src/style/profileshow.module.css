@@ -163,9 +163,33 @@
   transition: 0.3s;
 }
 
+.relationshipWaiting {
+  background-color: black;
+  /* width: 80px; */
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  content: 'Select some files';
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.3s;
+}
+
+.decideButtonVag {
+  background-color: black;
+  /* width: 80px; */
+  color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 5px;
+  transition: 0.3s;
+  font-size: 0.8rem;
+  opacity: 0.3;
+}
+
 @media (max-width: 425px) {
   .followerBlock {
     /* border: 1px solid black; */
     display: block;
   }
-} ;
+}
