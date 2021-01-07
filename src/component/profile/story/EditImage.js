@@ -55,31 +55,6 @@ function EditImage({ post, choosedStory, chooseStory, stage, chooseCoverfunc, is
           <img src={postImage.postImageLink} className={styled.block} />
         </div>
       )}
-      {/* {stage === 1 && (
-        <div
-          className={styled.blockWrap}
-          style={{ width: '100%' }}
-          onClick={() => {
-            if (choosedStory.includes(post.postID)) {
-              chooseCoverfunc(post);
-            }
-          }}>
-          <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>
-          <div>
-            {isCover === post.postImage.postImageLink ? (
-              <div className={styled.pickCoverCircle}>
-                <img src={check} />
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
-          <div className={styled.pickPicCircle}>
-            {isImgChoose ? choosedStory.indexOf(postID) + 1 : ''}
-          </div>
-          <img src={postImage.postImageLink} className={styled.block} />
-        </div>
-      )} */}
     </>
   );
 }

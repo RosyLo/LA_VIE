@@ -84,7 +84,6 @@ function MakeStory({ setisMakeStoryClick, isMakeStoryClick, setisMakeStorySucces
 
   const chooseCoverTitle = (
     <>
-      {' '}
       <button
         className={styled.decideButton}
         onClick={() => {

@@ -1,42 +1,69 @@
 # LA VIE
-A creative and scalable Social Media Platform combining the UI advantages of Pinterest and UX experiences of Instagram while with further functional improvement to provide even outstanding user experiences.
+
+LA VIE provides you an intuitive platform to share your life and connect to like-minded friends.
+
+- Creativity: Combination of Pinterest UI, and Instagram UX advantages.
+- Functionality: Designed to make it more scalable, reliable, and easily maintainable.
 
 ## Demo
 
-![Alt text](/src/img/LA_VIE_logo.png) <https://cest-la-vie.web.app/>
-User : rosylo.demo.01@gmail.com
-Password: rosylotest01
+For your complete user experience, please login with the account provided below:
+
+User : laviedemo00@gmail.com
+
+Password: laviedemo00account
+
+<br/>
+<div style='display:flex;align-items:center'>
+<img style='width:30px;margin-right:10px' src ='src/img/LA_VIE_logo.png' alt='La Vie Logo' href='https://cest-la-vie.web.app'/><p>https://cest-la-vie.web.app</p>
+</div>
+</div>
+<br/>
+
+- Main Page:
+  Upload, Edit, Delete, Comments Posts with Access Control
+  <img src ='src/img/waterfall.gif' alt='main page' />
+  <br/>
+- Post Popup:
+  Add, Edit, Delete Comments with Access Control
+  <img src ='src/img/popup.gif' alt='main page' />
+- Profile:
+  Send, Accept Friend Requests and Unfriend
+  <img src ='src/img/friends.gif' alt='main page' />
+- Story Album:
+  View, Upload, Edit, Delete Story
+  <img src ='src/img/storylist.gif' alt='main page' />
 
 ## Technologies
-- Front-End Fundamental
-    - HTML / CSS / JavaScript
-    - CSS Module
-    - RWD
-    - Flexbox
-    - Grid
-- Front-End Frameworks
-    - React
-    - React Router
-    - Redux
-    - Redux Thunk
-- Firebase
-    - Cloud Firestore
-    - Hosting
-    - Authentication
-- Other 
-    - Version Control : Git / GitHub
-- Lib 
-Thanks for the libs [react-stack-grid](https://github.com/tsuyoshiwada/react-stack-grid), [React Select](https://github.com/JedWatson/react-select)
 
+- Front-End Fundamental
+  - HTML / CSS / JavaScript
+  - CSS Module
+  - RWD
+  - Flexbox
+  - Grid
+- Front-End Frameworks
+  - React
+  - React Router
+  - Redux
+  - Redux Thunk
+- Firebase
+  - Cloud Firestore
+  - Hosting
+  - Authentication
+- Lib
+  Thanks for the libs [react-stack-grid](https://github.com/tsuyoshiwada/react-stack-grid), [React Select](https://github.com/JedWatson/react-select)
 
 <!-- Core Components Strcture ( 2020.08 ) -->
 <!-- Website Demo -gif, steps-->
 
-
-
 <!-- plan -->
-## Plan for Next Version
-- Friends Chat Room
+
+## Future Features
+
+- Friends ChatRoom
 - Photo Filter
+
 ## Contact
-E-mail: a26620236@gmail.com
+
+E-mail: rosyluo841107@gmail.com

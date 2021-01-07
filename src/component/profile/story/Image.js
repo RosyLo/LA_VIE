@@ -32,12 +32,10 @@ function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCove
           }}>
           <div className={styled.imageTime}>{JSON.stringify(postTime)}</div>
           <div className={styled.pickPicCircle}>
-            {isCover === post.postImage.postImageLink ? (
+            {isCover === post.postImage.postImageLink && (
               <div className={styled.pickCoverCircle}>
                 <img className={styled.check} src={check} />
               </div>
-            ) : (
-              ''
             )}
           </div>
           <div className={styled.pickPicCircle}>

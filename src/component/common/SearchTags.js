@@ -83,7 +83,6 @@ function SearchTags() {
 
   return (
     <div className={styles.search} styles={{ zIndex: '10000' }}>
-      {' '}
       {isWindowSmall ? (
         <Select
           onChange={handleChangeSingle}
@@ -103,9 +102,5 @@ function SearchTags() {
     </div>
   );
 }
-
-SearchTags.propTypes = {
-  // comment: PropTypes.object.isRequired,
-};
 
 export default SearchTags;

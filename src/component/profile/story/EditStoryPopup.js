@@ -10,20 +10,14 @@ import { nanoid } from 'nanoid';
 import styled from '../../../style/makestory.module.css';
 import msgPopStyles from '../../../style/msgPopWrap.module.css';
 
-function EditStoryPopup({
-  setIsEditStoryBlockClick,
-  isEditStoryBlockClick,
-  editStory,
-  setEditStory,
-}) {
+function EditStoryPopup({ setIsEditStoryBlockClick, isEditStoryBlockClick, editStory }) {
   const dispatch = useDispatch();
   const [storyName, setstoryName] = useState(editStory.storyName);
   const [choosedCover, setChoosedCover] = useState('');
   const [isCover, setIsCover] = useState(null);
+  const [editStoryStage, setEditStoryStage] = useState(0);
   const user = useSelector((state) => state.user);
   const posts = useSelector((state) => state.posts);
-  const [editStoryStage, setEditStoryStage] = useState(0);
-
   const [isEditSuccess, setIsEditSuccess] = useState(false);
   let storiesID = [];
   useEffect(() => {
@@ -117,7 +111,6 @@ function EditStoryPopup({
 
   const chooseCoverTitle = (
     <>
-      {' '}
       <button
         className={styled.decideButton}
         onClick={() => {
