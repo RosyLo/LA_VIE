@@ -14,10 +14,8 @@ User : laviedemo00@gmail.com
 Password: laviedemo00account
 
 <br/>
-<div style='display:flex;align-items:center'>
-<img width=30px src ='src/img/LA_VIE_logo.png' alt='La Vie Logo' href='https://cest-la-vie.web.app'/><p>&nbsp&nbsp&nbsp</p><p>https://cest-la-vie.web.app</p>
+<div>Web: https://cest-la-vie.web.app</div>
 
-</div>
 </div>
 <br/>
 
