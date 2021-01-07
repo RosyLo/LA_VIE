@@ -22,7 +22,7 @@ Password: laviedemo00account
 
 - Main Page:
   Upload, Edit, Delete, Comments Posts with Access Control
-  <img src ='src/img/mainlayout.gif' alt='main page' />
+  <img src ='src/img/waterfalllayout.gif' alt='main page' />
   <br/>
 - Post Popup:
   Add, Edit, Delete Comments with Access Control
