@@ -15,7 +15,8 @@ Password: laviedemo00account
 
 <br/>
 <div style='display:flex;align-items:center'>
-<img style='width:30px;margin-right:10px' src ='src/img/LA_VIE_logo.png' alt='La Vie Logo' href='https://cest-la-vie.web.app'/><p>https://cest-la-vie.web.app</p>
+<img width=30px src ='src/img/LA_VIE_logo.png' alt='La Vie Logo' href='https://cest-la-vie.web.app'/><p>&nbsp&nbsp&nbsp</p><p>https://cest-la-vie.web.app</p>
+
 </div>
 </div>
 <br/>
@@ -33,6 +34,11 @@ Password: laviedemo00account
 - Story Album:
   View, Upload, Edit, Delete Story
   <img src ='src/img/storylist.gif' alt='main page' />
+
+## Functions
+
+- Login (Google, Facebook)
+-
 
 ## Technologies
 
