@@ -44,6 +44,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
   <img src ='src/img/readme/popup.gif' alt='post page' />
   </kbd>
   </p>
+
 -  #### Profile page:
   Profile is your own wonderland!
   Feel free to send or accept friend requests. You can check request list and friend list to manage your relationship.
@@ -52,6 +53,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
   <img src ='src/img/readme/friends.gif' alt='profile page' />
   </kbd>
   </p>
+
 - #### Story Album:
   Make your own album to store all the beautiful memories and see what others share in their album.
   <p>
