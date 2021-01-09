@@ -29,7 +29,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
 </div>
 <br/>
 
-- Waterfall Main Layout:
+-  #### Waterfall Main Layout:
   <br>
   Browsing others shares and to upload, edit, delete, comment posts with access control
   <br>
@@ -38,7 +38,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
   <img src ='src/img/readme/waterfalllayout.gif' alt='main page' />
   </kbd>
 
-- Post Popup:
+-  #### Post Popup:
   <br>
   Taking a closer look at post you are interested in and see how others feel about the share. Easily to add, edit, delete comment with access control.
   <br>
@@ -54,7 +54,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
   <kbd>
   <img src ='src/img/readme/friends.gif' alt='profile page' />
   </kbd>
-- Story Album:
+- ####  Story Album:
   <br>
   Make your own album to store all the beautiful memories and see what others share in their album.
   <br>
