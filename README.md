@@ -1,42 +1,67 @@
-# LA VIE
+<p align="center">
+  <a href="https://cest-la-vie.web.app/">
+    <img src="src/img/LA_VIE_logo.png" alt="Logo" width="50">
+  </a>
 
-LA VIE provides you an intuitive platform to share your life and connect to like-minded friends.
+  <p align="center">
+Share your lives and connect to like-minded friends in LA VIE!
+  </p> 
+</p>
 
-- Creativity: Combination of Pinterest UI, and Instagram UX advantages.
-- Functionality: Designed to make it more scalable, reliable, and easily maintainable.
+<kbd>
+    <img src="src/img/readme/preview.gif" />
+</kbd>
+<br/>
+<br/>
+- Creativity: Combination of Pinterest UI, and Instagram UX advantages to fulfill fast-paced user behavior.
+- Functionality: Designed to make it more scalable, reliable, and easily maintainable for future development.
 
 ## Demo
 
-For your complete user experience, please login with the account provided below:
+For your complete user experience, please login with the account provided below, where the album data is ready for you!
 
 User : laviedemo00@gmail.com
 
 Password: laviedemo00account
 
-<br/>
-<div>Web: https://cest-la-vie.web.app</div>
+Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
 
 </div>
 <br/>
 
-- Main Page:
-  Upload, Edit, Delete, Comments Posts with Access Control
-  <img src ='src/img/waterfalllayout.gif' alt='main page' />
+- Waterfall Main Layout:
+  <br>
+  Browsing others shares and to upload, edit, delete, comment posts with access control
+  <br>
   <br/>
+  <kbd>
+  <img src ='src/img/readme/waterfalllayout.gif' alt='main page' />
+  </kbd>
+
 - Post Popup:
-  Add, Edit, Delete Comments with Access Control
-  <img src ='src/img/popup.gif' alt='main page' />
-- Profile:
-  Send, Accept Friend Requests and Unfriend
-  <img src ='src/img/friends.gif' alt='main page' />
+  <br>
+  Taking a closer look at post you are interested in and see how others feel about the share. Easily to add, edit, delete comment with access control.
+  <br>
+  <br/>
+  <kbd>
+  <img src ='src/img/readme/popup.gif' alt='post page' />
+  </kbd>
+  <br>
+  Profile is your own wonderland!
+  Feel free to send or accept friend requests. You can check request list and friend list to manage your relationship.
+  <br>
+  <br/>
+  <kbd>
+  <img src ='src/img/readme/friends.gif' alt='profile page' />
+  </kbd>
 - Story Album:
-  View, Upload, Edit, Delete Story
-  <img src ='src/img/storylist.gif' alt='main page' />
-
-## Functions
-
-- Login (Google, Facebook)
--
+  <br>
+  Make your own album to store all the beautiful memories and see what others share in their album.
+  <br>
+  <br/>
+  <kbd>
+  <img src ='src/img/readme/storylist.gif' alt='story album' />
+  </kbd>
 
 ## Technologies
 
@@ -55,11 +80,10 @@ Password: laviedemo00account
   - Cloud Firestore
   - Hosting
   - Authentication
-- Lib
+- Lib:
   Thanks for the libs [react-stack-grid](https://github.com/tsuyoshiwada/react-stack-grid), [React Select](https://github.com/JedWatson/react-select)
 
 <!-- Core Components Strcture ( 2020.08 ) -->
-<!-- Website Demo -gif, steps-->
 
 <!-- plan -->
 
