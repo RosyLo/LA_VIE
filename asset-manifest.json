@@ -1,20 +1,28 @@
 {
   "files": {
-    "main.css": "/LA_VIE/static/css/main.08924c7e.chunk.css",
-    "main.js": "/LA_VIE/static/js/main.a76e0f44.chunk.js",
-    "main.js.map": "/LA_VIE/static/js/main.a76e0f44.chunk.js.map",
-    "runtime-main.js": "/LA_VIE/static/js/runtime-main.4b3b3439.js",
-    "runtime-main.js.map": "/LA_VIE/static/js/runtime-main.4b3b3439.js.map",
-    "static/js/2.1aa22e0f.chunk.js": "/LA_VIE/static/js/2.1aa22e0f.chunk.js",
-    "static/js/2.1aa22e0f.chunk.js.map": "/LA_VIE/static/js/2.1aa22e0f.chunk.js.map",
-    "index.html": "/LA_VIE/index.html",
-    "static/css/main.08924c7e.chunk.css.map": "/LA_VIE/static/css/main.08924c7e.chunk.css.map",
-    "static/js/2.1aa22e0f.chunk.js.LICENSE.txt": "/LA_VIE/static/js/2.1aa22e0f.chunk.js.LICENSE.txt"
+    "main.css": "./static/css/main.1882c835.chunk.css",
+    "main.js": "./static/js/main.bd64f551.chunk.js",
+    "main.js.map": "./static/js/main.bd64f551.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.d57b0811.js",
+    "runtime-main.js.map": "./static/js/runtime-main.d57b0811.js.map",
+    "static/js/2.7cc545f8.chunk.js": "./static/js/2.7cc545f8.chunk.js",
+    "static/js/2.7cc545f8.chunk.js.map": "./static/js/2.7cc545f8.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.1882c835.chunk.css.map": "./static/css/main.1882c835.chunk.css.map",
+    "static/js/2.7cc545f8.chunk.js.LICENSE.txt": "./static/js/2.7cc545f8.chunk.js.LICENSE.txt",
+    "static/media/LA_VIE_logo.c8c708c3.png": "./static/media/LA_VIE_logo.c8c708c3.png",
+    "static/media/cancel.5bd7c88e.svg": "./static/media/cancel.5bd7c88e.svg",
+    "static/media/cross.0d5d3013.png": "./static/media/cross.0d5d3013.png",
+    "static/media/downarrow.538e818f.svg": "./static/media/downarrow.538e818f.svg",
+    "static/media/more.73d5af0c.svg": "./static/media/more.73d5af0c.svg",
+    "static/media/post.module.css": "./static/media/pen.a7c19eeb.svg",
+    "static/media/plusIcon.8a20f873.png": "./static/media/plusIcon.8a20f873.png",
+    "static/media/travel.bbbe0cbb.jpg": "./static/media/travel.bbbe0cbb.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.4b3b3439.js",
-    "static/js/2.1aa22e0f.chunk.js",
-    "static/css/main.08924c7e.chunk.css",
-    "static/js/main.a76e0f44.chunk.js"
+    "static/js/runtime-main.d57b0811.js",
+    "static/js/2.7cc545f8.chunk.js",
+    "static/css/main.1882c835.chunk.css",
+    "static/js/main.bd64f551.chunk.js"
   ]
 }
