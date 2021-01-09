@@ -56,7 +56,7 @@ Web: [https://cest-la-vie.web.app](https://cest-la-vie.web.app)
   </kbd>
  </p>
 
-- #### Story Album:
+  - #### Story Album:
   Make your own album to store all the beautiful memories and see what others share in their album.
   <p>
   <kbd>
