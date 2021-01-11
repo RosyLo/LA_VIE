@@ -12,8 +12,6 @@ const stories = (state = [], action) => {
       return state.filter((story) => story.storyID !== action.payload.deleteStory.storyID);
     }
     case EDIT_STORY: {
-      console.log('EDIT_POST');
-      console.log(action.payload);
       let editStoryList = state.map((story) => {
         if (story.storyID === action.payload.stateStory.storyID) {
           return action.payload.stateStory;

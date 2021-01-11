@@ -206,7 +206,6 @@
 
 .postContentDiv {
   max-width: 800px;
-  max-height: 650px;
   padding: 2% 2% 3% 2%;
   align-items: center;
   z-index: 4;
@@ -454,6 +453,9 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+  .postContentDiv {
+    max-height: 650px;
+  }
   .buttonModal {
     display: block;
     width: 100%;

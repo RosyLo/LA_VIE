@@ -10,7 +10,6 @@ import { UNFRIEND, FRIEND, REQUESTING, fromProfile, fromMasterProfile } from '..
 
 export const getProfileRelationShip = (paramsID) => (dispatch, getState) => {
   const { user } = getState();
-  console.log(paramsID);
   const relationships = [];
   //get profile request friends list
   db.collection('RelationShip')
@@ -78,8 +77,6 @@ export const acceptFriendRequest = (relationshipID) => (dispatch, getState) => {
 };
 
 export const unFriend = (friend, isFrom) => (dispatch, getState) => {
-  console.log(friend);
-  console.log(isFrom);
   const { user } = getState();
   let docName;
   if (isFrom === fromProfile) {
@@ -99,16 +96,13 @@ export const unFriend = (friend, isFrom) => (dispatch, getState) => {
       .get()
       .then((res) => {
         if (res) {
-          console.log(res);
           docName = `${friend.uid}-${user.uid}`;
-          console.log(docName);
           dispatch(excuteDeleteRelationship(docName));
         } else if (!res) {
           db.collection('RelationShip')
             .where('relationshipID', '==', `${user.uid}-${friend.uid}`)
             .get()
             .then((res) => {
-              console.log(res);
               docName = `${user.uid}-${friend.uid}`;
               dispatch(excuteDeleteRelationship(docName));
             });
@@ -118,12 +112,10 @@ export const unFriend = (friend, isFrom) => (dispatch, getState) => {
 };
 
 const excuteDeleteRelationship = (docName) => (dispatch) => {
-  console.log(docName);
   db.collection('RelationShip')
     .doc(docName)
     .delete()
     .then(() => {
-      console.log(docName);
       dispatch({ type: UNFRIEND, payload: { docName } });
     });
 };

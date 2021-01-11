@@ -124,9 +124,13 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
               e.preventDefault();
               dispatch(addPost(image, newMsg, newTag));
               setisUploadPopupClick(false);
-              setImageURL('hihi');
               setUploadViewStage(0);
               setIsNewPostConfirm(true);
+              setImage(null);
+              setImageURL(null);
+              setNewMsg('');
+              setNewTag(null);
+              setUploadViewStage(0);
             }}>
             Upload
           </button>
@@ -149,6 +153,11 @@ function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPo
         show={isUploadPopupClick}
         handleClose={() => {
           setisUploadPopupClick(false);
+          setImage(null);
+          setImageURL(null);
+          setNewMsg('');
+          setNewTag(null);
+          setUploadViewStage(0);
         }}>
         <div className={styles.modelWrap}>
           <div className={styles.topModel}></div>

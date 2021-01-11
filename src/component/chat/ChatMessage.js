@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import firebase, { auth } from '../../firebase';
 
 function ChatMessage({ message }) {
-  console.log(message);
   const { text, uid, photoURL } = message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';

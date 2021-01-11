@@ -111,17 +111,21 @@ export const addPost = (image, newMsg, newTag) => (dispatch, getState) => {
     ref.add(post).then((docRef) => {
       post.postID = docRef.id;
 
-      ref.doc(docRef.id).update({
-        postID: docRef.id,
-      });
       ref
         .doc(docRef.id)
-        .get()
-        .then((post) => {
-          const postData = post.data();
-          formatPost(postData);
-          dispatch({ type: ADD_POST, payload: { post: postData } });
-          dispatch(tagProcess(newTag, docRef.id));
+        .update({
+          postID: docRef.id,
+        })
+        .then(() => {
+          ref
+            .doc(post.postID)
+            .get()
+            .then((post) => {
+              const postData = post.data();
+              formatPost(postData);
+              dispatch({ type: ADD_POST, payload: { post: postData } });
+              dispatch(tagProcess(newTag, docRef.id));
+            });
         });
     });
   });
@@ -197,7 +201,7 @@ export const deletePost = (deletePost, setisDeletePopupClick) => (dispatch, getS
     });
 };
 
-export const togglePostLike = (id, isfrom) => (dispatch, getState) => {
+export const toggleLike = (id, isfrom) => (dispatch, getState) => {
   const { user } = getState();
 
   if (!user) return;

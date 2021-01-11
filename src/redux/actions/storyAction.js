@@ -90,7 +90,7 @@ export const deleteStory = (deleteStory, setisStoryDeleteClick) => (dispatch, ge
     });
 };
 
-export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) => {
+export const edtiStory = (story) => (dispatch, getState) => {
   const { user } = getState();
   const { posts } = getState();
   if (!user) return;
@@ -115,5 +115,29 @@ export const edtiStory = (story, setisStoryDeleteClick) => (dispatch, getState) 
     .then((stateStory) => {
       //set state
       dispatch({ type: EDIT_STORY, payload: { stateStory } });
+    });
+};
+
+export const filterStoryPost = (deletepostID) => (dispatch, getState) => {
+  const { user } = getState();
+  const { posts } = getState();
+  if (!user) return;
+  //set db
+  const ref = db
+    .collection('Story')
+    .where('storyIssuerID', '==', user.uid)
+    .get()
+    .then((snap) => {
+      snap.forEach((doc) => {
+        doc.stories.forEach((id) => {
+          if (id === deletepostID) {
+            db.collection('Story')
+              .doc(doc.id)
+              .update({
+                stories: firebase.firestore.FieldValue.arrayRemove(deletepostID),
+              });
+          }
+        });
+      });
     });
 };

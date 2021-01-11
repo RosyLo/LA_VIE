@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePostLike } from '../../redux/actions/postAction';
+import { toggleLike } from '../../redux/actions/postAction';
 import '../../style/heart.css';
 
 function Heart({ id, likes, isfrom }) {
@@ -24,7 +24,7 @@ function Heart({ id, likes, isfrom }) {
           className='HeartAnimation animate'
           ref={heartRef}
           onClick={() => {
-            dispatch(togglePostLike(id, isfrom));
+            dispatch(Like(id, isfrom));
             heartClick();
           }}></div>
       ) : (
@@ -32,7 +32,7 @@ function Heart({ id, likes, isfrom }) {
           className='HeartAnimation'
           ref={heartRef}
           onClick={() => {
-            dispatch(togglePostLike(id, isfrom));
+            dispatch(toggleLike(id, isfrom));
             heartClick();
           }}></div>
       )}
