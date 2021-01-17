@@ -37,11 +37,14 @@ function PostList() {
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     if (winScroll <= height - 20) {
       let newLast = lastVisible.current + 10;
-      console.log('winscroll');
       dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
       lastVisible.current = newLast;
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // infinit scroll
   useEffect(() => {
     window.onscroll = () => {

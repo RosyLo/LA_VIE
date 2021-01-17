@@ -101,8 +101,21 @@
   transition: all 0.2s ease-in;
   cursor: pointer;
 }
+
+.picContainer {
+  min-height: 250px;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+}
+
+.photo {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 .authorPic:hover .picOverlay {
-  /* width: */
   height: 100%;
   opacity: 1;
 }
@@ -167,11 +180,6 @@
   border-top: 1px solid rgb(219, 219, 219);
   width: 100%;
   margin: auto;
-}
-
-.photo {
-  width: 90%;
-  min-height: 250px;
 }
 
 .editPostBar {

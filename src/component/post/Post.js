@@ -106,7 +106,9 @@ function Post({
               <div className={styles.textspan}>{postMessage}</div>
             </div>
           </div>
-          <img className={styles.photo} src={postImage.postImageLink}></img>
+          <div className={styles.picContainer}>
+            <img className={styles.photo} src={postImage.postImageLink}></img>
+          </div>
         </div>
         <div className={styles.postInteraction}>
           {isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? (

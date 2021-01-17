@@ -37,10 +37,24 @@ function Welcome() {
     },
   ];
 
-  //get welcome posts
+  const handleScroll = () => {
+    if (window.pageYOffset > 400) {
+      resetTimeout();
+    } else slideTime();
+  };
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchWelcomePosts());
+    window.onscroll = () => {
+      handleScroll();
+    };
+    return () => {
+      window.onscroll = '';
+    };
   }, []);
+
+  //get welcome posts
   const welcomeposts = useSelector((state) => state.welcomeposts);
 
   //loading

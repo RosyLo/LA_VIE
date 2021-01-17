@@ -292,13 +292,10 @@ button:hover {
   width: 48%;
   align-items: center;
   justify-content: center;
-  /* background-color: burlywood; */
   display: flex;
-  /* border: 1px solid black; */
 }
 
 .postPicture {
-  /* width: 100%; */
   max-width: 100%;
   display: block;
   margin-top: 10px;

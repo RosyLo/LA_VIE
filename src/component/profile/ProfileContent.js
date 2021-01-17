@@ -12,7 +12,6 @@ import styled from '../../style/popup.module.css';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function ProfileContent({ paramsID }) {
-  console.log(paramsID);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
@@ -26,6 +25,7 @@ function ProfileContent({ paramsID }) {
 
   useEffect(() => {
     window.onscroll = '';
+    window.scrollTo(0, 0);
     dispatch(fetchMasterPosts(paramsID));
     dispatch(receiveTags());
   }, [dispatch, paramsID]);
