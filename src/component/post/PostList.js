@@ -11,6 +11,7 @@ import styled from '../../style/popup.module.css';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function PostList() {
+  console.log('postlist');
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
@@ -22,6 +23,7 @@ function PostList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('postlist');
     dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
     dispatch(receiveTags());
   }, [dispatch]);
@@ -35,13 +37,14 @@ function PostList() {
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     if (winScroll <= height - 20) {
       let newLast = lastVisible.current + 10;
+      console.log('winscroll');
       dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
       lastVisible.current = newLast;
     }
   };
   // infinit scroll
   useEffect(() => {
-    onscroll = () => {
+    window.onscroll = () => {
       handleScroll();
     };
   }, [lastSnap]);

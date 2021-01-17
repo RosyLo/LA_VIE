@@ -52,7 +52,7 @@ function Post({
           checkLogin();
         }}>
         <div className={styles.postHeader}>
-          {!isfromWelcome && (
+          {!isfromWelcome && user ? (
             <>
               <div>
                 <Link
@@ -66,6 +66,22 @@ function Post({
                 style={{ textDecoration: 'none' }}>
                 <div className={styles.postIssuerName}>{postIssuer.postIssuerName}</div>
               </Link>
+            </>
+          ) : (
+            <>
+              <div
+                onClick={() => {
+                  setisPostClick(true);
+                }}>
+                <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
+              </div>
+              <div
+                className={styles.postIssuerName}
+                onClick={() => {
+                  setisPostClick(true);
+                }}>
+                {postIssuer.postIssuerName}
+              </div>
             </>
           )}
           {!isFromDelete && !isFromUpload && !isfromWelcome && !isFromEdit && (

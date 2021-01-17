@@ -16,6 +16,7 @@ import firebase, { db } from '../../firebase';
 import formatPost from '../../utils/formatPost';
 
 export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, getState) => {
+  console.log('fetch');
   const { posts } = getState();
   if (lastVisible === 0) {
     const postsList = [];

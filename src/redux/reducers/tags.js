@@ -9,7 +9,6 @@ const tags = (state = [], action) => {
       return action.payload.tags;
     }
     case ADD_TAG: {
-      console.log(action.payload.tagData);
       return [...state, action.payload.tagData];
     }
     default:
