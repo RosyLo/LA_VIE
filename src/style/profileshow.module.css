@@ -27,6 +27,7 @@
   border-radius: 50%;
   margin: auto 20px;
   object-fit: cover;
+  border: 1px solid #dbdbdb;
 }
 .postInfo {
   /* margin: auto 0px; */

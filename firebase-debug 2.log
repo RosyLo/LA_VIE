@@ -1,0 +1,17 @@
+[debug] [2021-01-17T13:30:17.985Z] ----------------------------------------------------------------------
+[debug] [2021-01-17T13:30:17.991Z] Command:       /Users/rosylo/.nvm/versions/node/v14.15.1/bin/node /Users/rosylo/.nvm/versions/node/v14.15.1/bin/firebase deploy
+[debug] [2021-01-17T13:30:17.992Z] CLI Version:   8.16.2
+[debug] [2021-01-17T13:30:17.992Z] Platform:      darwin
+[debug] [2021-01-17T13:30:17.992Z] Node Version:  v14.15.1
+[debug] [2021-01-17T13:30:18.008Z] Time:          Sun Jan 17 2021 21:30:17 GMT+0800 (Taipei Standard Time)
+[debug] [2021-01-17T13:30:18.009Z] ----------------------------------------------------------------------
+[debug] [2021-01-17T13:30:18.009Z] 
+[debug] [2021-01-17T13:30:18.027Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-17T13:30:18.028Z] > authorizing via signed-in user
+[debug] [2021-01-17T13:30:18.029Z] [iam] checking project c-est-la-vie-data for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-01-17T13:30:18.033Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-01-17T13:30:18.033Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-01-17T13:30:18.322Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sun, 17 Jan 2021 13:30:18 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-17T13:30:18.336Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/c-est-la-vie-data:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
