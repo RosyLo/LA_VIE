@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleLike } from '../../redux/actions/postAction';
 import '../../style/heart.css';
 
-function Heart({ id, likes, isfrom }) {
+function Heart({ id, likes, isfrom, popup }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const isLiked = user ? likes.includes(user.uid) : false;
@@ -24,7 +24,7 @@ function Heart({ id, likes, isfrom }) {
           className='HeartAnimation animate'
           ref={heartRef}
           onClick={() => {
-            dispatch(Like(id, isfrom));
+            dispatch(toggleLike(id, isfrom));
             heartClick();
           }}></div>
       ) : (
@@ -44,6 +44,7 @@ Heart.propTypes = {
   id: PropTypes.string.isRequired,
   likes: PropTypes.array.isRequired,
   isfrom: PropTypes.string.isRequired,
+  popup: PropTypes.bool.isRequired,
 };
 
 export default Heart;

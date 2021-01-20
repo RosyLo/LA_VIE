@@ -47,7 +47,11 @@ function Post({
   return (
     <>
       <div
-        className={styles.post}
+        className={
+          isFromDelete || isFromUpload || isFromEdit
+            ? `${styles.post} ${styles.nocursor}`
+            : styles.post
+        }
         onClick={() => {
           checkLogin();
         }}>
@@ -57,13 +61,13 @@ function Post({
               <div>
                 <Link
                   to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
-                  style={{ textDecoration: 'none' }}>
+                  style={{ textDecoration: 'none', display: 'inline-block' }}>
                   <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
                 </Link>
               </div>
               <Link
                 to={(location) => `/profile?id=${postIssuer.postIssuerID}`}
-                style={{ textDecoration: 'none' }}>
+                style={{ textDecoration: 'none', marginLeft: '10px' }}>
                 <div className={styles.postIssuerName}>{postIssuer.postIssuerName}</div>
               </Link>
             </>
@@ -76,7 +80,7 @@ function Post({
                 <img className={styles.postProfileImage} src={postIssuer.postIssuerImage}></img>
               </div>
               <div
-                className={styles.postIssuerName}
+                className={styles.postIssuerNameWelcome}
                 onClick={() => {
                   setisPostClick(true);
                 }}>
@@ -97,16 +101,18 @@ function Post({
           )}
         </div>
         <div className={styles.authorPic}>
-          <div
-            className={styles.picOverlay}
-            onClick={() => {
-              setisPostClick(true);
-            }}>
-            <div className={styles.content}>
-              <div className={styles.textspan}>{postMessage}</div>
+          {!isFromUpload && !isFromEdit && (
+            <div
+              className={styles.picOverlay}
+              onClick={() => {
+                setisPostClick(true);
+              }}>
+              <div className={styles.content}>
+                <div className={styles.textspan}>{postMessage}</div>
+              </div>
             </div>
-          </div>
-          <div className={styles.picContainer}>
+          )}
+          <div className={isFromUpload ? styles.picContainerUpload : styles.picContainer}>
             <img className={styles.photo} src={postImage.postImageLink}></img>
           </div>
         </div>
@@ -119,10 +125,15 @@ function Post({
             </>
           ) : (
             <>
-              <Heart id={postID} likes={postLikes} isfrom='post' />
+              <Heart
+                id={postID}
+                likes={postLikes}
+                isfrom='post'
+                popup={isFromDelete || isFromUpload || isfromWelcome || isFromEdit ? '1' : '2'}
+              />
               {!isfromWelcome && (
                 <>
-                  <div className={styles.postLikeCount}>{postLikes.length}</div>{' '}
+                  <div className={styles.postLikeCount}>{postLikes.length}</div>
                   <div className={styles.postTag}>#{postTag.value}</div>
                 </>
               )}
@@ -130,14 +141,13 @@ function Post({
           )}
         </div>
         <>
-          {isfromWelcome || !user ? (
+          {isfromWelcome || !user || isFromUpload || isFromEdit || isFromDelete ? (
             ''
           ) : (
             <div
               className={styles.postComments}
               onClick={() => {
                 setisPostClick(true);
-                // setclickPostID(postID);
               }}>
               See More
             </div>

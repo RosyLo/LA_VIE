@@ -17,33 +17,26 @@ function ChooseTags({ newTag, setNewTag }) {
     control: (base, state) => ({
       ...base,
       background: ' rgb(250,250,250)',
-      // match with the menu
       borderRadius: state.isFocused ? '3px 3px 0 0' : 3,
-      // Overwrittes the different states of border
       borderColor: 'rgb(219,219,219)',
       borderRadius: '8px',
-      // Removes weird border around container
       boxShadow: state.isFocused ? null : null,
       '&:hover': {
-        // Overwrittes the different states of border
         borderColor: 'rgb(187, 140, 47)',
       },
     }),
     menu: (base) => ({
       ...base,
-      // override border radius to match the box
       borderRadius: '5px',
-      // kill the gap
       marginTop: 0,
     }),
     menuList: (base) => ({
       ...base,
-      // kill the white space on first and last option
       padding: 0,
+      maxHeight: '80px',
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
       ...styles,
-      // backgroundColor: isDisabled ? 'red' : 'blue',
       cursor: isDisabled ? 'not-allowed' : 'default',
     }),
     multiValue: (styles, { data, isDisabled, isFocused, isSelected }) => ({

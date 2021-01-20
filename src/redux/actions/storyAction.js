@@ -99,7 +99,6 @@ export const edtiStory = (story) => (dispatch, getState) => {
   ref
     .update(story)
     .then(() => {
-      console.log('update data successful');
       let stateStory = story;
       let stateStoryStories = [];
       stateStory.stories.map((postID) => {

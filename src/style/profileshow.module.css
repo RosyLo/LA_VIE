@@ -178,7 +178,6 @@
 
 .decideButtonVag {
   background-color: black;
-  /* width: 80px; */
   color: white;
   border: 1px solid black;
   border-radius: 8px;
@@ -186,11 +185,11 @@
   transition: 0.3s;
   font-size: 0.8rem;
   opacity: 0.3;
+  cursor: text;
 }
 
 @media (max-width: 425px) {
   .followerBlock {
-    /* border: 1px solid black; */
     display: block;
   }
 }

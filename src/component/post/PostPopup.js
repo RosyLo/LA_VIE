@@ -90,21 +90,22 @@ function PostPopup({
 
             <div className={postblock.rightModel}>
               <div className={postblock.commentsWrap}>
-                {postComments &&
-                  postComments.map((postComment) => {
-                    if (postComment) {
-                      return (
-                        <>
-                          <Comment
-                            key={postComment.commentID}
-                            comment={postComment}
-                            setPostComments={setPostComments}
-                            postComments={postComments}
-                          />
-                        </>
-                      );
-                    }
-                  })}
+                {postComments.length > 0
+                  ? postComments.map((postComment) => {
+                      if (postComment) {
+                        return (
+                          <>
+                            <Comment
+                              key={postComment.commentID}
+                              comment={postComment}
+                              setPostComments={setPostComments}
+                              postComments={postComments}
+                            />
+                          </>
+                        );
+                      }
+                    })
+                  : 'No comments yet!'}
 
                 {postComments.length > 9 ? (
                   <div

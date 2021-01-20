@@ -11,7 +11,6 @@ import styled from '../../style/popup.module.css';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function PostList() {
-  console.log('postlist');
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
@@ -23,7 +22,6 @@ function PostList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('postlist');
     dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
     dispatch(receiveTags());
   }, [dispatch]);

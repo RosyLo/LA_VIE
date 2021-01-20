@@ -8,7 +8,6 @@ import ProfileContent from './ProfileContent';
 
 function Profile({ userId }) {
   const user = useSelector((state) => state.user);
-  console.log(user);
   let view = '';
 
   if (!user) {
@@ -19,7 +18,6 @@ function Profile({ userId }) {
       </>
     );
   } else if (user.uid === userId) {
-    console.log(user);
     //master
     view = (
       <>
@@ -29,7 +27,6 @@ function Profile({ userId }) {
       </>
     );
   } else {
-    console.log(user);
     //viewer
     view = (
       <>

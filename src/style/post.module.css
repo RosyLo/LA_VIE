@@ -81,6 +81,14 @@
   width: 30px;
   height: 30px;
 }
+
+.nocursor .postProfileImage,
+.nocursor .postIssuerName,
+.nocursor .authorPic,
+.nocursor a {
+  cursor: default !important;
+}
+
 .postProfileImage {
   width: 30px;
   height: 30px;
@@ -89,8 +97,12 @@
   cursor: pointer;
 }
 
-.postIssuerName {
+.postIssuerNameWelcome {
+  cursor: pointer;
   margin-left: 10px;
+}
+
+.postIssuerName {
   cursor: pointer;
 }
 
@@ -101,9 +113,14 @@
   transition: all 0.2s ease-in;
   cursor: pointer;
 }
+.picContainerUpload {
+  min-height: 250px;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+}
 
 .picContainer {
-  min-height: 250px;
   width: 90%;
   height: 100%;
   margin: auto;
@@ -135,14 +152,15 @@
 
 .content {
   position: absolute;
-  top: 45%;
-  left: 45%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: #fff;
   font-size: 15px;
   overflow: hidden;
   word-break: break-all;
+  margin: auto;
 }
 
 .content div {
@@ -160,12 +178,14 @@
 
 .postLikeCount {
   padding-bottom: 2px;
+  cursor: default;
 }
 
 .postTag {
   font-size: 1rem;
   margin-left: auto;
   margin-right: 15px;
+  cursor: default;
 }
 
 .postComments {

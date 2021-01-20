@@ -128,17 +128,13 @@ button:focus {
   flex-direction: column;
   height: 100%;
   justify-content: center;
-  /* border: cornflowerblue 1px solid; */
 }
 .decideBlock {
-  /* border: black 1px solid; */
   width: 100%;
   height: 100%;
-  /* align-items: center; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding: 10px; */
   margin: '0px 0px 50px 0px';
 }
 .decideBlockMsg {
@@ -149,12 +145,15 @@ button:focus {
   flex-direction: column;
 }
 .postMsgInput {
+  box-sizing: border-box;
+  padding: 8px;
   width: 98%;
   border: 1px solid rgba(219, 219, 219);
   border-radius: 8px;
   background: rgba(250, 250, 250);
   font-size: 18px;
   max-height: 250px;
+  resize: none;
 }
 .postMsgInput:hover {
   outline: none;

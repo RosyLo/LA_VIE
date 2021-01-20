@@ -16,12 +16,8 @@ import firebase, { db } from '../../firebase';
 import formatPost from '../../utils/formatPost';
 
 export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, getState) => {
-  console.log('fetch');
-  console.log(lastVisible);
-  console.log(lastSnap);
   const { posts } = getState();
   if (lastVisible === 0) {
-    console.log('fetching');
     const postsList = [];
     db.collection('Post')
       .orderBy('postTime', 'desc')
@@ -43,7 +39,6 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
           postsList.push(postData);
         });
         setLastSnap(snap.docs[9]);
-        console.log(snap.docs[9]);
       })
       .then(() => {
         dispatch({
@@ -55,7 +50,6 @@ export const fetchPosts = (lastVisible, lastSnap, setLastSnap) => (dispatch, get
         dispatch({ type: RECIEVING_LOADING, payload: false });
       });
   } else if (lastSnap) {
-    console.log('fetch');
     let postsList = [...posts];
     db.collection('Post')
       .orderBy('postTime', 'desc')

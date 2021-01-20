@@ -90,26 +90,20 @@ nav {
   margin: auto;
   max-height: 30px;
   height: 30px;
-  /* overflow: hidden; */
 }
 
 .loginPopContain {
-  /* align-self: start; */
   height: 350px;
   display: flex;
-  /* background-color: rosybrown; */
-
   justify-content: space-around;
 }
 
 .loginWrap {
-  /* background-color: blueviolet; */
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* justify-content: space-around; */
   width: 300px;
   height: 100%;
 }
@@ -120,7 +114,6 @@ nav {
   color: #3f3f33;
   justify-content: center;
   align-items: center;
-  /* padding: 10px; */
 }
 
 .loginTitle img {
@@ -218,7 +211,6 @@ nav {
     margin: auto;
     max-height: 30px;
     height: 30px;
-    /* overflow: hidden; */
   }
   .navIcon {
     margin-right: 5px;

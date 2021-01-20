@@ -5,6 +5,7 @@ import {
   ADD_POST_COMMENT,
   EDIT_POST_COMMENT,
   DELETE_POST_COMMENT,
+  RECIEVING_LOADING,
 } from '../actionTypes';
 import firebase, { db } from '../../firebase';
 
@@ -30,6 +31,7 @@ export const fetchComments = (clickPostID, lastSnap, setLastSnap, lastVisible) =
       })
       .then(() => {
         dispatch({ type: RECEIVED_COMMENT, payload: { commentsList } });
+        dispatch({ type: RECIEVING_LOADING, payload: false });
       });
   } else if (lastSnap) {
     let commentsList = [...comments];
@@ -47,6 +49,7 @@ export const fetchComments = (clickPostID, lastSnap, setLastSnap, lastVisible) =
       })
       .then(() => {
         dispatch({ type: RECEIVED_COMMENT, payload: { commentsList } });
+        dispatch({ type: RECIEVING_LOADING, payload: false });
       });
   }
 };

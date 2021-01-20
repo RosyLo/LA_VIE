@@ -150,10 +150,12 @@
   padding: 5px;
   transition: 0.3s;
   opacity: 0.3;
+  cursor: text;
 }
 .decideButtonVag:hover {
   background-color: black;
   border: 1px solid black;
+  cursor: text;
 }
 
 @media (max-width: 768px) {
@@ -245,9 +247,11 @@
     opacity: 0.3;
     font-size: 0.8rem;
     margin: 10px;
+    cursor: text;
   }
   .decideButtonVag:hover {
     background-color: black;
     border: 1px solid black;
+    cursor: text;
   }
 }
