@@ -201,7 +201,6 @@ function Welcome() {
               <div
                 className={headerstyle.google}
                 onClick={() => dispatch(login('google', setPleaseLogin, setisPostClick))}>
-                {/* <img src={google} className={headerstyle.googleIcon} /> */}
                 Google Login
               </div>
 

@@ -104,6 +104,7 @@ const Header = () => {
           </div>
         </nav>
       </div>
+      <div style={{ width: '100%', height: '130px' }}></div>
       <LoginPopup
         show={loginPopup}
         handleClose={() => {

@@ -33,7 +33,7 @@ function PostList() {
     setIsScrollFetching(!isScrollFetching);
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (winScroll <= height - 20) {
+    if (winScroll >= height - 40) {
       let newLast = lastVisible.current + 10;
       dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
       lastVisible.current = newLast;
@@ -42,6 +42,7 @@ function PostList() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(document.body.scrollTop);
   }, []);
   // infinit scroll
   useEffect(() => {
@@ -54,12 +55,12 @@ function PostList() {
     if (stakeGridRef.current) {
       stakeGridRef.current.updateLayout();
     }
-  }, [comments]);
-  useEffect(() => {
-    if (stakeGridRef.current) {
-      stakeGridRef.current.updateLayout();
-    }
-  }, [posts]);
+  }, [comments, posts]);
+  // useEffect(() => {
+  //   if (stakeGridRef.current) {
+  //     stakeGridRef.current.updateLayout();
+  //   }
+  // }, [posts]);
 
   //search tags
   let filterTags = [];
