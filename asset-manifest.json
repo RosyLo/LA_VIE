@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.1882c835.chunk.css",
-    "main.js": "./static/js/main.bd64f551.chunk.js",
-    "main.js.map": "./static/js/main.bd64f551.chunk.js.map",
+    "main.css": "./static/css/main.95ace57c.chunk.css",
+    "main.js": "./static/js/main.cee44e35.chunk.js",
+    "main.js.map": "./static/js/main.cee44e35.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.d57b0811.js",
     "runtime-main.js.map": "./static/js/runtime-main.d57b0811.js.map",
-    "static/js/2.7cc545f8.chunk.js": "./static/js/2.7cc545f8.chunk.js",
-    "static/js/2.7cc545f8.chunk.js.map": "./static/js/2.7cc545f8.chunk.js.map",
+    "static/js/2.cca88088.chunk.js": "./static/js/2.cca88088.chunk.js",
+    "static/js/2.cca88088.chunk.js.map": "./static/js/2.cca88088.chunk.js.map",
     "index.html": "./index.html",
-    "static/css/main.1882c835.chunk.css.map": "./static/css/main.1882c835.chunk.css.map",
-    "static/js/2.7cc545f8.chunk.js.LICENSE.txt": "./static/js/2.7cc545f8.chunk.js.LICENSE.txt",
+    "static/css/main.95ace57c.chunk.css.map": "./static/css/main.95ace57c.chunk.css.map",
+    "static/js/2.cca88088.chunk.js.LICENSE.txt": "./static/js/2.cca88088.chunk.js.LICENSE.txt",
     "static/media/LA_VIE_logo.c8c708c3.png": "./static/media/LA_VIE_logo.c8c708c3.png",
     "static/media/cancel.5bd7c88e.svg": "./static/media/cancel.5bd7c88e.svg",
     "static/media/cross.0d5d3013.png": "./static/media/cross.0d5d3013.png",
@@ -21,8 +21,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.d57b0811.js",
-    "static/js/2.7cc545f8.chunk.js",
-    "static/css/main.1882c835.chunk.css",
-    "static/js/main.bd64f551.chunk.js"
+    "static/js/2.cca88088.chunk.js",
+    "static/css/main.95ace57c.chunk.css",
+    "static/js/main.cee44e35.chunk.js"
   ]
 }
