@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 * {
   font-family: 'Noto Sans TC', 'Noto Serif TC', serif, Arial, Helvetica, sans-serif;
-  /* font-family: 'Noto Sans TC','Noto Serif TC', serif,Arial, Helvetica, sans-serif; */
 }
 
 /* StoryModal  */
@@ -176,7 +175,6 @@
 .storyContentDiv {
   min-width: 300px;
   max-width: 1000px;
-
   width: 70%;
   padding: 2%;
   align-items: center;
@@ -246,8 +244,6 @@ button:hover {
 }
 
 .contentWrap {
-  /* animation: fade 2s;  */
-
   animation-name: fade;
   animation-duration: 0.5s;
   width: 100vw;
@@ -256,7 +252,6 @@ button:hover {
   left: 50%;
   position: fixed;
   z-index: 2500;
-  /* background-color: rgb(187, 140, 47); */
   transform: translate(-50%, -50%);
 }
 
@@ -401,9 +396,6 @@ button:hover {
   cursor: pointer;
   padding: 5px 15px 5px 15px;
   font-size: 13.3px;
-  transition: 0.3s;
-  transition: 0.3s;
-  transition: 0.3s;
   transition: 0.3s;
 }
 
