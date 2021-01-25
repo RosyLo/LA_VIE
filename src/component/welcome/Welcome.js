@@ -88,7 +88,7 @@ function Welcome() {
             return 0;
           } else if (prevIndex === 0) {
             return 1;
-          } else if (prevIndex == 2) {
+          } else if (prevIndex === 2) {
             return 1;
           }
         }),
@@ -204,7 +204,7 @@ function Welcome() {
                 Google Login
               </div>
 
-              <div className={headerstyle.text}> OR</div>
+              <div className={headerstyle.text}>Or</div>
               <div
                 className={headerstyle.facebook}
                 onClick={() => dispatch(login('facebook', setPleaseLogin, setisPostClick))}>

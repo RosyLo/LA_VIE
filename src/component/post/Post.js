@@ -199,7 +199,7 @@ function Post({
                 onClick={() => dispatch(login('google', setPleaseLogin, setisPostClick))}>
                 Google Login
               </div>
-              <div className={headerstyle.text}> OR</div>
+              <div className={headerstyle.text}> Or</div>
               <div
                 className={headerstyle.facebook}
                 onClick={() => dispatch(login('facebook', setPleaseLogin, setisPostClick))}>

@@ -2,7 +2,7 @@ import { generatePath } from 'react-router';
 import { useSelector } from 'react-redux';
 import { RECEIVED_RELATIONSHIP, SEND_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST } from '../actionTypes';
 import { db } from '../../firebase';
-import { UNFRIEND, FRIEND, REQUESTING, fromProfile, fromMasterProfile } from '../../utils/names';
+import { UNFRIEND, FRIEND, REQUESTING, FROMPROFILE, FROMMASTERPROFILE } from '../../utils/names';
 
 //state: 以使用者的角色
 //db 上的state : friend,requesting
@@ -79,7 +79,7 @@ export const acceptFriendRequest = (relationshipID) => (dispatch, getState) => {
 export const unFriend = (friend, isFrom) => (dispatch, getState) => {
   const { user } = getState();
   let docName;
-  if (isFrom === fromProfile) {
+  if (isFrom === FROMPROFILE) {
     docName = friend.relationshipID;
     db.collection('RelationShip')
       .doc(docName)
@@ -89,7 +89,7 @@ export const unFriend = (friend, isFrom) => (dispatch, getState) => {
         dispatch(excuteDeleteRelationship(docName));
         //找到該relationship，刪除
       });
-  } else if (isFrom === fromMasterProfile) {
+  } else if (isFrom === FROMMASTERPROFILE) {
     //找到該relationship，刪除
     db.collection('RelationShip')
       .where('relationshipID', '==', `${friend.uid}-${user.uid}`)

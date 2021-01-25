@@ -10,7 +10,7 @@
   width: 100%;
 }
 .slideshow {
-  margin: 150px auto;
+  margin: auto;
   overflow: hidden;
   max-width: 975px;
 }

@@ -126,7 +126,7 @@ const Header = () => {
               Google Login
             </div>
 
-            <div className={styles.text}> OR</div>
+            <div className={styles.text}> Or</div>
             <div
               className={styles.facebook}
               onClick={() => dispatch(login('facebook', setLoginPopup))}>

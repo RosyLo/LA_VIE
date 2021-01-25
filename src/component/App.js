@@ -25,7 +25,9 @@ function Routers() {
         </Route>
         <Route
           path='/profile'
-          render={(props) => <Profile {...props} userId={query.get('id')} />}
+          render={(props) =>
+            user ? <Profile {...props} userId={query.get('id')} /> : <Redirect to='/main' />
+          }
         />
         {/* <Route
           path='/chatroom/:'
