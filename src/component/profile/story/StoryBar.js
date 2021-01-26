@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import StoryCircle from '../../../component/profile/story/StoryCircle';
 import MakeStory from '../story/MakeStory';
 import { MsgPopup } from '../../common/MsgPopup';
 import { fetchStories } from '../../../redux/actions/storyAction';
-import styles from '../../../style/storybar.module.css';
+import styles from '../../../style/storybar.module.scss';
 import msgPopStyles from '../../../style/msgPopWrap.module.css';
-import styled from '../../../style/popup.module.css';
+import styled from '../../../style/popup.module.scss';
 import plus from '../../../img/plusIcon.png';
 import leftarrow from '../../../img/left-arrow.png';
 import rightarrow from '../../../img/right-arrow.png';
@@ -19,11 +19,11 @@ function StoryBar({ paramsID }) {
   const posts = useSelector((state) => state.posts);
   const [isMakeStoryClick, setisMakeStoryClick] = useState(false);
   const [isMakeStorySuccess, setisMakeStorySucces] = useState(false);
-  const containRef = React.useRef(null);
-  const wrapRef = React.useRef(null);
-  const barLeftArrowRef = React.useRef(null);
-  const barRightArrowRef = React.useRef(null);
-  const circleRef = React.useRef(null);
+  const containRef = useRef(null);
+  const wrapRef = useRef(null);
+  const barLeftArrowRef = useRef(null);
+  const barRightArrowRef = useRef(null);
+  const circleRef = useRef(null);
   const [constainMargin, setconstainMargin] = useState(0);
   const loading = useSelector((state) => state.loading);
   //stories 慢，判斷完了

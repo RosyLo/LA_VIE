@@ -1,9 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import cross from '../../img/cancel.svg';
-import styles from '../../style/storybar.module.css';
-import popupstyles from '../../style/popup.module.css';
+import styles from '../../style/storybar.module.scss';
+import popupstyles from '../../style/popup.module.scss';
 
 export const MsgPopup = ({ handleClose, show, children }) => {
   return ReactDom.createPortal(

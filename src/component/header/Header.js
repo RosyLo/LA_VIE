@@ -1,7 +1,7 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import UploadPostButton from '../common/UploadPostButton';
 import { BarPopup } from '../common/BarPopup';
@@ -12,8 +12,8 @@ import { LoginPopup } from '../common/LoginPopup';
 import ProfileImage from '../header/ProfileImage';
 import { login, logout } from '../../redux/actions/loginAction';
 import arrow from '../../img/downarrow.svg';
-import styles from '../../style/header.module.css';
-import '../../style/header.module.css';
+import styles from '../../style/header.module.scss';
+import '../../style/header.module.scss';
 import travel from '../../img/travel.jpg';
 
 const Header = () => {

@@ -1,4 +1,3 @@
-import { React } from 'react';
 import ChatList from './ChatList';
 import ChatRoom from './ChatRoom';
 

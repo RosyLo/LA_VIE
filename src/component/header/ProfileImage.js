@@ -1,6 +1,5 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import styles from '../../style/header.module.css';
+import styles from '../../style/header.module.scss';
 
 function ProfileImage() {
   const user = useSelector((state) => state.user);

@@ -1,3 +1,4 @@
+@import './common/variables';
 .loading {
   margin-top: 250px;
 }
@@ -118,7 +119,7 @@
   font-size: 1.5rem;
   margin: 10px auto 10px auto;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgb(187, 140, 47);
+  border-bottom: $border-gold;
 }
 .requestStateNone {
   display: flex;
@@ -128,7 +129,7 @@
   font-size: 1.5rem;
   margin: 10px auto 10px auto;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgb(255, 255, 255);
+  border-bottom: 1px solid $background-whiter;
   opacity: 0.3;
   cursor: pointer;
 }
@@ -136,7 +137,7 @@
 .separater {
   width: 99%;
   margin: auto;
-  border: 1px solid rgba(219, 219, 219);
+  border: $border;
 }
 
 .relationshipButton {

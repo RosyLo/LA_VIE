@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,8 +7,8 @@ import Comment from './Comment';
 import { StyleModal } from '../common/PopupModal';
 import Commenting from './Commenting';
 import { fetchComments } from '../../redux/actions/commentAction';
-import styles from '../../style/editpostpopup.module.css';
-import postblock from '../../style/postblock.module.css';
+import styles from '../../style/editpostpopup.module.scss';
+import postblock from '../../style/postblock.module.scss';
 
 function PostPopup({
   post,

@@ -1,8 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import CancelButton from '../common/CancelButton';
-import styles from '../../style/popup.module.css';
+import styles from '../../style/popup.module.scss';
 
 export const LoginPopup = ({ handleClose, show, children, slideTime }) => {
   return ReactDom.createPortal(

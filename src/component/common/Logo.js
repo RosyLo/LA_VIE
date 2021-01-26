@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../../style/header.module.css';
+import styles from '../../style/header.module.scss';
 import logo from '../../img/LA_VIE_logo.png';
 
 function Logo() {

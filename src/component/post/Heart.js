@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLike } from '../../redux/actions/postAction';
 import '../../style/heart.css';
@@ -8,7 +8,7 @@ function Heart({ id, likes, isfrom, popup }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const isLiked = user ? likes.includes(user.uid) : false;
-  const heartRef = React.useRef(null);
+  const heartRef = useRef(null);
   const heartClick = () => {
     if (isLiked) {
       heartRef.current.className = ' HeartAnimation';

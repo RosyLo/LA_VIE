@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import StackGrid from 'react-stack-grid';
 import Post from './Post';
@@ -6,8 +6,8 @@ import Loading from '../common/Loading';
 import { MsgPopup } from '../common/MsgPopup';
 import { fetchPosts } from '../../redux/actions/postAction';
 import { receiveTags } from '../../redux/actions/searchAction';
-import styles from '../../style/post.module.css';
-import styled from '../../style/popup.module.css';
+import styles from '../../style/post.module.scss';
+import styled from '../../style/popup.module.scss';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function PostList() {
@@ -18,7 +18,7 @@ function PostList() {
   const [lastSnap, setLastSnap] = useState('');
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const [isScrollFetching, setIsScrollFetching] = useState(false);
-  const stakeGridRef = React.useRef(null);
+  const stakeGridRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function PostList() {
 
   //loading
   const loading = useSelector((state) => state.loading);
-  const lastVisible = React.useRef(0);
+  const lastVisible = useRef(0);
   const handleScroll = () => {
     setIsScrollFetching(!isScrollFetching);
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;

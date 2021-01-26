@@ -1,3 +1,6 @@
+@import './common/mixin';
+@import './common/variables';
+
 .loading {
   margin-top: 250px;
 }
@@ -8,8 +11,17 @@
 }
 
 .postWrap {
-  /* margin-top: 130px; */
   width: 100%;
+}
+.post {
+  .postProfileImage,
+  .postIssuerNameWelcome,
+  .postIssuerName,
+  .authorPic,
+  .postLikeCount,
+  .postComments {
+    cursor: pointer;
+  }
 }
 
 .noPostWrap {
@@ -28,7 +40,7 @@
   height: 100%;
 }
 .commentInput {
-  border: 1px solid rgb(255, 255, 255) !important;
+  border: 1px solid $background-whiter !important;
   margin: 5px 10px;
   padding: 0 8px;
   flex: 1;
@@ -38,11 +50,11 @@
   display: inline-block;
   font-size: 0.8rem !important;
   border-radius: 8px;
-  background: rgb(255, 255, 255);
+  background: $background-whiter;
 }
 
 .commentInput:focus {
-  border: 1px solid rgb(187, 140, 47) !important;
+  border: $border-gold !important;
   border-radius: 8px;
 }
 
@@ -52,16 +64,16 @@
 }
 
 .post input:focus {
-  border: 1px solid rgb(187, 140, 47);
+  border: $border-gold;
   border-radius: 8px;
   margin-top: 5px;
 }
 
 .post {
-  background: rgb(255, 255, 255);
+  background: $background-whiter;
   text-align: center;
   position: relative;
-  border: 1px solid rgb(219, 219, 219);
+  border: $border;
   box-shadow: 1px 1px 3px rgb(219, 219, 219);
   border-radius: 8px;
   width: 300px;
@@ -82,28 +94,25 @@
   height: 30px;
 }
 
-.nocursor .postProfileImage,
-.nocursor .postIssuerName,
-.nocursor .authorPic,
-.nocursor a {
-  cursor: default !important;
+.nocursor {
+  .postProfileImage,
+  .postIssuerName,
+  .authorPic,
+  .postTag,
+  a {
+    cursor: default !important;
+  }
 }
 
 .postProfileImage {
   width: 30px;
   height: 30px;
-  border: 1px solid rgb(219, 219, 219);
+  border: $border;
   border-radius: 50px;
-  cursor: pointer;
 }
 
 .postIssuerNameWelcome {
-  cursor: pointer;
   margin-left: 10px;
-}
-
-.postIssuerName {
-  cursor: pointer;
 }
 
 .authorPic {
@@ -111,7 +120,6 @@
   position: relative;
   transition: 1s;
   transition: all 0.2s ease-in;
-  cursor: pointer;
 }
 .picContainerUpload {
   min-height: 250px;
@@ -178,14 +186,12 @@
 
 .postLikeCount {
   padding-bottom: 2px;
-  cursor: default;
 }
 
 .postTag {
   font-size: 1rem;
   margin-left: auto;
   margin-right: 15px;
-  cursor: default;
 }
 
 .postComments {
@@ -193,13 +199,10 @@
   font-size: 0.5rem;
   text-align: left;
   padding: 0 5px;
-  cursor: pointer;
 }
 
 .separater {
-  border-top: 1px solid rgb(219, 219, 219);
-  width: 100%;
-  margin: auto;
+  @include separator(100%);
 }
 
 .editPostBar {
@@ -234,7 +237,7 @@ input:focus {
   z-index: 5000;
   border-radius: 8px;
   box-shadow: 1px 1px 3px #ced1d6;
-  background: rgb(250, 250, 250);
+  background: $background-white;
 }
 
 @media (max-width: 425px) {

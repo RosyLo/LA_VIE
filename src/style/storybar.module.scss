@@ -1,3 +1,5 @@
+@import './common/variables';
+
 .loading {
   margin: 400px auto 100px auto;
 }
@@ -8,9 +10,7 @@
 }
 
 .storyBarWrap {
-  /* border: 1px solid red; */
   display: flex;
-  /* width: 70%; */
   margin: 10px auto;
   justify-content: center;
   position: relative;
@@ -26,15 +26,10 @@
 .storyCircleWrap {
   display: flex;
   width: 100%;
-  /* border: 1px solid pink; */
-  /* justify-content: center; */
   overflow: hidden;
 }
 .storyCircleContain {
   display: flex;
-  /* width: 100%; */
-  /* border: 1px solid black; */
-  /* background-color: gold; */
 }
 
 .storyBlock {
@@ -44,7 +39,6 @@
 
 .story {
   display: block;
-  /* border: 1px solid black; */
   text-align: center;
   position: relative;
 }
@@ -57,8 +51,8 @@
   width: 20vw;
   height: 20vw;
   border-radius: 50%;
-  background-color: rgb(250, 250, 250);
-  border: 1px solid rgb(219, 219, 219);
+  background-color: $background-white;
+  border: $border;
   margin: 0px 20px;
   cursor: pointer;
   object-fit: cover;
@@ -104,14 +98,14 @@
 .storyBlockWrap:hover .rightarrow {
   display: block;
   border-radius: 50%;
-  background-color: rgb(255, 255, 255);
+  background-color: $background-whiter;
   opacity: 0.3;
 }
 
 .storyBlockWrap:hover .leftarrow {
   display: block;
   border-radius: 50%;
-  background-color: rgb(255, 255, 255);
+  background-color: $background-whiter;
   opacity: 0.3;
 }
 
@@ -154,7 +148,7 @@
   transform: translate(50%, -50%);
   top: 45%;
   cursor: pointer;
-  background: rgba(250, 250, 250, 0.8);
+  background: $background-cursor;
   border-radius: 50%;
   z-index: 3;
   display: block;
@@ -167,7 +161,7 @@
   transform: translate(-50%, -50%);
   top: 45%;
   cursor: pointer;
-  background: rgba(250, 250, 250, 0.8);
+  background: $background-cursor;
   border-radius: 50%;
   z-index: 3;
   display: none;

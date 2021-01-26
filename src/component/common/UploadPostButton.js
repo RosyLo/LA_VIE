@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UploadPostBlock from './UploadPostBlock';
 import { MsgPopup } from './MsgPopup';
-import styled from '../../style/popup.module.css';
-import styles from '../../style/header.module.css';
+import styled from '../../style/popup.module.scss';
+import styles from '../../style/header.module.scss';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 import plus from '../../img/plusIcon.png';
 

@@ -1,8 +1,8 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addComment } from '../../redux/actions/commentAction';
-import styles from '../../style/post.module.css';
+import styles from '../../style/post.module.scss';
 import { nanoid } from 'nanoid';
 
 function Commenting({ postID }) {

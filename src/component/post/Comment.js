@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Heart from '../post/Heart';
@@ -6,7 +6,7 @@ import { MsgPopup } from '../common/MsgPopup';
 import CancelButton from '../common/CancelButton';
 import { editComment, deleteComment } from '../../redux/actions/commentAction';
 import styles from '../../style/comment.module.css';
-import styled from '../../style/popup.module.css';
+import styled from '../../style/popup.module.scss';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function Comment({ comment, setPostComments, postComments }) {

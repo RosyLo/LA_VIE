@@ -1,7 +1,6 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import styled from '../../../style/popup.module.css';
+import styled from '../../../style/popup.module.scss';
 import cross from '../../../img/cross.png';
 
 export const StoryModal = ({ handleClose, show, children }) => {

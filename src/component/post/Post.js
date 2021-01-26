@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -13,8 +13,8 @@ import '../../style/heart.css';
 import '../../style/heart.css';
 import { login } from '../../redux/actions/loginAction';
 import travel from '../../img/travel.jpg';
-import headerstyle from '../../style/header.module.css';
-import styles from '../../style/post.module.css';
+import headerstyle from '../../style/header.module.scss';
+import styles from '../../style/post.module.scss';
 function Post({
   post,
   newTag,
@@ -34,6 +34,7 @@ function Post({
   const [pleaseLogin, setPleaseLogin] = useState(false);
   const [isPostClick, setisPostClick] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let newList = postcomments.filter((comment) => comment.postID === postID);
     setCommentList(newList);

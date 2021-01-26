@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '../../../style/makestory.module.css';
+import styled from '../../../style/makestory.module.scss';
 import check from '../../../img/check.png';
 
 function Image({ post, choosedStory, chooseStory, stage, chooseCoverfunc, isCover }) {

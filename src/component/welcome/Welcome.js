@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import StackGrid from 'react-stack-grid';
 import Post from '../post/Post';
@@ -7,10 +7,10 @@ import Logo from '../common/Logo';
 import { LoginPopup } from '../common/LoginPopup';
 import { fetchWelcomePosts } from '../../redux/actions/postAction';
 import { login } from '../../redux/actions/loginAction';
-import headerstyle from '../../style/header.module.css';
-import styles from '../../style/post.module.css';
-import '../../style/welcome.css';
-import '../../style/welcomeshow.css';
+import headerstyle from '../../style/header.module.scss';
+import styles from '../../style/post.module.scss';
+import '../../style/welcome.scss';
+import '../../style/welcomeshow.scss';
 import travel from '../../img/travel.jpg';
 
 function Welcome() {
@@ -27,7 +27,6 @@ function Welcome() {
       tagName: 'AMAZING VACATION',
       backgroundColor: 'rgb(86, 181, 183)',
       backgroundImage: '#fbde90',
-      // 114, 202, 232
     },
     {
       tag: 'FOODIE',
@@ -61,13 +60,13 @@ function Welcome() {
   const loading = useSelector((state) => state.loading);
   const [pleaseLogin, setPleaseLogin] = useState(false);
   const [isPostClick, setisPostClick] = useState(false);
-  const stakeGridRef = React.useRef(null);
+  const stakeGridRef = useRef(null);
 
   //slide show
   const delay = 5000;
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
   const [isTo2, setIsTo2] = useState(true);
-  const timeoutRef = React.useRef(null);
+  const timeoutRef = useRef(null);
 
   function resetTimeout() {
     if (timeoutRef.current) {

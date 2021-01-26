@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { edtiStory } from '../../../redux/actions/storyAction';
 import { MakeStoryModal } from '../../common/MakeStoryModal';
 import EditImage from '../story/EditImage';
 import { MsgPopup } from '../../common/MsgPopup';
-import styles from '../../../style/popup.module.css';
+import styles from '../../../style/popup.module.scss';
 import { nanoid } from 'nanoid';
-import styled from '../../../style/makestory.module.css';
+import styled from '../../../style/makestory.module.scss';
 import msgPopStyles from '../../../style/msgPopWrap.module.css';
 
 function EditStoryPopup({ setIsEditStoryBlockClick, isEditStoryBlockClick, editStory }) {

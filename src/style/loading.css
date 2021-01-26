@@ -1,9 +1,5 @@
 .loading {
   animation: fadeIn 1s infinite alternate;
-  /* animation: rotation 1s infinite linear; */
-  /* border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  border-top-color: rgba(29, 28, 28, 0.849); */
   height: 3em;
   width: 3em;
 }

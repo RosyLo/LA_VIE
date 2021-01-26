@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from '../post/Post';
 import ChooseTags from './ChooseTags';
 import { StyleModal } from '../common/PopupModal';
 import { editPost } from '../../redux/actions/postAction';
-import styles from '../../style/popup.module.css';
-import styled from '../../style/editpostpopup.module.css';
+import styles from '../../style/popup.module.scss';
+import styled from '../../style/editpostpopup.module.scss';
 
 function EditPostPopup({ editPostID, setisEditClick, isEditClick, setIsUploadPopup }) {
-  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const editpost = posts.find((post) => post.postID === editPostID);
   const [uploadViewStage, setUploadViewStage] = useState(0);
@@ -127,7 +126,7 @@ function EditPostPopup({ editPostID, setisEditClick, isEditClick, setIsUploadPop
               setIsUploadPopup(true);
               e.preventDefault();
               e.stopPropagation();
-              dispatch(editPost(editPostID, image, imageURL, newMsg, newTag, setIsUploadPopup));
+              useDispatch(editPost(editPostID, image, imageURL, newMsg, newTag, setIsUploadPopup));
               setisEditClick(false);
               setImageURL(null);
               setUploadViewStage(0);

@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../style/popup.module.css';
+import styles from '../../style/popup.module.scss';
 
 export const BarPopup = ({ handleClose, show, top, right, children }) => {
   return (

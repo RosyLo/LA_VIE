@@ -1,5 +1,3 @@
-import { generatePath } from 'react-router';
-import { useSelector } from 'react-redux';
 import { RECEIVED_RELATIONSHIP, SEND_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST } from '../actionTypes';
 import { db } from '../../firebase';
 import { UNFRIEND, FRIEND, REQUESTING, FROMPROFILE, FROMMASTERPROFILE } from '../../utils/names';

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../../redux/actions/postAction';
 import { StyleModal } from './PopupModal';
 import ChooseTags from './ChooseTags';
 import Post from '../post/Post';
-import styled from '../../style/editpostpopup.module.css';
-import styles from '../../style/popup.module.css';
+import styled from '../../style/editpostpopup.module.scss';
+import styles from '../../style/popup.module.scss';
 import { nanoid } from 'nanoid';
 
 function UploadPostBlock({ setisUploadPopupClick, isUploadPopupClick, setIsNewPostConfirm }) {

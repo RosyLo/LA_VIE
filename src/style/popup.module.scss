@@ -1,3 +1,5 @@
+@import './common/mixin';
+@import './common/variables';
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 * {
   font-family: 'Noto Sans TC', 'Noto Serif TC', serif, Arial, Helvetica, sans-serif;
@@ -9,7 +11,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: rgb(255, 255, 255);
+  background-color: $background-whiter;
   opacity: 0.2;
   padding: 5px;
 }
@@ -20,7 +22,6 @@
   outline: none;
   float: right;
   height: 20px;
-  cursor: pointer;
   margin-right: 10px;
   position: fixed;
   right: 0;
@@ -33,14 +34,7 @@
 }
 
 .showStoryModalDiv {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 6;
+  @include modalDiv(0.9, 6);
 }
 
 .showStoryModalDivNone {
@@ -51,12 +45,7 @@
   width: 100%;
   align-items: center;
   max-width: 85%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 7;
-  display: block;
+  @include modalContent(7);
 }
 
 .showStoryContentDivDivNone {
@@ -65,14 +54,7 @@
 
 /* MsgPopup */
 .msgModalDiv {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 4500;
+  @include modalDiv(0.9, 4500);
 }
 
 .msgModalDivNone {
@@ -80,17 +62,12 @@
 }
 
 .msgContentDiv {
+  @include modalContent(5000);
   min-width: 300px;
   height: 200px;
   align-items: center;
   max-width: 85%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5000;
   background: white;
-  display: block;
   border-radius: 8px;
 }
 
@@ -123,32 +100,21 @@
 
 /* LoginPopup */
 .modalDiv {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 3;
+  @include modalDiv(0.9, 3);
 }
 .modalDivNone {
   display: none;
 }
 
 .contentDiv {
+  @include modalContent(2000);
   min-width: 300px;
   padding: 2%;
   align-items: center;
   border-radius: 8px;
-  background: rgb(255, 255, 255);
+  background: $background-whiter;
   margin: auto;
   box-shadow: 1px 1px 3px #ced1d6;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2000;
 }
 
 .contentWrapNone {
@@ -158,14 +124,7 @@
 /* MakeStoryModal */
 
 .storyModalDiv {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 2000;
+  @include modalDiv(0.9, 2000);
 }
 
 .storyModalDivNone {
@@ -181,7 +140,7 @@
   max-width: 85%;
   border-radius: 8px;
   box-shadow: 1px 1px 3px #ced1d6;
-  background: rgb(255, 255, 255);
+  background: $background-whiter;
   margin: auto;
   position: relative;
 }
@@ -189,14 +148,7 @@
 /* PostModal */
 
 .postModalDiv {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: grey;
-  opacity: 0.9;
-  z-index: 3;
+  @include modalDiv(0.9, 3);
 }
 .postModalDivNone {
   display: none;
@@ -209,24 +161,22 @@
   z-index: 4;
   border-radius: 8px;
   box-shadow: 1px 1px 3px #ced1d6;
-  background: rgb(255, 255, 255);
+  background: $background-whiter;
   margin: auto;
   position: relative;
 }
 
 .shareText {
-  color: rgb(250, 250, 250);
+  color: $background-white;
 }
 
 button:focus {
   outline: 0px;
-  /* border: 1px solid white; */
   border-radius: 8px;
 }
 button:hover {
   background-color: rgb(187, 140, 47);
-  border: 1px solid rgb(187, 140, 47);
-  /* background-color: rgb(167, 142, 107); */
+  border: $border-gold;
 }
 
 .modelWrap {
@@ -244,15 +194,11 @@ button:hover {
 }
 
 .contentWrap {
+  @include modalContent(2500);
   animation-name: fade;
   animation-duration: 0.5s;
   width: 100vw;
   height: 80vh;
-  top: 50%;
-  left: 50%;
-  position: fixed;
-  z-index: 2500;
-  transform: translate(-50%, -50%);
 }
 
 .topModel {
@@ -270,17 +216,13 @@ button:hover {
 }
 
 .separater {
-  /* border: 1px solid red; */
-  width: 99%;
-  margin: auto;
-  border: 1px solid rgb(219, 219, 219);
+  @include separator(99%);
 }
 
 .buttonModal {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  /* background-color: indianred; */
 }
 
 .leftModel {
@@ -297,10 +239,7 @@ button:hover {
 }
 
 .rightModel {
-  width: 50%;
-  text-align: center;
-  align-items: center;
-  min-height: 300px;
+  @include rightModal(300px);
   display: flex;
   justify-content: center;
 }
@@ -309,7 +248,6 @@ button:hover {
   font-size: 1.5rem;
   margin-bottom: 30px;
   font-weight: bold;
-  /* margin-top: 20%; */
 }
 
 #postMsg {
@@ -326,8 +264,7 @@ button:hover {
   outline: none;
   width: 100%;
   height: 15px;
-  background: rgb(255, 255, 255);
-  cursor: pointer;
+  background: $background-whiter;
   z-index: 1000;
   transition: 0.3s;
 }
@@ -335,12 +272,11 @@ button:hover {
 .cancelWrap {
   width: 15px;
   height: 15px;
-  /* background-color: royalblue; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 1px solid rgb(219, 219, 219);
+  border: $border;
   margin-top: 5px;
   margin: auto;
   padding: 3px;
@@ -358,14 +294,12 @@ button:hover {
   margin: auto;
 }
 .decideBlock {
-  /* border: black 1px solid; */
   width: 100%;
   height: 100%;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding: 10px; */
 }
 .decideBlock input {
   display: none;
@@ -401,13 +335,12 @@ button:hover {
 
 .uploadButton:focus {
   outline: 0px;
-  /* border: 1px solid white; */
   border-radius: 8px;
 }
 .uploadButton:hover {
   background-color: rgb(187, 140, 47);
-  border: 1px solid rgb(187, 140, 47);
-  color: rgb(255, 255, 255);
+  border: $border-gold;
+  color: $background-whiter;
 }
 
 .decideButton {
@@ -504,7 +437,6 @@ button:hover {
     font-size: 1.5rem;
     margin-bottom: 10px;
     font-weight: bold;
-    /* margin-top: 20%; */
   }
 
   .rightModel {

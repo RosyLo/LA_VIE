@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import StoryPost from './StoryPost';
 import { MsgPopup } from '../../common/MsgPopup';
-import styled from '../../../style/popup.module.css';
-import styles from '../../../style/storybar.module.css';
+import styled from '../../../style/popup.module.scss';
+import styles from '../../../style/storybar.module.scss';
 import msgPopStyles from '../../../style/msgPopWrap.module.css';
 import { deleteStory } from '../../../redux/actions/storyAction';
 import cross from '../../../img/cancel.svg';

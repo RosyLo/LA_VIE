@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProfileRelationShip } from '../../redux/actions/relationshipAction';
@@ -11,7 +11,7 @@ import {
 import Loading from '../common/Loading';
 import RequestItem from '../profile/RequestItem';
 import { StyleModal } from '../common/PopupModal';
-import styles from '../../style/profileshow.module.css';
+import styles from '../../style/profileshow.module.scss';
 import { FRIEND, REQUESTED, REQUESTING, FROMPROFILE } from '../../utils/names';
 
 function ProfileShow({ paramsID }) {

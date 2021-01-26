@@ -1,11 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from '../post/Post';
 import { StyleModal } from '../common/PopupModal';
 import { deletePost } from '../../redux/actions/postAction';
-import styles from '../../style/popup.module.css';
-import styled from '../../style/editpostpopup.module.css';
+import styles from '../../style/popup.module.scss';
+import styled from '../../style/editpostpopup.module.scss';
 
 function DeletePopup({
   deletePostID,
@@ -14,7 +13,6 @@ function DeletePopup({
   setIsDeletePopup,
   setisPostClick,
 }) {
-  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const deletepost = posts.find((post) => post.postID === deletePostID);
 
@@ -46,7 +44,7 @@ function DeletePopup({
                 <button
                   className={styles.decideButton}
                   onClick={() => {
-                    dispatch(deletePost(deletepost, setisDeletePopupClick));
+                    useDispatch(deletePost(deletepost, setisDeletePopupClick));
                     setisPostClick(false);
                     setIsDeletePopup(true);
                   }}>

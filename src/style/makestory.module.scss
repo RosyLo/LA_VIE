@@ -1,4 +1,4 @@
-/* storypopup */
+@import './common/variables';
 
 .buttonModal {
   min-height: 400px;
@@ -33,8 +33,6 @@
   -moz-column-break-inside: avoid;
   cursor: pointer;
   width: 100%;
-
-  /* column-break-inside: avoid; */
 }
 
 .pickPicCircle {
@@ -104,15 +102,15 @@
 .storyNameInput {
   width: 200px;
   height: 30px;
-  border: 1px solid rgb(219, 219, 219);
+  border: $border;
   margin: auto;
   text-align: center;
   border-radius: 8px;
-  background-color: rgb(250, 250, 250);
+  background-color: $background-white;
 }
 
 .storyNameInput:hover {
-  border: 1px solid rgb(187, 140, 47);
+  border: $border-gold;
 }
 
 .makeStoryGuide {

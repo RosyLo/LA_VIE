@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../style/cancelbutton.module.css';
+import styles from '../../style/cancelbutton.module.scss';
 import cross from '../../img/cancel.svg';
 
 function CancelButton({ onClick }) {

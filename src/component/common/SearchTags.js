@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SEARCH_TAGS, NOSEARCH_TAGS } from '../../redux/actionTypes';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
-import styles from '../../style/header.module.css';
+import styles from '../../style/header.module.scss';
 
 function SearchTags() {
   const dispatch = useDispatch();

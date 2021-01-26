@@ -6,7 +6,6 @@
   display: flex;
   width: 80%;
   height: 20px;
-  /* border: black 1px solid; */
   margin: 80px auto;
 }
 
@@ -22,10 +21,8 @@
 }
 
 .postWrap {
-  /* padding: 0 80px 0 80px; */
   width: 100%;
   margin: 50 auto auto auto;
-  /* border: 1px solid red; */
 }
 
 .wrap {
@@ -38,7 +35,6 @@
   margin-top: 100px;
   font-size: 1.5rem;
   width: 100%;
-  /* background-color: blue; */
   justify-content: center;
 }
 .noPostGuide {

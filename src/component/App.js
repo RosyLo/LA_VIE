@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from './header/Header';
 import PostList from './post/PostList';

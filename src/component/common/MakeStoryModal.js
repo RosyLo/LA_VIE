@@ -1,8 +1,7 @@
-import React from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import CancelButton from './CancelButton';
-import styles from '../../style/popup.module.css';
+import styles from '../../style/popup.module.scss';
 import styled from 'styled-components';
 
 const ModalDiv = styled.div`

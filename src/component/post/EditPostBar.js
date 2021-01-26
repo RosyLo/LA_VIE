@@ -1,11 +1,11 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import EditPostPopup from '../common/EditPostPopup';
 import { BarPopup } from '../common/BarPopup';
 import DeletePopup from '../common/DeletePopup';
 import { MsgPopup } from '../common/MsgPopup';
-import styled from '../../style/popup.module.css';
+import styled from '../../style/popup.module.scss';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 import more from '../../img/more.svg';
 

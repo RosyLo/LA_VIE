@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { addStory } from '../../../redux/actions/storyAction';
 import { MakeStoryModal } from '../../common/MakeStoryModal';
 import Image from '../story/Image';
 import { MsgPopup } from '../../common/MsgPopup';
-import styles from '../../../style/popup.module.css';
-import styled from '../../../style/makestory.module.css';
+import styles from '../../../style/popup.module.scss';
+import styled from '../../../style/makestory.module.scss';
 import msgPopStyles from '../../../style/msgPopWrap.module.css';
 import { nanoid } from 'nanoid';
 
