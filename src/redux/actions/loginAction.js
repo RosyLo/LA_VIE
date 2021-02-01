@@ -1,5 +1,11 @@
 import { RECIEVED_USER } from '../actionTypes';
-import { db, auth, facebookAuthProvider, googleAuthProvider } from '../../firebase';
+import {
+  db,
+  auth,
+  facebookAuthProvider,
+  googleAuthProvider,
+  onAuthStateChanged,
+} from '../../firebase';
 
 export const login = (provider, setLoginPopup, setisPostClick) => (dispatch) => {
   let authProvider;
@@ -29,7 +35,6 @@ export const login = (provider, setLoginPopup, setisPostClick) => (dispatch) => 
         )
         .then(() => {
           // window.location = '/main';
-          localStorage.setItem('User', JSON.stringify(user));
           dispatch({ type: RECIEVED_USER, payload: { user } });
         });
     }
@@ -41,4 +46,13 @@ export const logout = () => (dispatch) => {
   localStorage.clear();
   dispatch({ type: RECIEVED_USER, payload: { user: null } });
   window.location = '/';
+};
+
+export const checkUserLogin = () => (dispatch) => {
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      dispatch({ type: RECIEVED_USER, payload: { user } });
+    } else {
+    }
+  });
 };

@@ -6,35 +6,38 @@ import Loading from '../common/Loading';
 import { MsgPopup } from '../common/MsgPopup';
 import { fetchPosts } from '../../redux/actions/postAction';
 import { receiveTags } from '../../redux/actions/searchAction';
+import { checkUserLogin } from '../../redux/actions/loginAction';
 import styles from '../../style/post.module.scss';
 import styled from '../../style/popup.module.scss';
 import msgPopStyles from '../../style/msgPopWrap.module.css';
 
 function PostList() {
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const comments = useSelector((state) => state.comments);
   const searchtags = useSelector((state) => state.searchtags);
+  const loading = useSelector((state) => state.loading);
   const [clickEdit, setclickEdit] = useState('');
   const [lastSnap, setLastSnap] = useState('');
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const [isScrollFetching, setIsScrollFetching] = useState(false);
   const stakeGridRef = useRef(null);
-  const dispatch = useDispatch();
+  const lastVisible = useRef(0);
 
   useEffect(() => {
+    dispatch(checkUserLogin());
     dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
+    const newLast = lastVisible.current + 10;
+    lastVisible.current = newLast;
     dispatch(receiveTags());
   }, [dispatch]);
 
-  //loading
-  const loading = useSelector((state) => state.loading);
-  const lastVisible = useRef(0);
   const handleScroll = () => {
     setIsScrollFetching(!isScrollFetching);
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (winScroll >= height - 40) {
-      let newLast = lastVisible.current + 10;
+    if (winScroll >= height - 50) {
+      const newLast = lastVisible.current + 10;
       dispatch(fetchPosts(lastVisible.current, lastSnap, setLastSnap));
       lastVisible.current = newLast;
     }
@@ -42,7 +45,6 @@ function PostList() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(document.body.scrollTop);
   }, []);
   // infinit scroll
   useEffect(() => {

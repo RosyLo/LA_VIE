@@ -1,6 +1,6 @@
 import { RECIEVED_USER } from '../actionTypes';
 
-const initState = JSON.parse(localStorage.getItem('User'));
+const initState = '';
 
 const user = (state = initState, action) => {
   switch (action.type) {

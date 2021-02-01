@@ -4,6 +4,7 @@ import StackGrid from 'react-stack-grid';
 import Post from '../post/Post';
 import Loading from '../common/Loading';
 import Logo from '../common/Logo';
+import Dot from './Dot';
 import { LoginPopup } from '../common/LoginPopup';
 import { fetchWelcomePosts } from '../../redux/actions/postAction';
 import { login } from '../../redux/actions/loginAction';
@@ -15,6 +16,21 @@ import travel from '../../img/travel.jpg';
 
 function Welcome() {
   const dispatch = useDispatch();
+  //get welcome posts
+  const welcomeposts = useSelector((state) => state.welcomeposts);
+
+  //loading
+  const loading = useSelector((state) => state.loading);
+  const [pleaseLogin, setPleaseLogin] = useState(false);
+  const [isPostClick, setisPostClick] = useState(false);
+  const stakeGridRef = useRef(null);
+
+  //slide show
+  const delay = 5000;
+  const [index, setIndex] = useState(0);
+  const [isTo2, setIsTo2] = useState(true);
+  const timeoutRef = useRef(null);
+
   const slogans = [
     {
       tag: 'OUTFIT',
@@ -36,12 +52,6 @@ function Welcome() {
     },
   ];
 
-  const handleScroll = () => {
-    if (window.pageYOffset > 400) {
-      resetTimeout();
-    } else slideTime();
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(fetchWelcomePosts());
@@ -53,26 +63,20 @@ function Welcome() {
     };
   }, []);
 
-  //get welcome posts
-  const welcomeposts = useSelector((state) => state.welcomeposts);
-
-  //loading
-  const loading = useSelector((state) => state.loading);
-  const [pleaseLogin, setPleaseLogin] = useState(false);
-  const [isPostClick, setisPostClick] = useState(false);
-  const stakeGridRef = useRef(null);
-
-  //slide show
-  const delay = 5000;
-  const [index, setIndex] = useState(0);
-  const [isTo2, setIsTo2] = useState(true);
-  const timeoutRef = useRef(null);
+  useEffect(() => {
+    slideTime();
+  }, [index]);
 
   function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
   }
+  const handleScroll = () => {
+    if (window.pageYOffset > 400) {
+      resetTimeout();
+    } else slideTime();
+  };
 
   const slideTime = () => {
     resetTimeout();
@@ -97,9 +101,6 @@ function Welcome() {
       resetTimeout();
     };
   };
-  useEffect(() => {
-    slideTime();
-  }, [index]);
 
   const filteredPosts = welcomeposts.filter((post) => {
     if (index === 0) return post.postTag.value === 'OUTFIT';
@@ -109,11 +110,8 @@ function Welcome() {
   return (
     <>
       {loading === false ? (
-        <div
-          className='slideshow'
-          onClick={() => {
-            resetTimeout();
-          }}>
+        <div className='slideshow'>
+          <Dot slogans={slogans} index={index} setIndex={setIndex} />
           <div
             className='slideshowSlider'
             style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
@@ -140,16 +138,7 @@ function Welcome() {
                   </div>
                   <div>with the World</div>
                 </div>
-                <div className='slideshowDots'>
-                  {slogans.map((_, idx) => (
-                    <div
-                      key={idx}
-                      className={`slideshowDot${index === idx ? ' active' : ''}`}
-                      onClick={() => {
-                        setIndex(idx);
-                      }}></div>
-                  ))}
-                </div>
+
                 <div
                   className='wrap'
                   onClick={() => {
@@ -157,6 +146,9 @@ function Welcome() {
                   }}>
                   <div className='postWrap'>
                     <StackGrid
+                      onClick={() => {
+                        resetTimeout();
+                      }}
                       gridRef={(e) => (stakeGridRef.current = e)}
                       columnWidth={300}
                       gutterWidth={33}
